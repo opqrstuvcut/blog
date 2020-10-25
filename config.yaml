@@ -5,6 +5,9 @@ theme: hugo-PaperMod
 enableInlineShortcodes: true
 googleAnalytics: 250317171
 publishDir: "docs"
+languageCode : "ja-jp"
+defaultContentLanguage : "ja"
+
 
 params:
   env: production
@@ -57,3 +60,8 @@ services:
     disableInlineCSS: true
   twitter:
     disableInlineCSS: true
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true

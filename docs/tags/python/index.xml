@@ -5,13 +5,14 @@
     <link>https://opqrstuvcut.github.io/blog/tags/python/</link>
     <description>Recent content in Python on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language><atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://opqrstuvcut.github.io/blog/posts/00001/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/00001/</guid>
       <description>本記事はQrunchからの転載です。
  Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
 以下では次のようなDataFrameを使用します。
@@ -22,10 +23,10 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
 でもそれって本当に逆行列の計算が必要ですか？

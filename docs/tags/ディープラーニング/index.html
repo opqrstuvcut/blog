@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>ディープラーニング - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '250317171', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="ディープラーニング" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" />
+<meta property="og:updated_time" content="2020-10-25T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ディープラーニング"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>ディープラーニング</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
+参考論文：Axiomatic Attribution for Deep Networks
+先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
+人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
+2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
+Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
+ Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
+ 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
+Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
+ Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
+ 具体例を次に示します。
+Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

@@ -5,13 +5,14 @@
     <link>https://opqrstuvcut.github.io/blog/</link>
     <description>Recent content on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://opqrstuvcut.github.io/blog/posts/00001/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/00001/</guid>
       <description>本記事はQrunchからの転載です。
  Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
 以下では次のようなDataFrameを使用します。
@@ -21,11 +22,33 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     </item>
     
     <item>
-      <title>安易に逆行列を数値計算するのはやめよう</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00003/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/00003/</guid>
+      <description>本記事はQrunchからの転載です。
+ 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
+参考論文：Axiomatic Attribution for Deep Networks
+先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
+人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
+2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
+Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
+ Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
+ 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
+Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
+ Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
+ 具体例を次に示します。
+Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</description>
+    </item>
+    
+    <item>
+      <title>安易に逆行列を数値計算するのはやめよう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
 でもそれって本当に逆行列の計算が必要ですか？

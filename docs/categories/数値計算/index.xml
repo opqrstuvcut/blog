@@ -5,13 +5,14 @@
     <link>https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97/</link>
     <description>Recent content in 数値計算 on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
 でもそれって本当に逆行列の計算が必要ですか？

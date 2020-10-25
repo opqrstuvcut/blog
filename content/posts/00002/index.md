@@ -2,8 +2,8 @@
 title: 安易に逆行列を数値計算するのはやめよう
 tags:  ["Python", "Numpy", "逆行列", "LU分解", "計算量", "連立一次方程式"]
 categories:  ["数値計算"]
-created_at: 2019-11-12 23:54:46 +0900
 showtoc: true
+date: "2020-10-25"
 ---
 本記事はQrunchからの転載です。
 ___

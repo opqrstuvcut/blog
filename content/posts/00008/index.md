@@ -3,6 +3,7 @@ title: KL divergenceに与える分布を入れ替えることの意味をまじ
 tags:  ["Python", "KLdivergence", "PyTorch", "機械学習", "正規分布"]
 categories:  ["機械学習"]
 date: 2020-10-26T00:43:01+09:00
+showtoc: true
 ---
 
 本記事はQrunchからの転載です。

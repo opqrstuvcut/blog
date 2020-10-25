@@ -1,0 +1,59 @@
+baseURL: "https://opqrstuvcut.github.io/blog"
+title: MatLoverによるMatlab以外のブログ  
+paginate: 8
+theme: hugo-PaperMod
+enableInlineShortcodes: true
+googleAnalytics: 250317171
+publishDir: "docs"
+
+params:
+  env: production
+  author: opqrstuvcut
+  ShowReadingTime: true
+  defaultTheme: light 
+  ShowShareButtons: true
+  disableThemeToggle : true
+  ShowToc: true
+  
+  assets:
+    favicon: 'favicon.ico'
+
+  homeInfoParams:
+    Content: "フリーランスの機械学習のエンジニアです。仕事の依頼などは vikz2713[あっとマーク]gmail.com まで。"
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/opqrstuvcut"
+
+menu:
+  main:
+    - name: Posts 
+      url: /posts/
+      weight: 5
+    - name: Tags
+      url: /tags/
+      weight: 10
+
+privacy:
+  vimeo:
+    disabled: false
+    simple: true
+
+  twitter:
+    disabled: false
+    enableDNT: true
+    simple: true
+
+  instagram:
+    disabled: false
+    simple: true
+
+  youtube:
+    disabled: false
+    privacyEnhanced: true
+
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true

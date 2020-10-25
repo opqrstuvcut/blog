@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Pandasのgroupbyの使い方をまとめる - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="Python, Pabdas, GroupBy, 集計" />
+<meta name="description" content="本記事はQrunchからの転載です。
+ Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '250317171', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="Pandasのgroupbyの使い方をまとめる" />
+<meta property="og:description" content="本記事はQrunchからの転載です。
+ Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pandasのgroupbyの使い方をまとめる"/>
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+ Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pandasのgroupbyの使い方をまとめる",
+  "name": "Pandasのgroupbyの使い方をまとめる",
+  "description": "本記事はQrunchからの転載です。\n Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。\n以下では次のようなDataFrameを使用します。\ndf = pd.DataFrame({\u0026amp;#34;名字\u0026amp;#34;: [\u0026amp;#34;田中\u0026amp;#34;, …",
+  "keywords": [
+    "Python", "Pabdas", "GroupBy", "集計"
+  ],
+  "articleBody": "本記事はQrunchからの転載です。\n Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。\n以下では次のようなDataFrameを使用します。\ndf = pd.DataFrame({\"名字\": [\"田中\", \"山田\", \"上田\", \"田中\", \"田中\"], \"年齢\": [10, 20, 30, 40, 50], \"出身\": [\"北海道\", \"東京\", None, \"沖縄\", \"北海道\"]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。\n例えば名字という列をキーとしてgroupbyするときには次のようにします。\ndf.groupby(\"名字\") ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。\nグループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。\nfor name, grouped_df in df.groupby(\"名字\"): print(f\"名字：{name}\") print(grouped_df) 名字：上田\n    名字 年齢 出身     2 上田 30     名字：山田\n    名字 年齢 出身     1 山田 20 東京    名字：田中\n    名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    get_groupを使う get_groupを使えば1つのグループを指定することもできます。\ndf.groupby(\"名字\").get_group(\"田中\")     名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    groupbyを用いた集計 describe グループごとに統計量を色々計算できます。\ndf.groupby(\"名字\")[\"年齢\"].describe()    名字 count mean std min 25% 50% 75% max     上田 1 30 nan 30 30 30 30 30   山田 1 20 nan 20 20 20 20 20   田中 3 33.3333 20.8167 10 25 40 45 50    グループの個数のカウント グループごとに行数が数えられます。\ndf.groupby(\"名字\").size()    名字 0     上田 1   山田 1   田中 3    次のcountも似たような感じで行数を数えます。ただし、欠損値はカウントされませんので、次のcountの結果とsizeの結果は異なります。\ndf.groupby(\"名字\")[\"出身\"].count()    名字 出身     上田 0   山田 1   田中 3    演算 和 グループごとに和を計算します。\ndf.groupby(\"名字\")[\"年齢\"].sum()    名字 年齢     上田 30   山田 20   田中 100    平均 グループごとに平均を計算します。\ndf.groupby(\"名字\")[\"年齢\"].mean()    名字 年齢     上田 30   山田 20   田中 33.3333    特定のデータ取得 グループの先頭を取得します。\ndf.groupby(\"名字\")[\"年齢\"].first()    名字 年齢     上田 30   山田 20   田中 10    次のnthでもグループの先頭を取得できます。\ndf.groupby(\"名字\")[\"年齢\"].nth(0)    名字 年齢     上田 30   山田 20   田中 10    nthの引数を1にするとグループの2番目のデータが取得できます。 dfでは名字が\"田中\"のケースのみが複数行存在しますので、“田中\"の2番目だけが取得されます。\ndf.groupby(\"名字\")[\"年齢\"].nth(1)    名字 年齢     田中 40    関数を渡して計算 次のように任意の関数をaggregateに渡すことで、好きなように集計できます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(np.sum)    名字 年齢     上田 30   山田 20   田中 100    aggregateに渡す関数はもちろんlambda式でもOKです。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(lambda vals: sum(vals))    名字 年齢     上田 30   山田 20   田中 100    ちなみにこんな感じで複数個の関数を渡すこともできます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate([np.mean, np.sum, lambda vals: sum(vals)])    名字 mean sum      上田 30 30 30   山田 20 20 20   田中 33.3333 100 100    集計結果に名前をつけることもできます。以下ではmax_ageという名前の集計結果が得られます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(max_age=pd.NamedAgg(column=\"年齢\", aggfunc=np.max))    名字 max_age     上田 30   山田 20   田中 50    transformでグループの集計結果と各行の値から計算 transformを使えばグループの集計結果と行の値を組み合わせた値を計算できます。\n例1 以下のようにして、行の値とグループの平均との差を計算できます。lambda式のxがグループの各行であり、x.mean()でグループの平均を計算しています。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: (x - x.mean())     年齢     0 -23.3333   1 0   2 0   3 6.66667   4 16.6667    例2 グループの平均よりも大きいかどうかをあらわすbooleanが得られます。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: (x  x.mean())     年齢     0 0   1 0   2 0   3 1   4 1    ブロードキャストの例 transformに渡す関数がスカラ値を返せば、同じグループのなかで同じ値をもつことになります。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: x.mean())     年齢     0 33.3333   1 20   2 30   3 33.3333   4 33.3333    前後の値を使う計算 rolling 移動平均の計算などで使うrollingはグループ単位でおこなえます。\ndf.groupby(\"名字\")[\"年齢\"].rolling(window=2).mean()     年齢     (‘上田’, 2) nan   (‘山田’, 1) nan   (‘田中’, 0) nan   (‘田中’, 3) 25   (‘田中’, 4) 45    cumsum 累積和もグループ単位でおこなえます。\ndf.groupby(\"名字\")[\"年齢\"].cumsum()     年齢     0 10   1 20   2 30   3 50   4 100    累積和は以下のようにしても計算できます。\ndf.groupby(\"名字\").expanding().sum()     年齢     (‘上田’, 2) 30   (‘山田’, 1) 20   (‘田中’, 0) 10   (‘田中’, 3) 50   (‘田中’, 4) 100    applyでグループ毎に好き勝手に処理する applyを使えば、グループ単位のDataFrameを好きに処理したあとにconcatできます。 以下の例を参照ください。\ndef f(df): return pd.DataFrame({\"name\": df[\"名字\"], \"age\": df[\"年齢\"] - df[\"年齢\"].mean()}) df.groupby(\"名字\").apply(lambda x: f(x))     name age     0 田中 -23.3333   1 山田 0   2 上田 0   3 田中 6.66667   4 田中 16.6667    グループをfilteringする filterを使えば、条件を満たすグループのみを残すような処理が可能です。\n例1 グループ内の個数が1より大きいグループだけを残す。\ndf.groupby(\"名字\")[\"年齢\"].filter(lambda x: len(x)  1)     年齢     0 10   3 40   4 50    例2 グループの値の最大値が40未満であるグループだけを残す。\ndf.groupby(\"名字\")[\"年齢\"].filter(lambda x: x.max()  40)     年齢     1 20   2 30    例3 グループに北海道出身の人が含まれるグループだけを残す。\ndf.groupby(\"名字\").filter(lambda x: \"北海道\" in x[\"出身\"].tolist()     名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    ",
+  "wordCount" : "466",
+  "inLanguage": "en",
+  
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "opqrstuvcut"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="single" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Pandasのgroupbyの使い方をまとめる
+    </h1>
+    <div class="post-meta">3 min&nbsp;·&nbsp;opqrstuvcut
+    </div>
+  </header> 
+
+  <div class="toc">
+    <details >
+      <summary>
+        <div class="details">Table of Contents</div>
+      </summary>
+      <blockquote><ul><li>
+        <a href="#pandas%e3%81%aegroupby">Pandasのgroupby</a></li><li>
+        <a href="#%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e6%af%8e%e3%81%abdataframe%e3%82%92%e5%8f%96%e3%82%8a%e5%87%ba%e3%81%99">グループ毎にDataFrameを取り出す</a><ul>
+            <li>
+        <a href="#for%e3%82%92%e4%bd%bf%e3%81%86">forを使う</a></li><li>
+        <a href="#get_group%e3%82%92%e4%bd%bf%e3%81%86">get_groupを使う</a></li></ul>
+    </li><li>
+        <a href="#groupby%e3%82%92%e7%94%a8%e3%81%84%e3%81%9f%e9%9b%86%e8%a8%88">groupbyを用いた集計</a><ul>
+            <li>
+        <a href="#describe">describe</a></li><li>
+        <a href="#%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e3%81%ae%e5%80%8b%e6%95%b0%e3%81%ae%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88">グループの個数のカウント</a></li><li>
+        <a href="#%e6%bc%94%e7%ae%97">演算</a><ul>
+            <li>
+        <a href="#%e5%92%8c">和</a></li><li>
+        <a href="#%e5%b9%b3%e5%9d%87">平均</a></li><li>
+        <a href="#%e7%89%b9%e5%ae%9a%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%e5%8f%96%e5%be%97">特定のデータ取得</a></li></ul>
+    </li><li>
+        <a href="#%e9%96%a2%e6%95%b0%e3%82%92%e6%b8%a1%e3%81%97%e3%81%a6%e8%a8%88%e7%ae%97">関数を渡して計算</a></li></ul>
+    </li><li>
+        <a href="#transform%e3%81%a7%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e3%81%ae%e9%9b%86%e8%a8%88%e7%b5%90%e6%9e%9c%e3%81%a8%e5%90%84%e8%a1%8c%e3%81%ae%e5%80%a4%e3%81%8b%e3%82%89%e8%a8%88%e7%ae%97">transformでグループの集計結果と各行の値から計算</a><ul>
+            <li>
+        <a href="#%e4%be%8b1">例1</a></li><li>
+        <a href="#%e4%be%8b2">例2</a></li><li>
+        <a href="#%e3%83%96%e3%83%ad%e3%83%bc%e3%83%89%e3%82%ad%e3%83%a3%e3%82%b9%e3%83%88%e3%81%ae%e4%be%8b">ブロードキャストの例</a></li></ul>
+    </li><li>
+        <a href="#%e5%89%8d%e5%be%8c%e3%81%ae%e5%80%a4%e3%82%92%e4%bd%bf%e3%81%86%e8%a8%88%e7%ae%97">前後の値を使う計算</a><ul>
+            <li>
+        <a href="#rolling">rolling</a></li><li>
+        <a href="#cumsum">cumsum</a></li></ul>
+    </li><li>
+        <a href="#apply%e3%81%a7%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e6%af%8e%e3%81%ab%e5%a5%bd%e3%81%8d%e5%8b%9d%e6%89%8b%e3%81%ab%e5%87%a6%e7%90%86%e3%81%99%e3%82%8b">applyでグループ毎に好き勝手に処理する</a></li><li>
+        <a href="#%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e3%82%92filtering%e3%81%99%e3%82%8b">グループをfilteringする</a><ul>
+            <li>
+        <a href="#%e4%be%8b1-1">例1</a></li><li>
+        <a href="#%e4%be%8b2-1">例2</a></li><li>
+        <a href="#%e4%be%8b3">例3</a></li></ul>
+</li></ul>
+      </blockquote>
+    </details>
+  </div>
+  <div class="post-content"><p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。</p>
+<p>以下では次のようなDataFrameを使用します。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#34;名字&#34;</span>: [<span style="color:#e6db74">&#34;田中&#34;</span>, <span style="color:#e6db74">&#34;山田&#34;</span>, <span style="color:#e6db74">&#34;上田&#34;</span>, <span style="color:#e6db74">&#34;田中&#34;</span>, <span style="color:#e6db74">&#34;田中&#34;</span>], 
+                            <span style="color:#e6db74">&#34;年齢&#34;</span>: [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">50</span>], 
+                            <span style="color:#e6db74">&#34;出身&#34;</span>: [<span style="color:#e6db74">&#34;北海道&#34;</span>, <span style="color:#e6db74">&#34;東京&#34;</span>, None, <span style="color:#e6db74">&#34;沖縄&#34;</span>, <span style="color:#e6db74">&#34;北海道&#34;</span>]})
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北海道</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">東京</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+<td style="text-align:left">　</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">40</td>
+<td style="text-align:left">沖縄</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">50</td>
+<td style="text-align:left">北海道</td>
+</tr>
+</tbody>
+</table>
+<h1 id="pandasのgroupby">Pandasのgroupby</h1>
+<p>PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。</p>
+<p>例えば名字という列をキーとしてgroupbyするときには次のようにします。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)
+</code></pre></div><p>ただしこれだけでは全く意味がありません。
+以下ではgroupbyをしたあとにどう利用することができるかを示します。</p>
+<h1 id="グループ毎にdataframeを取り出す">グループ毎にDataFrameを取り出す</h1>
+<h2 id="forを使う">forを使う</h2>
+<p>forを使ってグループ毎にDataFrameとしてデータを取り出せます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> name, grouped_df <span style="color:#f92672">in</span> df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>):
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;名字：{name}&#34;</span>)
+    <span style="color:#66d9ef">print</span>(grouped_df)
+</code></pre></div><p>名字：上田</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>名字：山田</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">東京</td>
+</tr>
+</tbody>
+</table>
+<p>名字：田中</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北海道</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">40</td>
+<td style="text-align:left">沖縄</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">50</td>
+<td style="text-align:left">北海道</td>
+</tr>
+</tbody>
+</table>
+<h2 id="get_groupを使う">get_groupを使う</h2>
+<p>get_groupを使えば1つのグループを指定することもできます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)<span style="color:#f92672">.</span>get_group(<span style="color:#e6db74">&#34;田中&#34;</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北海道</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">40</td>
+<td style="text-align:left">沖縄</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">50</td>
+<td style="text-align:left">北海道</td>
+</tr>
+</tbody>
+</table>
+<h1 id="groupbyを用いた集計">groupbyを用いた集計</h1>
+<h2 id="describe">describe</h2>
+<p>グループごとに統計量を色々計算できます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>describe()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">count</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">std</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">25%</th>
+<th style="text-align:right">50%</th>
+<th style="text-align:right">75%</th>
+<th style="text-align:right">max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">nan</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">nan</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">33.3333</td>
+<td style="text-align:right">20.8167</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">25</td>
+<td style="text-align:right">40</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">50</td>
+</tr>
+</tbody>
+</table>
+<h2 id="グループの個数のカウント">グループの個数のカウント</h2>
+<p>グループごとに行数が数えられます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)<span style="color:#f92672">.</span>size()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">3</td>
+</tr>
+</tbody>
+</table>
+<p>次のcountも似たような感じで行数を数えます。ただし、欠損値はカウントされませんので、次のcountの結果とsizeの結果は異なります。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;出身&#34;</span>]<span style="color:#f92672">.</span>count()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="演算">演算</h2>
+<h3 id="和">和</h3>
+<p>グループごとに和を計算します。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>sum()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="平均">平均</h3>
+<p>グループごとに平均を計算します。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>mean()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">33.3333</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特定のデータ取得">特定のデータ取得</h3>
+<p>グループの先頭を取得します。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>first()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+</tr>
+</tbody>
+</table>
+<p>次のnthでもグループの先頭を取得できます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>nth(<span style="color:#ae81ff">0</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+</tr>
+</tbody>
+</table>
+<p>nthの引数を1にするとグループの2番目のデータが取得できます。
+dfでは名字が&quot;田中&quot;のケースのみが複数行存在しますので、&ldquo;田中&quot;の2番目だけが取得されます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>nth(<span style="color:#ae81ff">1</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">40</td>
+</tr>
+</tbody>
+</table>
+<h2 id="関数を渡して計算">関数を渡して計算</h2>
+<p>次のように任意の関数をaggregateに渡すことで、好きなように集計できます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>aggregate(np<span style="color:#f92672">.</span>sum)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<p>aggregateに渡す関数はもちろんlambda式でもOKです。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>aggregate(<span style="color:#66d9ef">lambda</span> vals: sum(vals))
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<p>ちなみにこんな感じで複数個の関数を渡すこともできます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>aggregate([np<span style="color:#f92672">.</span>mean, np<span style="color:#f92672">.</span>sum, <span style="color:#66d9ef">lambda</span> vals: sum(vals)])
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sum</th>
+<th style="text-align:right">&lt;lambda_0&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">33.3333</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<p>集計結果に名前をつけることもできます。以下ではmax_ageという名前の集計結果が得られます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>aggregate(max_age<span style="color:#f92672">=</span>pd<span style="color:#f92672">.</span>NamedAgg(column<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;年齢&#34;</span>, aggfunc<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>max))
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">max_age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">50</td>
+</tr>
+</tbody>
+</table>
+<h1 id="transformでグループの集計結果と各行の値から計算">transformでグループの集計結果と各行の値から計算</h1>
+<p>transformを使えばグループの集計結果と行の値を組み合わせた値を計算できます。</p>
+<h2 id="例1">例1</h2>
+<p>以下のようにして、行の値とグループの平均との差を計算できます。lambda式のxがグループの各行であり、x.mean()でグループの平均を計算しています。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>transform(<span style="color:#66d9ef">lambda</span> x: (x <span style="color:#f92672">-</span> x<span style="color:#f92672">.</span>mean())
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">-23.3333</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">6.66667</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">16.6667</td>
+</tr>
+</tbody>
+</table>
+<h2 id="例2">例2</h2>
+<p>グループの平均よりも大きいかどうかをあらわすbooleanが得られます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>transform(<span style="color:#66d9ef">lambda</span> x: (x <span style="color:#f92672">&gt;</span> x<span style="color:#f92672">.</span>mean())
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ブロードキャストの例">ブロードキャストの例</h2>
+<p>transformに渡す関数がスカラ値を返せば、同じグループのなかで同じ値をもつことになります。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>transform(<span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">.</span>mean())
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">33.3333</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">33.3333</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">33.3333</td>
+</tr>
+</tbody>
+</table>
+<h1 id="前後の値を使う計算">前後の値を使う計算</h1>
+<h2 id="rolling">rolling</h2>
+<p>移動平均の計算などで使うrollingはグループ単位でおこなえます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>rolling(window<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(&lsquo;上田&rsquo;, 2)</td>
+<td style="text-align:right">nan</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;山田&rsquo;, 1)</td>
+<td style="text-align:right">nan</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 0)</td>
+<td style="text-align:right">nan</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 3)</td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 4)</td>
+<td style="text-align:right">45</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cumsum">cumsum</h2>
+<p>累積和もグループ単位でおこなえます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>cumsum()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">50</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<p>累積和は以下のようにしても計算できます。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)<span style="color:#f92672">.</span>expanding()<span style="color:#f92672">.</span>sum()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(&lsquo;上田&rsquo;, 2)</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;山田&rsquo;, 1)</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 0)</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 3)</td>
+<td style="text-align:right">50</td>
+</tr>
+<tr>
+<td style="text-align:left">(&lsquo;田中&rsquo;, 4)</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<h1 id="applyでグループ毎に好き勝手に処理する">applyでグループ毎に好き勝手に処理する</h1>
+<p>applyを使えば、グループ単位のDataFrameを好きに処理したあとにconcatできます。
+以下の例を参照ください。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(df):
+    <span style="color:#66d9ef">return</span> pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#34;name&#34;</span>: df[<span style="color:#e6db74">&#34;名字&#34;</span>], <span style="color:#e6db74">&#34;age&#34;</span>: df[<span style="color:#e6db74">&#34;年齢&#34;</span>] <span style="color:#f92672">-</span> df[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>mean()})
+
+df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: f(x))
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">name</th>
+<th style="text-align:right">age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">-23.3333</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">山田</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">上田</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">6.66667</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">16.6667</td>
+</tr>
+</tbody>
+</table>
+<h1 id="グループをfilteringする">グループをfilteringする</h1>
+<p>filterを使えば、条件を満たすグループのみを残すような処理が可能です。</p>
+<h2 id="例1-1">例1</h2>
+<p>グループ内の個数が1より大きいグループだけを残す。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> x: len(x) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">40</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">50</td>
+</tr>
+</tbody>
+</table>
+<h2 id="例2-1">例2</h2>
+<p>グループの値の最大値が40未満であるグループだけを残す。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)[<span style="color:#e6db74">&#34;年齢&#34;</span>]<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">.</span>max() <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">40</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:right">年齢</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">30</td>
+</tr>
+</tbody>
+</table>
+<h2 id="例3">例3</h2>
+<p>グループに北海道出身の人が含まれるグループだけを残す。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;名字&#34;</span>)<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> x: <span style="color:#e6db74">&#34;北海道&#34;</span> <span style="color:#f92672">in</span> x[<span style="color:#e6db74">&#34;出身&#34;</span>]<span style="color:#f92672">.</span>tolist()
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">　</th>
+<th style="text-align:left">名字</th>
+<th style="text-align:right">年齢</th>
+<th style="text-align:left">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">北海道</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">40</td>
+<td style="text-align:left">沖縄</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">田中</td>
+<td style="text-align:right">50</td>
+<td style="text-align:left">北海道</td>
+</tr>
+</tbody>
+</table>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/python">Python</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/pabdas">Pabdas</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/groupby">GroupBy</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E9%9B%86%E8%A8%88">集計</a></li>
+    </ul>
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on twitter"
+        href="https://twitter.com/intent/tweet/?text=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b&amp;url=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f&amp;title=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b&amp;summary=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b&amp;source=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f&title=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on whatsapp"
+        href="https://api.whatsapp.com/send?text=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b%20-%20https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Pandasのgroupbyの使い方をまとめる on telegram"
+        href="https://telegram.me/share/url?text=Pandas%e3%81%aegroupby%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%82%8b&amp;url=https%3a%2f%2fopqrstuvcut.github.io%2fblog%2fposts%2f00001_pandas_groupy%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z" /></svg>
+    </button>
+</a>
+
+
+<script src="https://opqrstuvcut.github.io/blog/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+</script>
+<script>
+    localStorage.removeItem("pref-theme");
+</script>
+
+</body>
+
+</html>

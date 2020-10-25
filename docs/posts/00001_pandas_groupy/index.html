@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="direction-ltr">
+<html lang="ja" class="direction-ltr">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,7 +65,7 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   ],
   "articleBody": "本記事はQrunchからの転載です。\n Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。\n以下では次のようなDataFrameを使用します。\ndf = pd.DataFrame({\"名字\": [\"田中\", \"山田\", \"上田\", \"田中\", \"田中\"], \"年齢\": [10, 20, 30, 40, 50], \"出身\": [\"北海道\", \"東京\", None, \"沖縄\", \"北海道\"]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。\n例えば名字という列をキーとしてgroupbyするときには次のようにします。\ndf.groupby(\"名字\") ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。\nグループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。\nfor name, grouped_df in df.groupby(\"名字\"): print(f\"名字：{name}\") print(grouped_df) 名字：上田\n    名字 年齢 出身     2 上田 30     名字：山田\n    名字 年齢 出身     1 山田 20 東京    名字：田中\n    名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    get_groupを使う get_groupを使えば1つのグループを指定することもできます。\ndf.groupby(\"名字\").get_group(\"田中\")     名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    groupbyを用いた集計 describe グループごとに統計量を色々計算できます。\ndf.groupby(\"名字\")[\"年齢\"].describe()    名字 count mean std min 25% 50% 75% max     上田 1 30 nan 30 30 30 30 30   山田 1 20 nan 20 20 20 20 20   田中 3 33.3333 20.8167 10 25 40 45 50    グループの個数のカウント グループごとに行数が数えられます。\ndf.groupby(\"名字\").size()    名字 0     上田 1   山田 1   田中 3    次のcountも似たような感じで行数を数えます。ただし、欠損値はカウントされませんので、次のcountの結果とsizeの結果は異なります。\ndf.groupby(\"名字\")[\"出身\"].count()    名字 出身     上田 0   山田 1   田中 3    演算 和 グループごとに和を計算します。\ndf.groupby(\"名字\")[\"年齢\"].sum()    名字 年齢     上田 30   山田 20   田中 100    平均 グループごとに平均を計算します。\ndf.groupby(\"名字\")[\"年齢\"].mean()    名字 年齢     上田 30   山田 20   田中 33.3333    特定のデータ取得 グループの先頭を取得します。\ndf.groupby(\"名字\")[\"年齢\"].first()    名字 年齢     上田 30   山田 20   田中 10    次のnthでもグループの先頭を取得できます。\ndf.groupby(\"名字\")[\"年齢\"].nth(0)    名字 年齢     上田 30   山田 20   田中 10    nthの引数を1にするとグループの2番目のデータが取得できます。 dfでは名字が\"田中\"のケースのみが複数行存在しますので、“田中\"の2番目だけが取得されます。\ndf.groupby(\"名字\")[\"年齢\"].nth(1)    名字 年齢     田中 40    関数を渡して計算 次のように任意の関数をaggregateに渡すことで、好きなように集計できます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(np.sum)    名字 年齢     上田 30   山田 20   田中 100    aggregateに渡す関数はもちろんlambda式でもOKです。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(lambda vals: sum(vals))    名字 年齢     上田 30   山田 20   田中 100    ちなみにこんな感じで複数個の関数を渡すこともできます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate([np.mean, np.sum, lambda vals: sum(vals)])    名字 mean sum      上田 30 30 30   山田 20 20 20   田中 33.3333 100 100    集計結果に名前をつけることもできます。以下ではmax_ageという名前の集計結果が得られます。\ndf.groupby(\"名字\")[\"年齢\"].aggregate(max_age=pd.NamedAgg(column=\"年齢\", aggfunc=np.max))    名字 max_age     上田 30   山田 20   田中 50    transformでグループの集計結果と各行の値から計算 transformを使えばグループの集計結果と行の値を組み合わせた値を計算できます。\n例1 以下のようにして、行の値とグループの平均との差を計算できます。lambda式のxがグループの各行であり、x.mean()でグループの平均を計算しています。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: (x - x.mean())     年齢     0 -23.3333   1 0   2 0   3 6.66667   4 16.6667    例2 グループの平均よりも大きいかどうかをあらわすbooleanが得られます。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: (x  x.mean())     年齢     0 0   1 0   2 0   3 1   4 1    ブロードキャストの例 transformに渡す関数がスカラ値を返せば、同じグループのなかで同じ値をもつことになります。\ndf.groupby(\"名字\")[\"年齢\"].transform(lambda x: x.mean())     年齢     0 33.3333   1 20   2 30   3 33.3333   4 33.3333    前後の値を使う計算 rolling 移動平均の計算などで使うrollingはグループ単位でおこなえます。\ndf.groupby(\"名字\")[\"年齢\"].rolling(window=2).mean()     年齢     (‘上田’, 2) nan   (‘山田’, 1) nan   (‘田中’, 0) nan   (‘田中’, 3) 25   (‘田中’, 4) 45    cumsum 累積和もグループ単位でおこなえます。\ndf.groupby(\"名字\")[\"年齢\"].cumsum()     年齢     0 10   1 20   2 30   3 50   4 100    累積和は以下のようにしても計算できます。\ndf.groupby(\"名字\").expanding().sum()     年齢     (‘上田’, 2) 30   (‘山田’, 1) 20   (‘田中’, 0) 10   (‘田中’, 3) 50   (‘田中’, 4) 100    applyでグループ毎に好き勝手に処理する applyを使えば、グループ単位のDataFrameを好きに処理したあとにconcatできます。 以下の例を参照ください。\ndef f(df): return pd.DataFrame({\"name\": df[\"名字\"], \"age\": df[\"年齢\"] - df[\"年齢\"].mean()}) df.groupby(\"名字\").apply(lambda x: f(x))     name age     0 田中 -23.3333   1 山田 0   2 上田 0   3 田中 6.66667   4 田中 16.6667    グループをfilteringする filterを使えば、条件を満たすグループのみを残すような処理が可能です。\n例1 グループ内の個数が1より大きいグループだけを残す。\ndf.groupby(\"名字\")[\"年齢\"].filter(lambda x: len(x)  1)     年齢     0 10   3 40   4 50    例2 グループの値の最大値が40未満であるグループだけを残す。\ndf.groupby(\"名字\")[\"年齢\"].filter(lambda x: x.max()  40)     年齢     1 20   2 30    例3 グループに北海道出身の人が含まれるグループだけを残す。\ndf.groupby(\"名字\").filter(lambda x: \"北海道\" in x[\"出身\"].tolist()     名字 年齢 出身     0 田中 10 北海道   3 田中 40 沖縄   4 田中 50 北海道    ",
   "wordCount" : "466",
-  "inLanguage": "en",
+  "inLanguage": "ja",
   
   "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
@@ -1047,55 +1047,46 @@ df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;�
 </div>
   </footer>
 </article>
-    </main><footer class="footer">
-    <span>&copy; 2020 <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></span>
-    <span>&middot;</span>
-    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo️️</a>️</span>
-    <span>&middot;</span>
-    <span>Theme️ <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top">
-    <button class="top-link" id="top-link" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
-            <path d="M12 6H0l6-6z" /></svg>
-    </button>
-</a>
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
 
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
 
-<script src="https://opqrstuvcut.github.io/blog/assets/js/highlight.min.e7afc2928c0925d65c4732dfebe147014d91299a98e819e4b42f25c4fa68e91c.js" integrity="sha256-56/CkowJJdZcRzLf6&#43;FHAU2RKZqY6BnktC8lxPpo6Rw="></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<script>
-    window.onload = function () {
-        if (localStorage.getItem("menu-scroll-position")) {
-            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
-        }
-    }
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            document.querySelector(this.getAttribute("href")).scrollIntoView({
-                behavior: "smooth"
-            });
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
         });
-    });
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-    function menu_on_scroll() {
-        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
-    }
-</script>
-<script>
-    localStorage.removeItem("pref-theme");
-</script>
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
 
 </body>
 

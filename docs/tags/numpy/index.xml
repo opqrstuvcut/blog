@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/</link>
-    <description>Recent content on MatLoverによるMatlab以外のブログ</description>
+    <title>Numpy on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/numpy/</link>
+    <description>Recent content in Numpy on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Pandasのgroupbyの使い方をまとめる</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/</guid>
-      <description>本記事はQrunchからの転載です。
- Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
-以下では次のようなDataFrameを使用します。
-df = pd.DataFrame({&amp;#34;名字&amp;#34;: [&amp;#34;田中&amp;#34;, &amp;#34;山田&amp;#34;, &amp;#34;上田&amp;#34;, &amp;#34;田中&amp;#34;, &amp;#34;田中&amp;#34;], &amp;#34;年齢&amp;#34;: [10, 20, 30, 40, 50], &amp;#34;出身&amp;#34;: [&amp;#34;北海道&amp;#34;, &amp;#34;東京&amp;#34;, None, &amp;#34;沖縄&amp;#34;, &amp;#34;北海道&amp;#34;]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
-例えば名字という列をキーとしてgroupbyするときには次のようにします。
-df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。</description>
-    </item>
-    
+    <language>ja-jp</language><atom:link href="https://opqrstuvcut.github.io/blog/tags/numpy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/</link>

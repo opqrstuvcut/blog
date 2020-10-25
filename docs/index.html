@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="direction-ltr">
+<html lang="ja" class="direction-ltr">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -128,55 +128,77 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   <footer class="entry-footer">3 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/00001_pandas_groupy/"></a>
 </article>
+<article class="post-entry"> 
 
-    </main><footer class="footer">
-    <span>&copy; 2020 <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></span>
-    <span>&middot;</span>
-    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo️️</a>️</span>
-    <span>&middot;</span>
-    <span>Theme️ <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top">
-    <button class="top-link" id="top-link" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
-            <path d="M12 6H0l6-6z" /></svg>
-    </button>
-</a>
+  <header class="entry-header">
+    <h2>
+      安易に逆行列を数値計算するのはやめよう
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
+逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
+実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
+連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
+以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
+LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
+LU分解の計算量は乗除算が$(n-1)(n^2&#43;n&#43;3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
+もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
+前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
+$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
+ $Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n&#43;1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回  となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
+LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
+この方法の前進後退代入の計算量は乗除算$n(2n^2&#43;1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 &#43; n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
+計算量のまとめ 計算量についてまとめると、以下のようになります。
+   方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2&#43;n&#43;3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解&#43;前進後退代入による逆行列の計算 $n^3&#43;n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める&#43;ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。...</p>
+  </section>
+  <footer class="entry-footer">1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to 安易に逆行列を数値計算するのはやめよう" href="https://opqrstuvcut.github.io/blog/posts/00002_inverse_mat/"></a>
+</article>
 
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
 
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
 
-<script>
-    window.onload = function () {
-        if (localStorage.getItem("menu-scroll-position")) {
-            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
-        }
-    }
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            document.querySelector(this.getAttribute("href")).scrollIntoView({
-                behavior: "smooth"
-            });
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
         });
-    });
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-    function menu_on_scroll() {
-        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
-    }
-</script>
-<script>
-    localStorage.removeItem("pref-theme");
-</script>
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
 
 </body>
 

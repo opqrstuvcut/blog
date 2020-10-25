@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Transformer - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/transformer/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/transformer/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '250317171', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="Transformer" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/transformer/" />
+<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Transformer"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>Transformer</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      貧乏人なのでPoor Man’s BERTを読んで解説
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
+例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
+BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
+実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
+比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuinngも難しいのです。
+次の図がTransformer層の減らし方の一覧です。 各方法の詳細は以下のとおりです。
+Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
+Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
+Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
+Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
+Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
+実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。 これから以下のことが分かります。
+ 各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。  タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。 問題によっては6層消してもほとんど変化がなかったります。
+余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
+タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。 ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
+パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。 6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
+BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。 なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to 貧乏人なのでPoor Man’s BERTを読んで解説" href="https://opqrstuvcut.github.io/blog/posts/00009/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

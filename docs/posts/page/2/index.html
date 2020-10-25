@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Posts - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/posts/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '250317171', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/" />
+<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span class="active">
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>Posts</h1>
+</header>
+
+
+
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      安易に逆行列を数値計算するのはやめよう
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
+逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
+実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
+連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
+以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
+LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
+LU分解の計算量は乗除算が$(n-1)(n^2&#43;n&#43;3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
+もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
+前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
+$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
+ $Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n&#43;1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回  となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
+LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
+この方法の前進後退代入の計算量は乗除算$n(2n^2&#43;1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 &#43; n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
+計算量のまとめ 計算量についてまとめると、以下のようになります。
+   方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2&#43;n&#43;3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解&#43;前進後退代入による逆行列の計算 $n^3&#43;n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める&#43;ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to 安易に逆行列を数値計算するのはやめよう" href="https://opqrstuvcut.github.io/blog/posts/00002/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/blog/posts/">« 前のページ</a>
+  </nav>
+</footer>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

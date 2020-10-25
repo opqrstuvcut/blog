@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/" />
-<meta property="og:updated_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MatLoverによるMatlab以外のブログ"/>
 <meta name="twitter:description" content=""/>
@@ -114,6 +114,121 @@ if (!doNotTrack) {
 
   <header class="entry-header">
     <h2>
+      KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
+KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
+KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
+前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
+KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
+実験 上記の話が成り立つのかを実験してみます。
+実験準備 $p(\mathbf{x})$は次のようにします。
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr]....</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？" href="https://opqrstuvcut.github.io/blog/posts/00008/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Matplotlibの凡例を外側に表示したい人へ
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] plt.plot(range(10), data, marker=&#34;o&#34;, linewidth=3) plt.legend(labels) plt.title(&#34;title&#34;) plt.ylabel(&#34;y label&#34;) plt.xlabel(&#34;x label&#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      モデルの予測結果を説明するLIMEの理論
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
+今回はそんなLIMEの理論について説明します。
+論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
+LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
+LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
+実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) &#43; \Omega(g).$$
+ここで、
+ $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
+次に画像の場合のケースについて、詳細に踏み込みます。
+画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
+ 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
+ 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
+LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
+このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to モデルの予測結果を説明するLIMEの理論" href="https://opqrstuvcut.github.io/blog/posts/00007/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      貧乏人なのでPoor Man’s BERTを読んで解説
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
+例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
+BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
+実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
+比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuinngも難しいのです。
+次の図がTransformer層の減らし方の一覧です。 各方法の詳細は以下のとおりです。
+Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
+Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
+Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
+Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
+Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
+実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。 これから以下のことが分かります。
+ 各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。  タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。 問題によっては6層消してもほとんど変化がなかったります。
+余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
+タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。 ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
+パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。 6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
+BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。 なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to 貧乏人なのでPoor Man’s BERTを読んで解説" href="https://opqrstuvcut.github.io/blog/posts/00009/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。 なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。 また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。
+定義 関数が上に凸の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。 $$ f(t\mathbf{x}^{(2)} &#43; (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) &#43; (1 -t) f(\mathbf{x}^{(1)}).$$
+ヘッセ行列の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$のヘッセ行列$H$を以下のように定義します。 $$H_f = \nabla^2 f = \begin{pmatrix} \frac{\partial^2 f}{\partial x_1^2} &amp;\frac{\partial^2 f}{\partial x_1\partial x_2} &amp; \dots &amp; \frac{\partial^2 f}{\partial x_1\partial x_n} \cr \frac{\partial^2 f}{\partial x_2\partial x_1} &amp; \frac{\partial^2 f}{\partial x_2^2} &amp; \dots &amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \cr \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr \frac{\partial^2 f}{\partial x_n\partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \dots &amp; \frac{\partial^2 f}{ \partial x_n^2} \end{pmatrix}....</p>
+  </section>
+  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to 関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明" href="https://opqrstuvcut.github.io/blog/posts/00006/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
       Pandasのgroupbyの使い方をまとめる
     </h2>
   </header>
@@ -127,6 +242,24 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   </section>
   <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/00001/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      ディープラーニングのモデルの特徴量の寄与を求めるDeepLift
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
+参考文献：Learning Important Features Through Propagating Activation Differences
+従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
+saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合には、 $$ x = 0 \Rightarrow \ \mbox{寄与} = 1 \times 0 = 0 $$$$ x = 1 \Rightarrow \mbox{寄与} = 0 \times 2 = 0 $$ となり、残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
+discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。...</p>
+  </section>
+  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to ディープラーニングのモデルの特徴量の寄与を求めるDeepLift" href="https://opqrstuvcut.github.io/blog/posts/00004/"></a>
 </article>
 <article class="post-entry"> 
 
@@ -154,37 +287,11 @@ Implementation Invarianceではない例 DeepLiftの場合は離散化した勾�
   <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>
 </article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      安易に逆行列を数値計算するのはやめよう
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- 逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？
-多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
-ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
-逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
-実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
-連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
-以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
-LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
-LU分解の計算量は乗除算が$(n-1)(n^2&#43;n&#43;3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
-もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
-前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
-$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
- $Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n&#43;1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回  となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
-LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
-この方法の前進後退代入の計算量は乗除算$n(2n^2&#43;1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 &#43; n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
-計算量のまとめ 計算量についてまとめると、以下のようになります。
-   方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2&#43;n&#43;3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解&#43;前進後退代入による逆行列の計算 $n^3&#43;n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める&#43;ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。...</p>
-  </section>
-  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to 安易に逆行列を数値計算するのはやめよう" href="https://opqrstuvcut.github.io/blog/posts/00002/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/blog/page/2/">次のページ »</a>
+  </nav>
+</footer>
 
     </main><footer>
   <html>

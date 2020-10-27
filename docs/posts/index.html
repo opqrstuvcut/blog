@@ -24,7 +24,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', '250317171', 'auto');
+	ga('create', 'G-G0W1C582TH', 'auto');
 	
 	ga('send', 'pageview');
 }
@@ -119,8 +119,8 @@ data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] pl
 plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
 plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
 plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2 loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
+plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
   </section>
   <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
@@ -254,8 +254,8 @@ Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみに
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
-Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。...</p>
+Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。...</p>
   </section>
   <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>

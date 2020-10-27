@@ -20,8 +20,8 @@ data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;,
 plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
 plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
 plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
     </item>
     
   </channel>

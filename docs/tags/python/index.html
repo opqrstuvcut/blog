@@ -24,7 +24,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', '250317171', 'auto');
+	ga('create', 'G-G0W1C582TH', 'auto');
 	
 	ga('send', 'pageview');
 }
@@ -119,8 +119,8 @@ data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] pl
 plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
 plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
 plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2 loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
+plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
   </section>
   <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
@@ -153,8 +153,7 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   <section class="entry-content">
     <p>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？
-多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
 ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
 逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
 実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。

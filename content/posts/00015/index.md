@@ -5,6 +5,8 @@ categories:  ["Flutter"]
 date: 2020-01-28 00:29:30 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 # 吹き出しのライブラリ
 Flutterで吹き出しを出すためのライブラリとして[Bubble](https://github.com/vi-k/bubble)があります。こちらを使うと吹き出しを簡単に表示できます。
 もう一つ[SpeechBubble](https://github.com/NilsBacke/PHSpeechBubble)というライブラリもありますが、Bubbleのほうが色々オプションが設定できます。

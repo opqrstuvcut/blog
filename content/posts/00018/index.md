@@ -5,6 +5,8 @@ categories:  ["Pandas"]
 date: 2020-02-13 01:55:35 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 
 

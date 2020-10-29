@@ -5,6 +5,8 @@ categories:  ["AWS"]
 date: 2020-05-04 13:35:16 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。
 ライブラリのレポジトリは[こちら](https://github.com/jkehler/awslambda-psycopg2)です。
 

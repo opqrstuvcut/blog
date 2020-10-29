@@ -5,6 +5,8 @@ categories:  ["Python"]
 date: 2020-01-06 21:57:05 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 Pythonのnamedtuple使ってますか？
 案外使っていない方が多いので、ご紹介しておきます。
 

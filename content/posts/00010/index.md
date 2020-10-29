@@ -5,6 +5,8 @@ categories:  ["自然言語処理"]
 date: 2019-12-28 23:36:43 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 [BERT](https://arxiv.org/abs/1810.04805)のパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
 
 参考論文：[ALBERT: A Lite BERT for Self-supervised Learning of Language Representations](https://arxiv.org/abs/1909.11942)

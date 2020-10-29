@@ -5,6 +5,8 @@ categories:  ["機械学習"]
 date: 2020-01-28 22:52:36 +0900
 showtoc: true
 ---
+本記事はQrunchからの転載です。
+___
 Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールである[Manifold](https://github.com/uber/manifold#upload-csv-to-demo-app)を紹介します。
 
 # Manifoldを試す

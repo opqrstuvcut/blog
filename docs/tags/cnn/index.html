@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>CNN - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/cnn/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/cnn/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-181647317-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="CNN" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/cnn/" />
+<meta property="og:updated_time" content="2019-11-30T21:57:17+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CNN"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>CNN</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      CNNで画像中のピクセルの座標情報を考慮できるCoordConv
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+今回はこのCoordConvの紹介です。
+論文：https://arxiv.org/pdf/1807.03247.pdf
+Keras実装：https://github.com/titu1994/keras-coordconv
+PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
+ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
+通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
+   Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+  上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
+  1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
+このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
+問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
+Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
+学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
+しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
+理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
+座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
+具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
+例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
+$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp; -0....</p>
+  </section>
+  <footer class="entry-footer"><time>November 30, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to CNNで画像中のピクセルの座標情報を考慮できるCoordConv" href="https://opqrstuvcut.github.io/blog/posts/00012/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

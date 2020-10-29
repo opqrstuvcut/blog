@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ImageBERT on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/imagebert/</link>
+    <description>Recent content in ImageBERT on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 24 Feb 2020 19:46:50 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/imagebert/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>画像と自然言語でのマルチモーダルなImageBERT</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00017/</link>
+      <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00017/</guid>
+      <description>最近Microsoftから発表されたImageBERTについて紹介します。
+ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
+実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
+論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
+アーキテクチャ ImageBERTのアーキテクチャは以下のとおりです。 テキストの入力と画像の入力で分けて説明します。 なお、論文中では画像のcaptioningのデータセットを用いています。
+テキストの入力 テキストは通常のBERTのようにsubwordに分割して、それらのembeddingを入力します。 BERTでは2つの文を与えるときに、1つ目の文か2つ目の文かを識別する情報をsubwordのembeddingに加えますが、ImageBERTでも同じように画像か文かを識別する情報を加えます。図でいうところのSegment Embeddingになります。
+また、文の位置情報もBERTやTransformerでは与える必要があり、ImageBERTでも位置情報を加えます。しかし、ここではtokenの順番を昇順に与えるというシンプルなやり方のようです。これは図中のSequence Position Embeddingになります。
+画像の入力 画像はそのままモデルに入力するのではなく、FasterRCNNで物体検出をして、検出された箇所の特徴量をそれぞれ入力する形になります（画像の特徴量はsubwordのembeddingと同じ次元に射影します）。
+テキストの場合と同じようにSegment EmbeddingとSequence Position Embeddingも与えるのですが、Sequence Position Embeddingはテキストの場合とは与え方が異なります。テキストの場合にはsubwordに順序がありましたが、画像中の物体には順序がありませんので、すべて同じSequence Position Embeddingを与えます。
+また、これら以外にPosition Embeddingというものも与えます。Position Emebeddingは以下で与えられるベクトルをsubwordのembeddingと同じ次元に射影したものです。 $$ c = \begin{pmatrix} \frac{x_{tl}}{W}, \frac{y_{tl}}{H}, \frac{x_{br}}{W}, \frac{y_{br}}{H}, \frac{(x_{br} - x_{tl}) (y_{br} - y_{tl}) }{WH} \end{pmatrix}.$$ ここで、$x_{tl}, y_{tl}, x_{br}, y_{br}$はそれぞれ物体の左上の$x$と$y$、右下の$x$と$y$座標になります。$W$と$H$は入力画像の横と縦の大きさです。 つまり、$c$は物体の位置と面積の割合の情報になります。
+事前学習のタスク ImageBERTでは事前学習に次の4つタスクを解きます。
+ Masked Language Modeling (MLM) これは通常のBERTと同じように、入力されるsubwordをランダムにマスクし、マスクされた単語を予測するようなタスクです。 Masked Object Classification (MOC) これはMLMの画像版のタスクです。検出された物体をランダムにマスクし、マスクされた物体のラベルを予測するようなタスクです。正解ラベルはFaster-RCNNで求まったラベルとしています。 Masked Region Feature Regression (MRFR) MOCはラベルを予測するようなタスクですが、MRFRはマスクされた物体の箇所の特徴量を予測するタスクです。 Image-Text Matching (ITM) 入力テキストと画像が対応しているかを予測するタスクです。ランダムに画像を選ぶことで、対応していないテキストと画像のペアを作っています。  マルチステージの事前学習 ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します） で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。</description>
+    </item>
+    
+  </channel>
+</rss>

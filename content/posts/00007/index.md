@@ -2,7 +2,7 @@
 title: モデルの予測結果を説明するLIMEの理論
 tags:  ["LIME", "機械学習", "重要度", "寄与"]
 categories:  ["Feature Importance"]
-date: 2020-10-26T00:43:01+09:00
+date: 2020-02-12T00:23:01+09:00
 showtoc: true
 ---
 

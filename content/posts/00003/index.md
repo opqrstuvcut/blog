@@ -3,7 +3,7 @@ title: ディープラーニング向けの特徴量の寄与を求めるIntegra
 tags:  ["深層学習", "ディープラーニング", "寄与度", "feature importance", "Integrated Gradients"]
 categories:  ["Feature Importance"]
 showtoc: true
-date: "2020-10-25"
+date: "2019-12-08T16:17:01+09:00"
 ---
 本記事はQrunchからの転載です。
 ___

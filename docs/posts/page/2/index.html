@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/" />
-<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
+<meta property="og:updated_time" content="2020-06-21T15:22:01+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content=""/>
@@ -87,35 +87,201 @@ if (!doNotTrack) {
 
   <header class="entry-header">
     <h2>
-      安易に逆行列を数値計算するのはやめよう
+      Uber製の機械学習モデルのデバッグツールManifold
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&#34;./titanic_res/features.csv&#34;, &#34;w&#34;) as f: columns = &#34;,&#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&#34;{columns}\n&#34;) for i, features in X_test.iterrows():　f_string = &#34;,&#34;.join([str(x) for x in features]) f....</p>
+  </section>
+  <footer class="entry-footer"><time>January 28, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Uber製の機械学習モデルのデバッグツールManifold" href="https://opqrstuvcut.github.io/blog/posts/00016/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Flutterで吹き出しを作る
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
+Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
+  最もシンプルな吹き出しの作り方は以下のようになります。
+Bubble( nip: BubbleNip.leftTop, child: Text(&#39;Hi, developer!&#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
+ 吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング  欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
+Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
+なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
+こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。 コードは以下の通り。
+Bubble( nip: BubbleNip.leftCenter, child: Text(&#39;ちょこんとでるのが左中央だよ&#39;), ) ...</p>
+  </section>
+  <footer class="entry-footer"><time>January 28, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Flutterで吹き出しを作る" href="https://opqrstuvcut.github.io/blog/posts/00015/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Matplotlibの凡例を外側に表示したい人へ
     </h2>
   </header>
   <section class="entry-content">
     <p>本記事はQrunchからの転載です。
- 逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
-ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
-逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
-実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
-連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
-以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
-LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
-LU分解の計算量は乗除算が$(n-1)(n^2&#43;n&#43;3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
-もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
-前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
-$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
- $Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n&#43;1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回  となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
-LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
-この方法の前進後退代入の計算量は乗除算$n(2n^2&#43;1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 &#43; n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
-計算量のまとめ 計算量についてまとめると、以下のようになります。
-   方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2&#43;n&#43;3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解&#43;前進後退代入による逆行列の計算 $n^3&#43;n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める&#43;ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。...</p>
+ Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] plt.plot(range(10), data, marker=&#34;o&#34;, linewidth=3) plt.legend(labels) plt.title(&#34;title&#34;) plt.ylabel(&#34;y label&#34;) plt.xlabel(&#34;x label&#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
   </section>
-  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to 安易に逆行列を数値計算するのはやめよう" href="https://opqrstuvcut.github.io/blog/posts/00002/"></a>
+  <footer class="entry-footer"><time>January 20, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Pythonのnamedtupleを使おう
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+ タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。  他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&#34;Person&#34;, [&#34;name&#34;, &#34;age&#34;, &#34;sex&#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&#34;Person&#34;, &#34;name age sex&#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) print(p....</p>
+  </section>
+  <footer class="entry-footer"><time>January 6, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Pythonのnamedtupleを使おう" href="https://opqrstuvcut.github.io/blog/posts/00014/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      BERTを軽量化したALBERTの概要
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
+問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
+BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
+パラメータ数が多いことで以下のような問題が起こります。
+ メモリにモデルが乗らない 計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。）  また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。
+BERT-xlargeというのがBERT-largeよりも隠れ層のパラメータ数を多くしたものですが、RACEを解いたときのAccuracyが大きく下がっているのがわかります（過学習のように思われますが、過学習だと明確にわかるようなサインが出ていないと論文には書かれています）。
+提案手法 語彙の埋め込みの行列分解 英版のBERTでは30000の語彙が存在します。BERTではこの語彙の埋め込みベクトルの次元が隠れ層の次元と同じですので、BERT-largeの場合には30000×1024のサイズの行列をもつことになります。
+これに対してALBERTでは行列を分解して、語彙の埋め込みベクトルのサイズと隠れ層のサイズを別にしてしまいます。具体的には、語彙の数を$V$、語彙の埋め込みベクトルの次元を$E$、隠れ層の次元を$H$としたとき、語彙の埋め込みベクトルの行列のサイズは$V \times E$となり、それに$E \times H$のサイズの行列を掛けて$H$次元の空間に射影するようにします。そうすることで、もともとパラメータ数が$O(V \times H)$だったのが、$O(V \times E &#43; E \times H)$となり、$E \ll H$のときには大きくパラメータ数が削減されることになります。
+このようにしてしまって問題ないかと疑問が出てきますね。
+語彙のベクトル自体は文脈に依存しないベクトルで、その後の隠れ層を経て文脈を考慮したベクトルへと変わっていきます。この文脈に依存しないベクトルが持つ情報は大きくなく、次元を隠れ層ほど大きくする必要がないため、上記のようにしても問題がないということのようです。
+層間のパラメータの共有 BERTではEncoderを何度も重ねる構造になっています。ALBERTでは各層の重みを共通にすることで、パラメータ数を大きく削減しています。
+NSPからSOPへの変更 BERTではMASKされたトークンを予測することと、与えられた2つの文が連続しているかどうかを予測するタスクであるnext-sentence prediction(NSP)を同時に解けるように学習していきます。
+NSPの学習のため、実際に連続した文を与えるケースとランダムに選ばれた2つの文を与えるケースを用意します。NSPの意図はBERTに文の一貫性の理解を促すためです。しかしながら、ランダムに選ばれた2つの文だと、そもそも文のトピックが異なるために、あまり文脈を理解できなくともNSPが解けてしまいます。NSPは問題が簡単すぎるということです。
+これを修正するため、ALBERTではsentence-order prediction(SOP)を提案しています。
+SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。
+実験結果 実験で使われているALBERTのモデルは以下のとおりです。 ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。
+BERTとの比較 BERTとの比較実験です。 ALBERTではパラメータ数が減るだけではなく、性能も大きく向上しています。少しじゃなく結構良くなっている感じですね。 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。
+他の手法と比較 XLNetやRoBERTaとの比較です。 大体のタスクにおいて、ALBERTの性能が高いことがわかります。
+感想 ALBERTはどれくらいのメモリや訓練時間が必要なのかが気になって読んでみました。 BERTに比べるとパラメータ数と訓練時間が減っていますが、まだまだ自分で学習をさせられるものではないなぁという印象です。...</p>
+  </section>
+  <footer class="entry-footer"><time>December 28, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to BERTを軽量化したALBERTの概要" href="https://opqrstuvcut.github.io/blog/posts/00010/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      ディープラーニングのモデルの特徴量の寄与を求めるDeepLift
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
+参考文献：Learning Important Features Through Propagating Activation Differences
+従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
+saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合には、 $$ x = 0 \Rightarrow \ \mbox{寄与} = 1 \times 0 = 0 $$$$ x = 1 \Rightarrow \mbox{寄与} = 0 \times 2 = 0 $$ となり、残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
+discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。...</p>
+  </section>
+  <footer class="entry-footer"><time>December 19, 2019</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to ディープラーニングのモデルの特徴量の寄与を求めるDeepLift" href="https://opqrstuvcut.github.io/blog/posts/00004/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
+参考論文：Axiomatic Attribution for Deep Networks
+先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
+人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
+2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
+Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
+ Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
+ 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
+Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
+ Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
+ 具体例を次に示します。
+Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。...</p>
+  </section>
+  <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      CNNで画像中のピクセルの座標情報を考慮できるCoordConv
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+今回はこのCoordConvの紹介です。
+論文：https://arxiv.org/pdf/1807.03247.pdf
+Keras実装：https://github.com/titu1994/keras-coordconv
+PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
+ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
+通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
+   Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+  上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
+  1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
+このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
+問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
+Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
+学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
+しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
+理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
+座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
+具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
+例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
+$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp; -0....</p>
+  </section>
+  <footer class="entry-footer"><time>November 30, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to CNNで画像中のピクセルの座標情報を考慮できるCoordConv" href="https://opqrstuvcut.github.io/blog/posts/00012/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="/blog/posts/">« 前のページ</a>
+    <a class="next" href="/blog/posts/page/3/">次のページ »</a>
   </nav>
 </footer>
 

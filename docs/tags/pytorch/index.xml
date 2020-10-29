@@ -6,11 +6,11 @@
     <description>Recent content in PyTorch on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 26 Oct 2020 00:43:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Mar 2020 18:01:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
       <description>本記事はQrunchからの転載です。
@@ -22,6 +22,55 @@ KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっ�
 実験 上記の話が成り立つのかを実験してみます。
 実験準備 $p(\mathbf{x})$は次のようにします。
 $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].</description>
+    </item>
+    
+    <item>
+      <title>CNNで画像中のピクセルの座標情報を考慮できるCoordConv</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00012/</link>
+      <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00012/</guid>
+      <description>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+今回はこのCoordConvの紹介です。
+論文：https://arxiv.org/pdf/1807.03247.pdf
+Keras実装：https://github.com/titu1994/keras-coordconv
+PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
+ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
+通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
+   Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+  上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
+  1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
+このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
+問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
+Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
+学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
+しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
+理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
+座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
+具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
+例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
+$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp;amp; -0.</description>
+    </item>
+    
+    <item>
+      <title>BERTでおこなうポケモンの説明文生成</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00011/</link>
+      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
+      <description>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
+参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
+使用した事前学習モデル：BERT日本語Pretrainedモデル
+実装したソースコード：https://github.com/opqrstuvcut/BertMouth
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
+ ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。  予測 予測は次のようにギブスサンプリングを使います。
+ 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。  次を全トークンに対しておこなう。  i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。      トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
+実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
+ 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。  こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！</description>
     </item>
     
   </channel>

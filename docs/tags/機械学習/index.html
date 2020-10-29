@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" />
-<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
+<meta property="og:updated_time" content="2020-03-02T18:01:01+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="機械学習"/>
 <meta name="twitter:description" content=""/>
@@ -101,7 +101,7 @@ KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっ�
 実験準備 $p(\mathbf{x})$は次のようにします。
 $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr]....</p>
   </section>
-  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>March 2, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？" href="https://opqrstuvcut.github.io/blog/posts/00008/"></a>
 </article>
 <article class="post-entry tag-entry"> 
@@ -128,8 +128,27 @@ LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じ�
 LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
 このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。...</p>
   </section>
-  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>February 12, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to モデルの予測結果を説明するLIMEの理論" href="https://opqrstuvcut.github.io/blog/posts/00007/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Uber製の機械学習モデルのデバッグツールManifold
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&#34;./titanic_res/features.csv&#34;, &#34;w&#34;) as f: columns = &#34;,&#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&#34;{columns}\n&#34;) for i, features in X_test.iterrows():　f_string = &#34;,&#34;.join([str(x) for x in features]) f....</p>
+  </section>
+  <footer class="entry-footer"><time>January 28, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Uber製の機械学習モデルのデバッグツールManifold" href="https://opqrstuvcut.github.io/blog/posts/00016/"></a>
 </article>
 
     </main><footer>

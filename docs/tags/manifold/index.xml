@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>manifold on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/manifold/</link>
+    <description>Recent content in manifold on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 28 Jan 2020 22:52:36 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/manifold/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00016/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
+      <description>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.</description>
+    </item>
+    
+  </channel>
+</rss>

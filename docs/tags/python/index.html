@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/python/" />
-<meta property="og:updated_time" content="2020-10-26T00:43:01+09:00" />
+<meta property="og:updated_time" content="2020-05-04T13:35:16+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python"/>
 <meta name="twitter:description" content=""/>
@@ -87,6 +87,24 @@ if (!doNotTrack) {
 
   <header class="entry-header">
     <h2>
+      AWSのLambdaからPostgresを利用
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+ ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+  適切な位置への配置
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
+  Lambdaにデプロイする！
+  ...</p>
+  </section>
+  <footer class="entry-footer"><time>May 4, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to AWSのLambdaからPostgresを利用" href="https://opqrstuvcut.github.io/blog/posts/00019/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
       KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？
     </h2>
   </header>
@@ -101,29 +119,8 @@ KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっ�
 実験準備 $p(\mathbf{x})$は次のようにします。
 $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr]....</p>
   </section>
-  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>March 2, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？" href="https://opqrstuvcut.github.io/blog/posts/00008/"></a>
-</article>
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Matplotlibの凡例を外側に表示したい人へ
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
-次のような凡例の位置をいじらずに表示した状態からいじっていきます。
-data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] plt.plot(range(10), data, marker=&#34;o&#34;, linewidth=3) plt.legend(labels) plt.title(&#34;title&#34;) plt.ylabel(&#34;y label&#34;) plt.xlabel(&#34;x label&#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
-plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
-plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
-plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
-  </section>
-  <footer class="entry-footer"><time>October 26, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
 </article>
 <article class="post-entry tag-entry"> 
 
@@ -140,8 +137,89 @@ df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;�
 例えば名字という列をキーとしてgroupbyするときには次のようにします。
 df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。...</p>
   </section>
-  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>February 14, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/00001/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      PandasのDataFrameを最高に簡単にMarkdownの表として出力
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+print(df.to_markdown()) 以下のように表示されます。
+| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。...</p>
+  </section>
+  <footer class="entry-footer"><time>February 13, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to PandasのDataFrameを最高に簡単にMarkdownの表として出力" href="https://opqrstuvcut.github.io/blog/posts/00018/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Uber製の機械学習モデルのデバッグツールManifold
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&#34;./titanic_res/features.csv&#34;, &#34;w&#34;) as f: columns = &#34;,&#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&#34;{columns}\n&#34;) for i, features in X_test.iterrows():　f_string = &#34;,&#34;.join([str(x) for x in features]) f....</p>
+  </section>
+  <footer class="entry-footer"><time>January 28, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Uber製の機械学習モデルのデバッグツールManifold" href="https://opqrstuvcut.github.io/blog/posts/00016/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Matplotlibの凡例を外側に表示したい人へ
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;] plt.plot(range(10), data, marker=&#34;o&#34;, linewidth=3) plt.legend(labels) plt.title(&#34;title&#34;) plt.ylabel(&#34;y label&#34;) plt.xlabel(&#34;x label&#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper left&#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;center left&#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&#39;lower center&#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=‘upper left’、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=‘lower center’、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。...</p>
+  </section>
+  <footer class="entry-footer"><time>January 20, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Matplotlibの凡例を外側に表示したい人へ" href="https://opqrstuvcut.github.io/blog/posts/00005/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Pythonのnamedtupleを使おう
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+ タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。  他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&#34;Person&#34;, [&#34;name&#34;, &#34;age&#34;, &#34;sex&#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&#34;Person&#34;, &#34;name age sex&#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) print(p....</p>
+  </section>
+  <footer class="entry-footer"><time>January 6, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Pythonのnamedtupleを使おう" href="https://opqrstuvcut.github.io/blog/posts/00014/"></a>
 </article>
 <article class="post-entry tag-entry"> 
 
@@ -153,7 +231,8 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   <section class="entry-content">
     <p>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
 ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
 逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
 実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
@@ -170,9 +249,14 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
 計算量のまとめ 計算量についてまとめると、以下のようになります。
    方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2&#43;n&#43;3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解&#43;前進後退代入による逆行列の計算 $n^3&#43;n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める&#43;ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。...</p>
   </section>
-  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>November 15, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to 安易に逆行列を数値計算するのはやめよう" href="https://opqrstuvcut.github.io/blog/posts/00002/"></a>
 </article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/blog/tags/python/page/2/">次のページ »</a>
+  </nav>
+</footer>
 
     </main><footer>
   <html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>namedtuple - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/namedtuple/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/namedtuple/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-181647317-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="namedtuple" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/namedtuple/" />
+<meta property="og:updated_time" content="2020-01-06T21:57:05+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="namedtuple"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>namedtuple</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Pythonのnamedtupleを使おう
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+ タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。  他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&#34;Person&#34;, [&#34;name&#34;, &#34;age&#34;, &#34;sex&#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&#34;Person&#34;, &#34;name age sex&#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&#34;太郎&#34;, 10, &#34;男&#34;) print(p....</p>
+  </section>
+  <footer class="entry-footer"><time>January 6, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to Pythonのnamedtupleを使おう" href="https://opqrstuvcut.github.io/blog/posts/00014/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

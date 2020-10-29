@@ -6,11 +6,11 @@
     <description>Recent content in 機械学習 on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 26 Oct 2020 00:43:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Mar 2020 18:01:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
       <description>本記事はQrunchからの転載です。
@@ -27,7 +27,7 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
     <item>
       <title>モデルの予測結果を説明するLIMEの理論</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00007/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00007/</guid>
       <description>本記事はQrunchからの転載です。
@@ -45,6 +45,21 @@ LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じ�
  実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
 LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
 このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。</description>
+    </item>
+    
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00016/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
+      <description>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.</description>
     </item>
     
   </channel>

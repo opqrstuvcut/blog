@@ -6,11 +6,25 @@
     <description>Recent content in Python on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 26 Oct 2020 00:43:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 May 2020 13:35:16 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWSのLambdaからPostgresを利用</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00019/</link>
+      <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
+      <description>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+ ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+  適切な位置への配置
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
+  Lambdaにデプロイする！
+  </description>
+    </item>
+    
     <item>
       <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
       <description>本記事はQrunchからの転載です。
@@ -25,26 +39,9 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
     </item>
     
     <item>
-      <title>Matplotlibの凡例を外側に表示したい人へ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00005/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/00005/</guid>
-      <description>本記事はQrunchからの転載です。
- Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
-次のような凡例の位置をいじらずに表示した状態からいじっていきます。
-data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
-plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
-    </item>
-    
-    <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00001/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00001/</guid>
       <description>本記事はQrunchからの転載です。
@@ -56,14 +53,80 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     </item>
     
     <item>
+      <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00018/</link>
+      <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00018/</guid>
+      <description>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+print(df.to_markdown()) 以下のように表示されます。
+| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
+    </item>
+    
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00016/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
+      <description>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.</description>
+    </item>
+    
+    <item>
+      <title>Matplotlibの凡例を外側に表示したい人へ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00005/</link>
+      <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00005/</guid>
+      <description>本記事はQrunchからの転載です。
+ Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+    </item>
+    
+    <item>
+      <title>Pythonのnamedtupleを使おう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00014/</link>
+      <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00014/</guid>
+      <description>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+ タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。  他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&amp;#34;Person&amp;#34;, [&amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;, &amp;#34;sex&amp;#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&amp;#34;Person&amp;#34;, &amp;#34;name age sex&amp;#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) print(p.</description>
+    </item>
+    
+    <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
 ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
 逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
 実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
@@ -79,6 +142,45 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
 この方法の前進後退代入の計算量は乗除算$n(2n^2+1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 + n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
 計算量のまとめ 計算量についてまとめると、以下のようになります。
    方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2+n+3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解+前進後退代入による逆行列の計算 $n^3+n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める+ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。</description>
+    </item>
+    
+    <item>
+      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00013/</link>
+      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
+      <description>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+ Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000Browser Access:http://172.17.0.2:9000 http://127.0.0.1:9000Object API (Amazon S3 compatible):Go: https://docs.min.io/docs/golang-client-quickstart-guideJava: https://docs.min.io/docs/java-client-quickstart-guidePython: https://docs.min.io/docs/python-client-quickstart-guideJavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide.NET: https://docs.min.io/docs/dotnet-client-quickstart-guide使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。</description>
+    </item>
+    
+    <item>
+      <title>BERTでおこなうポケモンの説明文生成</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00011/</link>
+      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
+      <description>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
+参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
+使用した事前学習モデル：BERT日本語Pretrainedモデル
+実装したソースコード：https://github.com/opqrstuvcut/BertMouth
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
+ ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。  予測 予測は次のようにギブスサンプリングを使います。
+ 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。  次を全トークンに対しておこなう。  i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。      トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
+実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
+ 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。  こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！</description>
     </item>
     
   </channel>

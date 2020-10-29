@@ -6,68 +6,11 @@
     <description>Recent content on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Mon, 26 Oct 2020 00:43:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
-      <description>本記事はQrunchからの転載です。
- みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
-KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
-KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
-前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
-KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
-実験 上記の話が成り立つのかを実験してみます。
-実験準備 $p(\mathbf{x})$は次のようにします。
-$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].</description>
-    </item>
-    
-    <item>
-      <title>Matplotlibの凡例を外側に表示したい人へ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00005/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/00005/</guid>
-      <description>本記事はQrunchからの転載です。
- Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
-次のような凡例の位置をいじらずに表示した状態からいじっていきます。
-data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
-plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
-    </item>
-    
-    <item>
-      <title>モデルの予測結果を説明するLIMEの理論</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00007/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/00007/</guid>
-      <description>本記事はQrunchからの転載です。
- モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
-今回はそんなLIMEの理論について説明します。
-論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
-LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
-LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
-実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$
-ここで、
- $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
-次に画像の場合のケースについて、詳細に踏み込みます。
-画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
- 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
- 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
-LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
-このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。</description>
-    </item>
-    
+    <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00009/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00009/</guid>
       <description>本記事はQrunchからの転載です。
@@ -91,9 +34,23 @@ BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変える�
     </item>
     
     <item>
+      <title>AWSのLambdaからPostgresを利用</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00019/</link>
+      <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
+      <description>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+ ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+  適切な位置への配置
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
+  Lambdaにデプロイする！
+  </description>
+    </item>
+    
+    <item>
       <title>関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00006/</link>
-      <pubDate>Mon, 26 Oct 2020 00:43:01 +0900</pubDate>
+      <pubDate>Wed, 11 Mar 2020 00:08:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00006/</guid>
       <description>本記事はQrunchからの転載です。
@@ -103,9 +60,46 @@ BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変える�
     </item>
     
     <item>
+      <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
+      <description>本記事はQrunchからの転載です。
+ みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
+KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
+KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
+前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
+KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
+実験 上記の話が成り立つのかを実験してみます。
+実験準備 $p(\mathbf{x})$は次のようにします。
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].</description>
+    </item>
+    
+    <item>
+      <title>画像と自然言語でのマルチモーダルなImageBERT</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00017/</link>
+      <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00017/</guid>
+      <description>最近Microsoftから発表されたImageBERTについて紹介します。
+ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
+実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
+論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
+アーキテクチャ ImageBERTのアーキテクチャは以下のとおりです。 テキストの入力と画像の入力で分けて説明します。 なお、論文中では画像のcaptioningのデータセットを用いています。
+テキストの入力 テキストは通常のBERTのようにsubwordに分割して、それらのembeddingを入力します。 BERTでは2つの文を与えるときに、1つ目の文か2つ目の文かを識別する情報をsubwordのembeddingに加えますが、ImageBERTでも同じように画像か文かを識別する情報を加えます。図でいうところのSegment Embeddingになります。
+また、文の位置情報もBERTやTransformerでは与える必要があり、ImageBERTでも位置情報を加えます。しかし、ここではtokenの順番を昇順に与えるというシンプルなやり方のようです。これは図中のSequence Position Embeddingになります。
+画像の入力 画像はそのままモデルに入力するのではなく、FasterRCNNで物体検出をして、検出された箇所の特徴量をそれぞれ入力する形になります（画像の特徴量はsubwordのembeddingと同じ次元に射影します）。
+テキストの場合と同じようにSegment EmbeddingとSequence Position Embeddingも与えるのですが、Sequence Position Embeddingはテキストの場合とは与え方が異なります。テキストの場合にはsubwordに順序がありましたが、画像中の物体には順序がありませんので、すべて同じSequence Position Embeddingを与えます。
+また、これら以外にPosition Embeddingというものも与えます。Position Emebeddingは以下で与えられるベクトルをsubwordのembeddingと同じ次元に射影したものです。 $$ c = \begin{pmatrix} \frac{x_{tl}}{W}, \frac{y_{tl}}{H}, \frac{x_{br}}{W}, \frac{y_{br}}{H}, \frac{(x_{br} - x_{tl}) (y_{br} - y_{tl}) }{WH} \end{pmatrix}.$$ ここで、$x_{tl}, y_{tl}, x_{br}, y_{br}$はそれぞれ物体の左上の$x$と$y$、右下の$x$と$y$座標になります。$W$と$H$は入力画像の横と縦の大きさです。 つまり、$c$は物体の位置と面積の割合の情報になります。
+事前学習のタスク ImageBERTでは事前学習に次の4つタスクを解きます。
+ Masked Language Modeling (MLM) これは通常のBERTと同じように、入力されるsubwordをランダムにマスクし、マスクされた単語を予測するようなタスクです。 Masked Object Classification (MOC) これはMLMの画像版のタスクです。検出された物体をランダムにマスクし、マスクされた物体のラベルを予測するようなタスクです。正解ラベルはFaster-RCNNで求まったラベルとしています。 Masked Region Feature Regression (MRFR) MOCはラベルを予測するようなタスクですが、MRFRはマスクされた物体の箇所の特徴量を予測するタスクです。 Image-Text Matching (ITM) 入力テキストと画像が対応しているかを予測するタスクです。ランダムに画像を選ぶことで、対応していないテキストと画像のペアを作っています。  マルチステージの事前学習 ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します） で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。</description>
+    </item>
+    
+    <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00001/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00001/</guid>
       <description>本記事はQrunchからの転載です。
@@ -117,9 +111,142 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     </item>
     
     <item>
+      <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00018/</link>
+      <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00018/</guid>
+      <description>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+print(df.to_markdown()) 以下のように表示されます。
+| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
+    </item>
+    
+    <item>
+      <title>モデルの予測結果を説明するLIMEの理論</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00007/</link>
+      <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00007/</guid>
+      <description>本記事はQrunchからの転載です。
+ モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
+今回はそんなLIMEの理論について説明します。
+論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
+LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
+LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
+実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$
+ここで、
+ $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
+次に画像の場合のケースについて、詳細に踏み込みます。
+画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
+ 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
+ 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
+LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
+このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。</description>
+    </item>
+    
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00016/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
+      <description>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+ 入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります）  モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.</description>
+    </item>
+    
+    <item>
+      <title>Flutterで吹き出しを作る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00015/</link>
+      <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00015/</guid>
+      <description>吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
+Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
+  最もシンプルな吹き出しの作り方は以下のようになります。
+Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
+ 吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング  欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
+Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
+なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
+こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。 コードは以下の通り。
+Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
+    </item>
+    
+    <item>
+      <title>Matplotlibの凡例を外側に表示したい人へ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00005/</link>
+      <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00005/</guid>
+      <description>本記事はQrunchからの転載です。
+ Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+    </item>
+    
+    <item>
+      <title>Pythonのnamedtupleを使おう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00014/</link>
+      <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00014/</guid>
+      <description>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+ タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。  他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&amp;#34;Person&amp;#34;, [&amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;, &amp;#34;sex&amp;#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&amp;#34;Person&amp;#34;, &amp;#34;name age sex&amp;#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) print(p.</description>
+    </item>
+    
+    <item>
+      <title>BERTを軽量化したALBERTの概要</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00010/</link>
+      <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00010/</guid>
+      <description>BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
+問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
+BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
+パラメータ数が多いことで以下のような問題が起こります。
+ メモリにモデルが乗らない 計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。）  また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。
+BERT-xlargeというのがBERT-largeよりも隠れ層のパラメータ数を多くしたものですが、RACEを解いたときのAccuracyが大きく下がっているのがわかります（過学習のように思われますが、過学習だと明確にわかるようなサインが出ていないと論文には書かれています）。
+提案手法 語彙の埋め込みの行列分解 英版のBERTでは30000の語彙が存在します。BERTではこの語彙の埋め込みベクトルの次元が隠れ層の次元と同じですので、BERT-largeの場合には30000×1024のサイズの行列をもつことになります。
+これに対してALBERTでは行列を分解して、語彙の埋め込みベクトルのサイズと隠れ層のサイズを別にしてしまいます。具体的には、語彙の数を$V$、語彙の埋め込みベクトルの次元を$E$、隠れ層の次元を$H$としたとき、語彙の埋め込みベクトルの行列のサイズは$V \times E$となり、それに$E \times H$のサイズの行列を掛けて$H$次元の空間に射影するようにします。そうすることで、もともとパラメータ数が$O(V \times H)$だったのが、$O(V \times E + E \times H)$となり、$E \ll H$のときには大きくパラメータ数が削減されることになります。
+このようにしてしまって問題ないかと疑問が出てきますね。
+語彙のベクトル自体は文脈に依存しないベクトルで、その後の隠れ層を経て文脈を考慮したベクトルへと変わっていきます。この文脈に依存しないベクトルが持つ情報は大きくなく、次元を隠れ層ほど大きくする必要がないため、上記のようにしても問題がないということのようです。
+層間のパラメータの共有 BERTではEncoderを何度も重ねる構造になっています。ALBERTでは各層の重みを共通にすることで、パラメータ数を大きく削減しています。
+NSPからSOPへの変更 BERTではMASKされたトークンを予測することと、与えられた2つの文が連続しているかどうかを予測するタスクであるnext-sentence prediction(NSP)を同時に解けるように学習していきます。
+NSPの学習のため、実際に連続した文を与えるケースとランダムに選ばれた2つの文を与えるケースを用意します。NSPの意図はBERTに文の一貫性の理解を促すためです。しかしながら、ランダムに選ばれた2つの文だと、そもそも文のトピックが異なるために、あまり文脈を理解できなくともNSPが解けてしまいます。NSPは問題が簡単すぎるということです。
+これを修正するため、ALBERTではsentence-order prediction(SOP)を提案しています。
+SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。
+実験結果 実験で使われているALBERTのモデルは以下のとおりです。 ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。
+BERTとの比較 BERTとの比較実験です。 ALBERTではパラメータ数が減るだけではなく、性能も大きく向上しています。少しじゃなく結構良くなっている感じですね。 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。
+他の手法と比較 XLNetやRoBERTaとの比較です。 大体のタスクにおいて、ALBERTの性能が高いことがわかります。
+感想 ALBERTはどれくらいのメモリや訓練時間が必要なのかが気になって読んでみました。 BERTに比べるとパラメータ数と訓練時間が減っていますが、まだまだ自分で学習をさせられるものではないなぁという印象です。</description>
+    </item>
+    
+    <item>
       <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00004/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00004/</guid>
       <description>本記事はQrunchからの転載です。
@@ -133,7 +260,7 @@ discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gr
     <item>
       <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00003/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00003/</guid>
       <description>本記事はQrunchからの転載です。
@@ -148,19 +275,49 @@ Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみに
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
-Implementation Invarianceではない例DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</description>
+Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</description>
+    </item>
+    
+    <item>
+      <title>CNNで画像中のピクセルの座標情報を考慮できるCoordConv</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00012/</link>
+      <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00012/</guid>
+      <description>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+今回はこのCoordConvの紹介です。
+論文：https://arxiv.org/pdf/1807.03247.pdf
+Keras実装：https://github.com/titu1994/keras-coordconv
+PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
+ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
+通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
+   Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+  上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
+  1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
+このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
+問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
+Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
+学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
+しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
+理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
+座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
+具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
+例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
+$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp;amp; -0.</description>
     </item>
     
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
 ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
 逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
 実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
@@ -176,6 +333,45 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
 この方法の前進後退代入の計算量は乗除算$n(2n^2+1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 + n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
 計算量のまとめ 計算量についてまとめると、以下のようになります。
    方法 乗除算 加減算     掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$   行列とベクトルの積 $n^2$ $n(n-1)$   LU分解 $(n-1)(n^2+n+3)/3$ $n(n-1)(2n-1)/6$   前進後退代入 $n^2$ $n(n-1)$   LU分解+前進後退代入による逆行列の計算 $n^3+n-1$ $n(n-1)^2$    LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める+ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。</description>
+    </item>
+    
+    <item>
+      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00013/</link>
+      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
+      <description>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+ Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000Browser Access:http://172.17.0.2:9000 http://127.0.0.1:9000Object API (Amazon S3 compatible):Go: https://docs.min.io/docs/golang-client-quickstart-guideJava: https://docs.min.io/docs/java-client-quickstart-guidePython: https://docs.min.io/docs/python-client-quickstart-guideJavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide.NET: https://docs.min.io/docs/dotnet-client-quickstart-guide使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。</description>
+    </item>
+    
+    <item>
+      <title>BERTでおこなうポケモンの説明文生成</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00011/</link>
+      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
+      <description>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
+参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
+使用した事前学習モデル：BERT日本語Pretrainedモデル
+実装したソースコード：https://github.com/opqrstuvcut/BertMouth
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
+ ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。  予測 予測は次のようにギブスサンプリングを使います。
+ 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。  次を全トークンに対しておこなう。  i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。      トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
+実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
+ 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。  こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！</description>
     </item>
     
   </channel>

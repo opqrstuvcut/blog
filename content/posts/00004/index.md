@@ -3,7 +3,7 @@ title: ディープラーニングのモデルの特徴量の寄与を求めるD
 tags:  ["深層学習", "ディープラーニング", "寄与", "DeepLift", "Integrated Gradients", "SHAP"]
 categories:  ["Feature Importance"]
 showtoc: true
-date: "2020-10-25"
+date: 2019-12-19T02:03:01+09:00
 ---
 本記事はQrunchからの転載です。
 ___

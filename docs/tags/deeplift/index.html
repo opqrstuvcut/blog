@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/deeplift/" />
-<meta property="og:updated_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="og:updated_time" content="2019-12-19T02:03:01+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DeepLift"/>
 <meta name="twitter:description" content=""/>
@@ -98,7 +98,7 @@ if (!doNotTrack) {
 saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合には、 $$ x = 0 \Rightarrow \ \mbox{寄与} = 1 \times 0 = 0 $$$$ x = 1 \Rightarrow \mbox{寄与} = 0 \times 2 = 0 $$ となり、残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
 discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。...</p>
   </section>
-  <footer class="entry-footer"><time>October 25, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <footer class="entry-footer"><time>December 19, 2019</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to ディープラーニングのモデルの特徴量の寄与を求めるDeepLift" href="https://opqrstuvcut.github.io/blog/posts/00004/"></a>
 </article>
 

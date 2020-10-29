@@ -3,7 +3,7 @@ title: Matplotlibの凡例を外側に表示したい人へ
 tags:  ["matplotlib", "Python"]
 categories:  ["Python"]
 showtoc: true
-date: 2020-10-26T00:43:01+09:00
+date: 2020-01-20T21:09:01+09:00
 draft: false 
 ---
 
@@ -54,7 +54,7 @@ plt.legend(labels, loc='lower center', bbox_to_anchor=(.5, 1.1), ncol=3)
 ```python
 plt.legend(labels, loc='upper center', bbox_to_anchor=(.5, -.15), ncol=3)
 ```
-![undefined.jpg](https://s3.qrunch.io/b76f876a6c79eddc7ad208bc878baa88.png)
+![undefined.jpg](b76f876a6c79eddc7ad208bc878baa88.png)
 
 ### 理屈
 plt.legendの引数の**loc**に指定した凡例の箇所が**bbox_to_anchor**で指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。

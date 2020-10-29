@@ -49,8 +49,8 @@ KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっ�
 $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr]." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/00008/" />
-<meta property="article:published_time" content="2020-10-26T00:43:01+09:00" />
-<meta property="article:modified_time" content="2020-10-26T00:43:01+09:00" />
+<meta property="article:published_time" content="2020-03-02T18:01:01+09:00" />
+<meta property="article:modified_time" content="2020-03-02T18:01:01+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？"/>
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
@@ -77,8 +77,8 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
   "wordCount" : "358",
   "inLanguage": "ja",
   
-  "datePublished": "2020-10-26T00:43:01+09:00",
-  "dateModified": "2020-10-26T00:43:01+09:00",
+  "datePublished": "2020-03-02T18:01:01+09:00",
+  "dateModified": "2020-03-02T18:01:01+09:00",
   "author": {
     "@type": "Person",
     "name": "opqrstuvcut"
@@ -142,7 +142,7 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
     <h1 class="post-title">
       KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？
     </h1>
-    <div class="post-meta"><time>October 26, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut
+    <div class="post-meta"><time>March 2, 2020</time>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;opqrstuvcut
     </div>
   </header> 
 
@@ -183,12 +183,12 @@ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2
 <h1 id="kl-divergenceの最小化問題">KL divergenceの最小化問題</h1>
 <h2 id="klpqのケース">KL(p||q)のケース</h2>
 <p>仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。</p>
-<p>前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような<!-- raw HTML omitted -->$q$は$p$全体をカバーするように広がる分布<!-- raw HTML omitted -->になると考えられます。</p>
+<p>前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような<u>$q$は$p$全体をカバーするように広がる分布</u>になると考えられます。</p>
 <h2 id="klqpのケース">KL(q||p)のケース</h2>
 <p>次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は
 $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$
 ですね。
-$KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような<!-- raw HTML omitted -->$q$は$p$の値が大きいところに集中するような分布<!-- raw HTML omitted -->になると考えられます。</p>
+$KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような<u>$q$は$p$の値が大きいところに集中するような分布</u>になると考えられます。</p>
 <h1 id="実験">実験</h1>
 <p>上記の話が成り立つのかを実験してみます。</p>
 <h2 id="実験準備">実験準備</h2>

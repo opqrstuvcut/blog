@@ -2,7 +2,7 @@
 title: 貧乏人なのでPoor Man’s BERTを読んで解説
 tags:  ["BERT", "DeepLearning", "自然言語", "蒸留", "高速化", "Transformer", "深層学習"]
 categories:  ["自然言語処理", "機械学習"]
-date: 2020-10-26T00:43:01+09:00
+date: 2020-06-21T15:22:01+09:00
 showtoc: true
 ---
 

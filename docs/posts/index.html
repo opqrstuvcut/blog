@@ -121,7 +121,8 @@ BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変える�
     </h2>
   </header>
   <section class="entry-content">
-    <p>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+    <p>本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -176,7 +177,8 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
     </h2>
   </header>
   <section class="entry-content">
-    <p>最近Microsoftから発表されたImageBERTについて紹介します。
+    <p>本記事はQrunchからの転載です。
+ 最近Microsoftから発表されたImageBERTについて紹介します。
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
 実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
 論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
@@ -218,7 +220,8 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
     </h2>
   </header>
   <section class="entry-content">
-    <p>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+    <p>本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。...</p>

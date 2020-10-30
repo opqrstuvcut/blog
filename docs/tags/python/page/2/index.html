@@ -91,7 +91,8 @@ if (!doNotTrack) {
     </h2>
   </header>
   <section class="entry-content">
-    <p>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+    <p>本記事はQrunchからの転載です。
+ AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
  Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \-e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
@@ -114,7 +115,8 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_AC
     </h2>
   </header>
   <section class="entry-content">
-    <p>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+    <p>本記事はQrunchからの転載です。
+ 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
 使用した事前学習モデル：BERT日本語Pretrainedモデル

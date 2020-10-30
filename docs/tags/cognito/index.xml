@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cognito on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/cognito/</link>
+    <description>Recent content in Cognito on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 08 Dec 2019 19:04:32 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/cognito/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FlutterでS3にファイルをアップロードする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00020/</link>
+      <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00020/</guid>
+      <description>本記事はQrunchからの転載です。
+ FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+{ &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;VisualEditor0&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Action&amp;quot;: [ &amp;quot;mobileanalytics:PutEvents&amp;quot;, &amp;quot;cognito-sync:*&amp;quot; ], &amp;quot;Resource&amp;quot;: &amp;quot;*&amp;quot; }, { &amp;quot;Sid&amp;quot;: &amp;quot;VisualEditor1&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Action&amp;quot;: &amp;quot;s3:*Object&amp;quot;, &amp;quot;Resource&amp;quot;: &amp;quot;arn:aws:s3:::(バケット名)*&amp;quot; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
+Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
+import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1)  imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。  IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion.</description>
+    </item>
+    
+  </channel>
+</rss>

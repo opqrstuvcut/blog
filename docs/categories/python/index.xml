@@ -30,7 +30,8 @@ plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15)
       <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00014/</guid>
-      <description>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+      <description>本記事はQrunchからの転載です。
+ Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
 例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
 name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。

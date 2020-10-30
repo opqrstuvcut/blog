@@ -13,7 +13,8 @@
       <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
-      <description>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+      <description>本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。

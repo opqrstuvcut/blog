@@ -13,7 +13,8 @@
       <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00017/</guid>
-      <description>最近Microsoftから発表されたImageBERTについて紹介します。
+      <description>本記事はQrunchからの転載です。
+ 最近Microsoftから発表されたImageBERTについて紹介します。
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
 実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
 論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
@@ -33,7 +34,8 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
       <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00010/</guid>
-      <description>BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+      <description>本記事はQrunchからの転載です。
+ BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
 参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
 問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
 BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
@@ -97,7 +99,8 @@ Implementation Invarianceではない例 DeepLiftの場合は離散化した勾�
       <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00012/</guid>
-      <description>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+      <description>本記事はQrunchからの転載です。
+ CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
 今回はこのCoordConvの紹介です。
 論文：https://arxiv.org/pdf/1807.03247.pdf
 Keras実装：https://github.com/titu1994/keras-coordconv
@@ -126,7 +129,8 @@ $$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp;amp; -0.</description>
       <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
-      <description>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+      <description>本記事はQrunchからの転載です。
+ 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
 使用した事前学習モデル：BERT日本語Pretrainedモデル

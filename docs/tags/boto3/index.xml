@@ -13,7 +13,8 @@
       <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
-      <description>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+      <description>本記事はQrunchからの転載です。
+ AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
  Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。

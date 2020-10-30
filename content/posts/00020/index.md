@@ -5,8 +5,10 @@ categories:  ["AWS"]
 date: 2019-12-08 19:04:32 +0900
 showtoc: true
 ---
+
 本記事はQrunchからの転載です。
 ___
+
 FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリ[amazon_s3_cognito](https://pub.dev/packages/amazon_s3_cognito)があります。
 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
 

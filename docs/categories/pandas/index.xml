@@ -13,7 +13,8 @@
       <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00018/</guid>
-      <description>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+      <description>本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>

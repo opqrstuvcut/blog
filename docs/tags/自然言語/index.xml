@@ -39,7 +39,8 @@ BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変える�
       <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00017/</guid>
-      <description>最近Microsoftから発表されたImageBERTについて紹介します。
+      <description>本記事はQrunchからの転載です。
+ 最近Microsoftから発表されたImageBERTについて紹介します。
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
 実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
 論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
@@ -59,7 +60,8 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
       <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00010/</guid>
-      <description>BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+      <description>本記事はQrunchからの転載です。
+ BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
 参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
 問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
 BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。

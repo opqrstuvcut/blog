@@ -91,7 +91,8 @@ if (!doNotTrack) {
     </h2>
   </header>
   <section class="entry-content">
-    <p>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+    <p>本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -105,11 +106,30 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
 
   <header class="entry-header">
     <h2>
+      FlutterでS3にファイルをアップロードする
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介&#43;forkしてちょっと修正したのでよければ使ってねという話になります。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Sid&#34;: &#34;VisualEditor0&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: [ &#34;mobileanalytics:PutEvents&#34;, &#34;cognito-sync:*&#34; ], &#34;Resource&#34;: &#34;*&#34; }, { &#34;Sid&#34;: &#34;VisualEditor1&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: &#34;s3:*Object&#34;, &#34;Resource&#34;: &#34;arn:aws:s3:::(バケット名)*&#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
+Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
+import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1)  imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。  IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion....</p>
+  </section>
+  <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to FlutterでS3にファイルをアップロードする" href="https://opqrstuvcut.github.io/blog/posts/00020/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
       MinIOでローカルにS3みたいなものを作って開発する
     </h2>
   </header>
   <section class="entry-content">
-    <p>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+    <p>本記事はQrunchからの転載です。
+ AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
  Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \-e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。

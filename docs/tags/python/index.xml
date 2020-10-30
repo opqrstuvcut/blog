@@ -13,7 +13,8 @@
       <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
-      <description>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+      <description>本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -58,7 +59,8 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
       <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00018/</guid>
-      <description>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+      <description>本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
@@ -70,7 +72,8 @@ print(df.to_markdown()) 以下のように表示されます。
       <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
-      <description>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+      <description>本記事はQrunchからの転載です。
+ Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
 Manifoldを試す Manifoldでできることを見ていきます。
 インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
 # under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
@@ -102,7 +105,8 @@ plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15)
       <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00014/</guid>
-      <description>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+      <description>本記事はQrunchからの転載です。
+ Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
 例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
 name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
@@ -150,7 +154,8 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
       <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
-      <description>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+      <description>本記事はQrunchからの転載です。
+ AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
  Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
@@ -169,7 +174,8 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_AC
       <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
-      <description>概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+      <description>本記事はQrunchからの転載です。
+ 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
 使用した事前学習モデル：BERT日本語Pretrainedモデル

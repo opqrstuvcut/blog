@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Cognito - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/cognito/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/cognito/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-181647317-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="Cognito" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/cognito/" />
+<meta property="og:updated_time" content="2019-12-08T19:04:32+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cognito"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>Cognito</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      FlutterでS3にファイルをアップロードする
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介&#43;forkしてちょっと修正したのでよければ使ってねという話になります。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Sid&#34;: &#34;VisualEditor0&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: [ &#34;mobileanalytics:PutEvents&#34;, &#34;cognito-sync:*&#34; ], &#34;Resource&#34;: &#34;*&#34; }, { &#34;Sid&#34;: &#34;VisualEditor1&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: &#34;s3:*Object&#34;, &#34;Resource&#34;: &#34;arn:aws:s3:::(バケット名)*&#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
+Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
+import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1)  imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。  IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion....</p>
+  </section>
+  <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to FlutterでS3にファイルをアップロードする" href="https://opqrstuvcut.github.io/blog/posts/00020/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

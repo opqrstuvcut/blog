@@ -101,7 +101,8 @@ if (!doNotTrack) {
     </h2>
   </header>
   <section class="entry-content">
-    <p>Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+    <p>本記事はQrunchからの転載です。
+ Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
 Manifoldを試す Manifoldでできることを見ていきます。
 インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
 # under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
@@ -120,7 +121,8 @@ with open(&#34;./titanic_res/features.csv&#34;, &#34;w&#34;) as f: columns = &#3
     </h2>
   </header>
   <section class="entry-content">
-    <p>吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
+    <p>本記事はQrunchからの転載です。
+ 吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
 Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
   最もシンプルな吹き出しの作り方は以下のようになります。
 Bubble( nip: BubbleNip.leftTop, child: Text(&#39;Hi, developer!&#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
@@ -162,7 +164,8 @@ plt.legend(labels, loc=&#39;upper center&#39;, bbox_to_anchor=(.5, -.15), ncol=3
     </h2>
   </header>
   <section class="entry-content">
-    <p>Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+    <p>本記事はQrunchからの転載です。
+ Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
 例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
 name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
@@ -187,7 +190,8 @@ from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: 
     </h2>
   </header>
   <section class="entry-content">
-    <p>BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+    <p>本記事はQrunchからの転載です。
+ BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
 参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
 問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
 BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
@@ -233,6 +237,24 @@ discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gr
 
   <header class="entry-header">
     <h2>
+      FlutterでS3にファイルをアップロードする
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介&#43;forkしてちょっと修正したのでよければ使ってねという話になります。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Sid&#34;: &#34;VisualEditor0&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: [ &#34;mobileanalytics:PutEvents&#34;, &#34;cognito-sync:*&#34; ], &#34;Resource&#34;: &#34;*&#34; }, { &#34;Sid&#34;: &#34;VisualEditor1&#34;, &#34;Effect&#34;: &#34;Allow&#34;, &#34;Action&#34;: &#34;s3:*Object&#34;, &#34;Resource&#34;: &#34;arn:aws:s3:::(バケット名)*&#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
+Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
+import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1)  imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。  IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion....</p>
+  </section>
+  <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to FlutterでS3にファイルをアップロードする" href="https://opqrstuvcut.github.io/blog/posts/00020/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
       ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説
     </h2>
   </header>
@@ -254,39 +276,6 @@ Implementation Invarianceではない例 DeepLiftの場合は離散化した勾�
   </section>
   <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      CNNで画像中のピクセルの座標情報を考慮できるCoordConv
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
-今回はこのCoordConvの紹介です。
-論文：https://arxiv.org/pdf/1807.03247.pdf
-Keras実装：https://github.com/titu1994/keras-coordconv
-PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
-ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
-通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
-   Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
-訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
-  上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
-  1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
-このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
-問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
-Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
-学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
-しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
-理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
-座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
-具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
-例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
-$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp; -0....</p>
-  </section>
-  <footer class="entry-footer"><time>November 30, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to CNNで画像中のピクセルの座標情報を考慮できるCoordConv" href="https://opqrstuvcut.github.io/blog/posts/00012/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

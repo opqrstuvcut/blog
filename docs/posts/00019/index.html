@@ -8,7 +8,8 @@
 <title>AWSのLambdaからPostgresを利用 - MatLoverによるMatlab以外のブログ</title>
 
 <meta name="keywords" content="AWS, PostgreSQL, Python, Lambda" />
-<meta name="description" content="AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+<meta name="description" content="本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -35,7 +36,8 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 <meta property="og:title" content="AWSのLambdaからPostgresを利用" />
-<meta property="og:description" content="AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+<meta property="og:description" content="本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -47,7 +49,8 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
 <meta property="article:modified_time" content="2020-05-04T13:35:16+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AWSのLambdaからPostgresを利用"/>
-<meta name="twitter:description" content="AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+ AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
@@ -60,12 +63,12 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
   "@type": "BlogPosting",
   "headline": "AWSのLambdaからPostgresを利用",
   "name": "AWSのLambdaからPostgresを利用",
-  "description": "AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。\n ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git\r 適切な名前にリネー …",
+  "description": "本記事はQrunchからの転載です。\n AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。\n ライブラリのclone  git clone …",
   "keywords": [
     "AWS", "PostgreSQL", "Python", "Lambda"
   ],
-  "articleBody": "AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。\n ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git\r 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。\n  適切な位置への配置\npsycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。\n  Lambdaにデプロイする！\n  ",
-  "wordCount" : "13",
+  "articleBody": "本記事はQrunchからの転載です。\n AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。\n ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git\r 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。\n  適切な位置への配置\npsycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。\n  Lambdaにデプロイする！\n  ",
+  "wordCount" : "14",
   "inLanguage": "ja",
   
   "datePublished": "2020-05-04T13:35:16+09:00",
@@ -146,7 +149,9 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
       </blockquote>
     </details>
   </div>
-  <div class="post-content"><p>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。
+  <div class="post-content"><p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。
 ライブラリのレポジトリは<a href="https://github.com/jkehler/awslambda-psycopg2">こちら</a>です。</p>
 <ol>
 <li>ライブラリのclone</li>

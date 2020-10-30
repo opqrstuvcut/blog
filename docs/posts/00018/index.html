@@ -8,7 +8,8 @@
 <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力 - MatLoverによるMatlab以外のブログ</title>
 
 <meta name="keywords" content="Python, Pandas" />
-<meta name="description" content="Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+<meta name="description" content="本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。">
@@ -33,7 +34,8 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 <meta property="og:title" content="PandasのDataFrameを最高に簡単にMarkdownの表として出力" />
-<meta property="og:description" content="Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+<meta property="og:description" content="本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。" />
@@ -43,7 +45,8 @@ print(df.to_markdown()) 以下のように表示されます。
 <meta property="article:modified_time" content="2020-02-13T01:55:35+09:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PandasのDataFrameを最高に簡単にMarkdownの表として出力"/>
-<meta name="twitter:description" content="Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+ Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
 | | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。"/>
@@ -54,12 +57,12 @@ print(df.to_markdown()) 以下のように表示されます。
   "@type": "BlogPosting",
   "headline": "PandasのDataFrameを最高に簡単にMarkdownの表として出力",
   "name": "PandasのDataFrameを最高に簡単にMarkdownの表として出力",
-  "description": "Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。\nprint(df.to_markdown()) 以下のように表示されます。\n| | 名字 | 年齢 | 出身 |\r|---:|:-------|-------:|:-------|\r| 0 | 田中 | 10 | 北海道 |\r| 1 | 山田 | 20 | 東 …",
+  "description": "本記事はQrunchからの転載です。\n Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。\nprint(df.to_markdown()) 以下のように表示されます。\n| | 名字 | 年齢 | 出身 |\r|---:|:-------|-------:|:-------|\r| 0 | 田中 | 10 | …",
   "keywords": [
     "Python", "Pandas"
   ],
-  "articleBody": "Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。\nprint(df.to_markdown()) 以下のように表示されます。\n| | 名字 | 年齢 | 出身 |\r|---:|:-------|-------:|:-------|\r| 0 | 田中 | 10 | 北海道 |\r| 1 | 山田 | 20 | 東京 |\r| 2 | 上田 | 30 | |\r| 3 | 田中 | 40 | 沖縄 |\r| 4 | 田中 | 50 | 北海道 |\rQrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。\n    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。\n",
-  "wordCount" : "81",
+  "articleBody": "本記事はQrunchからの転載です。\n Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。\nprint(df.to_markdown()) 以下のように表示されます。\n| | 名字 | 年齢 | 出身 |\r|---:|:-------|-------:|:-------|\r| 0 | 田中 | 10 | 北海道 |\r| 1 | 山田 | 20 | 東京 |\r| 2 | 上田 | 30 | |\r| 3 | 田中 | 40 | 沖縄 |\r| 4 | 田中 | 50 | 北海道 |\rQrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。\n    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。\n",
+  "wordCount" : "82",
   "inLanguage": "ja",
   
   "datePublished": "2020-02-13T01:55:35+09:00",
@@ -140,7 +143,9 @@ print(df.to_markdown()) 以下のように表示されます。
       </blockquote>
     </details>
   </div>
-  <div class="post-content"><p>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。</p>
+  <div class="post-content"><p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(df<span style="color:#f92672">.</span>to_markdown())
 </code></pre></div><p>以下のように表示されます。</p>
 <pre><code>|    | 名字   |   年齢 | 出身   |

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja" class="direction-ltr">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Docker - MatLoverによるMatlab以外のブログ</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="opqrstuvcut">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/docker/" />
+<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
+    as="style">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/docker/index.xml">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-181647317-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<meta property="og:title" content="Docker" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/docker/" />
+<meta property="og:updated_time" content="2020-11-08T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker"/>
+<meta name="twitter:description" content=""/>
+
+
+
+</head>
+
+<body class="list" id="top">
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <p class="logo">
+            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
+        </p>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/posts/">
+                    <span>
+                        Posts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/tags/">
+                    <span>
+                        Tags
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>Docker</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      docker-composeのbuildがはじまらないとき
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
+docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
+Building xxxがずっと表示されて、そこから進まないわけです。
+以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
+docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。
+なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
+全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
+対処方法  .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）  ...</p>
+  </section>
+  <footer class="entry-footer"><time>November 8, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to docker-composeのbuildがはじまらないとき" href="https://opqrstuvcut.github.io/blog/posts/00021/"></a>
+</article>
+
+    </main><footer>
+  <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+</html>
+
+</footer>
+
+</body>
+
+</html>

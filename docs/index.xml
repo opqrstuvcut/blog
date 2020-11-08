@@ -6,7 +6,23 @@
     <description>Recent content on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker-composeのbuildがはじまらないとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00021/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00021/</guid>
+      <description>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
+docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
+Building xxxがずっと表示されて、そこから進まないわけです。
+以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
+docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。
+なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
+全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
+対処方法  .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）  </description>
+    </item>
+    
     <item>
       <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00009/</link>
@@ -307,15 +323,16 @@ Implementation Invarianceではない例 DeepLiftの場合は離散化した勾�
       
       <guid>https://opqrstuvcut.github.io/blog/posts/00012/</guid>
       <description>本記事はQrunchからの転載です。
- CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+ CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。
+このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
 今回はこのCoordConvの紹介です。
-論文：https://arxiv.org/pdf/1807.03247.pdf
-Keras実装：https://github.com/titu1994/keras-coordconv
+論文：https://arxiv.org/pdf/1807.03247.pdf Keras実装：https://github.com/titu1994/keras-coordconv
 PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
 ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
 通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
    Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。  Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
-訓練データとテストデータの分け方で2種類の実験をおこなっています。 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。
+1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
   上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
   1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
 このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
@@ -390,7 +407,8 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_AC
 使用した事前学習モデル：BERT日本語Pretrainedモデル
 実装したソースコード：https://github.com/opqrstuvcut/BertMouth
 BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
-例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、
+何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
 上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
  ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。  予測 予測は次のようにギブスサンプリングを使います。
  長さNのトークン列を初期化する。 以下を適当な回数繰り返す。  次を全トークンに対しておこなう。  i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。      トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。

@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/docker/" />
-<meta property="og:updated_time" content="2019-11-09T12:48:01+09:00" />
+<meta property="og:updated_time" content="2020-11-08T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Docker"/>
 <meta name="twitter:description" content=""/>
@@ -83,6 +83,26 @@ if (!doNotTrack) {
 
 
 
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      docker-composeのbuildがはじまらないとき
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
+docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
+Building xxxがずっと表示されて、そこから進まないわけです。
+以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
+docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。
+なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
+全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
+対処方法  .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）  ...</p>
+  </section>
+  <footer class="entry-footer"><time>November 8, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to docker-composeのbuildがはじまらないとき" href="https://opqrstuvcut.github.io/blog/posts/00021/"></a>
+</article>
 <article class="post-entry tag-entry"> 
 
   <header class="entry-header">

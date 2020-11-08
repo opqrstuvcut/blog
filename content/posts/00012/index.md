@@ -7,12 +7,12 @@ showtoc: true
 ---
 本記事はQrunchからの転載です。
 ___
-CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。
+CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。  
 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
 
 今回はこのCoordConvの紹介です。
 
-論文：[https://arxiv.org/pdf/1807.03247.pdf](https://arxiv.org/pdf/1807.03247.pdf)  
+論文：[https://arxiv.org/pdf/1807.03247.pdf](https://arxiv.org/pdf/1807.03247.pdf) 
 Keras実装：[https://github.com/titu1994/keras-coordconv](https://github.com/titu1994/keras-coordconv)  
 PyTorch実装：[https://github.com/mkocabas/CoordConv-pytorch](https://github.com/mkocabas/CoordConv-pytorch)  
 ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
@@ -30,7 +30,7 @@ PyTorch実装：[https://github.com/mkocabas/CoordConv-pytorch](https://github.c
 ## Supervised Coordinate Classificationを通常のCNNで学習させた結果
 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
 
-訓練データとテストデータの分け方で2種類の実験をおこなっています。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。  
 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
 > <img src="f37f360d4f973fb8ae6a980331c16510.png" width=50%>
 上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。

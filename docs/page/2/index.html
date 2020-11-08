@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/" />
-<meta property="og:updated_time" content="2020-06-21T15:22:01+09:00" />
+<meta property="og:updated_time" content="2020-11-08T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MatLoverによるMatlab以外のブログ"/>
 <meta name="twitter:description" content=""/>
@@ -93,6 +93,33 @@ if (!doNotTrack) {
 
 
 
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      モデルの予測結果を説明するLIMEの理論
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>本記事はQrunchからの転載です。
+ モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
+今回はそんなLIMEの理論について説明します。
+論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
+LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
+LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
+実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) &#43; \Omega(g).$$
+ここで、
+ $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
+次に画像の場合のケースについて、詳細に踏み込みます。
+画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
+ 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
+ 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
+LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
+このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。...</p>
+  </section>
+  <footer class="entry-footer"><time>February 12, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to モデルの予測結果を説明するLIMEの理論" href="https://opqrstuvcut.github.io/blog/posts/00007/"></a>
+</article>
 <article class="post-entry"> 
 
   <header class="entry-header">
@@ -250,32 +277,6 @@ import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;p
   </section>
   <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to FlutterでS3にファイルをアップロードする" href="https://opqrstuvcut.github.io/blog/posts/00020/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
-参考論文：Axiomatic Attribution for Deep Networks
-先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
-人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
-2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
-Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
- Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
- 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
-Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
- Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
- 具体例を次に示します。
-Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
-Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。...</p>
-  </section>
-  <footer class="entry-footer"><time>December 8, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" href="https://opqrstuvcut.github.io/blog/posts/00003/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

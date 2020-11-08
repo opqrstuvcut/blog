@@ -5,18 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Categories - MatLoverによるMatlab以外のブログ</title>
+<title>uWSGI - MatLoverによるMatlab以外のブログ</title>
 
 <meta name="keywords" content="" />
 <meta name="description" content="">
 <meta name="author" content="opqrstuvcut">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/" />
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/uwsgi/" />
 <link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
     as="style">
 <link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
 <link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
 <meta name="generator" content="Hugo 0.76.5" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/uwsgi/index.xml">
 
 
 
@@ -30,13 +30,13 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-<meta property="og:title" content="Categories" />
+<meta property="og:title" content="uWSGI" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/uwsgi/" />
 <meta property="og:updated_time" content="2020-11-08T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
+<meta name="twitter:title" content="uWSGI"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -76,53 +76,31 @@ if (!doNotTrack) {
     </nav>
 </header>
 
-    <main class="main">
+    <main class="main"> 
 <header class="page-header">
-    <h1>Categories</h1>
+  <h1>uWSGI</h1>
 </header>
 
-<ul class="terms-tags">
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/aws/">AWS <sup><strong><sup>3</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/docker/">Docker <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/feature-importance/">Feature Importance <sup><strong><sup>3</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/flutter/">Flutter <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/pandas/">Pandas <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/python/">Python <sup><strong><sup>2</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/sql/">SQL <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/uwsgi/">uWSGI <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97/">数値計算 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%AD%A6/">数学 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">機械学習 <sup><strong><sup>5</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/">画像処理 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/">自然言語処理 <sup><strong><sup>3</sup></strong></sup> </a>
-    </li>
-</ul>
 
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
+Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
+原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
+つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
+対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
+[uwsgi] lazy-apps = true とりあえずこれで解決しました。...</p>
+  </section>
+  <footer class="entry-footer"><time>November 8, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3" href="https://opqrstuvcut.github.io/blog/posts/00022/"></a>
+</article>
 
     </main><footer>
   <html>

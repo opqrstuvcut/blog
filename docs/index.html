@@ -134,6 +134,24 @@ docker-composeのbuildがはじまらない原因 学習に使うデータのよ
 
   <header class="entry-header">
     <h2>
+      GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
+Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
+原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
+つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
+対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
+[uwsgi] lazy-apps = true とりあえずこれで解決しました。...</p>
+  </section>
+  <footer class="entry-footer"><time>November 8, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3" href="https://opqrstuvcut.github.io/blog/posts/00022/"></a>
+</article>
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
       貧乏人なのでPoor Man’s BERTを読んで解説
     </h2>
   </header>
@@ -258,23 +276,6 @@ df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありま
   </section>
   <footer class="entry-footer"><time>February 14, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/00001/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      PandasのDataFrameを最高に簡単にMarkdownの表として出力
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
-print(df.to_markdown()) 以下のように表示されます。
-| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
-    名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。...</p>
-  </section>
-  <footer class="entry-footer"><time>February 13, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to PandasのDataFrameを最高に簡単にMarkdownの表として出力" href="https://opqrstuvcut.github.io/blog/posts/00018/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

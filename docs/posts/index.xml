@@ -24,6 +24,20 @@ docker-composeのbuildがはじまらない原因 学習に使うデータのよ
     </item>
     
     <item>
+      <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/00022/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/00022/</guid>
+      <description>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
+Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
+原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
+つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
+対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
+[uwsgi] lazy-apps = true とりあえずこれで解決しました。</description>
+    </item>
+    
+    <item>
       <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
       <link>https://opqrstuvcut.github.io/blog/posts/00009/</link>
       <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>

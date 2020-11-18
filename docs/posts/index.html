@@ -34,7 +34,7 @@ if (!doNotTrack) {
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/" />
-<meta property="og:updated_time" content="2020-11-08T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-11-18T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content=""/>
@@ -83,6 +83,22 @@ if (!doNotTrack) {
 
 
 
+<article class="post-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      TensorBoardのDocker Image
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。
+Docker Imageは以下のとおり。
+FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&#34;tensorboard&#34;, &#34;--logdir&#34;, &#34;/logs&#34;, &#34;--host&#34;, &#34;0.0.0.0&#34;] 次のような感じでdocker buildとdocker runします。
+$ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。...</p>
+  </section>
+  <footer class="entry-footer"><time>November 18, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
+  <a class="entry-link" aria-label="post link to TensorBoardのDocker Image" href="https://opqrstuvcut.github.io/blog/posts/00023/"></a>
+</article>
 <article class="post-entry"> 
 
   <header class="entry-header">
@@ -231,24 +247,6 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
   </section>
   <footer class="entry-footer"><time>February 24, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to 画像と自然言語でのマルチモーダルなImageBERT" href="https://opqrstuvcut.github.io/blog/posts/00017/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Pandasのgroupbyの使い方をまとめる
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
-以下では次のようなDataFrameを使用します。
-df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]})     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
-例えば名字という列をキーとしてgroupbyするときには次のようにします。
-df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。...</p>
-  </section>
-  <footer class="entry-footer"><time>February 14, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/00001/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

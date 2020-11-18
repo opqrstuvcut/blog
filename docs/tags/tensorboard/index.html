@@ -5,18 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>TensorFlow - MatLoverによるMatlab以外のブログ</title>
+<title>TensorBoard - MatLoverによるMatlab以外のブログ</title>
 
 <meta name="keywords" content="" />
 <meta name="description" content="">
 <meta name="author" content="opqrstuvcut">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/tensorflow/" />
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/tensorboard/" />
 <link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
     as="style">
 <link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
 <link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
 <meta name="generator" content="Hugo 0.76.5" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/tensorflow/index.xml">
+<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/tensorboard/index.xml">
 
 
 
@@ -30,13 +30,13 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-<meta property="og:title" content="TensorFlow" />
+<meta property="og:title" content="TensorBoard" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/tensorflow/" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/tensorboard/" />
 <meta property="og:updated_time" content="2020-11-18T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TensorFlow"/>
+<meta name="twitter:title" content="TensorBoard"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -78,7 +78,7 @@ if (!doNotTrack) {
 
     <main class="main"> 
 <header class="page-header">
-  <h1>TensorFlow</h1>
+  <h1>TensorBoard</h1>
 </header>
 
 
@@ -98,24 +98,6 @@ $ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs
   </section>
   <footer class="entry-footer"><time>November 18, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
   <a class="entry-link" aria-label="post link to TensorBoardのDocker Image" href="https://opqrstuvcut.github.io/blog/posts/00023/"></a>
-</article>
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
-Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
-原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
-つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
-対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
-[uwsgi] lazy-apps = true とりあえずこれで解決しました。...</p>
-  </section>
-  <footer class="entry-footer"><time>November 8, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3" href="https://opqrstuvcut.github.io/blog/posts/00022/"></a>
 </article>
 
     </main><footer>

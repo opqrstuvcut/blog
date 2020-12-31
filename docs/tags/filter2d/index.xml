@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>filter2D on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/filter2d/</link>
+    <description>Recent content in filter2D on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 25 Jul 2020 12:12:06 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/filter2d/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>filter2Dで任意のカーネルを扱う</title>
+      <link>https://opqrstuvcut.github.io/blog/p/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
+      <pubDate>Sat, 25 Jul 2020 12:12:06 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+ OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
+filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
+res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。  
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show()  
+一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 </description>
+    </item>
+    
+  </channel>
+</rss>

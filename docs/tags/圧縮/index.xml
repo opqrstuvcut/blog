@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>圧縮 on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/%E5%9C%A7%E7%B8%AE/</link>
+    <description>Recent content in 圧縮 on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 16 Jul 2020 11:00:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%9C%A7%E7%B8%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>imencodeとimdecodeによるメモリ上での画像圧縮</title>
+      <link>https://opqrstuvcut.github.io/blog/p/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</link>
+      <pubDate>Thu, 16 Jul 2020 11:00:00 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</guid>
+      <description>本記事はQrunchからの転載です。
+ 画像をpngなどからjpgに変換したいときに、ぱっと思いつくのはファイルを読み込んで、それをjpgの拡張子で書き込みした後に再度読み込みなおすことです。 1度動かすならばそれでも良いのですが、何度も繰り返しおこなう場合にはファイルの読み書きの時間が気になります。
+OpenCVではファイルへの読み書きをおこなうことなく、メモリ上でファイル形式を変更できる（jpgへの圧縮などができる）ような方法が提供されています。
+流れとしては、imencodeでメモリ上にファイル形式を変更したバイト列を作成し、それをimdecodeで画像に変換するという流れになります。imencodeがファイルへの書き込み、imdecodeがファイルの読み込みに対応する感じになります。
+imencode 画像を他のファイルを形式に変更するimencodeは次のようにして利用します。
+ret, encoded = cv2.imencode(&amp;#34;.jpg&amp;#34;, img, (cv2.IMWRITE_JPEG_QUALITY, 10)) 1つめの引数がどの拡張子に変換するかをあらわす文字列で、ここではjpgを指定しています。
+3つめの引数に指定した拡張子に変換するときのパラメータを指定します。 例えばjpgの場合には画像の質を指定できますので、それをタプルの形式で与えており、ここではjpgの質を10で圧縮するようにしています。
+imencodによって生成されたjpgになった画像の情報はencodedに格納されています。
+imdecode メモリ上の画像データを読み込むimdecodeは以下のようにします。
+decoded = cv2.imdecode(encoded, flags=cv2.IMREAD_COLOR) 第一引数はimencodeの出力です。 flagsは何かしら指定しないといけないのですが、これはどう読み込むかをあらわすフラグです。 BGRの3channelで読み込む場合にはcv2.IMREAD_COLORを指定し、Gray scaleの1channelで読み込む場合にはcv2.IMREAD_GRAYSCALEを指定します。
+適用結果 jpgのqualityを10にしてimencodeした後にimdecodeした結果を元の画像と比較してみます。
+　元画像　imdecode後の画像   
+右側の画像はノイズがのっていることが分かるでしょうか？ちゃんとjpgの形式で圧縮されたようです。</description>
+    </item>
+    
+  </channel>
+</rss>

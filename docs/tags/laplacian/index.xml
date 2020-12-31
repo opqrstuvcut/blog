@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>laplacian on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/laplacian/</link>
+    <description>Recent content in laplacian on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 18 Jul 2020 13:05:29 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/laplacian/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Laplacianで画像の2階微分</title>
+      <link>https://opqrstuvcut.github.io/blog/p/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
+      <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
+      <description>本記事はQrunchからの転載です。
+ 今回はLaplacianを扱います。
+そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}. $$
+これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。
+Laplacianのフィルタ Laplacianのフィルタの最も基本的なものは以下で定義されます。  
+これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
+$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。
+$$ \frac{\partial f}{\partial x} \approx f(x + 1, y) - f(x,y ).$$ これを利用すると、2階の偏微分は
+$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(x+1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;amp;=&amp;amp; f(x+1, y) - 2f(x, y) + f(x-1,y ).\end{aligned}$$ 同様に $$ \begin{aligned} \frac{\partial^2 f}{\partial y^2} &amp;amp;\approx&amp;amp; f(x,y+1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;amp;=&amp;amp; f(x, y+1) - 2f(x, y) + f(x,y-1 ).</description>
+    </item>
+    
+  </channel>
+</rss>

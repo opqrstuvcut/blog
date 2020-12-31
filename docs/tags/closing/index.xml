@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Closing on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/closing/</link>
+    <description>Recent content in Closing on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 21 Jul 2020 22:31:32 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/closing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>膨張と収縮の組み合わせによるopeningとclosing</title>
+      <link>https://opqrstuvcut.github.io/blog/p/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</link>
+      <pubDate>Tue, 21 Jul 2020 22:31:32 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</guid>
+      <description>本記事はQrunchからの転載です。
+ 画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
+opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8)   これの画像に対して、次のようにopeningの操作をおこないます。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show()  
+周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
+ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
+opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.7) * 255 A = A.astype(np.uint8)  
+この画像に対して、次のようにopeningの操作をおこないます。</description>
+    </item>
+    
+  </channel>
+</rss>

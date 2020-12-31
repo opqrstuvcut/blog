@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>medianBlur on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/medianblur/</link>
+    <description>Recent content in medianBlur on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 13 Jul 2020 11:00:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/medianblur/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>外れ値に強いMedianBlur</title>
+      <link>https://opqrstuvcut.github.io/blog/p/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</link>
+      <pubDate>Mon, 13 Jul 2020 11:00:00 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</guid>
+      <description>本記事はQrunchからの転載です。
+ 単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
+medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
+以下がmedianBlurを実際に実行したコードになります。
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像  
+blurを適用した画像（左）、medianBlurを適用した画像（右）   
+中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。</description>
+    </item>
+    
+  </channel>
+</rss>

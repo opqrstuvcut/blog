@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>距離変換 on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B/</link>
+    <description>Recent content in 距離変換 on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Fri, 07 Aug 2020 11:00:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>画像の距離変換をおこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Fri, 07 Aug 2020 11:00:00 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+ 画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
+早速OpenCVで試してみます。
+OpenCVで距離変換 次のようにして距離変換をおこなえます。
+dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
+結果は以下のとおりです。
+　入力画像　距離変換適用（明るいほど距離大）   
+背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。</description>
+    </item>
+    
+  </channel>
+</rss>

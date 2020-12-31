@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hough変換 on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/hough%E5%A4%89%E6%8F%9B/</link>
+    <description>Recent content in Hough変換 on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 05 Aug 2020 11:05:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/hough%E5%A4%89%E6%8F%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hough変換で円を検出</title>
+      <link>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+ Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
+OpenCVで円の検出 次の画像から円を検出してみます。  
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。 methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。 dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。 minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。   大まかには円が検出できていることがわかります。</description>
+    </item>
+    
+    <item>
+      <title>Hough（ハフ）変換で直線を見つけよう</title>
+      <link>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
+      <pubDate>Tue, 04 Aug 2020 19:00:00 +0900</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+ Hough変換は画像から直線をみつける方法です。
+簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。
+なお、OpenCVでは直線の候補は以下のように$(\rho, \theta)$による極座標系であらわされています。 $$ \rho = x \cos \theta + y \sin \theta .$$ $\rho$は原点からの直線の距離、$\theta$は直線の角度をあらわします。
+$\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$
+わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。
+OpenCVで試してみる 次の画像に対してHough変換を適用します。   Hough変換にかける前に、Canny法でエッジを抽出しておきます。
+canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True)   Canny法の結果に対して、次のようにHough変換を適用できます。
+hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。
+検出された直線のパラメータ$(\rho, \theta)$は以下のようにして変換して、画像に直線として書き込んでいます。
+t = 3000 for params in hough_lines: rho, theta = params[0] a = np.</description>
+    </item>
+    
+  </channel>
+</rss>

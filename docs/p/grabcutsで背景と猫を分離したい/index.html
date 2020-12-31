@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
+ 次のような画像があったとします。  
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+ maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。  分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+ 0は確実に背景 1は確実に前景 2は多分背景 3は多分前景  以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.'><title>Grabcutsで背景と猫を分離したい</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='Grabcutsで背景と猫を分離したい'>
+<meta property='og:description' content='本記事はQrunchからの転載です。
+ 次のような画像があったとします。  
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+ maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。  分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+ 0は確実に背景 1は確実に前景 2は多分背景 3は多分前景  以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Grabcuts' /><meta property='article:published_time' content='2020-08-09T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-09T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9.png' />
+<meta name="twitter:title" content="Grabcutsで背景と猫を分離したい">
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+ 次のような画像があったとします。  
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+ maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。  分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+ 0は確実に背景 1は確実に前景 2は多分背景 3は多分前景  以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9.png' />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu514b2ae90ef0dd8eb7afcc14763581df_17525_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
+        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/blog'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://opqrstuvcut.github.io/blog" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/">
+                <img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9_hu8e5f3a9dc326abbf2e84a9c98158d4c1_37539_800x0_resize_box_2.png"
+                        srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9_hu8e5f3a9dc326abbf2e84a9c98158d4c1_37539_800x0_resize_box_2.png 800w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9_hu8e5f3a9dc326abbf2e84a9c98158d4c1_37539_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="604" 
+                        loading="lazy"
+                        alt="Featured image of post Grabcutsで背景と猫を分離したい" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/opencv/" >
+                OpenCV
+            </a>
+        
+            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+                画像処理
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/">Grabcutsで背景と猫を分離したい</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Aug 09, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>次のような画像があったとします。
+<figure style="flex-grow: 80; flex-basis: 193px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b7906bd0d4bbe04cf62dab0eda766889.png" data-size="203x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b7906bd0d4bbe04cf62dab0eda766889.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b7906bd0d4bbe04cf62dab0eda766889_hu47fa9495d3b9dcd32ef291ceb14dc081_66720_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b7906bd0d4bbe04cf62dab0eda766889_hu47fa9495d3b9dcd32ef291ceb14dc081_66720_1024x0_resize_box_2.png 1024w"
+				width="203"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。
+（ディープラーニング使えばできるよね？はおいておいて）</p>
+<h1 id="grabcutsを使ってみる">Grabcutsを使ってみる</h1>
+<h2 id="矩形を指定">矩形を指定</h2>
+<p>最初に猫を囲うような矩形を指定する方法を試していきます。
+OpenCVのGrabcutsは以下のように利用できます。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">bgd_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">fgd_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">grabCut</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> 
+            <span class="n">bgd_model</span><span class="p">,</span> <span class="n">fgd_model</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">GC_INIT_WITH_RECT</span><span class="p">)</span>
+</code></pre></div><p>各引数の意味は以下のとおりです。</p>
+<ul>
+<li>maskの詳細は一旦おいておきます。</li>
+<li>rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。</li>
+<li>bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。
+なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに<strong>同じ</strong>bgd_modelとfgd_modelを使い回す必要があるためです。
+そのため、外から変数を与えられるようになっています。</li>
+<li>6つめの引数の10とあるのは、アルゴリズムの反復回数です。</li>
+<li>最後のcv2.GC_INIT_WITH_RECTは指定した<strong>矩形</strong>をもとに前景である猫を抽出してくださいと指定しているflagです。</li>
+</ul>
+<p>分割された領域の情報はmaskに格納されます。
+maskに格納される値は以下のような意味になります。</p>
+<ul>
+<li>0は確実に背景</li>
+<li>1は確実に前景</li>
+<li>2は多分背景</li>
+<li>3は多分前景</li>
+</ul>
+<p>以下のようにして抽出された前景を抽出します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="k">def</span> <span class="nf">plot_cut_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+    <span class="n">cut_img</span> <span class="o">=</span> <span class="n">img</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">mask</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">mask</span><span class="o">==</span><span class="mi">3</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cut_img</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><figure style="flex-grow: 80; flex-basis: 193px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b05f14364e9986447f89ea7659ea620e.png" data-size="203x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b05f14364e9986447f89ea7659ea620e.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b05f14364e9986447f89ea7659ea620e_hu05f5e08072fd6e75ddcf92cd2fb5c844_18979_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b05f14364e9986447f89ea7659ea620e_hu05f5e08072fd6e75ddcf92cd2fb5c844_18979_1024x0_resize_box_2.png 1024w"
+				width="203"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>上手く猫だけを抽出できていますね。</p>
+<h2 id="maskを指定">maskを指定</h2>
+<p>次に下の画像から猫を抽出することを考えます。
+<figure style="flex-grow: 132; flex-basis: 318px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/a8fc1d6fcb0643ca35828ac428fbb855.png" data-size="334x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/a8fc1d6fcb0643ca35828ac428fbb855.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/a8fc1d6fcb0643ca35828ac428fbb855_hub81c71abc20619e6452e74f14d9dcce2_144214_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/a8fc1d6fcb0643ca35828ac428fbb855_hub81c71abc20619e6452e74f14d9dcce2_144214_1024x0_resize_box_2.png 1024w"
+				width="334"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>まずは、さきほどと同じようにやってみます。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">bgdModel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">65</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">fgdModel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">65</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">grabCut</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> 
+            <span class="n">bgdModel</span><span class="p">,</span> <span class="n">fgdModel</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">GC_INIT_WITH_RECT</span><span class="p">)</span>
+</code></pre></div><p><figure style="flex-grow: 132; flex-basis: 318px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/14b37a03eb325726dd45995a470bf0c1.png" data-size="334x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/14b37a03eb325726dd45995a470bf0c1.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/14b37a03eb325726dd45995a470bf0c1_hu425a7cfe24c367b31d255cf9eaf83b10_27712_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/14b37a03eb325726dd45995a470bf0c1_hu425a7cfe24c367b31d255cf9eaf83b10_27712_1024x0_resize_box_2.png 1024w"
+				width="334"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>椅子と猫の色味が似ているためか上手くいきません。</p>
+<p>ここでmaskの出番です。
+前景として扱いたい部分をmaskに指定してあげることができます。
+猫の顔の右下の部分を前景としたいので、その部分のmaskの値を1にします。
+また、grabCutの最後の引数もcv2.GC_INIT_WITH_MASKというflagに変えることで、maskを使えるようにします。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">mask</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">130</span><span class="p">,</span> <span class="mi">200</span><span class="p">:</span><span class="mi">280</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">grabCut</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> 
+            <span class="n">bgdModel</span><span class="p">,</span> <span class="n">fgdModel</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">GC_INIT_WITH_MASK</span><span class="p">)</span>
+</code></pre></div><p><figure style="flex-grow: 132; flex-basis: 318px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/2387bca0c34c5db2fe637178b5bb136b.png" data-size="334x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/2387bca0c34c5db2fe637178b5bb136b.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/2387bca0c34c5db2fe637178b5bb136b_hu3375b6cc5bb74b474d88885fda2d6e58_33026_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/2387bca0c34c5db2fe637178b5bb136b_hu3375b6cc5bb74b474d88885fda2d6e58_33026_1024x0_resize_box_2.png 1024w"
+				width="334"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>いい感じです！
+追加で猫の顔の右上もmaskに前景として指定します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">mask</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="mi">250</span><span class="p">:</span><span class="mi">270</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">grabCut</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> 
+            <span class="n">bgdModel</span><span class="p">,</span> <span class="n">fgdModel</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">GC_INIT_WITH_MASK</span><span class="p">)</span>
+</code></pre></div><p><figure style="flex-grow: 132; flex-basis: 318px">
+		<a href="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9.png" data-size="334x252"><img src="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9.png"
+				srcset="/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9_hu8e5f3a9dc326abbf2e84a9c98158d4c1_37539_480x0_resize_box_2.png 480w, /blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9_hu8e5f3a9dc326abbf2e84a9c98158d4c1_37539_1024x0_resize_box_2.png 1024w"
+				width="334"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>ほぼほぼ上手く猫が抽出できました！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/opencv/">OpenCV</a>
+        
+            <a href="/blog/tags/grabcuts/">Grabcuts</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+    integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+    integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+    integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="StackLaTeX()"></script>
+
+<script>
+    function StackLaTeX() {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });
+    }
+</script>
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">関連するコンテンツ</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_954dbf2dd6d1f69a11e82fb97b1fd0fb.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">動画データから前景と背景を分離する</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">抽出した輪郭の描画</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/p/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/p/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">findContoursで輪郭の検出</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/p/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/p/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_a46fe579452bed1e0468ea8d0f202764.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">テンプレートマッチングで画像から物体をみつける</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/blog/p/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">minMaxLocで最大と最小の位置を楽に取得</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2020 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.0.1">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

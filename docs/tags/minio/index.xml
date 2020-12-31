@@ -9,22 +9,21 @@
     <lastBuildDate>Sat, 09 Nov 2019 12:48:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/minio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00013/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
       <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
- Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+ Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \ --name minio_test \ -e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \ -e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
 上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
 （Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
 実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
 http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
-Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000Browser Access:http://172.17.0.2:9000 http://127.0.0.1:9000Object API (Amazon S3 compatible):Go: https://docs.min.io/docs/golang-client-quickstart-guideJava: https://docs.min.io/docs/java-client-quickstart-guidePython: https://docs.min.io/docs/python-client-quickstart-guideJavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide.NET: https://docs.min.io/docs/dotnet-client-quickstart-guide使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
-Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
-ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。</description>
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。</description>
     </item>
     
   </channel>

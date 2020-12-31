@@ -1,146 +1,340 @@
 <!DOCTYPE html>
-<html lang="ja" class="direction-ltr">
+<html lang="ja-jp">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。'><title>Tag: 凸 - MatLoverによるMatlab以外のブログ</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/'>
 
-<title>凸 - MatLoverによるMatlab以外のブログ</title>
+<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='Tag: 凸 - MatLoverによるMatlab以外のブログ'>
+<meta property='og:description' content='機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2020-11-18T00:00:00&#43;00:00 '/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta name="twitter:title" content="Tag: 凸 - MatLoverによるMatlab以外のブログ">
+<meta name="twitter:description" content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' /><link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/index.xml">
+    <link rel="shortcut icon" href="favicon.ico" />
 
-<meta name="keywords" content="" />
-<meta name="description" content="">
-<meta name="author" content="opqrstuvcut">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/" />
-<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
-    as="style">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<meta name="generator" content="Hugo 0.76.5" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/index.xml">
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-181647317-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-<meta property="og:title" content="凸" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/%E5%87%B8/" />
-<meta property="og:updated_time" content="2020-03-11T00:08:01+09:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="凸"/>
-<meta name="twitter:description" content=""/>
-
-
-
-</head>
-
-<body class="list" id="top">
-<noscript>
-    <style type="text/css">
-        .theme-toggle,
-        .top-link {
-            display: none;
-        }
-    </style>
-</noscript>
-<header class="header">
-    <nav class="nav">
-        <p class="logo">
-            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
-        </p>
-        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/posts/">
-                    <span>
-                        Posts
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/tags/">
-                    <span>
-                        Tags
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-    <main class="main"> 
-<header class="page-header">
-  <h1>凸</h1>
-</header>
-
-
-
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- 関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。 なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。 また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。
-定義 関数が上に凸の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。 $$ f(t\mathbf{x}^{(2)} &#43; (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) &#43; (1 -t) f(\mathbf{x}^{(1)}).$$
-ヘッセ行列の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$のヘッセ行列$H$を以下のように定義します。 $$H_f = \nabla^2 f = \begin{pmatrix} \frac{\partial^2 f}{\partial x_1^2} &amp;\frac{\partial^2 f}{\partial x_1\partial x_2} &amp; \dots &amp; \frac{\partial^2 f}{\partial x_1\partial x_n} \cr \frac{\partial^2 f}{\partial x_2\partial x_1} &amp; \frac{\partial^2 f}{\partial x_2^2} &amp; \dots &amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \cr \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr \frac{\partial^2 f}{\partial x_n\partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \dots &amp; \frac{\partial^2 f}{ \partial x_n^2} \end{pmatrix}....</p>
-  </section>
-  <footer class="entry-footer"><time>March 11, 2020</time>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to 関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明" href="https://opqrstuvcut.github.io/blog/posts/00006/"></a>
-</article>
-
-    </main><footer>
-  <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossorigin="anonymous"
-    />
-
-    
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
-      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
-      crossorigin="anonymous"
-    ></script>
-
-    
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
-      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
-      crossorigin="anonymous"
-      onload="renderMathInElement(document.body);"
-    ></script>
+    </head>
+    <body class="">
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        renderMathInElement(document.body, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-          ],
-        });
-      });
-    </script>
-  </head>
-</html>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended ">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu514b2ae90ef0dd8eb7afcc14763581df_17525_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
+        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/blog'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <h3 class="section-title">
+        
+            Tags
+        
+    </h3>
+
+    <div class="section-card">
+        <div class="section-details">
+            <h3 class="section-count">1 page</h3>
+            <h1 class="section-term">凸</h1>
+            
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    <section class="article-list--compact">
+        
+            <article>
+    <a href="/blog/p/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/">
+        <div class="article-details">
+            <h2 class="article-title">関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</h2>
+            <footer class="article-time">
+                <time datetime='2020-03-11T00:08:01&#43;09:00'>Mar 11, 2020</time>
+            </footer>
+        </div>
+    </a>
+</article>
+        
+    </section>
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2020 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.0.1">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
 
-</body>
+            </main>
+    
+    
+    <aside class="sidebar right-sidebar sticky">
+        
+            <form action="/search" class="search-form widget" >
+    <p>
+        <label>Search</label>
+        <input name="keyword" required placeholder="Type something..." />
+    
+        <button title="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
 
+
+
+        </button>
+    </p>
+</form>
+        
+            <section class="widget archives">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">アーカイブ</h2>
+
+    
+    
+    
+    
+    
+    <div class="widget-archive--list">
+        <div class="archives-year">
+                <a href="/blog/archives#2020">
+                    
+                        <span class="year">2020</span>
+                        <span class="count">15</span>
+                    
+                </a> 
+            </div>
+        <div class="archives-year">
+                <a href="/blog/archives#2019">
+                    
+                        <span class="year">2019</span>
+                        <span class="count">8</span>
+                    
+                </a> 
+            </div>
+        
+    </div>
+</section>
+        
+            <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">タグ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/tags/python/" class="font_size_10">
+                Python
+            </a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" class="font_size_6">
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" class="font_size_6">
+                深層学習
+            </a>
+        
+            <a href="/blog/tags/bert/" class="font_size_4">
+                BERT
+            </a>
+        
+            <a href="/blog/tags/aws/" class="font_size_3">
+                AWS
+            </a>
+        
+            <a href="/blog/tags/pytorch/" class="font_size_3">
+                PyTorch
+            </a>
+        
+            <a href="/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_3">
+                機械学習
+            </a>
+        
+            <a href="/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E/" class="font_size_3">
+                自然言語
+            </a>
+        
+            <a href="/blog/tags/dart/" class="font_size_2">
+                Dart
+            </a>
+        
+            <a href="/blog/tags/docker/" class="font_size_2">
+                Docker
+            </a>
+        
+    </div>
+</section>
+        
+    </aside>
+
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

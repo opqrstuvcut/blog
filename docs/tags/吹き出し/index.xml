@@ -9,19 +9,21 @@
     <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00015/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
       <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00015/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
 Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
-  最もシンプルな吹き出しの作り方は以下のようになります。
+   
+最もシンプルな吹き出しの作り方は以下のようになります。
 Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
  吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング  欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
 Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
 なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
-こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。 コードは以下の通り。
+こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。  
+コードは以下の通り。
 Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
     </item>
     

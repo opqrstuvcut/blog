@@ -1,219 +1,386 @@
 <!DOCTYPE html>
-<html lang="ja" class="direction-ltr">
+<html lang="ja-jp">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。'><title>Category: 自然言語処理 - MatLoverによるMatlab以外のブログ</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/'>
 
-<title>自然言語処理 - MatLoverによるMatlab以外のブログ</title>
+<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='Category: 自然言語処理 - MatLoverによるMatlab以外のブログ'>
+<meta property='og:description' content='機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2020-11-18T00:00:00&#43;00:00 '/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta name="twitter:title" content="Category: 自然言語処理 - MatLoverによるMatlab以外のブログ">
+<meta name="twitter:description" content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' /><link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml">
+    <link rel="shortcut icon" href="favicon.ico" />
 
-<meta name="keywords" content="" />
-<meta name="description" content="">
-<meta name="author" content="opqrstuvcut">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" />
-<link href="https://opqrstuvcut.github.io/blog/assets/css/stylesheet.min.7bd5899d65d8065bce667feacdde944a1911b79b7be54321635bc25d254c1b92.css" integrity="sha256-e9WJnWXYBlvOZn/qzd6UShkRt5t75UMhY1vCXSVMG5I=" rel="preload stylesheet"
-    as="style">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<meta name="generator" content="Hugo 0.76.5" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml">
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-181647317-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-<meta property="og:title" content="自然言語処理" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" />
-<meta property="og:updated_time" content="2020-06-21T15:22:01+09:00" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="自然言語処理"/>
-<meta name="twitter:description" content=""/>
-
-
-
-</head>
-
-<body class="list" id="top">
-<noscript>
-    <style type="text/css">
-        .theme-toggle,
-        .top-link {
-            display: none;
-        }
-    </style>
-</noscript>
-<header class="header">
-    <nav class="nav">
-        <p class="logo">
-            <a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a>
-        </p>
-        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/posts/">
-                    <span>
-                        Posts
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/tags/">
-                    <span>
-                        Tags
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-    <main class="main"> 
-<header class="page-header">
-  <h1>自然言語処理</h1>
-</header>
-
-
-
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      貧乏人なのでPoor Man’s BERTを読んで解説
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- 最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
-例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
-BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
-実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
-比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuinngも難しいのです。
-次の図がTransformer層の減らし方の一覧です。 各方法の詳細は以下のとおりです。
-Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
-Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
-Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
-Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
-Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
-実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。 これから以下のことが分かります。
- 各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。  タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。 問題によっては6層消してもほとんど変化がなかったります。
-余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
-タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。 ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
-パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。 6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
-BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。 なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。...</p>
-  </section>
-  <footer class="entry-footer"><time>June 21, 2020</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to 貧乏人なのでPoor Man’s BERTを読んで解説" href="https://opqrstuvcut.github.io/blog/posts/00009/"></a>
-</article>
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      BERTを軽量化したALBERTの概要
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
-参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
-問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
-BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
-パラメータ数が多いことで以下のような問題が起こります。
- メモリにモデルが乗らない 計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。）  また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。
-BERT-xlargeというのがBERT-largeよりも隠れ層のパラメータ数を多くしたものですが、RACEを解いたときのAccuracyが大きく下がっているのがわかります（過学習のように思われますが、過学習だと明確にわかるようなサインが出ていないと論文には書かれています）。
-提案手法 語彙の埋め込みの行列分解 英版のBERTでは30000の語彙が存在します。BERTではこの語彙の埋め込みベクトルの次元が隠れ層の次元と同じですので、BERT-largeの場合には30000×1024のサイズの行列をもつことになります。
-これに対してALBERTでは行列を分解して、語彙の埋め込みベクトルのサイズと隠れ層のサイズを別にしてしまいます。具体的には、語彙の数を$V$、語彙の埋め込みベクトルの次元を$E$、隠れ層の次元を$H$としたとき、語彙の埋め込みベクトルの行列のサイズは$V \times E$となり、それに$E \times H$のサイズの行列を掛けて$H$次元の空間に射影するようにします。そうすることで、もともとパラメータ数が$O(V \times H)$だったのが、$O(V \times E &#43; E \times H)$となり、$E \ll H$のときには大きくパラメータ数が削減されることになります。
-このようにしてしまって問題ないかと疑問が出てきますね。
-語彙のベクトル自体は文脈に依存しないベクトルで、その後の隠れ層を経て文脈を考慮したベクトルへと変わっていきます。この文脈に依存しないベクトルが持つ情報は大きくなく、次元を隠れ層ほど大きくする必要がないため、上記のようにしても問題がないということのようです。
-層間のパラメータの共有 BERTではEncoderを何度も重ねる構造になっています。ALBERTでは各層の重みを共通にすることで、パラメータ数を大きく削減しています。
-NSPからSOPへの変更 BERTではMASKされたトークンを予測することと、与えられた2つの文が連続しているかどうかを予測するタスクであるnext-sentence prediction(NSP)を同時に解けるように学習していきます。
-NSPの学習のため、実際に連続した文を与えるケースとランダムに選ばれた2つの文を与えるケースを用意します。NSPの意図はBERTに文の一貫性の理解を促すためです。しかしながら、ランダムに選ばれた2つの文だと、そもそも文のトピックが異なるために、あまり文脈を理解できなくともNSPが解けてしまいます。NSPは問題が簡単すぎるということです。
-これを修正するため、ALBERTではsentence-order prediction(SOP)を提案しています。
-SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。
-実験結果 実験で使われているALBERTのモデルは以下のとおりです。 ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。
-BERTとの比較 BERTとの比較実験です。 ALBERTではパラメータ数が減るだけではなく、性能も大きく向上しています。少しじゃなく結構良くなっている感じですね。 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。
-他の手法と比較 XLNetやRoBERTaとの比較です。 大体のタスクにおいて、ALBERTの性能が高いことがわかります。
-感想 ALBERTはどれくらいのメモリや訓練時間が必要なのかが気になって読んでみました。 BERTに比べるとパラメータ数と訓練時間が減っていますが、まだまだ自分で学習をさせられるものではないなぁという印象です。...</p>
-  </section>
-  <footer class="entry-footer"><time>December 28, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to BERTを軽量化したALBERTの概要" href="https://opqrstuvcut.github.io/blog/posts/00010/"></a>
-</article>
-<article class="post-entry tag-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      BERTでおこなうポケモンの説明文生成
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>本記事はQrunchからの転載です。
- 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
-実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
-参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
-使用した事前学習モデル：BERT日本語Pretrainedモデル
-実装したソースコード：https://github.com/opqrstuvcut/BertMouth
-BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
-例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman&#43;&#43;で形態素解析された後、サブワードに分割され、
-何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
-上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
- ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。  予測 予測は次のようにギブスサンプリングを使います。
- 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。  次を全トークンに対しておこなう。  i番目(i=1,…,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。      トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
-実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
- 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。  こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！...</p>
-  </section>
-  <footer class="entry-footer"><time>November 7, 2019</time>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;opqrstuvcut</footer>
-  <a class="entry-link" aria-label="post link to BERTでおこなうポケモンの説明文生成" href="https://opqrstuvcut.github.io/blog/posts/00011/"></a>
-</article>
-
-    </main><footer>
-  <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossorigin="anonymous"
-    />
-
-    
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
-      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
-      crossorigin="anonymous"
-    ></script>
-
-    
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
-      integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"
-      crossorigin="anonymous"
-      onload="renderMathInElement(document.body);"
-    ></script>
+    </head>
+    <body class="">
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        renderMathInElement(document.body, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-          ],
-        });
-      });
-    </script>
-  </head>
-</html>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended ">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu514b2ae90ef0dd8eb7afcc14763581df_17525_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
+        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/blog'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <h3 class="section-title">
+        
+            Categories
+        
+    </h3>
+
+    <div class="section-card">
+        <div class="section-details">
+            <h3 class="section-count">3 pages</h3>
+            <h1 class="section-term">自然言語処理</h1>
+            
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    <section class="article-list--compact">
+        
+            <article>
+    <a href="/blog/p/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/">
+        <div class="article-details">
+            <h2 class="article-title">貧乏人なのでPoor Man’s BERTを読んで解説</h2>
+            <footer class="article-time">
+                <time datetime='2020-06-21T15:22:01&#43;09:00'>Jun 21, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/p/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_120x120_fill_box_smart1_2.png" 
+                        width="120"
+                        height="120" 
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/p/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
+        <div class="article-details">
+            <h2 class="article-title">BERTを軽量化したALBERTの概要</h2>
+            <footer class="article-time">
+                <time datetime='2019-12-28T23:36:43&#43;09:00'>Dec 28, 2019</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/p/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu9dc25053793792fcc48628a740947cda_243061_120x120_fill_box_smart1_2.png" 
+                        width="120"
+                        height="120" 
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
+        <div class="article-details">
+            <h2 class="article-title">BERTでおこなうポケモンの説明文生成</h2>
+            <footer class="article-time">
+                <time datetime='2019-11-07T11:42:23&#43;09:00'>Nov 07, 2019</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hua413e8993b42675a600325789a072244_97816_120x120_fill_box_smart1_2.png" 
+                        width="120"
+                        height="120" 
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+    </section>
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2020 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.0.1">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
 
-</body>
+            </main>
+    
+    
+    <aside class="sidebar right-sidebar sticky">
+        
+            <form action="/search" class="search-form widget" >
+    <p>
+        <label>Search</label>
+        <input name="keyword" required placeholder="Type something..." />
+    
+        <button title="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
 
+
+
+        </button>
+    </p>
+</form>
+        
+            <section class="widget archives">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">アーカイブ</h2>
+
+    
+    
+    
+    
+    
+    <div class="widget-archive--list">
+        <div class="archives-year">
+                <a href="/blog/archives#2020">
+                    
+                        <span class="year">2020</span>
+                        <span class="count">15</span>
+                    
+                </a> 
+            </div>
+        <div class="archives-year">
+                <a href="/blog/archives#2019">
+                    
+                        <span class="year">2019</span>
+                        <span class="count">8</span>
+                    
+                </a> 
+            </div>
+        
+    </div>
+</section>
+        
+            <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">タグ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/tags/python/" class="font_size_10">
+                Python
+            </a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" class="font_size_6">
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" class="font_size_6">
+                深層学習
+            </a>
+        
+            <a href="/blog/tags/bert/" class="font_size_4">
+                BERT
+            </a>
+        
+            <a href="/blog/tags/aws/" class="font_size_3">
+                AWS
+            </a>
+        
+            <a href="/blog/tags/pytorch/" class="font_size_3">
+                PyTorch
+            </a>
+        
+            <a href="/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_3">
+                機械学習
+            </a>
+        
+            <a href="/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E/" class="font_size_3">
+                自然言語
+            </a>
+        
+            <a href="/blog/tags/dart/" class="font_size_2">
+                Dart
+            </a>
+        
+            <a href="/blog/tags/docker/" class="font_size_2">
+                Docker
+            </a>
+        
+    </div>
+</section>
+        
+    </aside>
+
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

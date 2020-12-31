@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/uwsgi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00022/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
       <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00022/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
       <description>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
 Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
 原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425

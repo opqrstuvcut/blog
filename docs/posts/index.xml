@@ -83,7 +83,7 @@ BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変える�
       <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
- ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+ ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git  適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
   Lambdaにデプロイする！
@@ -163,7 +163,7 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
       <description>本記事はQrunchからの転載です。
  Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
-| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+| | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
     </item>
     
@@ -410,12 +410,12 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
  AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
- Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+ Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \ --name minio_test \ -e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \ -e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
 上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
 （Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
 実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
 http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
-Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000Browser Access:http://172.17.0.2:9000 http://127.0.0.1:9000Object API (Amazon S3 compatible):Go: https://docs.min.io/docs/golang-client-quickstart-guideJava: https://docs.min.io/docs/java-client-quickstart-guidePython: https://docs.min.io/docs/python-client-quickstart-guideJavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide.NET: https://docs.min.io/docs/dotnet-client-quickstart-guide使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
 Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
 ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。</description>
     </item>

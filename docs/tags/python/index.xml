@@ -9,13 +9,13 @@
     <lastBuildDate>Mon, 04 May 2020 13:35:16 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AWSのLambdaからPostgresを利用</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00019/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
       <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00019/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
- ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+ ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git  適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
   適切な位置への配置
 psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
   Lambdaにデプロイする！
@@ -24,10 +24,10 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
     
     <item>
       <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00008/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</link>
       <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00008/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</guid>
       <description>本記事はQrunchからの転載です。
  みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
 KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
@@ -36,15 +36,15 @@ KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定さ
 KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
 実験 上記の話が成り立つのかを実験してみます。
 実験準備 $p(\mathbf{x})$は次のようにします。
-$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].</description>
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。</description>
     </item>
     
     <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00001/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
       <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00001/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
 以下では次のようなDataFrameを使用します。
@@ -55,23 +55,23 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     
     <item>
       <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00018/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</link>
       <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00018/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</guid>
       <description>本記事はQrunchからの転載です。
  Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
-| | 名字 | 年齢 | 出身 ||---:|:-------|-------:|:-------|| 0 | 田中 | 10 | 北海道 || 1 | 山田 | 20 | 東京 || 2 | 上田 | 30 | || 3 | 田中 | 40 | 沖縄 || 4 | 田中 | 50 | 北海道 |QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+| | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
     名字 年齢 出身     0 田中 10 北海道   1 山田 20 東京   2 上田 30    3 田中 40 沖縄   4 田中 50 北海道    上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
     </item>
     
     <item>
       <title>Uber製の機械学習モデルのデバッグツールManifold</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00016/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</link>
       <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00016/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</guid>
       <description>本記事はQrunchからの転載です。
  Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
 Manifoldを試す Manifoldでできることを見ていきます。
@@ -84,27 +84,32 @@ with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as 
     
     <item>
       <title>Matplotlibの凡例を外側に表示したい人へ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00005/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
       <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00005/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
       <description>本記事はQrunchからの転載です。
  Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
 次のような凡例の位置をいじらずに表示した状態からいじっていきます。
-data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
-plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
-plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。 例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
-例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show()  
+右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1))  
+右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5))  
+上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3)  
+下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3)  
+理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。  
+例1loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。</description>
     </item>
     
     <item>
       <title>Pythonのnamedtupleを使おう</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00014/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
       <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00014/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
@@ -123,14 +128,13 @@ from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: 
     
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00002/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</link>
       <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00002/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
-でもそれって本当に逆行列の計算が必要ですか？
-多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
 ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
 逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
 実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
@@ -150,37 +154,37 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
     
     <item>
       <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00013/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
       <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00013/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
 導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
- Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \--name minio_test \-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \minio/minio server /dataMINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+ Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \ --name minio_test \ -e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \ -e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
 上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
 （Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
 実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
 http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
-Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000Browser Access:http://172.17.0.2:9000 http://127.0.0.1:9000Object API (Amazon S3 compatible):Go: https://docs.min.io/docs/golang-client-quickstart-guideJava: https://docs.min.io/docs/java-client-quickstart-guidePython: https://docs.min.io/docs/python-client-quickstart-guideJavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide.NET: https://docs.min.io/docs/dotnet-client-quickstart-guide使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
-Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
-ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。</description>
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。</description>
     </item>
     
     <item>
       <title>BERTでおこなうポケモンの説明文生成</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00011/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
       <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00011/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
       <description>本記事はQrunchからの転載です。
  概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
 使用した事前学習モデル：BERT日本語Pretrainedモデル
 実装したソースコード：https://github.com/opqrstuvcut/BertMouth
-BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。  
+ネットワークへの入力となる各トークンはサブワードになります。
 例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、
 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
 上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。

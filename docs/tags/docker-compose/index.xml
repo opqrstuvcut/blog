@@ -9,16 +9,15 @@
     <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>docker-composeのbuildがはじまらないとき</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00021/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
       <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00021/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
       <description>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
 docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
 Building xxxがずっと表示されて、そこから進まないわけです。
 以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
-docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。
-なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
+docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
 全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
 対処方法  .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）  </description>
     </item>

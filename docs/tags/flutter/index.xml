@@ -9,34 +9,39 @@
     <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00015/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
       <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00015/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
 Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
-  最もシンプルな吹き出しの作り方は以下のようになります。
+   
+最もシンプルな吹き出しの作り方は以下のようになります。
 Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
  吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング  欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
 Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
 なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
-こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。 コードは以下の通り。
+こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。  
+コードは以下の通り。
 Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
     </item>
     
     <item>
       <title>FlutterでS3にファイルをアップロードする</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00020/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
       <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00020/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
-事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。  
+新しいIDプールの作成を押し、以下のような感じで設定をします。  
+次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。  
+ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
 { &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;VisualEditor0&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Action&amp;quot;: [ &amp;quot;mobileanalytics:PutEvents&amp;quot;, &amp;quot;cognito-sync:*&amp;quot; ], &amp;quot;Resource&amp;quot;: &amp;quot;*&amp;quot; }, { &amp;quot;Sid&amp;quot;: &amp;quot;VisualEditor1&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Action&amp;quot;: &amp;quot;s3:*Object&amp;quot;, &amp;quot;Resource&amp;quot;: &amp;quot;arn:aws:s3:::(バケット名)*&amp;quot; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
 Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
-import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1)  imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。  IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion.</description>
+import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;package:amazon_s3_cognito/aws_region.dart&#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.</description>
     </item>
     
   </channel>

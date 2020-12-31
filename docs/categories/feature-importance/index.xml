@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 12 Feb 2020 00:23:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/feature-importance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>モデルの予測結果を説明するLIMEの理論</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00007/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
       <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00007/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
       <description>本記事はQrunchからの転載です。
  モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
 今回はそんなLIMEの理論について説明します。
@@ -24,32 +24,31 @@ LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じ�
  $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
 次に画像の場合のケースについて、詳細に踏み込みます。
 画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
- 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
- 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。 各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。 近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
-LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
-このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&#39;$に対応した画像も$x$の近傍になります。</description>
+   引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
+ 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。    各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。  
+近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。</description>
     </item>
     
     <item>
       <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00004/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
       <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00004/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
       <description>本記事はQrunchからの転載です。
  ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
 参考文献：Learning Important Features Through Propagating Activation Differences
 従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
-saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &amp;lt; 1$では勾配が$1$となり、$x&amp;gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合には、 $$ x = 0 \Rightarrow \ \mbox{寄与} = 1 \times 0 = 0 $$$$ x = 1 \Rightarrow \mbox{寄与} = 0 \times 2 = 0 $$ となり、残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
-discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。</description>
+saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。   図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &amp;lt; 1$では勾配が$1$となり、$x&amp;gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合には、 $$ x = 0 \Rightarrow \ \mbox{寄与} = 1 \times 0 = 0 $$$$ x = 1 \Rightarrow \mbox{寄与} = 0 \times 2 = 0 $$ となり、残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
+discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。   左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。</description>
     </item>
     
     <item>
       <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/00003/</link>
+      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
       <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/posts/00003/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
       <description>本記事はQrunchからの転載です。
  機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
 参考論文：Axiomatic Attribution for Deep Networks
@@ -59,11 +58,11 @@ discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gr
 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
  Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
  次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
+ 
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
-Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</description>
+Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。</description>
     </item>
     
   </channel>

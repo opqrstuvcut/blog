@@ -6,7 +6,62 @@
         <description>Recent content on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</title>
+        <link>https://opqrstuvcut.github.io/blog/p/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+        <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/p/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+        <description>&lt;h1 id=&#34;workload-identityについて&#34;&gt;Workload Identityについて&lt;/h1&gt;
+&lt;p&gt;Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。&lt;/p&gt;
+&lt;p&gt;GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。&lt;/p&gt;
+&lt;p&gt;こういった問題を解決してくれるのがWorkload Identityです。Workload  IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。&lt;/p&gt;
+&lt;p&gt;手順は基本的には&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity?hl=ja&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;公式&lt;/a&gt;に従えばいいですが、ここでは簡素化したものを載せておきます。&lt;/p&gt;
+&lt;h1 id=&#34;手順&#34;&gt;手順&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&amp;quot;GSA&amp;quot;はこのサービスアカウントの名称をあらわしています。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。
+既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gcloud container clusters update &amp;lt;クラスタ名&amp;gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --workload-pool&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;プロジェクトID&amp;gt;.svc.id.goog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gcloud container clusters get-credentials &amp;lt;作成したクラスタ名&amp;gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --zone &amp;lt;asia-northeast1-aなどのzoneの指定&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kubernetes Service Account（KSA）を作成します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl create serviceaccount --namespace default &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &amp;lt;KSAの名称（適当につける）&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;次のようなmanifestを作成し、podを作成しておくでもOKなはずです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;apiVersion&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;v1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;kind&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ServiceAccount&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;&amp;lt;KSAの名称&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GSAがSAと紐付けできるように権限を付与します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gcloud iam service-accounts add-iam-policy-binding &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --role roles/iam.workloadIdentityUser &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --member &lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceAccount:&amp;lt;プロジェクトID&amp;gt;.svc.id.goog[default/&amp;lt;KSAの名称&amp;gt;]&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &amp;lt;GSAの名称&amp;gt;@&amp;lt;プロジェクトID&amp;gt;.iam.gserviceaccount.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最後に次を実行。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ kubectl annotate serviceaccount &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --namespace default &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &amp;lt;KSAの名称&amp;gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  iam.gke.io/gcp-service-account&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;GSAの名称&amp;gt;@&amp;lt;プロジェクトID&amp;gt;.iam.gserviceaccount.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>TensorBoardのDocker Image</title>
         <link>https://opqrstuvcut.github.io/blog/p/tensorboard%E3%81%AEdocker-image/</link>
         <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>

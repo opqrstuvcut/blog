@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sum Treeで重みにそってサンプリングする（Python実装）</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
       <description>問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
 3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
  0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。  i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。   i番目のデータをサンプリングされたデータとする。  この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。

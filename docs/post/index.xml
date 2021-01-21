@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sum Treeで重みにそってサンプリングする（Python実装）</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
       <description>問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
 3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
  0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。  i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。   i番目のデータをサンプリングされたデータとする。  この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
@@ -33,10 +33,10 @@ Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にで�
     
     <item>
       <title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
       <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
       <description>Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
 GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
 こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
@@ -52,10 +52,10 @@ $ gcloud iam service-accounts add-iam-policy-binding \  --role roles/iam.workloa
     
     <item>
       <title>TensorBoardのDocker Image</title>
-      <link>https://opqrstuvcut.github.io/blog/p/tensorboard%E3%81%AEdocker-image/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</link>
       <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/tensorboard%E3%81%AEdocker-image/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</guid>
       <description>たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。
 Docker Imageは以下のとおり。
 FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&amp;quot;tensorboard&amp;quot;, &amp;quot;--logdir&amp;quot;, &amp;quot;/logs&amp;quot;, &amp;quot;--host&amp;quot;, &amp;quot;0.0.0.0&amp;quot;] 次のような感じでdocker buildとdocker runします。
@@ -64,10 +64,10 @@ $ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs
     
     <item>
       <title>docker-composeのbuildがはじまらないとき</title>
-      <link>https://opqrstuvcut.github.io/blog/p/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
       <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
       <description>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
 docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
 Building xxxがずっと表示されて、そこから進まないわけです。
@@ -79,10 +79,10 @@ docker-composeのbuildがはじまらない原因 学習に使うデータのよ
     
     <item>
       <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
-      <link>https://opqrstuvcut.github.io/blog/p/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
       <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
       <description>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
 Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
 原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
@@ -93,10 +93,10 @@ Failed to get device properties, error code: 3 他の記事の引用になって
     
     <item>
       <title>動画データから前景と背景を分離する</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
       <pubDate>Thu, 20 Aug 2020 11:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  画像から前景と背景を分けるのは以前に取り上げたのですが、動画でもOpenCVで前景と背景をわけることが可能です。ここでいう前景は動いている物体を指します。
 前景と背景を分離する難しさ 動画から前景と背景を分離するアルゴリズムを自分で実装するのは結構大変です。 最も単純なアルゴリズムは背景だけが写っている画像を撮っておいて、運用時には背景画像とリアルタイムに取得された画像との差分を取るというのが考えられます。 ただしこのやり方だと照明環境は一定にしないといけないのですが、問題設定によってはそうできなかったりします。また背景だけの画像を撮るのが難しい場合もあります。
@@ -112,10 +112,10 @@ fgbg.apply(frame)の返り値が前景の検出結果（mask画像）になり�
     
     <item>
       <title>connectedComponentsで連結した領域の取得</title>
-      <link>https://opqrstuvcut.github.io/blog/p/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
       <pubDate>Tue, 18 Aug 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVでは二値画像から結合している領域の抽出をおこなうことができます。 こういうのは自分で実装すると大変なので、大変助かりますね。
 connectedComponets 次の二値画像を考えます。   領域として取り出したいのは2つの白い部分です。
@@ -127,10 +127,10 @@ colored_img = np.zeros(bi_img.shape + (3,), dtype=np.uint8) for i in range(1, n_
     
     <item>
       <title>抽出した輪郭の描画</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
       <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
@@ -140,10 +140,10 @@ maxLevel=1maxLevel=2   maxLevelが2のときには外側の輪郭の中まで輪
     
     <item>
       <title>findContoursで輪郭の検出</title>
-      <link>https://opqrstuvcut.github.io/blog/p/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</link>
       <pubDate>Sun, 16 Aug 2020 17:56:36 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</guid>
       <description>本記事はQrunchからの転載です。
  画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
 findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。   最初に次のように二値化しておきます。
@@ -156,10 +156,10 @@ contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_
     
     <item>
       <title>テンプレートマッチングで画像から物体をみつける</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</link>
       <pubDate>Sat, 15 Aug 2020 11:09:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
 テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
@@ -175,10 +175,10 @@ _, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.i
     
     <item>
       <title>minMaxLocで最大と最小の位置を楽に取得</title>
-      <link>https://opqrstuvcut.github.io/blog/p/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</link>
       <pubDate>Tue, 11 Aug 2020 11:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</guid>
       <description>本記事はQrunchからの転載です。
  行列の最大値、最小値はNumPyのmaxやmin、またそれらのインデックスはargmaxやargminを使えば取得できるのですが、OpenCVでは一発ですべて取得できます。
 min_val, max_val, min_idx, max_idx = cv2.minMaxLoc(np.array([[1, 2, 3], [4, 5, 6]])) print(min_val, max_val, min_idx, max_idx) この出力は以下のとおりですが、それぞれ最小値、最大値、最小値の位置、最大値の位置をあらわします。位置は$(x,y)$をあらわしていますので、行列でいえば、（列、行）の順に格納されています。
@@ -187,10 +187,10 @@ min_val, max_val, min_idx, max_idx = cv2.minMaxLoc(np.array([[1, 2, 3], [4, 5, 6
     
     <item>
       <title>compHistでヒストグラム比較をいろいろなやり方でおこなう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
       <pubDate>Mon, 10 Aug 2020 13:20:47 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。
 compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。
@@ -203,10 +203,10 @@ cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムを�
     
     <item>
       <title>OpenCVのヒストグラムの計算はNumPyより断然速い</title>
-      <link>https://opqrstuvcut.github.io/blog/p/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</link>
       <pubDate>Mon, 10 Aug 2020 11:03:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</guid>
       <description>本記事はQrunchからの転載です。
  画像処理や集計、機械学習では何かとヒストグラムを計算するケースがありますね。
 これに伴い、ヒストグラムを計算できるライブラリは色々あるかと思いますが、OpenCVでもヒストグラムを計算する機能をもっています。 NumPyでもヒストグラムの計算できるじゃない、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。
@@ -221,10 +221,10 @@ numpy_hist, bin_edges = np.histogram(img.ravel(), bins=256, range=(0, 255)) さ�
     
     <item>
       <title>Grabcutsで背景と猫を分離したい</title>
-      <link>https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</link>
       <pubDate>Sun, 09 Aug 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
       <description>本記事はQrunchからの転載です。
  次のような画像があったとします。  
 ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
@@ -237,10 +237,10 @@ def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1
     
     <item>
       <title>Watershedで領域検出</title>
-      <link>https://opqrstuvcut.github.io/blog/p/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
       <pubDate>Sat, 08 Aug 2020 11:10:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
       <description>本記事はQrunchからの転載です。
  Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
 実際にOpenCVでやってみましょう。
@@ -253,10 +253,10 @@ res = cv2.watershed(img, marker) 返り値には領域を分割した結果を�
     
     <item>
       <title>画像の距離変換をおこなう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
       <pubDate>Fri, 07 Aug 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
 早速OpenCVで試してみます。
@@ -269,10 +269,10 @@ dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanc
     
     <item>
       <title>floodFillで領域に色を塗る</title>
-      <link>https://opqrstuvcut.github.io/blog/p/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</link>
       <pubDate>Thu, 06 Aug 2020 11:08:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVのfloodFillを使うことで、選んだ点の周辺の似たような色のピクセルを塗りつぶすことができます。
 使い方 次のようにしてfloodFillを利用できます。
@@ -283,10 +283,10 @@ mask = np.zeros((img.shape[0] + 2, img.shape[1] + 2), dtype=np.uint8) res = cv2.
     
     <item>
       <title>Hough変換で円を検出</title>
-      <link>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
       <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
       <description>本記事はQrunchからの転載です。
  Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
 OpenCVで円の検出 次の画像から円を検出してみます。  
@@ -297,10 +297,10 @@ hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5,
     
     <item>
       <title>Hough（ハフ）変換で直線を見つけよう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
       <pubDate>Tue, 04 Aug 2020 19:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  Hough変換は画像から直線をみつける方法です。
 簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。
@@ -316,10 +316,10 @@ t = 3000 for params in hough_lines: rho, theta = params[0] a = np.</description>
     
     <item>
       <title>Canny法でエッジ検出</title>
-      <link>https://opqrstuvcut.github.io/blog/p/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</link>
       <pubDate>Mon, 03 Aug 2020 20:17:14 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</guid>
       <description>本記事はQrunchからの転載です。
  エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。
 Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。
@@ -336,10 +336,10 @@ canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=
     
     <item>
       <title>ヒストグラム平坦化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
       <pubDate>Sun, 02 Aug 2020 22:50:29 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  今日はヒストグラム平坦化を扱います。
 ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
@@ -354,10 +354,10 @@ res = cv2.equalizeHist(img)
     
     <item>
       <title>Non-Local Means Denoisingでノイズ除去</title>
-      <link>https://opqrstuvcut.github.io/blog/p/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
       <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
       <description>本記事はQrunchからの転載です。
  Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
 似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
@@ -371,10 +371,10 @@ OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます
     
     <item>
       <title>inpaintで画像の修復をする</title>
-      <link>https://opqrstuvcut.github.io/blog/p/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
       <pubDate>Fri, 31 Jul 2020 11:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。 今回はOpenCVで修復をおこなってみます。
 OpenCVでやってみる 次の画像にノイズをのせていきます。  
@@ -387,10 +387,10 @@ inpainted = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS) 第一引数に復元し�
     
     <item>
       <title>透過変換で斜めから撮った画像を上から見下ろす</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</link>
       <pubDate>Thu, 30 Jul 2020 11:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</guid>
       <description>本記事はQrunchからの転載です。
  透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。
 OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。  
@@ -404,10 +404,10 @@ transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(
     
     <item>
       <title>画像へのアフィン変換</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
       <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
       <description>本記事はQrunchからの転載です。
  アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&#39;, y&#39;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&#39; \\ y&#39; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
 今回はこのアフィン変換をOpenCVを使っておこないます。
@@ -419,10 +419,10 @@ transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matと
     
     <item>
       <title>動画の書き込み</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</link>
       <pubDate>Tue, 28 Jul 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。
 fourcc = cv2.VideoWriter_fourcc(&amp;#34;m&amp;#34;, &amp;#34;p&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;v&amp;#34;) writer = cv2.VideoWriter(&amp;#34;test.mp4&amp;#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&amp;quot;m&amp;quot;, &amp;ldquo;p&amp;rdquo;, &amp;ldquo;4&amp;rdquo;, &amp;ldquo;v&amp;quot;を指定します。他にもmpgで保存するときには&amp;quot;D&amp;rdquo;, &amp;ldquo;I&amp;rdquo;, &amp;ldquo;V&amp;rdquo;, &amp;ldquo;X&amp;quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。
@@ -432,10 +432,10 @@ writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # �
     
     <item>
       <title>動画の読みこみ</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</link>
       <pubDate>Mon, 27 Jul 2020 22:53:54 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</guid>
       <description>本記事はQrunchからの転載です。
  今日はOpenCVでの動画の読み書きを扱います。
 動画の読み込み 動画の読み込みは簡単です。
@@ -449,10 +449,10 @@ print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) p
     
     <item>
       <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
       <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
 分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
@@ -470,10 +470,10 @@ col_kernel = np.array([1, 2, 1]).T row_kernel = np.</description>
     
     <item>
       <title>filter2Dで任意のカーネルを扱う</title>
-      <link>https://opqrstuvcut.github.io/blog/p/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
       <pubDate>Sat, 25 Jul 2020 12:12:06 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
 filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
@@ -486,10 +486,10 @@ blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0
     
     <item>
       <title>膨張と収縮の組み合わせによるopeningとclosing</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</link>
       <pubDate>Tue, 21 Jul 2020 22:31:32 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</guid>
       <description>本記事はQrunchからの転載です。
  画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
@@ -504,10 +504,10 @@ np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.7) * 255 A = A.astype(n
     
     <item>
       <title>erodeで猫を収縮させる</title>
-      <link>https://opqrstuvcut.github.io/blog/p/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</link>
       <pubDate>Mon, 20 Jul 2020 23:14:16 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
@@ -527,10 +527,10 @@ array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種に�
     
     <item>
       <title>dilateで猫を膨張させる</title>
-      <link>https://opqrstuvcut.github.io/blog/p/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
       <pubDate>Sun, 19 Jul 2020 20:40:11 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。
@@ -543,10 +543,10 @@ kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1
     
     <item>
       <title>Laplacianで画像の2階微分</title>
-      <link>https://opqrstuvcut.github.io/blog/p/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
       <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
       <description>本記事はQrunchからの転載です。
  今回はLaplacianを扱います。
 そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}. $$
@@ -560,10 +560,10 @@ $$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(
     
     <item>
       <title>Sobelフィルタで微分</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
       <pubDate>Thu, 16 Jul 2020 14:06:05 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
       <description>本記事はQrunchからの転載です。
  よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。
 Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。
@@ -589,10 +589,10 @@ sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, )
     
     <item>
       <title>imencodeとimdecodeによるメモリ上での画像圧縮</title>
-      <link>https://opqrstuvcut.github.io/blog/p/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</link>
       <pubDate>Thu, 16 Jul 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</guid>
       <description>本記事はQrunchからの転載です。
  画像をpngなどからjpgに変換したいときに、ぱっと思いつくのはファイルを読み込んで、それをjpgの拡張子で書き込みした後に再度読み込みなおすことです。 1度動かすならばそれでも良いのですが、何度も繰り返しおこなう場合にはファイルの読み書きの時間が気になります。
 OpenCVではファイルへの読み書きをおこなうことなく、メモリ上でファイル形式を変更できる（jpgへの圧縮などができる）ような方法が提供されています。
@@ -610,10 +610,10 @@ decoded = cv2.imdecode(encoded, flags=cv2.IMREAD_COLOR) 第一引数はimencode�
     
     <item>
       <title>サンプルコードでなにかとあらわれるガウス平滑化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
       <pubDate>Tue, 14 Jul 2020 18:30:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  今日はなにかとサンプルコードで使われるガウス平滑化です。
 ガウス平滑化とは 前々回取り上げた単純平滑化は局所領域の平均をとることで、平滑化をおこないました。これは局所領域内の各ピクセルの重み付けがすべて等しいともいえます。 ガウス平滑化では二次元のガウス分布を離散化した値を重みとして利用するような平滑化になります。 $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\right).$$
@@ -630,10 +630,10 @@ blur = cv2.GaussianBlur(img, ksize=(9, 9), sigmaX=2, sigmaY=2) ksizeはカーネ
     
     <item>
       <title>外れ値に強いMedianBlur</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</link>
       <pubDate>Mon, 13 Jul 2020 11:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</guid>
       <description>本記事はQrunchからの転載です。
  単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
@@ -645,10 +645,10 @@ blurを適用した画像（左）、medianBlurを適用した画像（右）
     
     <item>
       <title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
       <pubDate>Sat, 11 Jul 2020 09:22:28 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像  
 大津の二値化適用  
@@ -666,10 +666,10 @@ adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y
     
     <item>
       <title>大津の二値化で楽をする</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
       <pubDate>Fri, 10 Jul 2020 13:08:19 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  大津の2値化とは？ シンプルな二値化では、何かしらのしきい値を決めてあげる必要がありました。
 人間がグレースケール値のヒストグラムを見てしきい値を決めたり、試行錯誤するというのも良いですが、場合によってはしきい値を自動で決定したくなります。
@@ -693,10 +693,10 @@ img = cv2.imread(&amp;#34;ex_img.jpg&amp;#34;) gray = cv2.cvtColor(img, cv2.COLO
     
     <item>
       <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
       <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
       <description>本記事はQrunchからの転載です。
  最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
 例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
@@ -720,10 +720,10 @@ Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要と
     
     <item>
       <title>AWSのLambdaからPostgresを利用</title>
-      <link>https://opqrstuvcut.github.io/blog/p/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
       <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
  ライブラリのclone  git clone https://github.com/jkehler/awslambda-psycopg2.git  適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
@@ -735,10 +735,10 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
     
     <item>
       <title>関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</link>
       <pubDate>Wed, 11 Mar 2020 00:08:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</guid>
       <description>本記事はQrunchからの転載です。
  関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。 なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。 また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。
 定義 関数が上に凸の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。 $$ f(t\mathbf{x}^{(2)} + (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) + (1 -t) f(\mathbf{x}^{(1)}).$$
@@ -747,10 +747,10 @@ psycopg2をLambdaにデプロイするコードと同じディレクトリに配
     
     <item>
       <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
-      <link>https://opqrstuvcut.github.io/blog/p/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</link>
       <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</guid>
       <description>本記事はQrunchからの転載です。
  みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
 KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
@@ -764,10 +764,10 @@ $$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\fra
     
     <item>
       <title>画像と自然言語でのマルチモーダルなImageBERT</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
       <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
       <description>本記事はQrunchからの転載です。
  最近Microsoftから発表されたImageBERTについて紹介します。
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
@@ -785,10 +785,10 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
     
     <item>
       <title>Pandasのgroupbyの使い方をまとめる</title>
-      <link>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
       <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
 以下では次のようなDataFrameを使用します。
@@ -799,10 +799,10 @@ df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味が�
     
     <item>
       <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
-      <link>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</link>
       <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</guid>
       <description>本記事はQrunchからの転載です。
  Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
 print(df.to_markdown()) 以下のように表示されます。
@@ -812,10 +812,10 @@ print(df.to_markdown()) 以下のように表示されます。
     
     <item>
       <title>モデルの予測結果を説明するLIMEの理論</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
       <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
       <description>本記事はQrunchからの転載です。
  モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
 今回はそんなLIMEの理論について説明します。
@@ -834,10 +834,10 @@ LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じ�
     
     <item>
       <title>Uber製の機械学習モデルのデバッグツールManifold</title>
-      <link>https://opqrstuvcut.github.io/blog/p/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</link>
       <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</guid>
       <description>本記事はQrunchからの転載です。
  Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
 Manifoldを試す Manifoldでできることを見ていきます。
@@ -850,10 +850,10 @@ with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as 
     
     <item>
       <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
       <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
 Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
@@ -870,10 +870,10 @@ Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるの
     
     <item>
       <title>Matplotlibの凡例を外側に表示したい人へ</title>
-      <link>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
       <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
       <description>本記事はQrunchからの転載です。
  Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
 次のような凡例の位置をいじらずに表示した状態からいじっていきます。
@@ -892,10 +892,10 @@ plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15)
     
     <item>
       <title>Pythonのnamedtupleを使おう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
       <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
@@ -914,10 +914,10 @@ from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: 
     
     <item>
       <title>BERTを軽量化したALBERTの概要</title>
-      <link>https://opqrstuvcut.github.io/blog/p/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
       <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
       <description>本記事はQrunchからの転載です。
  BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
 参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
@@ -945,10 +945,10 @@ ALBERTではパラメータ数が減るだけではなく、性能も大きく�
     
     <item>
       <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
       <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
       <description>本記事はQrunchからの転載です。
  ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
 参考文献：Learning Important Features Through Propagating Activation Differences
@@ -959,10 +959,10 @@ discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gr
     
     <item>
       <title>FlutterでS3にファイルをアップロードする</title>
-      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
       <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
 事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。  
@@ -976,10 +976,10 @@ import &#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&#39;; import &#39;p
     
     <item>
       <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
       <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
       <description>本記事はQrunchからの転載です。
  機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
 参考論文：Axiomatic Attribution for Deep Networks
@@ -998,10 +998,10 @@ Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計�
     
     <item>
       <title>CNNで画像中のピクセルの座標情報を考慮できるCoordConv</title>
-      <link>https://opqrstuvcut.github.io/blog/p/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</link>
       <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</guid>
       <description>本記事はQrunchからの転載です。
  CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。
 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
@@ -1030,10 +1030,10 @@ CoordConv 前述の問題はなぜ解きにくいのでしょうか。
     
     <item>
       <title>安易に逆行列を数値計算するのはやめよう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</link>
       <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
 でもそれって本当に逆行列の計算が必要ですか？多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
@@ -1056,10 +1056,10 @@ LU分解と前進後退代入から逆行列を求める方法 np.linalg.invで�
     
     <item>
       <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-      <link>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
       <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
 MinIOのページはこちら。https://min.io
@@ -1075,10 +1075,10 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_AC
     
     <item>
       <title>BERTでおこなうポケモンの説明文生成</title>
-      <link>https://opqrstuvcut.github.io/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
       <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
       <description>本記事はQrunchからの転載です。
  概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）

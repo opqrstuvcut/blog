@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 20 Aug 2020 11:04:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%89%8D%E6%99%AF%E5%88%86%E9%9B%A2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>動画データから前景と背景を分離する</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
       <pubDate>Thu, 20 Aug 2020 11:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  画像から前景と背景を分けるのは以前に取り上げたのですが、動画でもOpenCVで前景と背景をわけることが可能です。ここでいう前景は動いている物体を指します。
 前景と背景を分離する難しさ 動画から前景と背景を分離するアルゴリズムを自分で実装するのは結構大変です。 最も単純なアルゴリズムは背景だけが写っている画像を撮っておいて、運用時には背景画像とリアルタイムに取得された画像との差分を取るというのが考えられます。 ただしこのやり方だと照明環境は一定にしないといけないのですが、問題設定によってはそうできなかったりします。また背景だけの画像を撮るのが難しい場合もあります。

@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 17 Aug 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/drawcontours/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>抽出した輪郭の描画</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
       <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。

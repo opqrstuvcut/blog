@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 12 Feb 2020 00:23:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%AF%84%E4%B8%8E/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>モデルの予測結果を説明するLIMEの理論</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
       <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
       <description>本記事はQrunchからの転載です。
  モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
 今回はそんなLIMEの理論について説明します。
@@ -31,10 +31,10 @@ LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じ�
     
     <item>
       <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
       <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
       <description>本記事はQrunchからの転載です。
  ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
 参考文献：Learning Important Features Through Propagating Activation Differences

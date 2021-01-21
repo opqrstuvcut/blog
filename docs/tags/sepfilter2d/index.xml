@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 26 Jul 2020 11:06:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/sepfilter2d/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
       <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
 分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。

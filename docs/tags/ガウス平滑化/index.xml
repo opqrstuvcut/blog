@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 14 Jul 2020 18:30:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>サンプルコードでなにかとあらわれるガウス平滑化</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
       <pubDate>Tue, 14 Jul 2020 18:30:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
       <description>本記事はQrunchからの転載です。
  今日はなにかとサンプルコードで使われるガウス平滑化です。
 ガウス平滑化とは 前々回取り上げた単純平滑化は局所領域の平均をとることで、平滑化をおこないました。これは局所領域内の各ピクセルの重み付けがすべて等しいともいえます。 ガウス平滑化では二次元のガウス分布を離散化した値を重みとして利用するような平滑化になります。 $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\right).$$

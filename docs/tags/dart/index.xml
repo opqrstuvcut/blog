@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/dart/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
       <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
 Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
@@ -29,10 +29,10 @@ Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるの
     
     <item>
       <title>FlutterでS3にファイルをアップロードする</title>
-      <link>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
       <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
 事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。  

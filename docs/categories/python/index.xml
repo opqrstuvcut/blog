@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sum Treeで重みにそってサンプリングする（Python実装）</title>
-      <link>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
       <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
       <description>問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
 3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
  0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。  i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。   i番目のデータをサンプリングされたデータとする。  この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
@@ -33,10 +33,10 @@ Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にで�
     
     <item>
       <title>Matplotlibの凡例を外側に表示したい人へ</title>
-      <link>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
       <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
       <description>本記事はQrunchからの転載です。
  Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
 次のような凡例の位置をいじらずに表示した状態からいじっていきます。
@@ -55,10 +55,10 @@ plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15)
     
     <item>
       <title>Pythonのnamedtupleを使おう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
       <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
 namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。

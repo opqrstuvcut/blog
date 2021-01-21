@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 19 Jul 2020 20:40:11 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/dilate/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>dilateで猫を膨張させる</title>
-      <link>https://opqrstuvcut.github.io/blog/p/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
       <pubDate>Sun, 19 Jul 2020 20:40:11 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
       <description>本記事はQrunchからの転載です。
  OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。

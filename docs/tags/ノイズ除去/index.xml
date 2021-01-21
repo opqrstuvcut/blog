@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 01 Aug 2020 10:04:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Non-Local Means Denoisingでノイズ除去</title>
-      <link>https://opqrstuvcut.github.io/blog/p/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
       <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
       <description>本記事はQrunchからの転載です。
  Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
 似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。

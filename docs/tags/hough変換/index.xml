@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 05 Aug 2020 11:05:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/hough%E5%A4%89%E6%8F%9B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hough変換で円を検出</title>
-      <link>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
       <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
       <description>本記事はQrunchからの転載です。
  Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
 OpenCVで円の検出 次の画像から円を検出してみます。  
@@ -23,10 +23,10 @@ hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5,
     
     <item>
       <title>Hough（ハフ）変換で直線を見つけよう</title>
-      <link>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
       <pubDate>Tue, 04 Aug 2020 19:00:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
       <description>本記事はQrunchからの転載です。
  Hough変換は画像から直線をみつける方法です。
 簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。

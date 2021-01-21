@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 29 Jul 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/affine/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>画像へのアフィン変換</title>
-      <link>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
       <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
       
-      <guid>https://opqrstuvcut.github.io/blog/p/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
       <description>本記事はQrunchからの転載です。
  アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&#39;, y&#39;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&#39; \\ y&#39; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
 今回はこのアフィン変換をOpenCVを使っておこないます。

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
+ 今日はヒストグラム平坦化を扱います。
+ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
+処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
+OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。  
+この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。  
+ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
+res = cv2.equalizeHist(img)  
+ちゃんと見えるようになりましたね。
+この画像の画素値のヒストグラムは以下のとおりです。'><title>ヒストグラム平坦化</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='ヒストグラム平坦化'>
+<meta property='og:description' content='本記事はQrunchからの転載です。
+ 今日はヒストグラム平坦化を扱います。
+ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
+処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
+OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。  
+この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。  
+ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
+res = cv2.equalizeHist(img)  
+ちゃんと見えるようになりましたね。
+この画像の画素値のヒストグラムは以下のとおりです。'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='ヒストグラム平坦化' /><meta property='article:published_time' content='2020-08-02T22:50:29&#43;09:00'/><meta property='article:modified_time' content='2020-08-02T22:50:29&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png' />
+<meta name="twitter:title" content="ヒストグラム平坦化">
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+ 今日はヒストグラム平坦化を扱います。
+ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
+処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
+OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。  
+この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。  
+ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
+res = cv2.equalizeHist(img)  
+ちゃんと見えるようになりましたね。
+この画像の画素値のヒストグラムは以下のとおりです。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png' />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu514b2ae90ef0dd8eb7afcc14763581df_17525_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
+        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/blog'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>ダークモード</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://opqrstuvcut.github.io/blog" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
+                <img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_800x0_resize_box_2.png"
+                        srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_800x0_resize_box_2.png 800w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="965" 
+                        loading="lazy"
+                        alt="Featured image of post ヒストグラム平坦化" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" >
+                OpenCV生活
+            </a>
+        
+            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+                画像処理
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">ヒストグラム平坦化</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Aug 02, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>今日はヒストグラム平坦化を扱います。</p>
+<p>ヒストグラム平坦化はコントラストが偏っているような画像を補正します。
+結果として、コントラストがある程度平坦化された結果が得られます。</p>
+<p>処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。</p>
+<h1 id="opencvでヒストグラム平坦化">OpenCVでヒストグラム平坦化</h1>
+<p>次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
+<figure style="flex-grow: 82; flex-basis: 199px">
+		<a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e.png" data-size="209x252"><img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e.png"
+				srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_480x0_resize_box_2.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_1024x0_resize_box_2.png 1024w"
+				width="209"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
+<figure style="flex-grow: 144; flex-basis: 347px">
+		<a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858.png" data-size="375x259"><img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858.png"
+				srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_480x0_resize_box_2.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_1024x0_resize_box_2.png 1024w"
+				width="375"
+				height="259"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</code></pre></div><p><figure style="flex-grow: 82; flex-basis: 199px">
+		<a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png" data-size="209x252"><img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png"
+				srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_480x0_resize_box_2.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_1024x0_resize_box_2.png 1024w"
+				width="209"
+				height="252"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>ちゃんと見えるようになりましたね。</p>
+<p>この画像の画素値のヒストグラムは以下のとおりです。
+<figure style="flex-grow: 144; flex-basis: 347px">
+		<a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf.png" data-size="375x259"><img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf.png"
+				srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_480x0_resize_box_2.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_1024x0_resize_box_2.png 1024w"
+				width="375"
+				height="259"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/opencv/">OpenCV</a>
+        
+            <a href="/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">ヒストグラム平坦化</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+    integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+    integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+    integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="StackLaTeX()"></script>
+
+<script>
+    function StackLaTeX() {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });
+    }
+</script>
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">関連するコンテンツ</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/_hu5ddbb1da31877a9e022410b6c73f6fa0_41649_005c78ec4f7e6c8b3ee200b5218c8457.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-HjFhYBTp7t/q2paaheSR&#43;A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hough（ハフ）変換で直線を見つけよう</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_f81af94d10c05c80d40815ba50507f7d.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-K5ji6WHWp&#43;r0NHD8WZYmww==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Canny法でエッジ検出</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_954dbf2dd6d1f69a11e82fb97b1fd0fb.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">動画データから前景と背景を分離する</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">抽出した輪郭の描画</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">findContoursで輪郭の検出</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.0.1">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

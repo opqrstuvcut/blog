@@ -6,7 +6,34 @@
     <description>Recent content in 自然言語処理 on MatLoverによるMatlab以外のブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 07 Nov 2019 11:42:23 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CANINEの論文を読んだメモ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
+      <description>BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？
+論文はこちら：https://arxiv.org/pdf/2103.06874.pdf
+エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。  CANINEのアーキテクチャ（論文より引用） 
+以下では各々の詳細について述べます。
+入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。
+各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。
+unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。
+文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。
+これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。
+$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \ B, d&#39;)$$
+ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&#39;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&#39;=768/K(=96)$となっています。
+unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。
+ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。
+ダウンサンプリングは以下のようにおこなわれます。
+ 文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。  これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。   strideのサイズが4のConvolutionを実行する。  1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。
+論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。
+ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。
+アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。
+ Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。  出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。   1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。  つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。   結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。  学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。</description>
+    </item>
+    
     <item>
       <title>BERTでおこなうポケモンの説明文生成</title>
       <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>

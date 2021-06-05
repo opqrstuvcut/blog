@@ -6,7 +6,50 @@
         <description>Recent content on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
+        <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
+        <description>&lt;p&gt;AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。
+調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。&lt;/p&gt;
+&lt;p&gt;理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。
+それが&lt;a class=&#34;link&#34; href=&#34;https://github.com/mercury2269/sqsmover&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SQS Message Mover&lt;/a&gt;です。&lt;/p&gt;
+&lt;p&gt;使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;インストール&lt;/p&gt;
+&lt;p&gt;macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;credentialsへのキーの指定&lt;/p&gt;
+&lt;p&gt;これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[default]
+aws_access_key_id = &amp;lt;YOUR_ACCESS_KEY_ID&amp;gt;
+aws_secret_access_key = &amp;lt;YOUR_SECRET_ACCESS_KEY&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;コマンドを実行&lt;/p&gt;
+&lt;p&gt;次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sqsmover --source=&amp;lt;送り元のQueue名&amp;gt; --destination=&amp;lt;送り先のQueue名&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;次のような標準出力が確認できるかと思います。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from
+• Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to
+• Approximate number of messages in the source queue: x
+• Starting to move messages...
+
+             |████████████████████████████████████████| 100%
+
+• Done. Moved x messages
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;とてもお手軽なので同じ状況の人にはおすすめです。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>CANINEの論文を読んだメモ</title>
         <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
         <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>

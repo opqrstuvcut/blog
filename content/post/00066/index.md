@@ -39,11 +39,11 @@ $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_
 ## 実装
 実装は次のとおりです。
 ```python
-import numpy as np
+import pandas as pd
 from typing import List
 
 def get_partial_dependence_func_val(model, 
-                                    x:np.ndarray,
+                                    x:pd.DataFrame,
                                     target:str,
                                     candidates:List) -> List[float]:
     

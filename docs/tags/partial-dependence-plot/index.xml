@@ -26,7 +26,7 @@ Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence 
 年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。
 性別に対するPartial Dependence Plot 性別についても結果を示します。  性別に対するPPD  女性のほうが生存しやすかったという傾向が見て取れます。
 実装 実装は次のとおりです。
-import numpy as np from typing import List def get_partial_dependence_func_val(model, x:np.</description>
+import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.</description>
     </item>
     
   </channel>

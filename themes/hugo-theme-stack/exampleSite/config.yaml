@@ -11,8 +11,12 @@ disqusShortname: hugo-theme-stack
 googleAnalytics:
 
 # Theme i18n support
-# Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl
+# Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl, it
 DefaultContentLanguage: en
+
+# Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]
+# This will make .Summary and .WordCount behave correctly for CJK languages.
+hasCJKLanguage: false
 
 permalinks:
     post: /p/:slug/
@@ -37,12 +41,14 @@ params:
         emoji: 🍥
         subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         avatar:
+            enabled: true
             local: true
             src: img/avatar.png
 
     article:
         math: false
         toc: true
+        readingTime: true
         license:
             enabled: true
             default: Licensed under CC BY-NC-SA 4.0
@@ -50,6 +56,13 @@ params:
     comments:
         enabled: true
         provider: disqus
+
+        disqusjs:
+            shortname:
+            apiUrl:
+            apiKey:
+            admin:
+            adminLabel:
 
         utterances:
             repo:
@@ -84,6 +97,34 @@ params:
             placeholder:
             locale:
                 admin: Admin
+
+        twikoo:
+            envId:
+            region:
+            path:
+            lang:
+
+        giscus:
+            repo:
+            repoID:
+            category:
+            categoryID:
+            mapping:
+            lightTheme:
+            darkTheme:
+            reactionsEnabled: 1
+            emitMetadata: 0
+
+        gitalk:
+            owner: 
+            admin:  
+            repo: 
+            clientID: 
+            clientSecret: 
+        
+        cusdis:
+            host: 
+            id: 
 
     widgets:
         enabled:
@@ -125,7 +166,7 @@ params:
             enabled: true
 
 ### Custom menu
-### See https://docs.stack.jimmycai.com/configuration/custom-menu
+### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
 ### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
     main:
@@ -134,6 +175,9 @@ menu:
           url: /
           weight: -100
           pre: home
+          params:
+              ### For demonstration purpose, the home link will be open in a new tab
+              newTab: true
 
 related:
     includeNewer: true
@@ -147,6 +191,10 @@ related:
           weight: 200
 
 markup:
+    goldmark:
+        renderer:
+            ## Set to true if you have HTML content inside Markdown
+            unsafe: false
     tableOfContents:
         endLevel: 4
         ordered: true

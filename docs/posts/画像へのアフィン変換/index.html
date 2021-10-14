@@ -87,6 +87,7 @@ if (!doNotTrack) {
 
     <header class="site-info">
         
+            
             <figure class="site-avatar">
                 
                     
@@ -102,6 +103,7 @@ if (!doNotTrack) {
                     <span class="emoji">🐾</span>
                 
             </figure>
+            
         
         <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
         <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
@@ -113,7 +115,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href=''>
+            <a href='' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -132,7 +134,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives'>
+            <a href='archives' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -151,7 +153,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search'>
+            <a href='search' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -227,17 +229,29 @@ if (!doNotTrack) {
         <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">画像へのアフィン変換</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
 </svg>
+                <time class="article-time--published">Jul 29, 2020</time>
+            </div>
+        
 
-
-
-        <time class="article-time--published">Jul 29, 2020</time>
-    </footer></div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -254,16 +268,23 @@ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにでき�
 </code></pre></div><p>affine_matとしているのが、アフィン変換で用いる行列です。
 widthとheightは変換後の画像のサイズになります。</p>
 <p>以下では次の画像に対するアフィン変換の例を示します。
-<figure style="flex-grow: 87; flex-basis: 209px">
-		<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png" data-size="220x252"><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png"
-				srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_1024x0_resize_box_2.png 1024w"
-				width="220"
-				height="252"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 87; 
+			flex-basis: 209px"
+	>
+	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png" data-size="220x252">
+		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png"
+			width="220"
+			height="252"
+			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <h1 id="平行移動">平行移動</h1>
 <p>平行移動をするときは次のようなアフィン変換になります。
 $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp; 0 &amp; c\\ 0 &amp; 1 &amp; g \\ 0 &amp; 0 &amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
@@ -273,16 +294,23 @@ $$\begin{eqnarray}x' &amp;=&amp; x + c, \\y'&amp;=&amp;y+g\end{eqnarray}$$
 <p>$x$と$y$を1000ずつ動かすとすると、コードでは次のようになります。</p>
 <div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">affine_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 <span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</code></pre></div><p><figure style="flex-grow: 87; flex-basis: 209px">
-		<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png" data-size="220x252"><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png"
-				srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_1024x0_resize_box_2.png 1024w"
-				width="220"
-				height="252"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+</code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 87; 
+			flex-basis: 209px"
+	>
+	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png" data-size="220x252">
+		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png"
+			width="220"
+			height="252"
+			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <h1 id="拡大縮小">拡大・縮小</h1>
 <p>拡大・縮小をするときは次のようなアフィン変換になります。
 $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp; 0 &amp; 0\\ 0 &amp; e &amp; 0 \\ 0 &amp; 0 &amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
@@ -292,16 +320,23 @@ $$\begin{eqnarray}x' &amp;=&amp; ax \\y'&amp;=&amp;ey\end{eqnarray}$$
 <p>大きさを半分にする場合は次のようなコードになります。</p>
 <div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">affine_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 <span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</code></pre></div><p><figure style="flex-grow: 87; flex-basis: 209px">
-		<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png" data-size="220x252"><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png"
-				srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_1024x0_resize_box_2.png 1024w"
-				width="220"
-				height="252"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+</code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 87; 
+			flex-basis: 209px"
+	>
+	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png" data-size="220x252">
+		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png"
+			width="220"
+			height="252"
+			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <h1 id="回転">回転</h1>
 <p>$\theta$だけ回転をするときは次のようなアフィン変換になります。
 $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp; -\sin \theta &amp; 0\\ \sin \theta &amp; \cos \theta &amp; 0 \\ 0 &amp; 0 &amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
@@ -311,16 +346,23 @@ $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp; -
                        <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">1.4142</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">1.4142</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> 
                        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 <span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</code></pre></div><p><figure style="flex-grow: 87; flex-basis: 209px">
-		<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png" data-size="220x252"><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png"
-				srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_1024x0_resize_box_2.png 1024w"
-				width="220"
-				height="252"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+</code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 87; 
+			flex-basis: 209px"
+	>
+	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png" data-size="220x252">
+		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png"
+			width="220"
+			height="252"
+			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_480x0_resize_box_2.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 
 </section>
 
@@ -352,16 +394,17 @@ $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp; -
     </section>
     </footer>
 
+
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
                 defer="true"
                 >
             </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
                 defer="true"
                 >
             </script><script>
@@ -491,7 +534,7 @@ $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp; -
 </aside>
 
      
-     
+    
         
     
 
@@ -506,9 +549,10 @@ $$\begin{pmatrix}x' \\ y'  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp; -
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

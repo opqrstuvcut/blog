@@ -123,6 +123,7 @@ if (!doNotTrack) {
 
     <header class="site-info">
         
+            
             <figure class="site-avatar">
                 
                     
@@ -138,6 +139,7 @@ if (!doNotTrack) {
                     <span class="emoji">🐾</span>
                 
             </figure>
+            
         
         <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
         <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
@@ -149,7 +151,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href=''>
+            <a href='' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -168,7 +170,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives'>
+            <a href='archives' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -187,7 +189,7 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search'>
+            <a href='search' >
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -263,17 +265,29 @@ if (!doNotTrack) {
         <a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/">貧乏人なのでPoor Man’s BERTを読んで解説</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
 </svg>
+                <time class="article-time--published">Jun 21, 2020</time>
+            </div>
+        
 
-
-
-        <time class="article-time--published">Jun 21, 2020</time>
-    </footer></div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -288,16 +302,23 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 <h1 id="比較実験">比較実験</h1>
 <p>論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。</p>
 <p>次の図がTransformer層の減らし方の一覧です。
-<figure style="flex-grow: 321; flex-basis: 771px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png" data-size="2482x772"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_1024x0_resize_box_2.png 1024w"
-				width="2482"
-				height="772"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 321; 
+			flex-basis: 771px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png" data-size="2482x772">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png"
+			width="2482"
+			height="772"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <p>各方法の詳細は以下のとおりです。</p>
 <h2 id="top-layer-dropping">Top-Layer Dropping</h2>
 <p>先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。
@@ -316,16 +337,23 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 <h1 id="実験">実験</h1>
 <h2 id="手法間の性能比較">手法間の性能比較</h2>
 <p>先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
-<figure style="flex-grow: 274; flex-basis: 657px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png" data-size="2280x832"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_1024x0_resize_box_2.png 1024w"
-				width="2280"
-				height="832"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 274; 
+			flex-basis: 657px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png" data-size="2280x832">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png"
+			width="2280"
+			height="832"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <p>これから以下のことが分かります。</p>
 <ul>
 <li>各方法のスコアは12層あるBertには劣る。</li>
@@ -335,68 +363,103 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 </ul>
 <h2 id="タスクごとの性能変化の検証">タスクごとの性能変化の検証</h2>
 <p>次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
-<figure style="flex-grow: 216; flex-basis: 520px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png" data-size="1700x784"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_1024x0_resize_box_2.png 1024w"
-				width="1700"
-				height="784"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure></p>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 216; 
+			flex-basis: 520px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png" data-size="1700x784">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png"
+			width="1700"
+			height="784"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure></p>
 <p>問題によっては6層消してもほとんど変化がなかったりします。</p>
 <p>余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。</p>
 <h2 id="タスクごとの性能劣化がおこる層数の検証">タスクごとの性能劣化がおこる層数の検証</h2>
 <p>タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
-<figure style="flex-grow: 105; flex-basis: 253px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png" data-size="830x786"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_1024x0_resize_box_2.png 1024w"
-				width="830"
-				height="786"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 105; 
+			flex-basis: 253px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png" data-size="830x786">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png"
+			width="830"
+			height="786"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
 ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。</p>
 <h2 id="パラメータ数や計算時間比較">パラメータ数や計算時間比較</h2>
 <p>学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
-<figure style="flex-grow: 78; flex-basis: 188px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png" data-size="1066x1360"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_1024x0_resize_box_2.png 1024w"
-				width="1066"
-				height="1360"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 78; 
+			flex-basis: 188px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png" data-size="1066x1360">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png"
+			width="1066"
+			height="1360"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
 6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。</p>
 <h2 id="bertとxlnetの層数での比較">BERTとXLNetの層数での比較</h2>
 <p>BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
-<figure style="flex-grow: 144; flex-basis: 346px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png" data-size="1260x872"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_1024x0_resize_box_2.png 1024w"
-				width="1260"
-				height="872"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 144; 
+			flex-basis: 346px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png" data-size="1260x872">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png"
+			width="1260"
+			height="872"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
 なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。</p>
 <p>上記の話には実験的な根拠があり、それを示したのが以下の図です。
-<figure style="flex-grow: 120; flex-basis: 290px">
-		<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png" data-size="938x776"><img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png"
-				srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_1024x0_resize_box_2.png 1024w"
-				width="938"
-				height="776"
-				loading="lazy"
-				>
-		</a>
-		
-	</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 120; 
+			flex-basis: 290px"
+	>
+	<a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png" data-size="938x776">
+		<img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png"
+			width="938"
+			height="776"
+			srcset="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_480x0_resize_box_2.png 480w, /blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_1024x0_resize_box_2.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
 これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。
 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。</p>
@@ -442,16 +505,17 @@ BERTの場合には後ろの層ほど大きな変化があることがわかり�
     </section>
     </footer>
 
+
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
                 defer="true"
                 >
             </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
                 defer="true"
                 >
             </script><script>
@@ -554,23 +618,13 @@ BERTの場合には後ろの層ほど大きな変化があることがわかり�
 </article>
                 
                     
-<article class="has-image">
-    <a href="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/">
+<article class="">
+    <a href="/blog/posts/partial-dependence-plot/">
         
-        
-            <div class="article-image">
-                <img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/_hucd343461d408ae8b77fea0b56735bfcd_50111_589b92d21c6a72e46a356fdf4ac4f71a.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy" 
-                        data-key="" 
-                        data-hash="md5-X9aJKMBZ83KaIeKgGWr4Uw==">
-                
-            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</h2>
+            <h2 class="article-title">Partial Dependence Plot</h2>
         </div>
     </a>
 </article>
@@ -581,7 +635,7 @@ BERTの場合には後ろの層ほど大きな変化があることがわかり�
 </aside>
 
      
-     
+    
         
     
 
@@ -596,9 +650,10 @@ BERTの場合には後ろの層ほど大きな変化があることがわかり�
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

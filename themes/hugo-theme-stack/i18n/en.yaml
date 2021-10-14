@@ -29,11 +29,16 @@ article:
     lastUpdatedOn:
         other: Last updated on
 
+    readingTime:
+        one: "{{ .Count }} minute read"
+        other: "{{ .Count }} minute read"
+
 notFound:
     title:
         other: Not Found
+
     subtitle:
-        other: This page does not exist.
+        other: This page does not exist
 
 widget:
     archives:

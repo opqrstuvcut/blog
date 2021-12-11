@@ -39,7 +39,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -239,10 +238,10 @@ tsファイルは細切れになった小さい動画になっており、m3u8�
     ><strong>m3u8</strong></a>を使えば簡単にtsファイルをdownloadできます。</p>
 <h2 id="m3u8のinstall">m3u8のInstall</h2>
 <p>インストールは簡単で、pipを使うだけです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">pip install m3u8
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install m3u8
 </code></pre></div><h2 id="tsファイルのdownload">tsファイルのdownload</h2>
 <p>tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">urllib.request</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">import</span> <span class="nn">m3u8</span>
 
 <span class="n">playlist</span> <span class="o">=</span> <span class="n">m3u8</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">m3u8のパス</span><span class="p">)</span>
@@ -250,7 +249,7 @@ tsファイルは細切れになった小さい動画になっており、m3u8�
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">segment</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">playlist</span><span class="o">.</span><span class="n">segments</span><span class="p">):</span>
     <span class="c1"># tsファイルのパス</span>
     <span class="n">uri</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">absolute_uri</span>
-    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">f</span><span class="s2">&#34;{i}.ts&#34;</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.ts&#34;</span><span class="p">)</span>
 </code></pre></div>
 </section>
 
@@ -320,7 +319,7 @@ tsファイルは細切れになった小さい動画になっており、m3u8�
         
         
             <div class="article-image">
-                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_2.png" 
+                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_3.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -342,7 +341,7 @@ tsファイルは細切れになった小さい動画になっており、m3u8�
         
         
             <div class="article-image">
-                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_83bb672092cdba198e9a89c224fd9a73.png" 
+                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_2a73904653e7f460a445ef0da209643c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

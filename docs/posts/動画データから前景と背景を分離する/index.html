@@ -57,7 +57,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -211,8 +210,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_800x0_resize_box_2.png"
-                        srcset="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_800x0_resize_box_2.png 800w, /blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_800x0_resize_box_3.png"
+                        srcset="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_800x0_resize_box_3.png 800w, /blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="476" 
                         loading="lazy"
@@ -283,16 +282,16 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
     >こちら</a>を利用させていただきました。
 道路を車がビュンビュン走っています。</p>
 <p>次のようにしてBackgroundSubtractorMOG2を利用できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s2">&#34;ex.mp4&#34;</span><span class="p">)</span>
 <span class="n">fgbg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createBackgroundSubtractorMOG2</span><span class="p">(</span><span class="n">history</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> 
-                                          <span class="n">detectShadows</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                                          <span class="n">detectShadows</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">masks</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
         <span class="k">break</span>
@@ -317,7 +316,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
 		<img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.png"
 			width="375"
 			height="223"
-			srcset="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_480x0_resize_box_2.png 480w, /blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_480x0_resize_box_3.png 480w, /blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -342,16 +341,16 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
 	
 </figure></p>
 <h1 id="コード全体">コード全体</h1>
-<div class="highlight"><pre class="chroma"><code class="language-PYthon" data-lang="PYthon"><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-PYthon" data-lang="PYthon"><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s2">&#34;ex.mp4&#34;</span><span class="p">)</span>
 <span class="n">fgbg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createBackgroundSubtractorMOG2</span><span class="p">(</span><span class="n">history</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                                          <span class="n">detectShadows</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                                          <span class="n">detectShadows</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">masks</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
         <span class="k">break</span>
@@ -448,7 +447,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -470,7 +469,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -492,7 +491,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_a46fe579452bed1e0468ea8d0f202764.png" 
+                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -526,7 +525,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
         
         
             <div class="article-image">
-                <img src="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/_hu9104ce78f1f2bfac9f75d762ca1268ff_5783_2112504f8139b9f2e5652b9eae2a8ea9.png" 
+                <img src="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/_hu9104ce78f1f2bfac9f75d762ca1268ff_5783_832167a0e709840053de19c0363749c8.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

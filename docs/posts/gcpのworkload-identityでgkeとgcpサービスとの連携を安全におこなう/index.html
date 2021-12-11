@@ -57,7 +57,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -269,34 +268,34 @@ if (!doNotTrack) {
 <li>
 <p>GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。
 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud container clusters update &lt;クラスタ名&gt; <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ gcloud container clusters update &lt;クラスタ名&gt; <span class="se">\
 </span><span class="se"></span>  --workload-pool<span class="o">=</span>&lt;プロジェクトID&gt;.svc.id.goog
 </code></pre></div></li>
 <li>
 <p>terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; <span class="se">\
 </span><span class="se"></span>  --zone &lt;asia-northeast1-aなどのzoneの指定&gt;
 </code></pre></div></li>
 <li>
 <p>Kubernetes Service Account（KSA）を作成します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl create serviceaccount --namespace default <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl create serviceaccount --namespace default <span class="se">\
 </span><span class="se"></span>  &lt;KSAの名称（適当につける）&gt;
 </code></pre></div><p>次のようなmanifestを作成し、podを作成しておくでもOKなはずです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;KSAの名称&gt;</span><span class="w">
 </span></code></pre></div></li>
 <li>
 <p>GSAがSAと紐付けできるように権限を付与します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud iam service-accounts add-iam-policy-binding <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ gcloud iam service-accounts add-iam-policy-binding <span class="se">\
 </span><span class="se"></span>  --role roles/iam.workloadIdentityUser <span class="se">\
 </span><span class="se"></span>  --member <span class="s2">&#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34;</span> <span class="se">\
 </span><span class="se"></span>  &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com
 </code></pre></div></li>
 <li>
 <p>最後に次を実行。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl annotate serviceaccount <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl annotate serviceaccount <span class="se">\
 </span><span class="se"></span>  --namespace default <span class="se">\
 </span><span class="se"></span>  &lt;KSAの名称&gt; <span class="se">\
 </span><span class="se"></span>  iam.gke.io/gcp-service-account<span class="o">=</span>&lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com

@@ -57,7 +57,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -211,8 +210,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/">
-                <img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_800x0_resize_box_2.png"
-                        srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_800x0_resize_box_2.png 800w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_800x0_resize_box_3.png"
+                        srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_800x0_resize_box_3.png 800w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="531" 
                         loading="lazy"
@@ -279,7 +278,7 @@ Dockerを入れていない人はこの機会にぜひ入れましょう！今�
     >http://docs.docker.jp/engine/installation/docker-ce.html#</a></li>
 <li>ターミナル等で次を実行して、MinIOのサーバを立ち上げる。</li>
 </ol>
-<pre><code>docker run -p 9000:9000 \
+<pre tabindex="0"><code>docker run -p 9000:9000 \
 --name minio_test \
 -e &quot;MINIO_ACCESS_KEY=access_key_dayo&quot; \
 -e &quot;MINIO_SECRET_KEY=secret_key_dayo&quot; \
@@ -289,7 +288,7 @@ minio/minio server /data
 （Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。</p>
 <p>実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単<br>
 http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。</p>
-<pre><code>Endpoint:  http://172.17.0.2:9000  http://127.0.0.1:9000
+<pre tabindex="0"><code>Endpoint:  http://172.17.0.2:9000  http://127.0.0.1:9000
 
 Browser Access:
    http://172.17.0.2:9000  http://127.0.0.1:9000
@@ -316,7 +315,7 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>
 		<img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png"
 			width="717"
 			height="476"
-			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_480x0_resize_box_2.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_480x0_resize_box_3.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -334,7 +333,7 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>
 		<img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3.png"
 			width="1917"
 			height="939"
-			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_480x0_resize_box_2.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_480x0_resize_box_3.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -354,7 +353,7 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>
 		<img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815.png"
 			width="1917"
 			height="939"
-			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_480x0_resize_box_2.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_480x0_resize_box_3.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -374,7 +373,7 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>
 		<img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf.png"
 			width="1917"
 			height="939"
-			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_480x0_resize_box_2.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_480x0_resize_box_3.png 480w, /blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -384,24 +383,24 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>
 <p>boto3を使ってS3の操作をおこないます。Python3を例にあげます。</p>
 <h3 id="s3と接続するためのオブジェクト生成">S3と接続するためのオブジェクト生成</h3>
 <p>以下のclientの引数のaws_access_key_idとaws_secret_access_keyには、docker runしたときに設定した<strong>MINIO_ACCESS_KEY</strong>と<strong>MINIO_SECRET_KEY</strong>をそれぞれ指定しましょう。</p>
-<pre><code>import boto3
+<pre tabindex="0"><code>import boto3
 s3_client = boto3.client(&quot;s3&quot;, endpoint_url=&quot;http://127.0.0.1:9000&quot;,
                          aws_access_key_id=&quot;access_key_dayo&quot;,
                          aws_secret_access_key=&quot;secret_key_dayo&quot;)
 </code></pre><h3 id="ファイル検索">ファイル検索</h3>
 <p>ファイルの検索を試します。以下のように、作ったBucketを指定してやります。</p>
-<pre><code>contents = s3_client.list_objects(Bucket=&quot;test&quot;,
+<pre tabindex="0"><code>contents = s3_client.list_objects(Bucket=&quot;test&quot;,
                                   Prefix=&quot;&quot;).get(&quot;Contents&quot;)
 print(contents)
 </code></pre><p>上記を実行すると、次のように表示されました。配置したファイルがちゃんと見つけられますね！</p>
-<pre><code>[{'Key': 'テキストたよ.txt', 'LastModified': datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), 'ETag': '&quot;59681d790d132065f97faf0f52e9aa41-1&quot;', 'Size': 27, 'StorageClass': 'STANDARD', 'Owner': {'DisplayName': '', 'ID': '02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4'}}]
+<pre tabindex="0"><code>[{'Key': 'テキストたよ.txt', 'LastModified': datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), 'ETag': '&quot;59681d790d132065f97faf0f52e9aa41-1&quot;', 'Size': 27, 'StorageClass': 'STANDARD', 'Owner': {'DisplayName': '', 'ID': '02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4'}}]
 </code></pre><h3 id="ファイル取得">ファイル取得</h3>
 <p>ファイルの取得も試しましょう。以下を実行します。</p>
-<pre><code>text = s3_client.get_object(Bucket=&quot;test&quot;,
+<pre tabindex="0"><code>text = s3_client.get_object(Bucket=&quot;test&quot;,
                             Key=&quot;テキストたよ.txt&quot;)[&quot;Body&quot;].read().decode('utf-8')
 print(text)
 </code></pre><p>結果：</p>
-<pre><code>テキストの中身だよ
+<pre tabindex="0"><code>テキストの中身だよ
 </code></pre><p>正しくテキストを取得できています！</p>
 <h1 id="まとめ">まとめ</h1>
 <p>MinIOはとても簡単に使えて、便利だと思いました。よくできていて感動しますね。
@@ -495,7 +494,7 @@ print(text)
         
         
             <div class="article-image">
-                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_875091142ae609ddc4e5cdfe32009ea4.png" 
+                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_829ab3e7bac268aa85e0e362e4d7b1e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

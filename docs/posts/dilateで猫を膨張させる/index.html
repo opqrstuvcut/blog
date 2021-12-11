@@ -48,7 +48,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -202,8 +201,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/">
-                <img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_800x0_resize_box_2.png"
-                        srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_800x0_resize_box_2.png 800w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_800x0_resize_box_3.png"
+                        srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_800x0_resize_box_3.png 800w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="816" 
                         loading="lazy"
@@ -266,7 +265,7 @@ if (!doNotTrack) {
 <p>dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。
 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。</p>
 <p>dilateは次のようにして利用します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="n">dilation</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div><p>ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。
 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。</p>
@@ -283,7 +282,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png"
 			width="247"
 			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_2.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -299,7 +298,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png"
 			width="247"
 			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_2.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -315,7 +314,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png"
 			width="247"
 			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_2.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -392,7 +391,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_954dbf2dd6d1f69a11e82fb97b1fd0fb.png" 
+                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -414,7 +413,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
         
             <div class="article-image">
-                <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/_huc336200167bfc01149489055c5443329_25774_9aff8e75d14823a7d4e0807e5dc33bc0.png" 
+                <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/_huc336200167bfc01149489055c5443329_25774_e9ccd054e805a3d2c51eea05ad5b2425.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -436,7 +435,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -458,7 +457,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -480,7 +479,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_a46fe579452bed1e0468ea8d0f202764.png" 
+                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

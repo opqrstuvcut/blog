@@ -39,7 +39,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -235,12 +234,12 @@ if (!doNotTrack) {
     <section class="article-content">
     <p>Google Chromeのバージョンをあげたあと、<a class="link" href="https://github.com/sczhengyabin/Image-Downloader"  target="_blank" rel="noopener"
     >ImageDownloader</a>などを使っているときに次のようなエラーメッセージがでることがあります。</p>
-<pre><code>Message: session not created: This version of ChromeDriver only supports Chrome version 86
+<pre tabindex="0"><code>Message: session not created: This version of ChromeDriver only supports Chrome version 86
 </code></pre><p>最後の86のところはChromeのバージョンによって変わります。</p>
 <p>これはChromeDriverのバージョンとGoogle Chromeのバージョンが異なっていることによって起きるエラーです。
 そのため、ChromeDriverのバージョンをあげればよいです。</p>
 <p>例えば、Homebrewを使ってChromeDriverを入れている場合には次を実行します。</p>
-<pre><code>$ brew upgrade chromedriver
+<pre tabindex="0"><code>$ brew upgrade chromedriver
 </code></pre>
 </section>
 

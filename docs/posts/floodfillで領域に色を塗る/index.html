@@ -42,7 +42,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -196,8 +195,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/">
-                <img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_800x0_resize_box_2.png"
-                        srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_800x0_resize_box_2.png 800w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_800x0_resize_box_3.png"
+                        srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_800x0_resize_box_3.png 800w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="816" 
                         loading="lazy"
@@ -257,7 +256,7 @@ if (!doNotTrack) {
 <p>OpenCVのfloodFillを使うことで、選んだ点の周辺の似たような色のピクセルを塗りつぶすことができます。</p>
 <h1 id="使い方">使い方</h1>
 <p>次のようにしてfloodFillを利用できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span>
                 <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">floodFill</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> 
                     <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
@@ -282,7 +281,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		<img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a.png"
 			width="247"
 			height="252"
-			srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_480x0_resize_box_2.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_480x0_resize_box_3.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -298,7 +297,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		<img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png"
 			width="247"
 			height="252"
-			srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_480x0_resize_box_2.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_480x0_resize_box_3.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -373,7 +372,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_954dbf2dd6d1f69a11e82fb97b1fd0fb.png" 
+                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -395,7 +394,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -417,7 +416,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -439,7 +438,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_a46fe579452bed1e0468ea8d0f202764.png" 
+                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

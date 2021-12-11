@@ -60,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -214,8 +213,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/">
-                <img src="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_800x0_resize_box_2.png"
-                        srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_800x0_resize_box_2.png 800w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_800x0_resize_box_3.png"
+                        srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_800x0_resize_box_3.png 800w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="1422" 
                         loading="lazy"
@@ -288,14 +287,14 @@ if (!doNotTrack) {
 		<img src="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76.png"
 			width="720"
 			height="1280"
-			srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_480x0_resize_box_2.png 480w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_480x0_resize_box_3.png 480w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
 	
 </figure></p>
 <p>最もシンプルな吹き出しの作り方は以下のようになります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Dart" data-lang="Dart"><span class="n">Bubble</span><span class="p">(</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dart" data-lang="Dart"><span class="n">Bubble</span><span class="p">(</span>
   <span class="nl">nip:</span> <span class="n">BubbleNip</span><span class="p">.</span><span class="n">leftTop</span><span class="p">,</span>
   <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Hi, developer!&#39;</span><span class="p">),</span>
 <span class="p">)</span>
@@ -314,7 +313,8 @@ if (!doNotTrack) {
 <p>素晴らしいライブラリなのですが、ちょっとだけ不満があります。
 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。</p>
 <p>なので、forkして左中央に位置を指定できるようにしてみました。
-<a href="https://github.com/opqrstuvcut/bubble">https://github.com/opqrstuvcut/bubble</a></p>
+<a class="link" href="https://github.com/opqrstuvcut/bubble"  target="_blank" rel="noopener"
+    >https://github.com/opqrstuvcut/bubble</a></p>
 <p>こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。
 <figure 
 	
@@ -327,14 +327,14 @@ if (!doNotTrack) {
 		<img src="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc.png"
 			width="1080"
 			height="2160"
-			srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_480x0_resize_box_2.png 480w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_480x0_resize_box_3.png 480w, /blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
 	
 </figure></p>
 <p>コードは以下の通り。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Dart" data-lang="Dart"><span class="n">Bubble</span><span class="p">(</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dart" data-lang="Dart"><span class="n">Bubble</span><span class="p">(</span>
   <span class="nl">nip:</span> <span class="n">BubbleNip</span><span class="p">.</span><span class="n">leftCenter</span><span class="p">,</span>
   <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;ちょこんとでるのが左中央だよ&#39;</span><span class="p">),</span>
 <span class="p">)</span>
@@ -411,7 +411,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_875091142ae609ddc4e5cdfe32009ea4.png" 
+                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_829ab3e7bac268aa85e0e362e4d7b1e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

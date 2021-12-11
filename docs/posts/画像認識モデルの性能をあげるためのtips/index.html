@@ -75,7 +75,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -287,7 +286,7 @@ if (!doNotTrack) {
 <h1 id="label-smoothingを使う">Label Smoothingを使う</h1>
 <p>1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。
 TensorFlowだと、簡単に使えます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">categorical_crossentropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">categorical_crossentropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> 
                                          <span class="n">label_smoothing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </code></pre></div><h1 id="learning-rate-schedulerを使う">Learning Rate Schedulerを使う</h1>
 <p>学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。<br>
@@ -298,7 +297,7 @@ TensorFlowだと、簡単に使えます。</p>
 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。<br>
 &ldquo;パラメーターがたったの2つでいいの！？&ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。</p>
 <p>使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">imgaug.augmenters</span> <span class="kn">as</span> <span class="nn">iaa</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">imgaug.augmenters</span> <span class="k">as</span> <span class="nn">iaa</span>
 <span class="n">images</span> <span class="o">=</span> <span class="n">iaa</span><span class="o">.</span><span class="n">RandAugment</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">30</span><span class="p">)(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">)</span>
 </code></pre></div><p><a class="link" href="https://arxiv.org/abs/1909.13719"  target="_blank" rel="noopener"
     >論文</a>によると、AutoAugmentよりも性能が良いという結果が出ています。</p>
@@ -397,7 +396,7 @@ Cutoutと違い、Grid状のMaskをかける方法になります。<br>
         
         
             <div class="article-image">
-                <img src="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/_huad0610d545df126cbc0dbaec61a8f428_203414_6eb01697125abf68edb0ccca4f68fc07.png" 
+                <img src="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/_huad0610d545df126cbc0dbaec61a8f428_203414_cb5a4562feb955c5ebbb315038692722.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -419,7 +418,7 @@ Cutoutと違い、Grid状のMaskをかける方法になります。<br>
         
         
             <div class="article-image">
-                <img src="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/_hua413e8993b42675a600325789a072244_97816_cc565c7fb5e1f5fdf9ed67d2b5975c96.png" 
+                <img src="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/_hua413e8993b42675a600325789a072244_97816_6aec3c6f47d825c0e29c8ab807f43950.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

@@ -78,7 +78,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -357,20 +356,20 @@ LU分解の計算量との合計は乗除算が$n^3 + n- 1$回、加減算が$n(
 <h1 id="numpyで実験">NumPyで実験</h1>
 <p>実際にNumPyで計算時間を比較してみましょう。
 以下のようにして行列とベクトルを作ります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 </code></pre></div><p>次に、計算にかかった時間をそれぞれ測ります。</p>
 <ul>
 <li>逆行列を求める+ベクトルとの積を計算</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">%%</span><span class="n">timeit</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">%%</span><span class="n">timeit</span>
 <span class="n">inv_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="n">b</span><span class="p">)</span> 
 </code></pre></div><p>結果：<strong>80.8 ms ± 4.29 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</strong></p>
 <ul>
 <li>連立一次方程式を解く</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">%%</span><span class="n">timeit</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">%%</span><span class="n">timeit</span>
 <span class="n">solve_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> 
 </code></pre></div><p>結果：<strong>27.7 ms ± 1.21 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</strong></p>
 <p>おおよそ3倍くらいの差がつきましたね！</p>

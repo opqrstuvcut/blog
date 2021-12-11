@@ -66,7 +66,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -267,7 +266,7 @@ if (!doNotTrack) {
 <h1 id="namedtupleとは">namedtupleとは？</h1>
 <p>通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を<strong>名前</strong>によって参照できます。<br>
 例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。</p>
-<pre><code>name = p.name
+<pre tabindex="0"><code>name = p.name
 </code></pre><p>他の部分はほとんど通常のタプルと同じと思って問題ありません。</p>
 <h1 id="namedtupleを使うメリット">namedtupleを使うメリット</h1>
 <p>要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。</p>
@@ -280,18 +279,18 @@ if (!doNotTrack) {
 <h1 id="namedtupleの使い方">namedtupleの使い方</h1>
 <h2 id="その1">その1</h2>
 <p>使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="n">Person</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&#34;Person&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="p">,</span> <span class="s2">&#34;sex&#34;</span><span class="p">])</span>
 </code></pre></div><p>上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">Person</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&#34;Person&#34;</span><span class="p">,</span> <span class="s2">&#34;name age sex&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">Person</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&#34;Person&#34;</span><span class="p">,</span> <span class="s2">&#34;name age sex&#34;</span><span class="p">)</span>
 </code></pre></div><p>宣言したPersonというタプルを生成するには以下のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&#34;太郎&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;男&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&#34;太郎&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;男&#34;</span><span class="p">)</span>
 </code></pre></div><p>このpの要素の参照は以下のようにしてできます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="c1"># output: 太郎 10 男</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="c1"># output: 太郎 10 男</span>
 </code></pre></div><p>簡単です！</p>
 <h2 id="その2">その2</h2>
 <p>（おそらく）Python3.6からは次のようにもnamedtupleが利用できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
 
 <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
@@ -299,7 +298,7 @@ if (!doNotTrack) {
     <span class="n">sex</span><span class="p">:</span> <span class="nb">str</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&#34;太郎&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;男&#34;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="c1"># output: 太郎 10 男</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="c1"># output: 太郎 10 男</span>
 </code></pre></div><p>個人的にはこの書き方のほうがぱっと見たときにわかりやすいような気がして好きです。
 あと多分補完もこちらのほうが効きやすいのではと思っています。</p>
 <h1 id="まとめ">まとめ</h1>
@@ -385,7 +384,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_2.png" 
+                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_3.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -407,7 +406,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_83bb672092cdba198e9a89c224fd9a73.png" 
+                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_2a73904653e7f460a445ef0da209643c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

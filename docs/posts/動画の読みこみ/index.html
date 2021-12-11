@@ -51,7 +51,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -255,27 +254,28 @@ if (!doNotTrack) {
 <h1 id="動画の読み込み">動画の読み込み</h1>
 <p>動画の読み込みは簡単です。</p>
 <p>最初に次のように保存されている動画を開きます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="kn">import</span> <span class="nn">cv2</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s2">&#34;./ex.mp4&#34;</span><span class="p">)</span>
 </code></pre></div><p>カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。
 普通は次のように0を指定すればよいかと思います。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">v</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">v</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div><p>フレームの読み込みは以下のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </code></pre></div><p>フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。
 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
         <span class="k">break</span>
 </code></pre></div><h1 id="プロパティの取得">プロパティの取得</h1>
 <p>動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">))</span> 
-<span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">))</span>  
-<span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_COUNT</span><span class="p">))</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">))</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_COUNT</span><span class="p">))</span>  
 </code></pre></div><p>取得できるプロパティは以下に一覧があります。
-<a href="http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html">http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html</a></p>
+<a class="link" href="http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html"  target="_blank" rel="noopener"
+    >http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html</a></p>
 
 </section>
 
@@ -359,7 +359,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_954dbf2dd6d1f69a11e82fb97b1fd0fb.png" 
+                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -381,7 +381,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_aea60529b7f4df0698dd8ce7326bf2dd.png" 
+                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -403,7 +403,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_6b5976cf2d429773e1afd263cb23a86f.png" 
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -425,7 +425,7 @@ if (!doNotTrack) {
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_a46fe579452bed1e0468ea8d0f202764.png" 
+                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

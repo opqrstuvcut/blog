@@ -42,7 +42,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -244,9 +243,9 @@ if (!doNotTrack) {
 <hr>
 <p>Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。</p>
 <p>以下では次のようなDataFrameを使用します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&#34;名字&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;田中&#34;</span><span class="p">,</span> <span class="s2">&#34;山田&#34;</span><span class="p">,</span> <span class="s2">&#34;上田&#34;</span><span class="p">,</span> <span class="s2">&#34;田中&#34;</span><span class="p">,</span> <span class="s2">&#34;田中&#34;</span><span class="p">],</span> 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&#34;名字&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;田中&#34;</span><span class="p">,</span> <span class="s2">&#34;山田&#34;</span><span class="p">,</span> <span class="s2">&#34;上田&#34;</span><span class="p">,</span> <span class="s2">&#34;田中&#34;</span><span class="p">,</span> <span class="s2">&#34;田中&#34;</span><span class="p">],</span> 
                             <span class="s2">&#34;年齢&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> 
-                            <span class="s2">&#34;出身&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;北海道&#34;</span><span class="p">,</span> <span class="s2">&#34;東京&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s2">&#34;沖縄&#34;</span><span class="p">,</span> <span class="s2">&#34;北海道&#34;</span><span class="p">]})</span>
+                            <span class="s2">&#34;出身&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;北海道&#34;</span><span class="p">,</span> <span class="s2">&#34;東京&#34;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&#34;沖縄&#34;</span><span class="p">,</span> <span class="s2">&#34;北海道&#34;</span><span class="p">]})</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -292,15 +291,15 @@ if (!doNotTrack) {
 <h1 id="pandasのgroupby">Pandasのgroupby</h1>
 <p>PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。</p>
 <p>例えば名字という列をキーとしてgroupbyするときには次のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span>
 </code></pre></div><p>ただしこれだけでは全く意味がありません。
 以下ではgroupbyをしたあとにどう利用することができるかを示します。</p>
 <h1 id="グループ毎にdataframeを取り出す">グループ毎にDataFrameを取り出す</h1>
 <h2 id="forを使う">forを使う</h2>
 <p>forを使ってグループ毎にDataFrameとしてデータを取り出せます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">grouped_df</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;名字：{name}&#34;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">grouped_df</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">grouped_df</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;名字：</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">grouped_df</span><span class="p">)</span>
 </code></pre></div><p>名字：上田</p>
 <table>
 <thead>
@@ -372,7 +371,7 @@ if (!doNotTrack) {
 </table>
 <h2 id="get_groupを使う">get_groupを使う</h2>
 <p>get_groupを使えば1つのグループを指定することもできます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&#34;田中&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&#34;田中&#34;</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -406,7 +405,7 @@ if (!doNotTrack) {
 <h1 id="groupbyを用いた集計">groupbyを用いた集計</h1>
 <h2 id="describe">describe</h2>
 <p>グループごとに統計量を色々計算できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -459,7 +458,7 @@ if (!doNotTrack) {
 </table>
 <h2 id="グループの個数のカウント">グループの個数のカウント</h2>
 <p>グループごとに行数が数えられます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -483,7 +482,7 @@ if (!doNotTrack) {
 </tbody>
 </table>
 <p>次のcountも似たような感じで行数を数えます。ただし、欠損値はカウントされませんので、次のcountの結果とsizeの結果は異なります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;出身&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;出身&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -509,7 +508,7 @@ if (!doNotTrack) {
 <h2 id="演算">演算</h2>
 <h3 id="和">和</h3>
 <p>グループごとに和を計算します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -534,7 +533,7 @@ if (!doNotTrack) {
 </table>
 <h3 id="平均">平均</h3>
 <p>グループごとに平均を計算します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -559,7 +558,7 @@ if (!doNotTrack) {
 </table>
 <h3 id="特定のデータ取得">特定のデータ取得</h3>
 <p>グループの先頭を取得します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -583,7 +582,7 @@ if (!doNotTrack) {
 </tbody>
 </table>
 <p>次のnthでもグループの先頭を取得できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -608,7 +607,7 @@ if (!doNotTrack) {
 </table>
 <p>nthの引数を1にするとグループの2番目のデータが取得できます。
 dfでは名字が&quot;田中&quot;のケースのみが複数行存在しますので、&ldquo;田中&quot;の2番目だけが取得されます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -625,7 +624,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="関数を渡して計算">関数を渡して計算</h2>
 <p>次のように任意の関数をaggregateに渡すことで、好きなように集計できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -649,7 +648,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </tbody>
 </table>
 <p>aggregateに渡す関数はもちろんlambda式でもOKです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -673,7 +672,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </tbody>
 </table>
 <p>ちなみにこんな感じで複数個の関数を渡すこともできます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">)])</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">)])</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -705,7 +704,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </tbody>
 </table>
 <p>集計結果に名前をつけることもできます。以下ではmax_ageという名前の集計結果が得られます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">max_age</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&#34;年齢&#34;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">max_age</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&#34;年齢&#34;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">))</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -732,7 +731,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 <p>transformを使えばグループの集計結果と行の値を組み合わせた値を計算できます。</p>
 <h2 id="例1">例1</h2>
 <p>以下のようにして、行の値とグループの平均との差を計算できます。lambda式のxがグループの各行であり、x.mean()でグループの平均を計算しています。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -765,7 +764,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="例2">例2</h2>
 <p>グループの平均よりも大きいかどうかをあらわすbooleanが得られます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -798,7 +797,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="ブロードキャストの例">ブロードキャストの例</h2>
 <p>transformに渡す関数がスカラ値を返せば、同じグループのなかで同じ値をもつことになります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -832,7 +831,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 <h1 id="前後の値を使う計算">前後の値を使う計算</h1>
 <h2 id="rolling">rolling</h2>
 <p>移動平均の計算などで使うrollingはグループ単位でおこなえます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -865,7 +864,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="cumsum">cumsum</h2>
 <p>累積和もグループ単位でおこなえます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -897,7 +896,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </tbody>
 </table>
 <p>累積和は以下のようにしても計算できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">expanding</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">expanding</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -931,7 +930,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 <h1 id="applyでグループ毎に好き勝手に処理する">applyでグループ毎に好き勝手に処理する</h1>
 <p>applyを使えば、グループ単位のDataFrameを好きに処理したあとにconcatできます。
 以下の例を参照ください。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;名字&#34;</span><span class="p">],</span> <span class="s2">&#34;age&#34;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()})</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -975,7 +974,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 <p>filterを使えば、条件を満たすグループのみを残すような処理が可能です。</p>
 <h2 id="例1-1">例1</h2>
 <p>グループ内の個数が1より大きいグループだけを残す。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -1000,7 +999,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="例2-1">例2</h2>
 <p>グループの値の最大値が40未満であるグループだけを残す。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)[</span><span class="s2">&#34;年齢&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">)</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -1021,7 +1020,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 </table>
 <h2 id="例3">例3</h2>
 <p>グループに北海道出身の人が含まれるグループだけを残す。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&#34;北海道&#34;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="s2">&#34;出身&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;名字&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&#34;北海道&#34;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="s2">&#34;出身&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </code></pre></div><table>
 <thead>
 <tr>
@@ -1125,7 +1124,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
         
         
             <div class="article-image">
-                <img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/_hucd343461d408ae8b77fea0b56735bfcd_50111_589b92d21c6a72e46a356fdf4ac4f71a.png" 
+                <img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/_hucd343461d408ae8b77fea0b56735bfcd_50111_d50cd10e1c1a72dccc70bf003141832e.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -1147,7 +1146,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
         
         
             <div class="article-image">
-                <img src="/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/_hu0d0289d789c0c959994f816a625d3cae_309272_2e32c4bae1002edb9b9f63f8d2eceace.png" 
+                <img src="/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/_hu0d0289d789c0c959994f816a625d3cae_309272_a59c35fe0e0059978ddbfde8966d2ead.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -1193,7 +1192,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/_hua9848c14f6fc76924d36dd77c390b808_485748_b130d97dfb801ec869cee724f495fac1.png" 
+                <img src="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/_hua9848c14f6fc76924d36dd77c390b808_485748_9e93026dbb638ee1b2914c18019abfd9.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

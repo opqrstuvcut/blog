@@ -66,7 +66,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -220,8 +219,8 @@ if (!doNotTrack) {
     <header class="article-header">
         <div class="article-image">
             <a href="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/">
-                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_800x0_resize_box_2.png"
-                        srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_800x0_resize_box_2.png 800w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_1600x0_resize_box_2.png 1600w"
+                <img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_800x0_resize_box_3.png"
+                        srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_800x0_resize_box_3.png 800w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_1600x0_resize_box_3.png 1600w"
                         width="800" 
                         height="533" 
                         loading="lazy"
@@ -276,7 +275,7 @@ if (!doNotTrack) {
 <hr>
 <p>Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。</p>
 <p>次のような凡例の位置をいじらずに表示した状態からいじっていきます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="s2">&#34;b&#34;</span><span class="p">,</span> <span class="s2">&#34;c&#34;</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">data</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&#34;o&#34;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -296,7 +295,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/1f998257aafd4af45a99802b5d2738ca.png"
 			width="432"
 			height="288"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/1f998257aafd4af45a99802b5d2738ca_hu5cafe0d1e960728899a259d271a77d36_26518_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/1f998257aafd4af45a99802b5d2738ca_hu5cafe0d1e960728899a259d271a77d36_26518_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/1f998257aafd4af45a99802b5d2738ca_hu5cafe0d1e960728899a259d271a77d36_26518_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/1f998257aafd4af45a99802b5d2738ca_hu5cafe0d1e960728899a259d271a77d36_26518_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -304,7 +303,7 @@ if (!doNotTrack) {
 </figure></p>
 <h3 id="右上に表示">右上に表示</h3>
 <p>凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </code></pre></div><p><figure 
 	
 		class="gallery-image" 
@@ -316,7 +315,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/046032640d8b955c7fc8ea14004661cd.png"
 			width="431"
 			height="275"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/046032640d8b955c7fc8ea14004661cd_hu73018806a939ccdf351df9672290350e_25846_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/046032640d8b955c7fc8ea14004661cd_hu73018806a939ccdf351df9672290350e_25846_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/046032640d8b955c7fc8ea14004661cd_hu73018806a939ccdf351df9672290350e_25846_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/046032640d8b955c7fc8ea14004661cd_hu73018806a939ccdf351df9672290350e_25846_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -324,7 +323,7 @@ if (!doNotTrack) {
 </figure></p>
 <h3 id="右中央に表示">右中央に表示</h3>
 <p>凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">))</span>
 </code></pre></div><p><figure 
 	
 		class="gallery-image" 
@@ -336,7 +335,7 @@ if (!doNotTrack) {
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b315ee00b7f3b400118ce55c857f86db.png"
 			width="431"
 			height="275"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b315ee00b7f3b400118ce55c857f86db_hu9ea7b0d3143cbfd9e51c277a90457991_25881_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b315ee00b7f3b400118ce55c857f86db_hu9ea7b0d3143cbfd9e51c277a90457991_25881_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b315ee00b7f3b400118ce55c857f86db_hu9ea7b0d3143cbfd9e51c277a90457991_25881_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b315ee00b7f3b400118ce55c857f86db_hu9ea7b0d3143cbfd9e51c277a90457991_25881_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -345,7 +344,7 @@ if (!doNotTrack) {
 <h3 id="上に表示">上に表示</h3>
 <p>凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。
 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div><p><figure 
 	
 		class="gallery-image" 
@@ -357,7 +356,7 @@ ncol=3とすることで横一列に3つ分のグラフの凡例を表示でき�
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/5df64ab531c69bb196c09ded511a8b9e.png"
 			width="384"
 			height="304"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/5df64ab531c69bb196c09ded511a8b9e_hu05df8cf08bd1abfb9cf76e61d1a9d5c4_25163_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/5df64ab531c69bb196c09ded511a8b9e_hu05df8cf08bd1abfb9cf76e61d1a9d5c4_25163_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/5df64ab531c69bb196c09ded511a8b9e_hu05df8cf08bd1abfb9cf76e61d1a9d5c4_25163_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/5df64ab531c69bb196c09ded511a8b9e_hu05df8cf08bd1abfb9cf76e61d1a9d5c4_25163_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -365,7 +364,7 @@ ncol=3とすることで横一列に3つ分のグラフの凡例を表示でき�
 </figure></p>
 <h3 id="下に表示">下に表示</h3>
 <p>凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">15</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.15</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div><p><figure 
 	
 		class="gallery-image" 
@@ -377,7 +376,7 @@ ncol=3とすることで横一列に3つ分のグラフの凡例を表示でき�
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b76f876a6c79eddc7ad208bc878baa88.png"
 			width="384"
 			height="301"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b76f876a6c79eddc7ad208bc878baa88_hu1d4a51dd068bfebf76f96fec3499c759_24925_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b76f876a6c79eddc7ad208bc878baa88_hu1d4a51dd068bfebf76f96fec3499c759_24925_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b76f876a6c79eddc7ad208bc878baa88_hu1d4a51dd068bfebf76f96fec3499c759_24925_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/b76f876a6c79eddc7ad208bc878baa88_hu1d4a51dd068bfebf76f96fec3499c759_24925_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -396,7 +395,7 @@ ncol=3とすることで横一列に3つ分のグラフの凡例を表示でき�
 		<img src="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15.png"
 			width="432"
 			height="288"
-			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_480x0_resize_box_2.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_1024x0_resize_box_2.png 1024w"
+			srcset="/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_480x0_resize_box_3.png 480w, /blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_1024x0_resize_box_3.png 1024w"
 			loading="lazy"
 			>
 	</a>
@@ -487,7 +486,7 @@ loc=&lsquo;lower center&rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには�
         
         
             <div class="article-image">
-                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_2.png" 
+                <img src="/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/sum_tree_example.9f06c3ec1febf09dfaf85027d7a456ac_hu4339e54fcdc467e3bb2cb12deb8a6e1b_32825_250x150_fill_box_smart1_3.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

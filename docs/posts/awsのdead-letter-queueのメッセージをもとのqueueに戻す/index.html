@@ -57,7 +57,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -261,21 +260,21 @@ if (!doNotTrack) {
 <li>
 <p>インストール</p>
 <p>macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh <span class="p">|</span> sudo sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh <span class="p">|</span> sudo sh
 </code></pre></div></li>
 <li>
 <p>credentialsへのキーの指定</p>
 <p>これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。</p>
-<pre><code>[default]
+<pre tabindex="0"><code>[default]
 aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt;
 aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt;
 </code></pre></li>
 <li>
 <p>コマンドを実行</p>
 <p>次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。</p>
-<pre><code>$ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt;
+<pre tabindex="0"><code>$ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt;
 </code></pre><p>次のような標準出力が確認できるかと思います。</p>
-<pre><code>• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from
+<pre tabindex="0"><code>• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from
 • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to
 • Approximate number of messages in the source queue: x
 • Starting to move messages...
@@ -369,7 +368,7 @@ aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt;
         
         
             <div class="article-image">
-                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_875091142ae609ddc4e5cdfe32009ea4.png" 
+                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_829ab3e7bac268aa85e0e362e4d7b1e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 
@@ -391,7 +390,7 @@ aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt;
         
         
             <div class="article-image">
-                <img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/_hud6cb81a775978a88f5a41e08842d2fb5_16521_5fa67c16b7b744761b8eb05104ab1502.png" 
+                <img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/_hud6cb81a775978a88f5a41e08842d2fb5_16521_404d07c2f81c3209f29f8529531e8c04.png" 
                         width="250" 
                         height="150" 
                         loading="lazy" 

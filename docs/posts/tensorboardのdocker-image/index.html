@@ -36,7 +36,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -232,12 +231,12 @@ if (!doNotTrack) {
     <section class="article-content">
     <p>たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。</p>
 <p>Docker Imageは以下のとおり。</p>
-<pre><code>FROM python:3.8
+<pre tabindex="0"><code>FROM python:3.8
 RUN pip install tensorflow
 WORKDIR /logs
 ENTRYPOINT [&quot;tensorboard&quot;, &quot;--logdir&quot;, &quot;/logs&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;]   
 </code></pre><p>次のような感じでdocker buildとdocker runします。</p>
-<pre><code>$ docker build -t tensorboard .
+<pre tabindex="0"><code>$ docker build -t tensorboard .
 $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard
 </code></pre><p>-vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。</p>
 

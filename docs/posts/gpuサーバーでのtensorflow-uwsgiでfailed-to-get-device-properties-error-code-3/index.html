@@ -42,7 +42,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     </head>
     <body class="
     article-page 
@@ -237,7 +236,7 @@ if (!doNotTrack) {
 
     <section class="article-content">
     <p>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。</p>
-<pre><code>Failed to get device properties, error code: 3
+<pre tabindex="0"><code>Failed to get device properties, error code: 3
 </code></pre><p>他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。</p>
 <h1 id="原因">原因</h1>
 <p>確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。
@@ -246,7 +245,7 @@ if (!doNotTrack) {
 <p>つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。</p>
 <h1 id="対処">対処</h1>
 <p>記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。</p>
-<pre><code>[uwsgi]
+<pre tabindex="0"><code>[uwsgi]
 lazy-apps = true
 </code></pre><p>とりあえずこれで解決しました。</p>
 

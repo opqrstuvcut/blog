@@ -5,7 +5,7 @@
  OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
    引数 意味     contours findContoursで見つかった輪郭   contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画）   color 描画する輪郭の色   thickness 描画する輪郭の太さ   lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される   hierarchy findContoursで見つかった輪郭の階層構造   maxLevel 描画する最大の階層を指定する    maxLevelを1にしたときと、2にしたときの違いを次に示します。
-maxLevel=1maxLevel=2maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。'><title>抽出した輪郭の描画</title>
+   maxLevel=1 maxLevel=2          maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。'><title>抽出した輪郭の描画</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
 
@@ -14,7 +14,7 @@ maxLevel=1maxLevel=2maxLevelが2のときには外側の輪郭の中まで輪郭
  OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
    引数 意味     contours findContoursで見つかった輪郭   contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画）   color 描画する輪郭の色   thickness 描画する輪郭の太さ   lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される   hierarchy findContoursで見つかった輪郭の階層構造   maxLevel 描画する最大の階層を指定する    maxLevelを1にしたときと、2にしたときの違いを次に示します。
-maxLevel=1maxLevel=2maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。'>
+   maxLevel=1 maxLevel=2          maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='drawContours' /><meta property='article:tag' content='輪郭' /><meta property='article:published_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
@@ -23,7 +23,7 @@ maxLevel=1maxLevel=2maxLevelが2のときには外側の輪郭の中まで輪郭
  OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
    引数 意味     contours findContoursで見つかった輪郭   contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画）   color 描画する輪郭の色   thickness 描画する輪郭の太さ   lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される   hierarchy findContoursで見つかった輪郭の階層構造   maxLevel 描画する最大の階層を指定する    maxLevelを1にしたときと、2にしたときの違いを次に示します。
-maxLevel=1maxLevel=2maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。"><meta name="twitter:card" content="summary_large_image">
+   maxLevel=1 maxLevel=2          maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -329,8 +329,16 @@ if (!doNotTrack) {
 </tbody>
 </table></div>
 <p>maxLevelを1にしたときと、2にしたときの違いを次に示します。</p>
-<p><!-- raw HTML omitted -->maxLevel=1<!-- raw HTML omitted -->　　　　　　　　<!-- raw HTML omitted -->maxLevel=2<!-- raw HTML omitted -->
-<img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png"
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>maxLevel=1</th>
+<th>maxLevel=2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png"
 	width="191"
 	height="252"
 	srcset="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_480x0_resize_box_3.png 480w, /blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_1024x0_resize_box_3.png 1024w"
@@ -341,7 +349,8 @@ if (!doNotTrack) {
 		data-flex-grow="75"
 		data-flex-basis="181px"
 	
-><img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954.png"
+></td>
+<td><img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954.png"
 	width="191"
 	height="252"
 	srcset="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954_hu9c1fbd238a75b8cb62ff131fcc8377c7_46379_480x0_resize_box_3.png 480w, /blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954_hu9c1fbd238a75b8cb62ff131fcc8377c7_46379_1024x0_resize_box_3.png 1024w"
@@ -352,8 +361,11 @@ if (!doNotTrack) {
 		data-flex-grow="75"
 		data-flex-basis="181px"
 	
->
-maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。</p>
+></td>
+</tr>
+</tbody>
+</table></div>
+<p>maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。</p>
 
 </section>
 

@@ -3,10 +3,12 @@
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
-findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。 最初に次のように二値化しておきます。
+findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
+最初に次のように二値化しておきます。
 _, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY &#43; cv2.THRESH_OTSU) これに対して次のようにfindContoursを適用します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)  第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。  細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。    見つかった輪郭を次のように描画してみます。
-drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
+drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
+輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。'><title>findContoursで輪郭の検出</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/'>
@@ -14,10 +16,12 @@ contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_
 <link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='findContoursで輪郭の検出'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
-findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。 最初に次のように二値化しておきます。
+findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
+最初に次のように二値化しておきます。
 _, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY &#43; cv2.THRESH_OTSU) これに対して次のようにfindContoursを適用します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)  第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。  細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。    見つかった輪郭を次のように描画してみます。
-drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
+drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
+輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -25,10 +29,12 @@ contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_
 <meta name="twitter:title" content="findContoursで輪郭の検出">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
-findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。 最初に次のように二値化しておきます。
+findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
+最初に次のように二値化しておきます。
 _, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY &#43; cv2.THRESH_OTSU) これに対して次のようにfindContoursを適用します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)  第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。  細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。    見つかった輪郭を次のように描画してみます。
-drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
+drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
+輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.png' />
     <link rel="shortcut icon" href="favicon.ico" />
@@ -288,7 +294,7 @@ if (!doNotTrack) {
 <p>画像から物体の輪郭を見つけたくなることが多々あります。
 そんなときにもOpenCVを利用することができます。</p>
 <h1 id="findcontoursで輪郭抽出">findContoursで輪郭抽出</h1>
-<p>次の画像から輪郭の抽出をおこなうことを考えます。
+<p>次の画像から輪郭の抽出をおこなうことを考えます。<br>
 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/5f9b4bcba6cba8859de1bf74287d31b8.png"
 	width="191"
 	height="252"
@@ -300,7 +306,7 @@ if (!doNotTrack) {
 		data-flex-grow="75"
 		data-flex-basis="181px"
 	
->
+><br>
 最初に次のように二値化しておきます。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">_</span><span class="p">,</span> <span class="n">bi_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
 </code></pre></div><p><img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/b41d65118313c80cb1d5b28ede042392.png"
@@ -314,7 +320,7 @@ if (!doNotTrack) {
 		data-flex-grow="75"
 		data-flex-basis="181px"
 	
->
+><br>
 これに対して次のようにfindContoursを適用します。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">contours</span><span class="p">,</span> <span class="n">hierarcies</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">bi_img</span><span class="p">,</span> 
                                         <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span>
@@ -337,7 +343,8 @@ if (!doNotTrack) {
                            <span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">drawed</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div><p><img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/cafd523a9966e50a297afb39a2438f43.png"
+</code></pre></div><p>描画の結果は以下のとおりです。<br>
+<img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/cafd523a9966e50a297afb39a2438f43.png"
 	width="191"
 	height="252"
 	srcset="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/cafd523a9966e50a297afb39a2438f43_hu5a2c3ca9d59b53c0618d0a8231428812_40306_480x0_resize_box_3.png 480w, /blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/cafd523a9966e50a297afb39a2438f43_hu5a2c3ca9d59b53c0618d0a8231428812_40306_1024x0_resize_box_3.png 1024w"
@@ -366,7 +373,7 @@ if (!doNotTrack) {
 		data-flex-grow="75"
 		data-flex-basis="181px"
 	
->
+><br>
 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。</p>
 
 </section>

@@ -35,6 +35,8 @@ drawed = cv2.drawContours(img,
 
 maxLevelを1にしたときと、2にしたときの違いを次に示します。
 
-<u>maxLevel=1</u>　　　　　　　　<u>maxLevel=2</u>
-![](d0411dcb235b3add1e1a55f1a9394d2d.png)![](2befea557cb26cffa707b61c3f373954.png)
+|maxLevel=1|maxLevel=2|
+|--|--|
+|![](d0411dcb235b3add1e1a55f1a9394d2d.png)|![](2befea557cb26cffa707b61c3f373954.png)|
+
 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。

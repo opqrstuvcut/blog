@@ -4,11 +4,13 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
 テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
-OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。 テンプレートマッチングは次のようにしておこなえます。
+OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+テンプレートマッチングは次のようにしておこなえます。
 res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED) cv2.TM_CCORR_NORMEDは類似度の計算の方法です。 選択肢は複数あり、手法によって精度と計算時間が変わります。 詳細はこちらをご確認ください。
-返り値には各位置での類似度が格納されています。 TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
+返り値には各位置での類似度が格納されています。
+TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
 この部分の画像を次のように切り抜いてみます。
-_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() バッチリできていることがわかります。'><title>テンプレートマッチングで画像から物体をみつける</title>
+_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() 結果は以下のとおりです。 バッチリできていることがわかります。'><title>テンプレートマッチングで画像から物体をみつける</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/'>
 
@@ -16,11 +18,13 @@ _, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.i
 <meta property='og:description' content='本記事はQrunchからの転載です。
  カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
 テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
-OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。 テンプレートマッチングは次のようにしておこなえます。
+OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+テンプレートマッチングは次のようにしておこなえます。
 res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED) cv2.TM_CCORR_NORMEDは類似度の計算の方法です。 選択肢は複数あり、手法によって精度と計算時間が変わります。 詳細はこちらをご確認ください。
-返り値には各位置での類似度が格納されています。 TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
+返り値には各位置での類似度が格納されています。
+TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
 この部分の画像を次のように切り抜いてみます。
-_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() バッチリできていることがわかります。'>
+_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() 結果は以下のとおりです。 バッチリできていることがわかります。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='テンプレートマッチング' /><meta property='article:published_time' content='2020-08-15T11:09:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-15T11:09:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.png' />
@@ -28,11 +32,13 @@ _, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.i
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
 テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
-OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。 テンプレートマッチングは次のようにしておこなえます。
+OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+テンプレートマッチングは次のようにしておこなえます。
 res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED) cv2.TM_CCORR_NORMEDは類似度の計算の方法です。 選択肢は複数あり、手法によって精度と計算時間が変わります。 詳細はこちらをご確認ください。
-返り値には各位置での類似度が格納されています。 TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
+返り値には各位置での類似度が格納されています。
+TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
 この部分の画像を次のように切り抜いてみます。
-_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() バッチリできていることがわかります。"><meta name="twitter:card" content="summary_large_image">
+_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] &#43; height, max_loc[0]: max_loc[0] &#43; width]) plt.show() 結果は以下のとおりです。 バッチリできていることがわかります。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -296,7 +302,7 @@ if (!doNotTrack) {
 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。
 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。</p>
 <h1 id="opencvでテンプレートマッチング">OpenCVでテンプレートマッチング</h1>
-<p>次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+<p>次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。<br>
 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.png"
 	width="575"
 	height="319"
@@ -315,7 +321,7 @@ if (!doNotTrack) {
 選択肢は複数あり、手法によって精度と計算時間が変わります。
 詳細は<a class="link" href="https://docs.opencv.org/3.0-beta/modules/imgproc/doc/object_detection.html?highlight=matchtemplate#cv2.matchTemplate"  target="_blank" rel="noopener"
     >こちら</a>をご確認ください。</p>
-<p>返り値には各位置での類似度が格納されています。
+<p>返り値には各位置での類似度が格納されています。<br>
 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/9370aedcd8a411dce0233662689abc37.png"
 	width="142"
 	height="252"
@@ -335,7 +341,9 @@ if (!doNotTrack) {
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">max_loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">max_loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">height</span><span class="p">,</span>
                <span class="n">max_loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">max_loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">width</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div><p><img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/a5875c9529f2b4119c52dadcb0d1f17f.png"
+</code></pre></div><p>結果は以下のとおりです。
+バッチリできていることがわかります。<br>
+<img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/a5875c9529f2b4119c52dadcb0d1f17f.png"
 	width="256"
 	height="252"
 	srcset="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/a5875c9529f2b4119c52dadcb0d1f17f_hu33eda1c7b5cb2ec7c8f8034790ac1bff_47900_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/a5875c9529f2b4119c52dadcb0d1f17f_hu33eda1c7b5cb2ec7c8f8034790ac1bff_47900_1024x0_resize_box_3.png 1024w"
@@ -347,7 +355,6 @@ if (!doNotTrack) {
 		data-flex-basis="243px"
 	
 ></p>
-<p>バッチリできていることがわかります。</p>
 
 </section>
 

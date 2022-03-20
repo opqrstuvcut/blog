@@ -20,7 +20,7 @@ ___
 
 # OpenCVでテンプレートマッチング
 
-次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。  
 ![](0359ef5bc2687ab5c1e63356c89cc3e0.png)
 
 テンプレートマッチングは次のようにしておこなえます。
@@ -33,12 +33,12 @@ res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED)
 選択肢は複数あり、手法によって精度と計算時間が変わります。
 詳細は[こちら](https://docs.opencv.org/3.0-beta/modules/imgproc/doc/object_detection.html?highlight=matchtemplate#cv2.matchTemplate)をご確認ください。
 
-返り値には各位置での類似度が格納されています。
+返り値には各位置での類似度が格納されています。  
 ![](9370aedcd8a411dce0233662689abc37.png)
 
 TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
 
-この部分の画像を次のように切り抜いてみます。
+この部分の画像を次のように切り抜いてみます。  
 
 ``` Python
 _, max_val, _, max_loc = cv2.minMaxLoc(res)
@@ -47,7 +47,7 @@ plt.imshow(img[max_loc[1]: max_loc[1] + height,
                max_loc[0]: max_loc[0] + width])
 plt.show()
 ```
+結果は以下のとおりです。
+バッチリできていることがわかります。  
+![](a5875c9529f2b4119c52dadcb0d1f17f.png)  
 
-![](a5875c9529f2b4119c52dadcb0d1f17f.png)
-
-バッチリできていることがわかります。

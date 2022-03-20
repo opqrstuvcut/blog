@@ -11,13 +11,13 @@ ___
 そんなときにもOpenCVを利用することができます。
 #  findContoursで輪郭抽出
 
-次の画像から輪郭の抽出をおこなうことを考えます。
-![](5f9b4bcba6cba8859de1bf74287d31b8.png)
-最初に次のように二値化しておきます。
+次の画像から輪郭の抽出をおこなうことを考えます。  
+![](5f9b4bcba6cba8859de1bf74287d31b8.png)  
+最初に次のように二値化しておきます。  
 ```Python
 _, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 ```
-![](b41d65118313c80cb1d5b28ede042392.png)
+![](b41d65118313c80cb1d5b28ede042392.png)  
 これに対して次のようにfindContoursを適用します。
 
 ```Python
@@ -41,7 +41,8 @@ drawed = cv2.drawContours(np.stack([img, img, img], axis=-1),
                            10)
 plt.imshow(drawed)
 plt.show()
-```
+```  
+描画の結果は以下のとおりです。  
 ![](cafd523a9966e50a297afb39a2438f43.png)
 # 輪郭の取り出し方を変えてみる
 
@@ -53,5 +54,5 @@ contours, hierarcies = cv2.findContours(bi_img,
                                         cv2.RETR_TREE,
                                         cv2.CHAIN_APPROX_NONE)
 ```
-![](36626599de1a642e7bfec7fa47def298.png)
+![](36626599de1a642e7bfec7fa47def298.png)  
 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。

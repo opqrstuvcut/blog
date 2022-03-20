@@ -28,8 +28,8 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$
 
 # OpenCVで試してみる
 
-次の画像に対してHough変換を適用します。
-![](fc6611dea1559319bc4baebf641d0a6a.png)
+次の画像に対してHough変換を適用します。  
+![](fc6611dea1559319bc4baebf641d0a6a.png)  
 Hough変換にかける前に、Canny法でエッジを抽出しておきます。
 
 ```Python
@@ -37,7 +37,7 @@ canny = cv2.Canny(img, threshold1=50, threshold2=100,
                   apertureSize=3, L2gradient=True)
 ```
 
-![](ee45891c46a4955315b6ce6e817e2d07.png)
+![](ee45891c46a4955315b6ce6e817e2d07.png)  
 Canny法の結果に対して、次のようにHough変換を適用できます。
 
 ``` Python
@@ -64,6 +64,6 @@ for params in hough_lines:
     y2 = int(y0 - t * a)
 ```
 
-結果は以下のとおりです。
-![](f57bd9c6dc056b82e658a2f6ca7b6258.png)
+結果は以下のとおりです。  
+![](f57bd9c6dc056b82e658a2f6ca7b6258.png)  
 カーテンや窓、猫の底の部分が直線として検出されています。余計な直線も結構検出されています。

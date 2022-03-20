@@ -3,6 +3,7 @@ title: Partial Dependence Plot
 tags: ["Partial Dependence Plot", "機械学習", "説明可能AI"]
 categories: ["機械学習"]
 date: 2021-10-14
+image: ppd_sex.png
 ---
 Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。  
 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。

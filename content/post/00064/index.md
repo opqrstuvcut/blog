@@ -3,6 +3,7 @@ title: CANINEの論文を読んだメモ
 tags: ["Deep Learning", "深層学習", "自然言語処理"]
 categories: ["Deep Learning", "深層学習", "自然言語処理"]
 date: 2021-04-13
+image: fig1.png
 ---
 BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。
 CANINEってなんて読むべきなんでしょう？

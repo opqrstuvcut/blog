@@ -16,7 +16,7 @@
 &lt;hr&gt;
 &lt;p&gt;Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvで円の検出&#34;&gt;OpenCVで円の検出&lt;/h1&gt;
-&lt;p&gt;次の画像から円を検出してみます。
+&lt;p&gt;次の画像から円を検出してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -34,12 +34,12 @@
                                 &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minDist&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                                 &lt;span class=&#34;n&#34;&gt;param1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;param2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
-methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
-dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
-minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。&lt;br&gt;
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。&lt;br&gt;
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。&lt;br&gt;
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。&lt;br&gt;
 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。&lt;/p&gt;
-&lt;p&gt;結果は以下のとおりです。
+&lt;p&gt;結果は以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -51,7 +51,7 @@ param1はCanny法のしきい値の上限、param2は円上にあると判定さ
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;193px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 大まかには円が検出できていることがわかります。&lt;/p&gt;
 </description>
         </item>

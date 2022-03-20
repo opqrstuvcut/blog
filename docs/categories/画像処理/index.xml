@@ -1000,7 +1000,7 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 &lt;hr&gt;
 &lt;p&gt;Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvで円の検出&#34;&gt;OpenCVで円の検出&lt;/h1&gt;
-&lt;p&gt;次の画像から円を検出してみます。
+&lt;p&gt;次の画像から円を検出してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1018,12 +1018,12 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
                                 &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minDist&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                                 &lt;span class=&#34;n&#34;&gt;param1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;param2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
-methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
-dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
-minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。&lt;br&gt;
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。&lt;br&gt;
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。&lt;br&gt;
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。&lt;br&gt;
 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。&lt;/p&gt;
-&lt;p&gt;結果は以下のとおりです。
+&lt;p&gt;結果は以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1035,7 +1035,7 @@ param1はCanny法のしきい値の上限、param2は円上にあると判定さ
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;193px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 大まかには円が検出できていることがわかります。&lt;/p&gt;
 </description>
         </item>
@@ -1060,7 +1060,7 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$&lt;/p&gt;
 &lt;p&gt;わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\infty$の直線となり扱いづらくなることを防ぐためです。
 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvで試してみる&#34;&gt;OpenCVで試してみる&lt;/h1&gt;
-&lt;p&gt;次の画像に対してHough変換を適用します。
+&lt;p&gt;次の画像に対してHough変換を適用します。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -1072,7 +1072,7 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$&lt;/p&gt;
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 Hough変換にかける前に、Canny法でエッジを抽出しておきます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;canny&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Canny&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;threshold1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;threshold2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                   &lt;span class=&#34;n&#34;&gt;apertureSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2gradient&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -1087,7 +1087,7 @@ Hough変換にかける前に、Canny法でエッジを抽出しておきます�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 Canny法の結果に対して、次のようにHough変換を適用できます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;hough_lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HoughLines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;canny&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rho&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                              &lt;span class=&#34;n&#34;&gt;threshold&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -1105,7 +1105,7 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
     &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果は以下のとおりです。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果は以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -1117,7 +1117,7 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 カーテンや窓、猫の底の部分が直線として検出されています。余計な直線も結構検出されています。&lt;/p&gt;
 </description>
         </item>
@@ -1159,8 +1159,17 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
                   &lt;span class=&#34;n&#34;&gt;L2gradient&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。&lt;/p&gt;
 &lt;p&gt;結果を以下に示します。&lt;/p&gt;
-&lt;p&gt;　　　　元画像　　　　　　　　　　　canny（2ノルム）　　　　　　canny（1ノルム）
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;元画像&lt;/th&gt;
+&lt;th&gt;canny（2ノルム）&lt;/th&gt;
+&lt;th&gt;canny（1ノルム）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg&#34;
 	width=&#34;3024&#34;
 	height=&#34;4032&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu4da9fcbe4c523ba10cac3597857560ec_731304_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu4da9fcbe4c523ba10cac3597857560ec_731304_1024x0_resize_q75_box.jpg 1024w&#34;
@@ -1171,8 +1180,8 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow=&#34;75&#34;
 		data-flex-basis=&#34;180px&#34;
 	
-&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg&#34;
 	width=&#34;3024&#34;
 	height=&#34;4032&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu33872c63859407da422741a8cad09db7_869622_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu33872c63859407da422741a8cad09db7_869622_1024x0_resize_q75_box.jpg 1024w&#34;
@@ -1183,8 +1192,8 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow=&#34;75&#34;
 		data-flex-basis=&#34;180px&#34;
 	
-&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg&#34;
 	width=&#34;3024&#34;
 	height=&#34;4032&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_1024x0_resize_q75_box.jpg 1024w&#34;
@@ -1195,7 +1204,10 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow=&#34;75&#34;
 		data-flex-basis=&#34;180px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;2ノルムのほうがきれいにエッジが取れている気がします。&lt;/p&gt;
 </description>
         </item>
@@ -1212,7 +1224,7 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 結果として、コントラストがある程度平坦化された結果が得られます。&lt;/p&gt;
 &lt;p&gt;処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでヒストグラム平坦化&#34;&gt;OpenCVでヒストグラム平坦化&lt;/h1&gt;
-&lt;p&gt;次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
+&lt;p&gt;次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e.png&#34;
 	width=&#34;209&#34;
 	height=&#34;252&#34;
@@ -1225,7 +1237,7 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-basis=&#34;199px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
+&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858.png&#34;
 	width=&#34;375&#34;
 	height=&#34;259&#34;
@@ -1251,9 +1263,9 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow=&#34;82&#34;
 		data-flex-basis=&#34;199px&#34;
 	
-&gt;&lt;/p&gt;
-&lt;p&gt;ちゃんと見えるようになりましたね。&lt;/p&gt;
-&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。
+&gt;&lt;br&gt;
+ちゃんと見えるようになりましたね。&lt;/p&gt;
+&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf.png&#34;
 	width=&#34;375&#34;
 	height=&#34;259&#34;

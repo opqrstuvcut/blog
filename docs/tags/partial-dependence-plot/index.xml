@@ -12,7 +12,7 @@
         <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
         
         <guid>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</guid>
-        <description>&lt;p&gt;Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。&lt;br&gt;
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/ppd_sex.png" alt="Featured image of post Partial Dependence Plot" /&gt;&lt;p&gt;Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。&lt;br&gt;
 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。&lt;/p&gt;
 &lt;h1 id=&#34;partial-dependence-plotの概要&#34;&gt;Partial Dependence Plotの概要&lt;/h1&gt;
 &lt;p&gt;学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。&lt;br&gt;

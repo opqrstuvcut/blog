@@ -37,7 +37,7 @@ Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndiv
 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&amp;gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &amp;#34;Age&amp;#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
 <meta name="twitter:title" content="Individual Conditional Expectation">
 <meta name="twitter:description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
@@ -54,7 +54,7 @@ Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndiv
 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
 実装 実装は次のとおりです。
 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&amp;gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &amp;#34;Age&amp;#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
 <script type="application/javascript">
@@ -227,8 +227,20 @@ if (!doNotTrack) {
     </ol>
 </aside>
 <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/individual-conditional-expectation/">
+                <img src="/blog/posts/individual-conditional-expectation/ice_age_huc878420bf5c6d32d2382db7211c8390f_92859_800x0_resize_box_3.png"
+                        srcset="/blog/posts/individual-conditional-expectation/ice_age_huc878420bf5c6d32d2382db7211c8390f_92859_800x0_resize_box_3.png 800w, /blog/posts/individual-conditional-expectation/ice_age_huc878420bf5c6d32d2382db7211c8390f_92859_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="245" 
+                        loading="lazy"
+                        alt="Featured image of post Individual Conditional Expectation" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -435,9 +447,20 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/blog/posts/partial-dependence-plot/">
         
+        
+            <div class="article-image">
+                <img src="/blog/posts/partial-dependence-plot/ppd_sex.49c9c0277e3b4b6943b7fa54e0526084_hu8ddb742a3403f96d393fc87767c04275_6382_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Partial Dependence Plot"
+                        
+                        data-hash="md5-ScnAJ347S2lDt/pU4FJghA==">
+                
+            </div>
         
 
         <div class="article-details">

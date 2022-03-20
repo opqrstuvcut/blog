@@ -3,6 +3,7 @@ title: Individual Conditional Expectation
 tags: ["Individual Conditional Expectation", "機械学習", "説明可能AI"]
 categories: ["機械学習"]
 date: 2021-10-19
+image: ice_age.png
 ---
 Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。  
 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。

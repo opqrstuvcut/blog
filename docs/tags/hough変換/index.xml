@@ -16,7 +16,7 @@
 &lt;hr&gt;
 &lt;p&gt;Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvで円の検出&#34;&gt;OpenCVで円の検出&lt;/h1&gt;
-&lt;p&gt;次の画像から円を検出してみます。
+&lt;p&gt;次の画像から円を検出してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -34,12 +34,12 @@
                                 &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minDist&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                                 &lt;span class=&#34;n&#34;&gt;param1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;param2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
-methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
-dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
-minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。&lt;br&gt;
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。&lt;br&gt;
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。&lt;br&gt;
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。&lt;br&gt;
 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。&lt;/p&gt;
-&lt;p&gt;結果は以下のとおりです。
+&lt;p&gt;結果は以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -51,7 +51,7 @@ param1はCanny法のしきい値の上限、param2は円上にあると判定さ
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;193px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 大まかには円が検出できていることがわかります。&lt;/p&gt;
 </description>
         </item>
@@ -76,7 +76,7 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$&lt;/p&gt;
 &lt;p&gt;わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\infty$の直線となり扱いづらくなることを防ぐためです。
 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvで試してみる&#34;&gt;OpenCVで試してみる&lt;/h1&gt;
-&lt;p&gt;次の画像に対してHough変換を適用します。
+&lt;p&gt;次の画像に対してHough変換を適用します。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -88,7 +88,7 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$&lt;/p&gt;
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 Hough変換にかける前に、Canny法でエッジを抽出しておきます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;canny&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Canny&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;threshold1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;threshold2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                   &lt;span class=&#34;n&#34;&gt;apertureSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2gradient&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -103,7 +103,7 @@ Hough変換にかける前に、Canny法でエッジを抽出しておきます�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 Canny法の結果に対して、次のようにHough変換を適用できます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;hough_lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HoughLines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;canny&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rho&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
                              &lt;span class=&#34;n&#34;&gt;threshold&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -121,7 +121,7 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
     &lt;span class=&#34;n&#34;&gt;y1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;x2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;y2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果は以下のとおりです。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;結果は以下のとおりです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -133,7 +133,7 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 カーテンや窓、猫の底の部分が直線として検出されています。余計な直線も結構検出されています。&lt;/p&gt;
 </description>
         </item>

@@ -54,9 +54,8 @@ threshold1がしきい値の小さい方で、threshold2がしきい値の大き
 
 結果を以下に示します。
 
-　　　　元画像　　　　　　　　　　　canny（2ノルム）　　　　　　canny（1ノルム）
-![](8defd1c89359b1b8b5f6142e6e0105bf.jpg)
-![](a0d7c2f605896b780afcc1f54a4acaad.jpg)
-![](5154e105157ba91bf3bf7306d1cfffe1.jpg)
+|元画像|canny（2ノルム）|canny（1ノルム）|
+|--|--|--|
+|![](8defd1c89359b1b8b5f6142e6e0105bf.jpg)|![](a0d7c2f605896b780afcc1f54a4acaad.jpg)|![](5154e105157ba91bf3bf7306d1cfffe1.jpg)|
 
 2ノルムのほうがきれいにエッジが取れている気がします。

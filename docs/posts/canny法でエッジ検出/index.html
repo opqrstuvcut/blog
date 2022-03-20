@@ -11,7 +11,7 @@ Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化し�
 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。
 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。
 結果を以下に示します。
-　元画像　canny（2ノルム）　canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。'><title>Canny法でエッジ検出</title>
+   元画像 canny（2ノルム） canny（1ノルム）           2ノルムのほうがきれいにエッジが取れている気がします。'><title>Canny法でエッジ検出</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
 
@@ -26,7 +26,7 @@ Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化し�
 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。
 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。
 結果を以下に示します。
-　元画像　canny（2ノルム）　canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。'>
+   元画像 canny（2ノルム） canny（1ノルム）           2ノルムのほうがきれいにエッジが取れている気がします。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Canny' /><meta property='article:published_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='article:modified_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
@@ -41,7 +41,7 @@ Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化し�
 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。
 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。
 結果を以下に示します。
-　元画像　canny（2ノルム）　canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。"><meta name="twitter:card" content="summary_large_image">
+   元画像 canny（2ノルム） canny（1ノルム）           2ノルムのほうがきれいにエッジが取れている気がします。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -327,8 +327,17 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
                   <span class="n">L2gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div><p>threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。</p>
 <p>結果を以下に示します。</p>
-<p>　　　　元画像　　　　　　　　　　　canny（2ノルム）　　　　　　canny（1ノルム）
-<img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg"
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>元画像</th>
+<th>canny（2ノルム）</th>
+<th>canny（1ノルム）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg"
 	width="3024"
 	height="4032"
 	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu4da9fcbe4c523ba10cac3597857560ec_731304_480x0_resize_q75_box.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu4da9fcbe4c523ba10cac3597857560ec_731304_1024x0_resize_q75_box.jpg 1024w"
@@ -339,8 +348,8 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow="75"
 		data-flex-basis="180px"
 	
->
-<img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg"
+></td>
+<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg"
 	width="3024"
 	height="4032"
 	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu33872c63859407da422741a8cad09db7_869622_480x0_resize_q75_box.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu33872c63859407da422741a8cad09db7_869622_1024x0_resize_q75_box.jpg 1024w"
@@ -351,8 +360,8 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow="75"
 		data-flex-basis="180px"
 	
->
-<img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg"
+></td>
+<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg"
 	width="3024"
 	height="4032"
 	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_480x0_resize_q75_box.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_1024x0_resize_q75_box.jpg 1024w"
@@ -363,7 +372,10 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-grow="75"
 		data-flex-basis="180px"
 	
-></p>
+></td>
+</tr>
+</tbody>
+</table></div>
 <p>2ノルムのほうがきれいにエッジが取れている気がします。</p>
 
 </section>

@@ -43,7 +43,7 @@ unicodeの番号のハッシュ値に応じて得られた96次元のベクト�
  Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。  出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。   1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。  つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。   結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。  学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='自然言語処理' /><meta property='article:published_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='自然言語処理' /><meta property='article:published_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
 <meta name="twitter:title" content="CANINEの論文を読んだメモ">
 <meta name="twitter:description" content="BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？
 論文はこちら：https://arxiv.org/pdf/2103.06874.pdf
@@ -63,7 +63,7 @@ unicodeの番号のハッシュ値に応じて得られた96次元のベクト�
 ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。
 アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。
  Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。  出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。   1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。  つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。   結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。  学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
 <script type="application/javascript">
@@ -236,8 +236,20 @@ if (!doNotTrack) {
     </ol>
 </aside>
 <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">
+                <img src="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu05317f9eff6b540e6631244be0e9c68b_212946_800x0_resize_box_3.png"
+                        srcset="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu05317f9eff6b540e6631244be0e9c68b_212946_800x0_resize_box_3.png 800w, /blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu05317f9eff6b540e6631244be0e9c68b_212946_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="367" 
+                        loading="lazy"
+                        alt="Featured image of post CANINEの論文を読んだメモ" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     

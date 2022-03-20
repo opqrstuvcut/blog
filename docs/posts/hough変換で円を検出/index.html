@@ -3,27 +3,45 @@
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
-OpenCVで円の検出 次の画像から円を検出してみます。 円の検出は以下のようにおこないます。
-hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。 methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。 dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。 minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
-結果は以下のとおりです。 大まかには円が検出できていることがわかります。'><title>Hough変換で円を検出</title>
+OpenCVで円の検出 次の画像から円を検出してみます。
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。
+大まかには円が検出できていることがわかります。'><title>Hough変換で円を検出</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='Hough変換で円を検出'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
-OpenCVで円の検出 次の画像から円を検出してみます。 円の検出は以下のようにおこないます。
-hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。 methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。 dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。 minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
-結果は以下のとおりです。 大まかには円が検出できていることがわかります。'>
+OpenCVで円の検出 次の画像から円を検出してみます。
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。
+大まかには円が検出できていることがわかります。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Hough変換' /><meta property='article:tag' content='円検出' /><meta property='article:published_time' content='2020-08-05T11:05:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-05T11:05:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png' />
 <meta name="twitter:title" content="Hough変換で円を検出">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
-OpenCVで円の検出 次の画像から円を検出してみます。 円の検出は以下のようにおこないます。
-hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。 methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。 dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。 minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
-結果は以下のとおりです。 大まかには円が検出できていることがわかります。"><meta name="twitter:card" content="summary_large_image">
+OpenCVで円の検出 次の画像から円を検出してみます。
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。
+大まかには円が検出できていることがわかります。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -281,7 +299,7 @@ if (!doNotTrack) {
 <hr>
 <p>Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。</p>
 <h1 id="opencvで円の検出">OpenCVで円の検出</h1>
-<p>次の画像から円を検出してみます。
+<p>次の画像から円を検出してみます。<br>
 <img src="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3.png"
 	width="203"
 	height="252"
@@ -299,12 +317,12 @@ if (!doNotTrack) {
                                 <span class="n">dp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minDist</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
                                 <span class="n">param1</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">param2</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 
-</code></pre></div><p>HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
-methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
-dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
-minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+</code></pre></div><p>HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。<br>
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。<br>
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。<br>
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。<br>
 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。</p>
-<p>結果は以下のとおりです。
+<p>結果は以下のとおりです。<br>
 <img src="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png"
 	width="203"
 	height="252"
@@ -316,7 +334,7 @@ param1はCanny法のしきい値の上限、param2は円上にあると判定さ
 		data-flex-grow="80"
 		data-flex-basis="193px"
 	
->
+><br>
 大まかには円が検出できていることがわかります。</p>
 
 </section>

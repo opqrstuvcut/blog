@@ -15,9 +15,17 @@
         <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png" alt="Featured image of post AdaptiveThresholdで照明環境が微妙な画像を二値化" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;画像処理で結構シビアなのが、照明環境です。
-例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。
-入力画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png&#34;
+例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;入力画像&lt;/th&gt;
+&lt;th&gt;大津の二値化適用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png&#34;
 	width=&#34;221&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_1024x0_resize_box_3.png 1024w&#34;
@@ -28,9 +36,8 @@
 		data-flex-grow=&#34;88&#34;
 		data-flex-basis=&#34;211px&#34;
 	
-&gt;&lt;/p&gt;
-&lt;p&gt;大津の二値化適用
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png&#34;
 	width=&#34;221&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_1024x0_resize_box_3.png 1024w&#34;
@@ -41,7 +48,10 @@
 		data-flex-grow=&#34;88&#34;
 		data-flex-basis=&#34;211px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。
 そんなときにはAdaptiveThresholdが役に立ちます。&lt;/p&gt;
 &lt;h1 id=&#34;adaptivethresholdとは&#34;&gt;AdaptiveThresholdとは？&lt;/h1&gt;

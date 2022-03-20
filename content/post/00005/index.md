@@ -59,6 +59,7 @@ plt.legend(labels, loc='upper center', bbox_to_anchor=(.5, -.15), ncol=3)
 
 ### 理屈
 plt.legendの引数の**loc**に指定した凡例の箇所が**bbox_to_anchor**で指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。
+
 ![](bc011ef843d7d97092a83521e65e6a15.png)
 
 <u>例1</u>

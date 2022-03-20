@@ -7,7 +7,7 @@ dilateについて dilateは指定された局所領域の中で最大値のピ�
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'><title>dilateで猫を膨張させる</title>
+   元画像 iterations=1 iterations=2           猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'><title>dilateで猫を膨張させる</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 
@@ -18,7 +18,7 @@ dilateについて dilateは指定された局所領域の中で最大値のピ�
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'>
+   元画像 iterations=1 iterations=2           猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dilate' /><meta property='article:tag' content='膨張' /><meta property='article:published_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='article:modified_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
@@ -29,7 +29,7 @@ dilateについて dilateは指定された局所領域の中で最大値のピ�
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。"><meta name="twitter:card" content="summary_large_image">
+   元画像 iterations=1 iterations=2           猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -296,8 +296,17 @@ if (!doNotTrack) {
 </code></pre></div><p>ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。
 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。</p>
 <p>実際に試した結果が以下のとおりです。</p>
-<p>　　　　　元画像 　　　　　　　　　　　iterations=1　　　　　　　　　iterations=2
-<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png"
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>元画像</th>
+<th>iterations=1</th>
+<th>iterations=2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png"
 	width="247"
 	height="252"
 	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
@@ -308,7 +317,8 @@ if (!doNotTrack) {
 		data-flex-grow="98"
 		data-flex-basis="235px"
 	
-> <img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png"
+></td>
+<td><img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png"
 	width="247"
 	height="252"
 	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_3.png 1024w"
@@ -319,7 +329,8 @@ if (!doNotTrack) {
 		data-flex-grow="98"
 		data-flex-basis="235px"
 	
-><img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png"
+></td>
+<td><img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png"
 	width="247"
 	height="252"
 	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_3.png 1024w"
@@ -330,7 +341,10 @@ if (!doNotTrack) {
 		data-flex-grow="98"
 		data-flex-basis="235px"
 	
-></p>
+></td>
+</tr>
+</tbody>
+</table></div>
 <p>猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。
 iterations=2のときのほうが1のときよりも膨張していることがわかります。</p>
 

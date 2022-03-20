@@ -20,7 +20,7 @@
 &lt;p&gt;そのような方法として有名なのが大津の2値化です。
 大津の2値化を使うことで、ある意味での最適なしきい値を決定してくれます。&lt;/p&gt;
 &lt;h1 id=&#34;大津の2値化の中身は&#34;&gt;大津の2値化の中身は？&lt;/h1&gt;
-&lt;p&gt;大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。
+&lt;p&gt;大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
@@ -44,8 +44,8 @@
 なぜかといえば、谷の部分からしきい値を動かしていき、どちらかの山の一部が他方のグループに取り込まれると、取り込まれた分が与える分散の増加分が非常に大きいと予想できるからです。&lt;/p&gt;
 &lt;h1 id=&#34;大津の2値化の適用結果&#34;&gt;大津の2値化の適用結果&lt;/h1&gt;
 &lt;p&gt;大津の2値化を実際に適用してみます。
-次のようなグレースケールの画像が与えられたとします。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
+次のようなグレースケールの画像が与えられたとします。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
 	width=&#34;257&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hud0f644025bde94eebb3642a7f89877ed_56083_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hud0f644025bde94eebb3642a7f89877ed_56083_1024x0_resize_box_3.png 1024w&#34;
@@ -57,8 +57,8 @@
 		data-flex-basis=&#34;244px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
+&lt;p&gt;この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu8b4939e9e1b64959be3a28aa9952c49b_6523_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu8b4939e9e1b64959be3a28aa9952c49b_6523_1024x0_resize_box_3.png 1024w&#34;
@@ -90,8 +90,8 @@
 		data-flex-grow=&#34;101&#34;
 		data-flex-basis=&#34;244px&#34;
 	
-&gt;
-しきい値が自動で適切に設定され、キレイに二値化できてますね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;しきい値が自動で適切に設定され、キレイに二値化できてますね。&lt;/p&gt;
 &lt;h1 id=&#34;ガウシアンフィルタとの組み合わせ&#34;&gt;ガウシアンフィルタとの組み合わせ&lt;/h1&gt;
 &lt;p&gt;ここでは詳しくは述べませんが、ノイズが多い画像では、ガウシアンフィルタで平滑化することでノイズが軽減され、ヒストグラムの山がよりシャープになりえます。&lt;/p&gt;
 &lt;p&gt;そうすると、大津の2値化後の結果がより人間の感覚にあったものとなったりします。&lt;/p&gt;

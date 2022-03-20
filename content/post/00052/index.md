@@ -19,7 +19,8 @@ $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y
 
 # Laplacianのフィルタ
 
-Laplacianのフィルタの最も基本的なものは以下で定義されます。
+Laplacianのフィルタの最も基本的なものは以下で定義されます。  
+
 ![](bee0ab3292b4f50ed6d2be23f0c1016e.png)
 
 これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
@@ -43,9 +44,10 @@ $$  \begin{aligned} \Delta f &= \frac{\partial^2 f}{\partial x^2} + \frac{\parti
 
 # 斜めも考慮したLaplacian
 
-また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。
+また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。（これって導出あるんでしょうか？）
+
 ![](12a70508b6cdedb6f1e59454038a683b.png)
-（これって導出あるんでしょうか？）
+
 
 # OpenCVでLaplacianを試す
 
@@ -61,8 +63,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 ksizeを変えて2パターン実行した結果が以下のとおりです。
 描画の都合上、laplacianに絶対値を取ったものを表示しています。
 
-ksize=1のとき
+ksize=1のとき  
 ![](8fed6795e898f49128a413d3617dd13f.png)
 
-ksize=3のとき
+ksize=3のとき  
 ![](87a340899433b8d46b1c936e1a54fad5.png)

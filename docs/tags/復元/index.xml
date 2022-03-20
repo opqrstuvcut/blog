@@ -17,7 +17,7 @@
 &lt;p&gt;画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。
 今回はOpenCVで修復をおこなってみます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
-&lt;p&gt;次の画像にノイズをのせていきます。
+&lt;p&gt;次の画像にノイズをのせていきます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -44,8 +44,16 @@
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;　　　　　　ノイズがのった画像　　　　　　　　　　　　　ノイズ部分のmask画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ノイズがのった画像&lt;/th&gt;
+&lt;th&gt;ノイズ部分のmask画像&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu03b17d292fa7bb9570b480158f98c7f2_45936_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu03b17d292fa7bb9570b480158f98c7f2_45936_1024x0_resize_box_3.png 1024w&#34;
@@ -56,7 +64,8 @@
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu7f5897715f29feca027b42b6f7ee7bdd_3947_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu7f5897715f29feca027b42b6f7ee7bdd_3947_1024x0_resize_box_3.png 1024w&#34;
@@ -67,13 +76,24 @@
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。
 次のように利用します。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;inpainted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;inpaint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INPAINT_NS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。&lt;/p&gt;
-&lt;p&gt;　　　　　　　Navier Stokes法　　　　　　　　　　　　　　Alexandru Telea法
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Navier Stokes法&lt;/th&gt;
+&lt;th&gt;Alexandru Telea法&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_huaf06440b4437c501ffed65c77322275c_46800_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_huaf06440b4437c501ffed65c77322275c_46800_1024x0_resize_box_3.png 1024w&#34;
@@ -84,7 +104,8 @@
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hua46389499caaee713374e8493e184e60_46584_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hua46389499caaee713374e8493e184e60_46584_1024x0_resize_box_3.png 1024w&#34;
@@ -95,9 +116,12 @@
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。&lt;/p&gt;
-&lt;p&gt;ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
+&lt;p&gt;ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;

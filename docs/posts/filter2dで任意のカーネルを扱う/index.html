@@ -5,7 +5,8 @@
  OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
 filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
 res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
-filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。 ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
 blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 '><title>filter2Dで任意のカーネルを扱う</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/'>
@@ -15,7 +16,8 @@ blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0
  OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
 filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
 res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
-filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。 ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
 blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 '>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -25,7 +27,8 @@ blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0
  OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
 filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
 res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
-filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。 ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
 blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 "><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7.png' />
     <link rel="shortcut icon" href="favicon.ico" />
@@ -290,7 +293,7 @@ if (!doNotTrack) {
 </code></pre></div><p>ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。
 kernelに自分で定義したカーネルを指定します。</p>
 <h1 id="filter2dを使ってみる">filter2Dを使ってみる</h1>
-<p>次の画像にfilter2Dを使った平滑化を適用してみます。
+<p>次の画像にfilter2Dを使った平滑化を適用してみます。<br>
 <img src="/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4.png"
 	width="247"
 	height="252"

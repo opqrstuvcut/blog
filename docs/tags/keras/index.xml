@@ -52,7 +52,15 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 &lt;p&gt;訓練データとテストデータの分け方で2種類の実験をおこなっています。&lt;br&gt;
 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;!-- raw HTML omitted --&gt;
+
+
+
+
+&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510.png&#34;&gt;
+  &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510_hu558409457341b3f882ecf5e487de7d92_163653_800x0_resize_q95_box_3.png&#34; alt=&#34;&#34;&gt;
+&lt;/a&gt;
+
+
 &lt;/blockquote&gt;
 &lt;p&gt;上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。&lt;/p&gt;
 &lt;blockquote&gt;

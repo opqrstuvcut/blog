@@ -5,7 +5,8 @@
  単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
 以下がmedianBlurを実際に実行したコードになります。
-import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像（左）、medianBlurを適用した画像（右） 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。'><title>外れ値に強いMedianBlur</title>
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
+   ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像           中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。'><title>外れ値に強いMedianBlur</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
 
@@ -14,7 +15,8 @@ import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.
  単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
 以下がmedianBlurを実際に実行したコードになります。
-import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像（左）、medianBlurを適用した画像（右） 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。'>
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
+   ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像           中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='medianBlur' /><meta property='article:published_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
@@ -23,7 +25,8 @@ import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.
  単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
 以下がmedianBlurを実際に実行したコードになります。
-import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像（左）、medianBlurを適用した画像（右） 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。"><meta name="twitter:card" content="summary_large_image">
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
+   ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像           中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -293,9 +296,18 @@ if (!doNotTrack) {
 <span class="n">blur</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">blur</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">blur</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div><p>人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
-ノイズを乗せた画像
-<img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png"
+</code></pre></div><p>人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ノイズを乗せた画像</th>
+<th>blurを適用した画像</th>
+<th>medianBlurを適用した画像</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png"
 	width="266"
 	height="250"
 	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu9f23b05b1bcb8027061dc0f91bc8b1d8_132803_480x0_resize_box_3.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu9f23b05b1bcb8027061dc0f91bc8b1d8_132803_1024x0_resize_box_3.png 1024w"
@@ -306,9 +318,8 @@ if (!doNotTrack) {
 		data-flex-grow="106"
 		data-flex-basis="255px"
 	
-></p>
-<p>blurを適用した画像（左）、medianBlurを適用した画像（右）
-<img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png"
+></td>
+<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png"
 	width="266"
 	height="250"
 	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hud3f6f0b7e9e18a7965cd5edac8da4210_106920_480x0_resize_box_3.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hud3f6f0b7e9e18a7965cd5edac8da4210_106920_1024x0_resize_box_3.png 1024w"
@@ -319,7 +330,8 @@ if (!doNotTrack) {
 		data-flex-grow="106"
 		data-flex-basis="255px"
 	
-><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png"
+></td>
+<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png"
 	width="266"
 	height="250"
 	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_huf1fb85762e46c02545e05964bb4e6005_47893_480x0_resize_box_3.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_huf1fb85762e46c02545e05964bb4e6005_47893_1024x0_resize_box_3.png 1024w"
@@ -330,7 +342,10 @@ if (!doNotTrack) {
 		data-flex-grow="106"
 		data-flex-basis="255px"
 	
-></p>
+></td>
+</tr>
+</tbody>
+</table></div>
 <p>中央値を使うことで、ノイズを上手く取り除くことができています。
 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。</p>
 

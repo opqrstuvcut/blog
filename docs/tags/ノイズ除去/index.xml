@@ -34,7 +34,7 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
 &lt;p&gt;OpenCVでNon-Local Means Denoisingをやってみます。&lt;/p&gt;
-&lt;p&gt;次の左の画像にノイズをのせて右の画像を生成しました。
+&lt;p&gt;次の左の画像にノイズをのせて右の画像を生成しました。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
@@ -66,8 +66,16 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。
 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。&lt;/p&gt;
 &lt;p&gt;結果が以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　　ノイズをのせた画像　　　　　　　　　　　　　　ノイズ除去後の画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ノイズをのせた画像&lt;/th&gt;
+&lt;th&gt;ノイズ除去後の画像&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w&#34;
@@ -78,7 +86,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;100&#34;
 		data-flex-basis=&#34;240px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_1024x0_resize_box_3.png 1024w&#34;
@@ -89,7 +98,10 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;100&#34;
 		data-flex-basis=&#34;240px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;体の部分がぼやけていますが、ノイズはきれいにとれてますね。&lt;/p&gt;
 </description>
         </item>

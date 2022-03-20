@@ -13,7 +13,7 @@ ___
 
 # OpenCVでやってみる
 
-次の画像にノイズをのせていきます。
+次の画像にノイズをのせていきます。  
 ![](6cfb060c01c9e2a5a569b5c14ee05620.png)
 
 次のようなコードで画像にノイズをのせていきます。
@@ -35,8 +35,9 @@ plt.show()
 ```
 
 
-　　　　　　ノイズがのった画像　　　　　　　　　　　　　ノイズ部分のmask画像
-![](9b56f97f2e546e2112f37cb52fe29f70.png)![](b5fb92837ffca156c74b247e0a00b76f.png)
+|ノイズがのった画像|ノイズ部分のmask画像|
+|--|--|
+|![](9b56f97f2e546e2112f37cb52fe29f70.png)|![](b5fb92837ffca156c74b247e0a00b76f.png)|
 
 OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。
 次のように利用します。
@@ -47,12 +48,13 @@ inpainted = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
 
 第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。
 
-　　　　　　　Navier Stokes法　　　　　　　　　　　　　　Alexandru Telea法
-![](a575c7ee0289b3e759d2ad759aad4bb7.png)![](8dfa48b36ca2cd45a71e1cae46d65918.png)
+|Navier Stokes法|Alexandru Telea法|
+|--|--|
+|![](a575c7ee0289b3e759d2ad759aad4bb7.png)|![](8dfa48b36ca2cd45a71e1cae46d65918.png)|
 
 どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。
 
-ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
+ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。  
 ![](c2c2a44c41b8f7e20682e1f9b8ddbe6f.png)
 
 ちょっと復元した箇所が滲んだような感じになってしまってます。大きくしすぎには注意ですね。

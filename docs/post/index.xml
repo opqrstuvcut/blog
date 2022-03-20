@@ -2161,7 +2161,7 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
 &lt;p&gt;OpenCVでNon-Local Means Denoisingをやってみます。&lt;/p&gt;
-&lt;p&gt;次の左の画像にノイズをのせて右の画像を生成しました。
+&lt;p&gt;次の左の画像にノイズをのせて右の画像を生成しました。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
@@ -2193,8 +2193,16 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。
 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。&lt;/p&gt;
 &lt;p&gt;結果が以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　　ノイズをのせた画像　　　　　　　　　　　　　　ノイズ除去後の画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ノイズをのせた画像&lt;/th&gt;
+&lt;th&gt;ノイズ除去後の画像&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w&#34;
@@ -2205,7 +2213,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;100&#34;
 		data-flex-basis=&#34;240px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png&#34;
 	width=&#34;251&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_1024x0_resize_box_3.png 1024w&#34;
@@ -2216,7 +2225,10 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;100&#34;
 		data-flex-basis=&#34;240px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;体の部分がぼやけていますが、ノイズはきれいにとれてますね。&lt;/p&gt;
 </description>
         </item>
@@ -2231,7 +2243,7 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 &lt;p&gt;画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。
 今回はOpenCVで修復をおこなってみます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
-&lt;p&gt;次の画像にノイズをのせていきます。
+&lt;p&gt;次の画像にノイズをのせていきます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -2258,8 +2270,16 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;　　　　　　ノイズがのった画像　　　　　　　　　　　　　ノイズ部分のmask画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ノイズがのった画像&lt;/th&gt;
+&lt;th&gt;ノイズ部分のmask画像&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu03b17d292fa7bb9570b480158f98c7f2_45936_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu03b17d292fa7bb9570b480158f98c7f2_45936_1024x0_resize_box_3.png 1024w&#34;
@@ -2270,7 +2290,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu7f5897715f29feca027b42b6f7ee7bdd_3947_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu7f5897715f29feca027b42b6f7ee7bdd_3947_1024x0_resize_box_3.png 1024w&#34;
@@ -2281,13 +2302,24 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。
 次のように利用します。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;inpainted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;inpaint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INPAINT_NS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。&lt;/p&gt;
-&lt;p&gt;　　　　　　　Navier Stokes法　　　　　　　　　　　　　　Alexandru Telea法
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Navier Stokes法&lt;/th&gt;
+&lt;th&gt;Alexandru Telea法&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_huaf06440b4437c501ffed65c77322275c_46800_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_huaf06440b4437c501ffed65c77322275c_46800_1024x0_resize_box_3.png 1024w&#34;
@@ -2298,7 +2330,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hua46389499caaee713374e8493e184e60_46584_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hua46389499caaee713374e8493e184e60_46584_1024x0_resize_box_3.png 1024w&#34;
@@ -2309,9 +2342,12 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。&lt;/p&gt;
-&lt;p&gt;ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
+&lt;p&gt;ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -2339,7 +2375,7 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 &lt;p&gt;透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。
 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
-&lt;p&gt;次の画像を長方形の画像に変換することを考えます。
+&lt;p&gt;次の画像を長方形の画像に変換することを考えます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456.png&#34;
 	width=&#34;220&#34;
 	height=&#34;252&#34;
@@ -2554,7 +2590,7 @@ isOpenedメソッドにより動画を書き込むための準備ができてい
 &lt;p&gt;分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。&lt;/p&gt;
 &lt;h2 id=&#34;分離可能フィルタの具体例1&#34;&gt;分離可能フィルタの具体例1&lt;/h2&gt;
 &lt;p&gt;Sobelフィルタは分離可能フィルタです。
-X方向のSobelフィルタは以下であらわされます。
+X方向のSobelフィルタは以下であらわされます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/42a4285c83be4fd9c6397dd1b40b799c.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
@@ -2655,7 +2691,7 @@ $$&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。
 kernelに自分で定義したカーネルを指定します。&lt;/p&gt;
 &lt;h1 id=&#34;filter2dを使ってみる&#34;&gt;filter2Dを使ってみる&lt;/h1&gt;
-&lt;p&gt;次の画像にfilter2Dを使った平滑化を適用してみます。
+&lt;p&gt;次の画像にfilter2Dを使った平滑化を適用してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -2720,8 +2756,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;101&#34;
 		data-flex-basis=&#34;242px&#34;
 	
-&gt;
-これの画像に対して、次のようにopeningの操作をおこないます。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;この画像に対して、次のようにopeningの操作をおこないます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ones&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uint8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;erosion&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;erode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterations&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;dilation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dilate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;erosion&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterations&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -2829,8 +2865,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-basis=&#34;547px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737.png&#34;
+&lt;p&gt;次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737.png&#34;
 	width=&#34;456&#34;
 	height=&#34;224&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_1024x0_resize_box_3.png 1024w&#34;
@@ -2842,8 +2878,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-basis=&#34;488px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;次の局所領域では最小値は2です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d.png&#34;
+&lt;p&gt;次の局所領域では最小値は2です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d.png&#34;
 	width=&#34;454&#34;
 	height=&#34;224&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_1024x0_resize_box_3.png 1024w&#34;
@@ -2855,8 +2891,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-basis=&#34;486px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2.png&#34;
+&lt;p&gt;局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_1024x0_resize_box_3.png 1024w&#34;
@@ -2894,7 +2930,7 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
        [0, 1, 2]], dtype=uint8)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;局所領域をいじったため、$(3,2)$の要素が$1$になりました。&lt;/p&gt;
 &lt;h2 id=&#34;画像へ適用&#34;&gt;画像へ適用&lt;/h2&gt;
-&lt;p&gt;以下の画像に5×5の局所領域でのerodeを適用してみます。
+&lt;p&gt;以下の画像に5×5の局所領域でのerodeを適用してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -2907,8 +2943,16 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;　　　　　　　iterations=1　　　　　　　　　　　　　　　　　　iterations=2
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;iterations=1&lt;/th&gt;
+&lt;th&gt;iterations=2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_1024x0_resize_box_3.png 1024w&#34;
@@ -2919,7 +2963,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_1024x0_resize_box_3.png 1024w&#34;
@@ -2930,7 +2975,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;文字の部分をみるとわかりやすいですが、だいぶ小さくなっています。
 目の部分はピクセル値が小さいので、ここは逆に膨張しています。&lt;/p&gt;
 </description>
@@ -2954,8 +3002,17 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。
 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。&lt;/p&gt;
 &lt;p&gt;実際に試した結果が以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　元画像 　　　　　　　　　　　iterations=1　　　　　　　　　iterations=2
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;元画像&lt;/th&gt;
+&lt;th&gt;iterations=1&lt;/th&gt;
+&lt;th&gt;iterations=2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w&#34;
@@ -2966,7 +3023,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt; &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_3.png 1024w&#34;
@@ -2977,7 +3035,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_3.png 1024w&#34;
@@ -2988,7 +3047,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。
 iterations=2のときのほうが1のときよりも膨張していることがわかります。&lt;/p&gt;
 </description>
@@ -3007,8 +3069,8 @@ iterations=2のときのほうが1のときよりも膨張していることが�
 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.  $$&lt;/p&gt;
 &lt;p&gt;これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。&lt;/p&gt;
 &lt;h1 id=&#34;laplacianのフィルタ&#34;&gt;Laplacianのフィルタ&lt;/h1&gt;
-&lt;p&gt;Laplacianのフィルタの最も基本的なものは以下で定義されます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e.png&#34;
+&lt;p&gt;Laplacianのフィルタの最も基本的なものは以下で定義されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu6e4c5f04c0e08bab8a67c53ff6cd9744_3607_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu6e4c5f04c0e08bab8a67c53ff6cd9744_3607_1024x0_resize_box_3.png 1024w&#34;
@@ -3035,8 +3097,8 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 &lt;p&gt;このフィルタを使うと、ノイズにも強く反応することが予想されます。
 そのため、場合によっては平滑化によりノイズを軽減する必要です。&lt;/p&gt;
 &lt;h1 id=&#34;斜めも考慮したlaplacian&#34;&gt;斜めも考慮したLaplacian&lt;/h1&gt;
-&lt;p&gt;また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b.png&#34;
+&lt;p&gt;また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。（これって導出あるんでしょうか？）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b.png&#34;
 	width=&#34;184&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu87245ad99a081c30022ba1311c37c6b4_2771_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu87245ad99a081c30022ba1311c37c6b4_2771_1024x0_resize_box_3.png 1024w&#34;
@@ -3047,8 +3109,7 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 		data-flex-grow=&#34;108&#34;
 		data-flex-basis=&#34;259px&#34;
 	
-&gt;
-（これって導出あるんでしょうか？）&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;h1 id=&#34;opencvでlaplacianを試す&#34;&gt;OpenCVでLaplacianを試す&lt;/h1&gt;
 &lt;p&gt;OpenCVでは以下のように利用できます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;laplacian&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Laplacian&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -3056,7 +3117,7 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 ksizeにフィルタ（カーネル）の大きさを指定します。最初に示したフィルタを使うためにはksize=1を指定します。2つ目に示したフィルタはksize=3になります。&lt;/p&gt;
 &lt;p&gt;ksizeを変えて2パターン実行した結果が以下のとおりです。
 描画の都合上、laplacianに絶対値を取ったものを表示しています。&lt;/p&gt;
-&lt;p&gt;ksize=1のとき
+&lt;p&gt;ksize=1のとき&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/8fed6795e898f49128a413d3617dd13f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -3069,7 +3130,7 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;ksize=3のとき
+&lt;p&gt;ksize=3のとき&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -3097,8 +3158,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 &lt;h1 id=&#34;sobelフィルタ&#34;&gt;Sobelフィルタ&lt;/h1&gt;
 &lt;p&gt;Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。
 例えば、3×3のSobelフィルタは以下のようなカーネルになります。&lt;/p&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;x方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png&#34;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;x方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hud693d40388c1b8f25732fed8aae56e76_4314_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hud693d40388c1b8f25732fed8aae56e76_4314_1024x0_resize_box_3.png 1024w&#34;
@@ -3110,8 +3171,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 		data-flex-basis=&#34;256px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;y方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png&#34;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;y方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png&#34;
 	width=&#34;186&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu7ac9151774aa731395babacdbae057ce_3542_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu7ac9151774aa731395babacdbae057ce_3542_1024x0_resize_box_3.png 1024w&#34;
@@ -3125,8 +3186,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 &gt;&lt;/p&gt;
 &lt;p&gt;これらのフィルタは何をあらわしているんでしょうか？
 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。
-ここでいう微分のフィルタとはx方向の場合には以下を指します。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png&#34;
+ここでいう微分のフィルタとはx方向の場合には以下を指します。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png&#34;
 	width=&#34;184&#34;
 	height=&#34;168&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu88682af629722a9757a162c4050036e8_3863_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu88682af629722a9757a162c4050036e8_3863_1024x0_resize_box_3.png 1024w&#34;
@@ -3139,8 +3200,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。&lt;/p&gt;
-&lt;p&gt;次に平滑化ですが、これは以下のフィルタです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png&#34;
+&lt;p&gt;次に平滑化ですが、これは以下のフィルタです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png&#34;
 	width=&#34;182&#34;
 	height=&#34;168&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu21af9072ad2728e130b30f7c54d645c3_4126_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu21af9072ad2728e130b30f7c54d645c3_4126_1024x0_resize_box_3.png 1024w&#34;
@@ -3161,8 +3222,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。
 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。
 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。&lt;/p&gt;
-&lt;p&gt;次の画像にSobelフィルタを適用してみます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png&#34;
+&lt;p&gt;次の画像にSobelフィルタを適用してみます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu1d4e24774a1cada1846e3e0fe69ad919_40355_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu1d4e24774a1cada1846e3e0fe69ad919_40355_1024x0_resize_box_3.png 1024w&#34;
@@ -3204,8 +3265,8 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;これも同様に正の勾配は白色、負の勾配は黒色で描画されています。&lt;/p&gt;
-&lt;p&gt;なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png&#34;
+&lt;p&gt;なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu25a8a6e540551f3949649296f27dbcc8_30368_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu25a8a6e540551f3949649296f27dbcc8_30368_1024x0_resize_box_3.png 1024w&#34;
@@ -3300,8 +3361,16 @@ BGRの3channelで読み込む場合には&lt;strong&gt;cv2.IMREAD_COLOR&lt;/stro
 $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\right).$$&lt;/p&gt;
 &lt;h1 id=&#34;単純平滑化との違いは&#34;&gt;単純平滑化との違いは？&lt;/h1&gt;
 &lt;p&gt;具体的なカーネルの比較の例は以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　　　　単純平滑化　　　　　　　　　　　　　　　　　ガウス平滑化
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/8895112ad45858fe181a5e782b6272b8.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;単純平滑化&lt;/th&gt;
+&lt;th&gt;ガウス平滑化&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/8895112ad45858fe181a5e782b6272b8.png&#34;
 	width=&#34;244&#34;
 	height=&#34;248&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/8895112ad45858fe181a5e782b6272b8_hud754c494bffd12c48edbe26465a3b3fc_5799_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/8895112ad45858fe181a5e782b6272b8_hud754c494bffd12c48edbe26465a3b3fc_5799_1024x0_resize_box_3.png 1024w&#34;
@@ -3312,7 +3381,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;236px&#34;
 	
-&gt;　&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/a52dd83d01f0b21101de43a83f848fec.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/a52dd83d01f0b21101de43a83f848fec.png&#34;
 	width=&#34;244&#34;
 	height=&#34;248&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/a52dd83d01f0b21101de43a83f848fec_hu96834df60540c6d45d86ac094750a7c4_7192_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/a52dd83d01f0b21101de43a83f848fec_hu96834df60540c6d45d86ac094750a7c4_7192_1024x0_resize_box_3.png 1024w&#34;
@@ -3323,14 +3393,17 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;236px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;ガウス平滑化の場合には中心の重みが大きく、そこから遠ざかるほど、重みが小さくなっていきます。&lt;/p&gt;
 &lt;p&gt;画像に与える影響の違いとしては、単純平滑化よりも中心の重みが大きいことで、平滑化後のボケが少ないことが挙げられます。&lt;/p&gt;
 &lt;h1 id=&#34;単純平滑化とガウス平滑化の違いを実験&#34;&gt;単純平滑化とガウス平滑化の違いを実験&lt;/h1&gt;
 &lt;p&gt;OpenCVでガウス平滑化を使う場合は以下のようにすればOKです。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;blur&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GaussianBlur&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sigmaX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sigmaY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ksizeはカーネルの大きさ（局所領域のサイズ）、sigmaXはガウス分布のx方向の分散、sigmaYはy方向の分散になります。分散は0を入れると、デフォルト値を計算し、それを利用してくれます。&lt;/p&gt;
-&lt;p&gt;次のようなノイズを乗せた画像を用意しました。
+&lt;p&gt;次のようなノイズを乗せた画像を用意しました。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/40b4f641660e55df405fd807093db845.png&#34;
 	width=&#34;203&#34;
 	height=&#34;251&#34;
@@ -3343,9 +3416,18 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-basis=&#34;194px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;それぞれの平滑化の適用結果が以下のとおりです。すべてカーネルサイズは9×9です。
-　　　　単純平滑化　　　　　　　　　メディアンフィルタ　　　　　　　　ガウス平滑化
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/4d71836b404ed79205c7c67756d42792.png&#34;
+&lt;p&gt;それぞれの平滑化の適用結果が以下のとおりです。すべてカーネルサイズは9×9です。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;単純平滑化&lt;/th&gt;
+&lt;th&gt;メディアンフィルタ&lt;/th&gt;
+&lt;th&gt;ガウス平滑化&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/4d71836b404ed79205c7c67756d42792.png&#34;
 	width=&#34;203&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/4d71836b404ed79205c7c67756d42792_hu5742a7c7ced3c6d693cd4afbc07466ee_30938_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/4d71836b404ed79205c7c67756d42792_hu5742a7c7ced3c6d693cd4afbc07466ee_30938_1024x0_resize_box_3.png 1024w&#34;
@@ -3356,7 +3438,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;194px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/ff4182f83c9c46e9f2ae319ecb7b1269.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/ff4182f83c9c46e9f2ae319ecb7b1269.png&#34;
 	width=&#34;203&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/ff4182f83c9c46e9f2ae319ecb7b1269_hu453726570800e98725c99aded6df9d84_28749_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/ff4182f83c9c46e9f2ae319ecb7b1269_hu453726570800e98725c99aded6df9d84_28749_1024x0_resize_box_3.png 1024w&#34;
@@ -3367,7 +3450,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;194px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/bc05ecb93cbcd05f4c4724aca94cb99d.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/bc05ecb93cbcd05f4c4724aca94cb99d.png&#34;
 	width=&#34;203&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/bc05ecb93cbcd05f4c4724aca94cb99d_hu36eace3aceeacd3c7a9a41f34fa94d3f_35649_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/bc05ecb93cbcd05f4c4724aca94cb99d_hu36eace3aceeacd3c7a9a41f34fa94d3f_35649_1024x0_resize_box_3.png 1024w&#34;
@@ -3378,7 +3462,10 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;194px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;単純平滑化とガウス平滑化を比べると、ガウス平滑化のほうが若干ノイズが多めの気がしますが、ボケが少ないです。
 メディアンフィルタはノイズは取れますが、もとの情報が結構落ちてますね。&lt;/p&gt;
 </description>
@@ -3405,9 +3492,18 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 &lt;span class=&#34;n&#34;&gt;blur&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cvtColor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;blur&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COLOR_BGR2RGB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;blur&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
-ノイズを乗せた画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png&#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ノイズを乗せた画像&lt;/th&gt;
+&lt;th&gt;blurを適用した画像&lt;/th&gt;
+&lt;th&gt;medianBlurを適用した画像&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png&#34;
 	width=&#34;266&#34;
 	height=&#34;250&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu9f23b05b1bcb8027061dc0f91bc8b1d8_132803_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu9f23b05b1bcb8027061dc0f91bc8b1d8_132803_1024x0_resize_box_3.png 1024w&#34;
@@ -3418,9 +3514,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;106&#34;
 		data-flex-basis=&#34;255px&#34;
 	
-&gt;&lt;/p&gt;
-&lt;p&gt;blurを適用した画像（左）、medianBlurを適用した画像（右）
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png&#34;
 	width=&#34;266&#34;
 	height=&#34;250&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hud3f6f0b7e9e18a7965cd5edac8da4210_106920_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hud3f6f0b7e9e18a7965cd5edac8da4210_106920_1024x0_resize_box_3.png 1024w&#34;
@@ -3431,7 +3526,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;106&#34;
 		data-flex-basis=&#34;255px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png&#34;
 	width=&#34;266&#34;
 	height=&#34;250&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_huf1fb85762e46c02545e05964bb4e6005_47893_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_huf1fb85762e46c02545e05964bb4e6005_47893_1024x0_resize_box_3.png 1024w&#34;
@@ -3442,7 +3538,10 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;106&#34;
 		data-flex-basis=&#34;255px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;中央値を使うことで、ノイズを上手く取り除くことができています。
 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。&lt;/p&gt;
 </description>
@@ -3456,9 +3555,17 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
         <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png" alt="Featured image of post AdaptiveThresholdで照明環境が微妙な画像を二値化" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;画像処理で結構シビアなのが、照明環境です。
-例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。
-入力画像
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png&#34;
+例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;入力画像&lt;/th&gt;
+&lt;th&gt;大津の二値化適用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png&#34;
 	width=&#34;221&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_1024x0_resize_box_3.png 1024w&#34;
@@ -3469,9 +3576,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;88&#34;
 		data-flex-basis=&#34;211px&#34;
 	
-&gt;&lt;/p&gt;
-&lt;p&gt;大津の二値化適用
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png&#34;
 	width=&#34;221&#34;
 	height=&#34;251&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_1024x0_resize_box_3.png 1024w&#34;
@@ -3482,7 +3588,10 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;88&#34;
 		data-flex-basis=&#34;211px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。
 そんなときにはAdaptiveThresholdが役に立ちます。&lt;/p&gt;
 &lt;h1 id=&#34;adaptivethresholdとは&#34;&gt;AdaptiveThresholdとは？&lt;/h1&gt;
@@ -3588,7 +3697,7 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 &lt;p&gt;そのような方法として有名なのが大津の2値化です。
 大津の2値化を使うことで、ある意味での最適なしきい値を決定してくれます。&lt;/p&gt;
 &lt;h1 id=&#34;大津の2値化の中身は&#34;&gt;大津の2値化の中身は？&lt;/h1&gt;
-&lt;p&gt;大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。
+&lt;p&gt;大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
@@ -3612,8 +3721,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 なぜかといえば、谷の部分からしきい値を動かしていき、どちらかの山の一部が他方のグループに取り込まれると、取り込まれた分が与える分散の増加分が非常に大きいと予想できるからです。&lt;/p&gt;
 &lt;h1 id=&#34;大津の2値化の適用結果&#34;&gt;大津の2値化の適用結果&lt;/h1&gt;
 &lt;p&gt;大津の2値化を実際に適用してみます。
-次のようなグレースケールの画像が与えられたとします。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
+次のようなグレースケールの画像が与えられたとします。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
 	width=&#34;257&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hud0f644025bde94eebb3642a7f89877ed_56083_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hud0f644025bde94eebb3642a7f89877ed_56083_1024x0_resize_box_3.png 1024w&#34;
@@ -3625,8 +3734,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-basis=&#34;244px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
+&lt;p&gt;この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu8b4939e9e1b64959be3a28aa9952c49b_6523_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu8b4939e9e1b64959be3a28aa9952c49b_6523_1024x0_resize_box_3.png 1024w&#34;
@@ -3658,8 +3767,8 @@ $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\ri
 		data-flex-grow=&#34;101&#34;
 		data-flex-basis=&#34;244px&#34;
 	
-&gt;
-しきい値が自動で適切に設定され、キレイに二値化できてますね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;しきい値が自動で適切に設定され、キレイに二値化できてますね。&lt;/p&gt;
 &lt;h1 id=&#34;ガウシアンフィルタとの組み合わせ&#34;&gt;ガウシアンフィルタとの組み合わせ&lt;/h1&gt;
 &lt;p&gt;ここでは詳しくは述べませんが、ノイズが多い画像では、ガウシアンフィルタで平滑化することでノイズが軽減され、ヒストグラムの山がよりシャープになりえます。&lt;/p&gt;
 &lt;p&gt;そうすると、大津の2値化後の結果がより人間の感覚にあったものとなったりします。&lt;/p&gt;
@@ -3681,8 +3790,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。&lt;/p&gt;
 &lt;h1 id=&#34;比較実験&#34;&gt;比較実験&lt;/h1&gt;
 &lt;p&gt;論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。&lt;/p&gt;
-&lt;p&gt;次の図がTransformer層の減らし方の一覧です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
+&lt;p&gt;次の図がTransformer層の減らし方の一覧です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
 	width=&#34;2482&#34;
 	height=&#34;772&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_1024x0_resize_box_3.png 1024w&#34;
@@ -3711,8 +3820,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。&lt;/p&gt;
 &lt;h1 id=&#34;実験&#34;&gt;実験&lt;/h1&gt;
 &lt;h2 id=&#34;手法間の性能比較&#34;&gt;手法間の性能比較&lt;/h2&gt;
-&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
+&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
 	width=&#34;2280&#34;
 	height=&#34;832&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_1024x0_resize_box_3.png 1024w&#34;
@@ -3732,8 +3841,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;li&gt;XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;タスクごとの性能変化の検証&#34;&gt;タスクごとの性能変化の検証&lt;/h2&gt;
-&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
+&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
 	width=&#34;1700&#34;
 	height=&#34;784&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_1024x0_resize_box_3.png 1024w&#34;
@@ -3748,8 +3857,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;問題によっては6層消してもほとんど変化がなかったりします。&lt;/p&gt;
 &lt;p&gt;余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。&lt;/p&gt;
 &lt;h2 id=&#34;タスクごとの性能劣化がおこる層数の検証&#34;&gt;タスクごとの性能劣化がおこる層数の検証&lt;/h2&gt;
-&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
+&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
 	width=&#34;830&#34;
 	height=&#34;786&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_1024x0_resize_box_3.png 1024w&#34;
@@ -3760,11 +3869,11 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;105&#34;
 		data-flex-basis=&#34;253px&#34;
 	
-&gt;
-ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
 &lt;h2 id=&#34;パラメータ数や計算時間比較&#34;&gt;パラメータ数や計算時間比較&lt;/h2&gt;
-&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
+&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
 	width=&#34;1066&#34;
 	height=&#34;1360&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_1024x0_resize_box_3.png 1024w&#34;
@@ -3775,25 +3884,17 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;78&#34;
 		data-flex-basis=&#34;188px&#34;
 	
-&gt;
-6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。&lt;/p&gt;
 &lt;h2 id=&#34;bertとxlnetの層数での比較&#34;&gt;BERTとXLNetの層数での比較&lt;/h2&gt;
-&lt;p&gt;BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png&#34;
-	width=&#34;1260&#34;
-	height=&#34;872&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_1024x0_resize_box_3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;144&#34;
-		data-flex-basis=&#34;346px&#34;
-	
-&gt;
-なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
-&lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
+&lt;p&gt;BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。&lt;/p&gt;
+
+
+
+
+&lt;p&gt;なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
+&lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
 	width=&#34;938&#34;
 	height=&#34;776&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_1024x0_resize_box_3.png 1024w&#34;
@@ -3804,8 +3905,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;120&#34;
 		data-flex-basis=&#34;290px&#34;
 	
-&gt;
-これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
+&gt;&lt;/p&gt;
+&lt;p&gt;これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。
 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。&lt;/p&gt;
 &lt;h1 id=&#34;感想&#34;&gt;感想&lt;/h1&gt;
@@ -3994,8 +4095,8 @@ $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mat
 また$\mathbf{u}$と$\Sigma$はそれぞれ
 $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$
 とました。
-$p$を確率密度毎に色わけして表示してみると、以下のとおりです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png&#34;
+$p$を確率密度毎に色わけして表示してみると、以下のとおりです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_1024x0_resize_box_3.png 1024w&#34;
@@ -4012,8 +4113,8 @@ $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\math
 &lt;p&gt;$q$のうち、$\mathbf{s}$と$\alpha$が最適化するべきパラメータです。
 $q$は同心円状に確率密度をもつ分布になりますので、パラメータをどうやっても$p$と一致することはできません。&lt;/p&gt;
 &lt;h2 id=&#34;実験結果&#34;&gt;実験結果&lt;/h2&gt;
-&lt;p&gt;$KL(p||q)$を最小化したケースをまず示します。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png&#34;
+&lt;p&gt;$KL(p||q)$を最小化したケースをまず示します。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_1024x0_resize_box_3.png 1024w&#34;
@@ -4024,11 +4125,11 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;
-白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
+&gt;&lt;/p&gt;
+&lt;p&gt;白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
 先程の話のとおり、$q$は$p$に対して広がった分布になっていることがわかります。&lt;/p&gt;
-&lt;p&gt;次に$KL(q||p)$を最小化したケースです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png&#34;
+&lt;p&gt;次に$KL(q||p)$を最小化したケースです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_1024x0_resize_box_3.png 1024w&#34;
@@ -4039,8 +4140,8 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;
-こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。&lt;/p&gt;
 &lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;今回は$q$を$p$に近づける話に限定しましたが、KL divergenceに与える分布を入れ替えると結果が変わるケースが多そうだなと想像できたんじゃないかと思います。
 頭の片隅に留めておくと役立つかもしれません。&lt;/p&gt;
@@ -5232,8 +5333,8 @@ $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$&lt;/p&gt;
 &gt;
 引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da.png&#34;
+&lt;p&gt;実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da.png&#34;
 	width=&#34;171&#34;
 	height=&#34;294&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da_hu6d7126ae2eefee30b352f774f0e11345_5185_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da_hu6d7126ae2eefee30b352f774f0e11345_5185_1024x0_resize_box_3.png 1024w&#34;
@@ -5255,12 +5356,12 @@ $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$&lt;/p&gt;
 		data-flex-grow=&#34;58&#34;
 		data-flex-basis=&#34;139px&#34;
 	
-&gt;
-各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。
+&gt;&lt;/p&gt;
+&lt;p&gt;各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。
 具体的には
 $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$
-としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d.jpg&#34;
+としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d.jpg&#34;
 	width=&#34;171&#34;
 	height=&#34;294&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d_hu6db90a2f003964354078e259fd7d6e10_11606_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d_hu6db90a2f003964354078e259fd7d6e10_11606_1024x0_resize_q75_box.jpg 1024w&#34;
@@ -5280,8 +5381,8 @@ $x&#39;$の話でいえば、適当な個数の要素については1とし、�
 &lt;p&gt;このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。
 先程示した$x&#39;$に対応した画像も$x$の近傍になります。&lt;/p&gt;
 &lt;h2 id=&#34;線形モデルのケース&#34;&gt;線形モデルのケース&lt;/h2&gt;
-&lt;p&gt;$g$が線形モデルの場合には$g(z&#39;)$は次のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f.png&#34;
+&lt;p&gt;$g$が線形モデルの場合には$g(z&#39;)$は次のようになります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f.png&#34;
 	width=&#34;1335&#34;
 	height=&#34;377&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f_hub2325f5d8bd291bcd7c5eeefe69e1c35_58770_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f_hub2325f5d8bd291bcd7c5eeefe69e1c35_58770_1024x0_resize_box_3.png 1024w&#34;
@@ -5495,19 +5596,16 @@ segment0に含まれるデータは性能が良く、segment3に含まれるデ�
 &lt;p&gt;なので、forkして左中央に位置を指定できるようにしてみました。
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/opqrstuvcut/bubble&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc.png&#34;
-	width=&#34;1080&#34;
-	height=&#34;2160&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_1024x0_resize_box_3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;50&#34;
-		data-flex-basis=&#34;120px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;p&gt;こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。&lt;/p&gt;
+
+
+
+
+&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc.png&#34;&gt;
+  &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_500x0_resize_q95_box_3.png&#34; alt=&#34;メモリ使用量&#34;&gt;
+&lt;/a&gt;
+
+
 &lt;p&gt;コードは以下の通り。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dart&#34; data-lang=&#34;Dart&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bubble&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
   &lt;span class=&#34;nl&#34;&gt;nip:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BubbleNip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCenter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -5608,8 +5706,8 @@ ncol=3とすることで横一列に3つ分のグラフの凡例を表示でき�
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;理屈&#34;&gt;理屈&lt;/h3&gt;
-&lt;p&gt;plt.legendの引数の&lt;strong&gt;loc&lt;/strong&gt;に指定した凡例の箇所が&lt;strong&gt;bbox_to_anchor&lt;/strong&gt;で指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15.png&#34;
+&lt;p&gt;plt.legendの引数の&lt;strong&gt;loc&lt;/strong&gt;に指定した凡例の箇所が&lt;strong&gt;bbox_to_anchor&lt;/strong&gt;で指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15.png&#34;
 	width=&#34;432&#34;
 	height=&#34;288&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/bc011ef843d7d97092a83521e65e6a15_hu444fc9dc9cc4f90ff4e3d49d636ee18f_32079_1024x0_resize_box_3.png 1024w&#34;
@@ -6222,7 +6320,15 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 &lt;p&gt;訓練データとテストデータの分け方で2種類の実験をおこなっています。&lt;br&gt;
 1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;!-- raw HTML omitted --&gt;
+
+
+
+
+&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510.png&#34;&gt;
+  &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510_hu558409457341b3f882ecf5e487de7d92_163653_800x0_resize_q95_box_3.png&#34; alt=&#34;&#34;&gt;
+&lt;/a&gt;
+
+
 &lt;/blockquote&gt;
 &lt;p&gt;上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -6618,19 +6724,16 @@ print(text)
     &gt;https://github.com/opqrstuvcut/BertMouth&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;bertでの文生成&#34;&gt;BERTでの文生成&lt;/h1&gt;
 &lt;h2 id=&#34;学習&#34;&gt;学習&lt;/h2&gt;
-&lt;p&gt;学習は以下のようなネットワークを使っておこないます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png&#34;
-	width=&#34;1195&#34;
-	height=&#34;1243&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hua413e8993b42675a600325789a072244_97816_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hua413e8993b42675a600325789a072244_97816_1024x0_resize_box_3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;96&#34;
-		data-flex-basis=&#34;230px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;p&gt;学習は以下のようなネットワークを使っておこないます。&lt;/p&gt;
+
+
+
+
+&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png&#34;&gt;
+  &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hua413e8993b42675a600325789a072244_97816_800x0_resize_q95_box_3.png&#34; alt=&#34;&#34;&gt;
+&lt;/a&gt;
+
+
 &lt;p&gt;ネットワークへの入力となる各トークンはサブワードになります。&lt;br&gt;
 例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！

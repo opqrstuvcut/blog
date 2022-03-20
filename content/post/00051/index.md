@@ -28,8 +28,9 @@ dilation = cv2.dilate(img, kernel, iterations=1)
 
 実際に試した結果が以下のとおりです。
 
-　　　　　元画像 　　　　　　　　　　　iterations=1　　　　　　　　　iterations=2
-![](bd81dd3573bd9179e4fc3ee58d6261b3.png) ![](306f74dca7ea0a990908a7eba0cd980e.png)![](28690ce14686ae4e18da248ce434c3cc.png)
+|元画像|iterations=1|iterations=2|
+|--|--|--|
+|![](bd81dd3573bd9179e4fc3ee58d6261b3.png)|![](306f74dca7ea0a990908a7eba0cd980e.png)|![](28690ce14686ae4e18da248ce434c3cc.png)|
 
 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。
 iterations=2のときのほうが1のときよりも膨張していることがわかります。

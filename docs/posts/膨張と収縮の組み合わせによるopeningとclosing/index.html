@@ -4,7 +4,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
-np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) これの画像に対して、次のようにopeningの操作をおこないます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
@@ -17,7 +17,7 @@ kernel = np.ones([2, 2], np.uint8) dilation = cv2.'><title>膨張と収縮の組
 <meta property='og:description' content='本記事はQrunchからの転載です。
  画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
-np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) これの画像に対して、次のようにopeningの操作をおこないます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
@@ -30,7 +30,7 @@ kernel = np.ones([2, 2], np.uint8) dilation = cv2.'>
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
-np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) これの画像に対して、次のようにopeningの操作をおこないます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
@@ -310,8 +310,8 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 		data-flex-grow="101"
 		data-flex-basis="242px"
 	
->
-これの画像に対して、次のようにopeningの操作をおこないます。</p>
+></p>
+<p>この画像に対して、次のようにopeningの操作をおこないます。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="n">erosion</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">erode</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">dilation</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">erosion</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>

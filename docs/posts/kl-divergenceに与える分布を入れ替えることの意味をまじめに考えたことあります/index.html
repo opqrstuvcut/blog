@@ -9,7 +9,7 @@ KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定さ
 KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
 実験 上記の話が成り立つのかを実験してみます。
 実験準備 $p(\mathbf{x})$は次のようにします。
-$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].'><title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。'><title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/'>
 
@@ -22,7 +22,7 @@ KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定さ
 KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
 実験 上記の話が成り立つのかを実験してみます。
 実験準備 $p(\mathbf{x})$は次のようにします。
-$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr].'>
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='KLdivergence' /><meta property='article:tag' content='PyTorch' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='正規分布' /><meta property='article:published_time' content='2020-03-02T18:01:01&#43;09:00'/><meta property='article:modified_time' content='2020-03-02T18:01:01&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png' />
@@ -35,7 +35,7 @@ KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定さ
 KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
 実験 上記の話が成り立つのかを実験してみます。
 実験準備 $p(\mathbf{x})$は次のようにします。
-$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。 また$q(\mathbf{x})$は次のようにします。 $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{s})^{\top}(\mathbf{x}-\mathbf{s})}{2\alpha}\biggr]."><meta name="twitter:card" content="summary_large_image">
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -314,8 +314,8 @@ $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mat
 また$\mathbf{u}$と$\Sigma$はそれぞれ
 $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$
 とました。
-$p$を確率密度毎に色わけして表示してみると、以下のとおりです。
-<img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png"
+$p$を確率密度毎に色わけして表示してみると、以下のとおりです。</p>
+<p><img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png"
 	width="640"
 	height="480"
 	srcset="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_480x0_resize_box_3.png 480w, /blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_1024x0_resize_box_3.png 1024w"
@@ -332,8 +332,8 @@ $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\math
 <p>$q$のうち、$\mathbf{s}$と$\alpha$が最適化するべきパラメータです。
 $q$は同心円状に確率密度をもつ分布になりますので、パラメータをどうやっても$p$と一致することはできません。</p>
 <h2 id="実験結果">実験結果</h2>
-<p>$KL(p||q)$を最小化したケースをまず示します。
-<img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png"
+<p>$KL(p||q)$を最小化したケースをまず示します。</p>
+<p><img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png"
 	width="640"
 	height="480"
 	srcset="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_480x0_resize_box_3.png 480w, /blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_1024x0_resize_box_3.png 1024w"
@@ -344,11 +344,11 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow="133"
 		data-flex-basis="320px"
 	
->
-白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
+></p>
+<p>白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
 先程の話のとおり、$q$は$p$に対して広がった分布になっていることがわかります。</p>
-<p>次に$KL(q||p)$を最小化したケースです。
-<img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png"
+<p>次に$KL(q||p)$を最小化したケースです。</p>
+<p><img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png"
 	width="640"
 	height="480"
 	srcset="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_480x0_resize_box_3.png 480w, /blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_1024x0_resize_box_3.png 1024w"
@@ -359,8 +359,8 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow="133"
 		data-flex-basis="320px"
 	
->
-こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。</p>
+></p>
+<p>こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。</p>
 <h1 id="まとめ">まとめ</h1>
 <p>今回は$q$を$p$に近づける話に限定しましたが、KL divergenceに与える分布を入れ替えると結果が変わるケースが多そうだなと想像できたんじゃないかと思います。
 頭の片隅に留めておくと役立つかもしれません。</p>

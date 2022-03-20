@@ -22,8 +22,10 @@ A = (np.random.rand(15, 15) > 0.3) * 255
 A = A.astype(np.uint8)
 ```
 
-![](71190920fbb63bb170a560a6db65cc34.png)
-これの画像に対して、次のようにopeningの操作をおこないます。
+
+![](71190920fbb63bb170a560a6db65cc34.png)  
+
+この画像に対して、次のようにopeningの操作をおこないます。
 
 ``` Python
 kernel = np.ones([2, 2], np.uint8)

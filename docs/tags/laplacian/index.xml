@@ -20,8 +20,8 @@
 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.  $$&lt;/p&gt;
 &lt;p&gt;これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。&lt;/p&gt;
 &lt;h1 id=&#34;laplacianのフィルタ&#34;&gt;Laplacianのフィルタ&lt;/h1&gt;
-&lt;p&gt;Laplacianのフィルタの最も基本的なものは以下で定義されます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e.png&#34;
+&lt;p&gt;Laplacianのフィルタの最も基本的なものは以下で定義されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu6e4c5f04c0e08bab8a67c53ff6cd9744_3607_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu6e4c5f04c0e08bab8a67c53ff6cd9744_3607_1024x0_resize_box_3.png 1024w&#34;
@@ -48,8 +48,8 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 &lt;p&gt;このフィルタを使うと、ノイズにも強く反応することが予想されます。
 そのため、場合によっては平滑化によりノイズを軽減する必要です。&lt;/p&gt;
 &lt;h1 id=&#34;斜めも考慮したlaplacian&#34;&gt;斜めも考慮したLaplacian&lt;/h1&gt;
-&lt;p&gt;また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b.png&#34;
+&lt;p&gt;また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。（これって導出あるんでしょうか？）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b.png&#34;
 	width=&#34;184&#34;
 	height=&#34;170&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu87245ad99a081c30022ba1311c37c6b4_2771_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu87245ad99a081c30022ba1311c37c6b4_2771_1024x0_resize_box_3.png 1024w&#34;
@@ -60,8 +60,7 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 		data-flex-grow=&#34;108&#34;
 		data-flex-basis=&#34;259px&#34;
 	
-&gt;
-（これって導出あるんでしょうか？）&lt;/p&gt;
+&gt;&lt;/p&gt;
 &lt;h1 id=&#34;opencvでlaplacianを試す&#34;&gt;OpenCVでLaplacianを試す&lt;/h1&gt;
 &lt;p&gt;OpenCVでは以下のように利用できます。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;laplacian&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Laplacian&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -69,7 +68,7 @@ $$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \fra
 ksizeにフィルタ（カーネル）の大きさを指定します。最初に示したフィルタを使うためにはksize=1を指定します。2つ目に示したフィルタはksize=3になります。&lt;/p&gt;
 &lt;p&gt;ksizeを変えて2パターン実行した結果が以下のとおりです。
 描画の都合上、laplacianに絶対値を取ったものを表示しています。&lt;/p&gt;
-&lt;p&gt;ksize=1のとき
+&lt;p&gt;ksize=1のとき&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/8fed6795e898f49128a413d3617dd13f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
@@ -82,7 +81,7 @@ ksizeにフィルタ（カーネル）の大きさを指定します。最初に
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;ksize=3のとき
+&lt;p&gt;ksize=3のとき&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;

@@ -192,8 +192,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。&lt;/p&gt;
 &lt;h1 id=&#34;比較実験&#34;&gt;比較実験&lt;/h1&gt;
 &lt;p&gt;論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。&lt;/p&gt;
-&lt;p&gt;次の図がTransformer層の減らし方の一覧です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
+&lt;p&gt;次の図がTransformer層の減らし方の一覧です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
 	width=&#34;2482&#34;
 	height=&#34;772&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu93c72f446b11672646866253ad20664b_275474_1024x0_resize_box_3.png 1024w&#34;
@@ -222,8 +222,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。&lt;/p&gt;
 &lt;h1 id=&#34;実験&#34;&gt;実験&lt;/h1&gt;
 &lt;h2 id=&#34;手法間の性能比較&#34;&gt;手法間の性能比較&lt;/h2&gt;
-&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
+&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
 	width=&#34;2280&#34;
 	height=&#34;832&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hua9848c14f6fc76924d36dd77c390b808_485748_1024x0_resize_box_3.png 1024w&#34;
@@ -243,8 +243,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;li&gt;XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;タスクごとの性能変化の検証&#34;&gt;タスクごとの性能変化の検証&lt;/h2&gt;
-&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
+&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
 	width=&#34;1700&#34;
 	height=&#34;784&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu7b7f6216423406aca7df013576a020c6_249103_1024x0_resize_box_3.png 1024w&#34;
@@ -259,8 +259,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;問題によっては6層消してもほとんど変化がなかったりします。&lt;/p&gt;
 &lt;p&gt;余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。&lt;/p&gt;
 &lt;h2 id=&#34;タスクごとの性能劣化がおこる層数の検証&#34;&gt;タスクごとの性能劣化がおこる層数の検証&lt;/h2&gt;
-&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
+&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
 	width=&#34;830&#34;
 	height=&#34;786&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hub05a8d6f70da95b14614d1b4000c298e_88165_1024x0_resize_box_3.png 1024w&#34;
@@ -271,11 +271,11 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;105&#34;
 		data-flex-basis=&#34;253px&#34;
 	
-&gt;
-ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
 &lt;h2 id=&#34;パラメータ数や計算時間比較&#34;&gt;パラメータ数や計算時間比較&lt;/h2&gt;
-&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
+&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
 	width=&#34;1066&#34;
 	height=&#34;1360&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_huba9d16cb4c1c3f174b5d610043fed5e7_221066_1024x0_resize_box_3.png 1024w&#34;
@@ -286,25 +286,17 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;78&#34;
 		data-flex-basis=&#34;188px&#34;
 	
-&gt;
-6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。&lt;/p&gt;
 &lt;h2 id=&#34;bertとxlnetの層数での比較&#34;&gt;BERTとXLNetの層数での比較&lt;/h2&gt;
-&lt;p&gt;BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06.png&#34;
-	width=&#34;1260&#34;
-	height=&#34;872&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/81bb0fadbc053d92d9f55cde14d2db06_hub0b6f61c7964869d443fb8f09a0314f2_173249_1024x0_resize_box_3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;144&#34;
-		data-flex-basis=&#34;346px&#34;
-	
-&gt;
-なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
-&lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
+&lt;p&gt;BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。&lt;/p&gt;
+
+
+
+
+&lt;p&gt;なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
+&lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
 	width=&#34;938&#34;
 	height=&#34;776&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu8793ff56315538b569d54c624f07b2a7_126623_1024x0_resize_box_3.png 1024w&#34;
@@ -315,8 +307,8 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 		data-flex-grow=&#34;120&#34;
 		data-flex-basis=&#34;290px&#34;
 	
-&gt;
-これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
+&gt;&lt;/p&gt;
+&lt;p&gt;これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。
 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。&lt;/p&gt;
 &lt;h1 id=&#34;感想&#34;&gt;感想&lt;/h1&gt;
@@ -359,8 +351,8 @@ $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mat
 また$\mathbf{u}$と$\Sigma$はそれぞれ
 $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$
 とました。
-$p$を確率密度毎に色わけして表示してみると、以下のとおりです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png&#34;
+$p$を確率密度毎に色わけして表示してみると、以下のとおりです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/a656f547ccf54333352ff64a2de84cd7_hubafc7d7e5bb46dabeccb9bd1b4458a02_33238_1024x0_resize_box_3.png 1024w&#34;
@@ -377,8 +369,8 @@ $$q(\mathbf{x}|\mathbf{s},\alpha)=\frac{1}{{2\pi}\alpha}\exp\biggl[-\frac{(\math
 &lt;p&gt;$q$のうち、$\mathbf{s}$と$\alpha$が最適化するべきパラメータです。
 $q$は同心円状に確率密度をもつ分布になりますので、パラメータをどうやっても$p$と一致することはできません。&lt;/p&gt;
 &lt;h2 id=&#34;実験結果&#34;&gt;実験結果&lt;/h2&gt;
-&lt;p&gt;$KL(p||q)$を最小化したケースをまず示します。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png&#34;
+&lt;p&gt;$KL(p||q)$を最小化したケースをまず示します。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158_hucd343461d408ae8b77fea0b56735bfcd_50111_1024x0_resize_box_3.png 1024w&#34;
@@ -389,11 +381,11 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;
-白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
+&gt;&lt;/p&gt;
+&lt;p&gt;白い線が$p$の等高線です。色分けされて表示されているのが、$q$の確率密度になります。
 先程の話のとおり、$q$は$p$に対して広がった分布になっていることがわかります。&lt;/p&gt;
-&lt;p&gt;次に$KL(q||p)$を最小化したケースです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png&#34;
+&lt;p&gt;次に$KL(q||p)$を最小化したケースです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb.png&#34;
 	width=&#34;640&#34;
 	height=&#34;480&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/ffae8716aa0ab67fa3d7ff25156a8dcb_hu6845e727a62542842b5467f25c322e00_40839_1024x0_resize_box_3.png 1024w&#34;
@@ -404,8 +396,8 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;
-こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;こちらも先程の話のとおり、$q$は$p$の値が大きい箇所に集中した分布になっています。&lt;/p&gt;
 &lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;今回は$q$を$p$に近づける話に限定しましたが、KL divergenceに与える分布を入れ替えると結果が変わるケースが多そうだなと想像できたんじゃないかと思います。
 頭の片隅に留めておくと役立つかもしれません。&lt;/p&gt;

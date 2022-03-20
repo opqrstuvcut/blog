@@ -879,7 +879,7 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;createBackgroundSubtractorMOG2に渡している引数ですが、history=60とすることで、直近の60フレームだけをモデルに考慮させているようなイメージです（正確にそうなるわけではないはずですが）。
 また、detectShadows=Trueの場合には影も検出できるのですが、不要なのでFalseにしています。この機能を切っておいたほうが少し早くなります。&lt;/p&gt;
 &lt;p&gt;fgbg.apply(frame)の返り値が前景の検出結果（mask画像）になります。
-ちなみに、検出された結果にオープニング処理を入れてノイズを減らしています。今回の動画ではオープニング処理を入れないと次のように結構ノイズが拾われてしまいます。
+ちなみに、検出された結果にオープニング処理を入れてノイズを減らしています。今回の動画ではオープニング処理を入れないと次のように結構ノイズが拾われてしまいます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.png&#34;
 	width=&#34;375&#34;
 	height=&#34;223&#34;
@@ -891,22 +891,19 @@ BackgroundSubtractorMOG2では背景と前景を分離するために混合ガ�
 		data-flex-grow=&#34;168&#34;
 		data-flex-basis=&#34;403px&#34;
 	
-&gt;&lt;/p&gt;
-&lt;p&gt;検出されたマスクにオープニング処理も入れた結果が次のとおりです（GIFが動かない場合はクリックしてみてください）。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/64655766adf52c23bb49f969edd92526.gif&#34;
-	width=&#34;480&#34;
-	height=&#34;272&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/64655766adf52c23bb49f969edd92526_hu6411309d7eb6f6e7b0c3ced3ca1995ae_445954_480x0_resize_box.gif 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/64655766adf52c23bb49f969edd92526_hu6411309d7eb6f6e7b0c3ced3ca1995ae_445954_1024x0_resize_box.gif 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;176&#34;
-		data-flex-basis=&#34;423px&#34;
-	
-&gt;&lt;/p&gt;
+&gt;&lt;br&gt;
+検出されたマスクにオープニング処理も入れた結果が次のとおりです（GIFが動かない場合はクリックしてみてください）。&lt;br&gt;
+
+
+
+
+&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/64655766adf52c23bb49f969edd92526.gif&#34;&gt;
+  &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/64655766adf52c23bb49f969edd92526_hu6411309d7eb6f6e7b0c3ced3ca1995ae_445954_800x0_resize_q95_box.gif&#34; alt=&#34;メモリ使用量&#34;&gt;
+&lt;/a&gt;
+
+&lt;/p&gt;
 &lt;h1 id=&#34;コード全体&#34;&gt;コード全体&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-PYthon&#34; data-lang=&#34;PYthon&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cv2&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cv2&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
 
 &lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VideoCapture&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ex.mp4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;

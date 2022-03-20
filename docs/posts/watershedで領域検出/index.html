@@ -4,9 +4,12 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
 実際にOpenCVでやってみましょう。
-OpenCVでWatershed 次の画像にWaterShedを適用してみます。 いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
-marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。 OpenCVのWatershedは次のようにして実行できます。
-res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。 3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。'><title>Watershedで領域検出</title>
+OpenCVでWatershed 次の画像にWaterShedを適用してみます。
+いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
+marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。
+OpenCVのWatershedは次のようにして実行できます。
+res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。
+3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。'><title>Watershedで領域検出</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/'>
 
@@ -14,9 +17,12 @@ res = cv2.watershed(img, marker) 返り値には領域を分割した結果を�
 <meta property='og:description' content='本記事はQrunchからの転載です。
  Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
 実際にOpenCVでやってみましょう。
-OpenCVでWatershed 次の画像にWaterShedを適用してみます。 いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
-marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。 OpenCVのWatershedは次のようにして実行できます。
-res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。 3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。'>
+OpenCVでWatershed 次の画像にWaterShedを適用してみます。
+いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
+marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。
+OpenCVのWatershedは次のようにして実行できます。
+res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。
+3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='WaterShed' /><meta property='article:published_time' content='2020-08-08T11:10:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-08T11:10:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png' />
@@ -24,9 +30,12 @@ res = cv2.watershed(img, marker) 返り値には領域を分割した結果を�
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
 実際にOpenCVでやってみましょう。
-OpenCVでWatershed 次の画像にWaterShedを適用してみます。 いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
-marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。 OpenCVのWatershedは次のようにして実行できます。
-res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。 3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。"><meta name="twitter:card" content="summary_large_image">
+OpenCVでWatershed 次の画像にWaterShedを適用してみます。
+いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
+marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。
+OpenCVのWatershedは次のようにして実行できます。
+res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。
+3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -286,7 +295,7 @@ if (!doNotTrack) {
 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。</p>
 <p>実際にOpenCVでやってみましょう。</p>
 <h1 id="opencvでwatershed">OpenCVでWatershed</h1>
-<p>次の画像にWaterShedを適用してみます。
+<p>次の画像にWaterShedを適用してみます。<br>
 <img src="/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb.png"
 	width="203"
 	height="252"
@@ -307,7 +316,7 @@ if (!doNotTrack) {
 <span class="n">marker</span><span class="p">[</span><span class="mi">120</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">:</span><span class="mi">280</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">marker</span><span class="p">[</span><span class="mi">280</span><span class="p">:</span><span class="mi">310</span><span class="p">,</span> <span class="mi">290</span><span class="p">:</span><span class="mi">320</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
 </code></pre></div><p>markerに代入した1~4の値がそれぞれの物体上にくるようにしています。
-マーカーの位置と画像を重ねると次のようになります。
+マーカーの位置と画像を重ねると次のようになります。<br>
 <img src="/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5.png"
 	width="203"
 	height="252"
@@ -324,7 +333,7 @@ if (!doNotTrack) {
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">marker</span><span class="p">)</span>
 </code></pre></div><p>返り値には領域を分割した結果をあらわす行列が格納されています。
 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。
-描画してみると以下のようになります。
+描画してみると以下のようになります。<br>
 <img src="/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png"
 	width="203"
 	height="252"
@@ -336,7 +345,7 @@ if (!doNotTrack) {
 		data-flex-grow="80"
 		data-flex-basis="193px"
 	
->
+><br>
 3つはちゃんと領域が分割できています。
 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。</p>
 

@@ -7,10 +7,10 @@ image: dba26e4507ff86058f0c703b8298c1f9.png
 ---
 本記事はQrunchからの転載です。
 ___
-次のような画像があったとします。
+次のような画像があったとします。  
 ![](b7906bd0d4bbe04cf62dab0eda766889.png)
 
-ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。  
 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。
 （ディープラーニング使えばできるよね？はおいておいて）
 
@@ -52,14 +52,13 @@ def plot_cut_image(img, mask):
     cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.newaxis]
     plt.imshow(cut_img[:, :, ::-1])
     plt.show()
-```
-
-![](b05f14364e9986447f89ea7659ea620e.png)
+```  
+![](b05f14364e9986447f89ea7659ea620e.png)  
 
 上手く猫だけを抽出できていますね。
 
 ## maskを指定
-次に下の画像から猫を抽出することを考えます。
+次に下の画像から猫を抽出することを考えます。  
 ![](a8fc1d6fcb0643ca35828ac428fbb855.png)
 
 まずは、さきほどと同じようにやってみます。
@@ -79,7 +78,7 @@ cv2.grabCut(img, mask, rect,
 
 ここでmaskの出番です。
 前景として扱いたい部分をmaskに指定してあげることができます。
-猫の顔の右下の部分を前景としたいので、その部分のmaskの値を1にします。
+猫の顔の右下の部分を前景としたいので、その部分のmaskの値を1にします。  
 また、grabCutの最後の引数もcv2.GC_INIT_WITH_MASKというflagに変えることで、maskを使えるようにします。
 
 ```Python
@@ -87,7 +86,7 @@ mask[100:130, 200:280] = 1
 cv2.grabCut(img, mask, rect, 
             bgdModel, fgdModel, 10,
             cv2.GC_INIT_WITH_MASK)
-```
+```  
 ![](2387bca0c34c5db2fe637178b5bb136b.png)
 
 いい感じです！

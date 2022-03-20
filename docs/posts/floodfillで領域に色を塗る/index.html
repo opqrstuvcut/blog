@@ -6,7 +6,7 @@
 使い方 次のようにしてfloodFillを利用できます。
 mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x&#43;1, y&#43;1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
 結果は以下のとおりです。
-　入力画像　floodFillの結果 '><title>floodFillで領域に色を塗る</title>
+   入力画像 floodFillの結果          '><title>floodFillで領域に色を塗る</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/'>
 
@@ -16,7 +16,7 @@ mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) re
 使い方 次のようにしてfloodFillを利用できます。
 mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x&#43;1, y&#43;1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
 結果は以下のとおりです。
-　入力画像　floodFillの結果 '>
+   入力画像 floodFillの結果          '>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='floodFill' /><meta property='article:published_time' content='2020-08-06T11:08:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-06T11:08:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png' />
@@ -26,7 +26,7 @@ mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) re
 使い方 次のようにしてfloodFillを利用できます。
 mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x&#43;1, y&#43;1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
 結果は以下のとおりです。
-　入力画像　floodFillの結果 "><meta name="twitter:card" content="summary_large_image">
+   入力画像 floodFillの結果          "><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -298,8 +298,16 @@ seedPointに指定した座標が塗りつぶしの処理の起点になりま�
 newValに塗りつぶす色を指定します。
 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。</p>
 <p>結果は以下のとおりです。</p>
-<p>　　　　　　　　入力画像　　　　　　　　　　　　　　　　　　floodFillの結果
-<img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a.png"
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>入力画像</th>
+<th>floodFillの結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a.png"
 	width="247"
 	height="252"
 	srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_480x0_resize_box_3.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_1024x0_resize_box_3.png 1024w"
@@ -310,7 +318,8 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		data-flex-grow="98"
 		data-flex-basis="235px"
 	
-><img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png"
+></td>
+<td><img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png"
 	width="247"
 	height="252"
 	srcset="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_480x0_resize_box_3.png 480w, /blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1024x0_resize_box_3.png 1024w"
@@ -321,7 +330,10 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		data-flex-grow="98"
 		data-flex-basis="235px"
 	
-></p>
+></td>
+</tr>
+</tbody>
+</table></div>
 
 </section>
 

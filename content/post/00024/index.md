@@ -13,7 +13,7 @@ ___
 **NumPyでもヒストグラムの計算できるじゃない**、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。
 
 # OpenCVのヒストグラム
-せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。
+せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。  
 ![](5703e41eaa88a7eb01fcb7ef796e3bb3.png)
 
 OpenCVでのヒストグラムの計算は以下のようにおこなえます。
@@ -37,7 +37,7 @@ plt.bar(range(len(hist)), hist.ravel())
 plt.ylabel("freq")
 plt.xlabel("val")
 plt.show()
-```
+```  
 ![](c54a4bc6afdf7c7d6bf9033664dfe9ef.png)
 
 # NumPyとの比較

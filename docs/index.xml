@@ -1435,7 +1435,7 @@ methodは比較方法をあらわし、以下のようなものがあります�
 &lt;p&gt;これに伴い、ヒストグラムを計算できるライブラリは色々あるかと思いますが、OpenCVでもヒストグラムを計算する機能をもっています。
 &lt;strong&gt;NumPyでもヒストグラムの計算できるじゃない&lt;/strong&gt;、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvのヒストグラム&#34;&gt;OpenCVのヒストグラム&lt;/h1&gt;
-&lt;p&gt;せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。
+&lt;p&gt;せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/5703e41eaa88a7eb01fcb7ef796e3bb3.png&#34;
 	width=&#34;336&#34;
 	height=&#34;252&#34;
@@ -1515,7 +1515,7 @@ methodは比較方法をあらわし、以下のようなものがあります�
         <guid>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
         <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/dba26e4507ff86058f0c703b8298c1f9.png" alt="Featured image of post Grabcutsで背景と猫を分離したい" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;次のような画像があったとします。
+&lt;p&gt;次のような画像があったとします。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/b7906bd0d4bbe04cf62dab0eda766889.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1528,7 +1528,7 @@ methodは比較方法をあらわし、以下のようなものがあります�
 		data-flex-basis=&#34;193px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+&lt;p&gt;ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。&lt;br&gt;
 実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。
 （ディープラーニング使えばできるよね？はおいておいて）&lt;/p&gt;
 &lt;h1 id=&#34;grabcutsを使ってみる&#34;&gt;Grabcutsを使ってみる&lt;/h1&gt;
@@ -1580,7 +1580,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;p&gt;上手く猫だけを抽出できていますね。&lt;/p&gt;
 &lt;h2 id=&#34;maskを指定&#34;&gt;maskを指定&lt;/h2&gt;
-&lt;p&gt;次に下の画像から猫を抽出することを考えます。
+&lt;p&gt;次に下の画像から猫を抽出することを考えます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/a8fc1d6fcb0643ca35828ac428fbb855.png&#34;
 	width=&#34;334&#34;
 	height=&#34;252&#34;
@@ -1617,7 +1617,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 &lt;p&gt;椅子と猫の色味が似ているためか上手くいきません。&lt;/p&gt;
 &lt;p&gt;ここでmaskの出番です。
 前景として扱いたい部分をmaskに指定してあげることができます。
-猫の顔の右下の部分を前景としたいので、その部分のmaskの値を1にします。
+猫の顔の右下の部分を前景としたいので、その部分のmaskの値を1にします。&lt;br&gt;
 また、grabCutの最後の引数もcv2.GC_INIT_WITH_MASKというflagに変えることで、maskを使えるようにします。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;130&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;200&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;280&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;grabCut&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
@@ -1668,7 +1668,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。&lt;/p&gt;
 &lt;p&gt;実際にOpenCVでやってみましょう。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでwatershed&#34;&gt;OpenCVでWatershed&lt;/h1&gt;
-&lt;p&gt;次の画像にWaterShedを適用してみます。
+&lt;p&gt;次の画像にWaterShedを適用してみます。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1689,7 +1689,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 &lt;span class=&#34;n&#34;&gt;marker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;120&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;150&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;250&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;280&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;marker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;280&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;310&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;290&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;320&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;markerに代入した1~4の値がそれぞれの物体上にくるようにしています。
-マーカーの位置と画像を重ねると次のようになります。
+マーカーの位置と画像を重ねると次のようになります。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1706,7 +1706,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;watershed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;marker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返り値には領域を分割した結果をあらわす行列が格納されています。
 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。
-描画してみると以下のようになります。
+描画してみると以下のようになります。&lt;br&gt;
 &lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
@@ -1718,7 +1718,7 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 		data-flex-grow=&#34;80&#34;
 		data-flex-basis=&#34;193px&#34;
 	
-&gt;
+&gt;&lt;br&gt;
 3つはちゃんと領域が分割できています。
 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。&lt;/p&gt;
 </description>
@@ -1742,8 +1742,16 @@ maskに格納される値は以下のような意味になります。&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。
 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。&lt;/p&gt;
 &lt;p&gt;結果は以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　　　　　入力画像　　　　　　　　　　　　　距離変換適用（明るいほど距離大）
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;入力画像&lt;/th&gt;
+&lt;th&gt;距離変換適用（明るいほど距離大）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w&#34;
@@ -1754,7 +1762,8 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_1024x0_resize_box_3.png 1024w&#34;
@@ -1765,7 +1774,10 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。&lt;/p&gt;
 </description>
         </item>
@@ -1793,8 +1805,16 @@ seedPointに指定した座標が塗りつぶしの処理の起点になりま�
 newValに塗りつぶす色を指定します。
 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。&lt;/p&gt;
 &lt;p&gt;結果は以下のとおりです。&lt;/p&gt;
-&lt;p&gt;　　　　　　　　入力画像　　　　　　　　　　　　　　　　　　floodFillの結果
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a.png&#34;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;入力画像&lt;/th&gt;
+&lt;th&gt;floodFillの結果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b944ecdbe70bf25c0767c5274622e44a_hu7a2287441c4c8a30607a7f2d938c96e2_46674_1024x0_resize_box_3.png 1024w&#34;
@@ -1805,7 +1825,8 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png&#34;
+&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
 	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu7a2287441c4c8a30607a7f2d938c96e2_46814_1024x0_resize_box_3.png 1024w&#34;
@@ -1816,7 +1837,10 @@ seedPointに指定したピクセルの値からloDiffを引いた値とseedPoin
 		data-flex-grow=&#34;98&#34;
 		data-flex-basis=&#34;235px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 </description>
         </item>
         <item>

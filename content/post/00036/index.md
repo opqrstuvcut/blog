@@ -30,6 +30,6 @@ newValに塗りつぶす色を指定します。
 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
 
 結果は以下のとおりです。
-
-　　　　　　　　入力画像　　　　　　　　　　　　　　　　　　floodFillの結果
-![](b944ecdbe70bf25c0767c5274622e44a.png)![](b7d4e85930d3ec37e0350ab3fe75e877.png)
+|入力画像|floodFillの結果|
+|--|--|
+|![](b944ecdbe70bf25c0767c5274622e44a.png)|![](b7d4e85930d3ec37e0350ab3fe75e877.png)|

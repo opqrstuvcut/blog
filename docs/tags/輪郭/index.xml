@@ -1,24 +1,96 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>輪郭 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E8%BC%AA%E9%83%AD/</link>
-    <description>Recent content in 輪郭 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Mon, 17 Aug 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%BC%AA%E9%83%AD/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>抽出した輪郭の描画</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
-      <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
-      <description>本記事はQrunchからの転載です。
- OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
-drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
-   引数 意味     contours findContoursで見つかった輪郭   contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画）   color 描画する輪郭の色   thickness 描画する輪郭の太さ   lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される   hierarchy findContoursで見つかった輪郭の階層構造   maxLevel 描画する最大の階層を指定する    maxLevelを1にしたときと、2にしたときの違いを次に示します。
-maxLevel=1maxLevel=2   maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>輪郭 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E8%BC%AA%E9%83%AD/</link>
+        <description>Recent content in 輪郭 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 17 Aug 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%BC%AA%E9%83%AD/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>抽出した輪郭の描画</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
+        <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png" alt="Featured image of post 抽出した輪郭の描画" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。
+次のようにして使えます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;drawed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;drawContours&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                          &lt;span class=&#34;n&#34;&gt;contours&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;contours&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;contourIdx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;255&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;thickness&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;lineType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;hierarchy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hierarcies&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                          &lt;span class=&#34;n&#34;&gt;maxLevel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;引数&lt;/th&gt;
+&lt;th&gt;意味&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;contours&lt;/td&gt;
+&lt;td&gt;findContoursで見つかった輪郭&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;contourIdx&lt;/td&gt;
+&lt;td&gt;描画する輪郭のインデックスを指定する（-1だと全て描画）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;color&lt;/td&gt;
+&lt;td&gt;描画する輪郭の色&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;thickness&lt;/td&gt;
+&lt;td&gt;描画する輪郭の太さ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lineType&lt;/td&gt;
+&lt;td&gt;4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hierarchy&lt;/td&gt;
+&lt;td&gt;findContoursで見つかった輪郭の階層構造&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxLevel&lt;/td&gt;
+&lt;td&gt;描画する最大の階層を指定する&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;maxLevelを1にしたときと、2にしたときの違いを次に示します。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;maxLevel=1&lt;!-- raw HTML omitted --&gt;　　　　　　　　&lt;!-- raw HTML omitted --&gt;maxLevel=2&lt;!-- raw HTML omitted --&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png&#34;
+	width=&#34;191&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;75&#34;
+		data-flex-basis=&#34;181px&#34;
+	
+&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954.png&#34;
+	width=&#34;191&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954_hu9c1fbd238a75b8cb62ff131fcc8377c7_46379_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/2befea557cb26cffa707b61c3f373954_hu9c1fbd238a75b8cb62ff131fcc8377c7_46379_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;75&#34;
+		data-flex-basis=&#34;181px&#34;
+	
+&gt;
+maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

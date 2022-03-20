@@ -1,40 +1,32 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
- 
 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
- 
-次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。  
-次の局所領域では最小値は2です。  
-局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。  
-OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。
 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
 先程の例に適用 先程の例の画像でerodeを試してみましょう。
 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
-array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。'><title>erodeで猫を収縮させる</title>
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.'><title>erodeで猫を収縮させる</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='erodeで猫を収縮させる'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='erodeで猫を収縮させる'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
- 
 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
- 
-次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。  
-次の局所領域では最小値は2です。  
-局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。  
-OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。
 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
 先程の例に適用 先程の例の画像でerodeを試してみましょう。
 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
-array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。'>
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='erode' /><meta property='article:tag' content='縮小' /><meta property='article:published_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='article:modified_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
@@ -42,18 +34,14 @@ array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種に�
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
  erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
- 
 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
- 
-次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。  
-次の局所領域では最小値は2です。  
-局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。  
-OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。
 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
 先程の例に適用 先程の例の画像でerodeを試してみましょう。
 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
-array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。"><meta name="twitter:card" content="summary_large_image">
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -71,8 +59,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -95,23 +83,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -121,24 +104,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -157,7 +145,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -176,7 +168,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -192,9 +188,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -202,7 +200,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -210,13 +208,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -248,11 +245,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/">erodeで猫を収縮させる</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/">erodeで猫を収縮させる</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -272,109 +271,102 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <h1 id="erodeによる収縮">erodeによる収縮</h1>
 <p>erodeは指定した局所領域内の最小値を取るような操作になります。</p>
 <p>具体的な例で説明していきます。
 次のようなピクセル値をもった3×3の画像があったとします。</p>
-<p><figure 
+<p><img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e.png"
+	width="184"
+	height="168"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e_hu11441796842f03192018b12716d91693_4477_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e_hu11441796842f03192018b12716d91693_4477_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 109; 
-			flex-basis: 262px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e.png" data-size="184x168">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e.png"
-			width="184"
-			height="168"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e_hu11441796842f03192018b12716d91693_4477_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7376275730d4d4b19a29533b1b9f210e_hu11441796842f03192018b12716d91693_4477_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="109"
+		data-flex-basis="262px"
 	
-</figure></p>
+></p>
 <p>erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。
 オレンジ色の枠が注目している局所領域になります。
 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。</p>
-<p><figure 
+<p><img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8.png"
+	width="516"
+	height="226"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8_hu59822a1a0aff699526004a7d969a7b14_7470_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8_hu59822a1a0aff699526004a7d969a7b14_7470_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 228; 
-			flex-basis: 547px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8.png" data-size="516x226">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8.png"
-			width="516"
-			height="226"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8_hu59822a1a0aff699526004a7d969a7b14_7470_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/8b9415f695dfbb2ddcc2a008875f69e8_hu59822a1a0aff699526004a7d969a7b14_7470_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="228"
+		data-flex-basis="547px"
 	
-</figure></p>
+></p>
 <p>次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
-<figure 
+<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737.png"
+	width="456"
+	height="224"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 203; 
-			flex-basis: 488px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737.png" data-size="456x224">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737.png"
-			width="456"
-			height="224"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/098ae05cccf6db8f89ff994fd5556737_hud48231d2609562ab824394d336b5fc0b_7495_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="203"
+		data-flex-basis="488px"
 	
-</figure></p>
+></p>
 <p>次の局所領域では最小値は2です。
-<figure 
+<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d.png"
+	width="454"
+	height="224"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 202; 
-			flex-basis: 486px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d.png" data-size="454x224">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d.png"
-			width="454"
-			height="224"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/983090a4314e08f9764da8ee0a769a1d_hu1e07985bebe92ea00483b1c9f08c3058_8010_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="202"
+		data-flex-basis="486px"
 	
-</figure></p>
+></p>
 <p>局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
-<figure 
+<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2.png"
+	width="182"
+	height="170"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 107; 
-			flex-basis: 256px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2.png" data-size="182x170">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2.png"
-			width="182"
-			height="170"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/5ec444481c4e700ad47040123e4a4de2_hu982631a91beb14f344f70a4f76b500f5_3848_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="107"
+		data-flex-basis="256px"
 	
-</figure></p>
+></p>
 <h1 id="opencvでerode">OpenCVでerode</h1>
 <p>OpenCVでのerodeは次のようにおこないます。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
@@ -402,57 +394,42 @@ if (!doNotTrack) {
 </code></pre><p>局所領域をいじったため、$(3,2)$の要素が$1$になりました。</p>
 <h2 id="画像へ適用">画像へ適用</h2>
 <p>以下の画像に5×5の局所領域でのerodeを適用してみます。
-<figure 
+<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f.png" data-size="247x252">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/7fc82446b9e83b6d4be62461589c8a6f_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure></p>
+></p>
 <p>　　　　　　　iterations=1　　　　　　　　　　　　　　　　　　iterations=2
-<figure 
+<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d.png" data-size="247x252">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/f08af4f15d1f1dfbeaf9bcd13f393d0d_hu8077ec46e4a1100631c726afa58458e2_31910_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure><figure 
+><img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png" data-size="247x252">
-		<img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_480x0_resize_box_3.png 480w, /blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hud2e86eaec3a26b71b577c25f3c91797a_28308_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure></p>
+></p>
 <p>文字の部分をみるとわかりやすいですが、だいぶ小さくなっています。
 目の部分はピクセル値が小さいので、ここは逆に膨張しています。</p>
 
@@ -491,11 +468,11 @@ if (!doNotTrack) {
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -511,14 +488,16 @@ if (!doNotTrack) {
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
@@ -527,8 +506,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 動画データから前景と背景を分離する"
+                        
                         data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
                 
             </div>
@@ -539,8 +519,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/">
         
@@ -549,8 +529,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/_huc336200167bfc01149489055c5443329_25774_e9ccd054e805a3d2c51eea05ad5b2425.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post connectedComponentsで連結した領域の取得"
+                        
                         data-hash="md5-0r0rO&#43;hfM/SyvQLOv4QUbA==">
                 
             </div>
@@ -561,8 +542,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
@@ -571,8 +552,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 抽出した輪郭の描画"
+                        
                         data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
                 
             </div>
@@ -583,8 +565,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
@@ -593,8 +575,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
                         data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
                 
             </div>
@@ -605,8 +588,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
@@ -615,8 +598,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
                         data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
                 
             </div>
@@ -627,10 +611,9 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -644,12 +627,12 @@ if (!doNotTrack) {
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -718,11 +701,11 @@ if (!doNotTrack) {
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -738,7 +721,7 @@ if (!doNotTrack) {
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

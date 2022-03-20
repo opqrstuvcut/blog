@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
@@ -8,12 +8,12 @@
 この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
 なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
 OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
-次の左の画像にノイズをのせて右の画像を生成しました。   
-これに対して次のようにして、Non-Local Means Denoisingを適用します。'><title>Non-Local Means Denoisingでノイズ除去</title>
+次の左の画像にノイズをのせて右の画像を生成しました。 これに対して次のようにして、Non-Local Means Denoisingを適用します。
+denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。'><title>Non-Local Means Denoisingでノイズ除去</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='Non-Local Means Denoisingでノイズ除去'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='Non-Local Means Denoisingでノイズ除去'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
 似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f &#43; 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p&#43;j) - I_c(q&#43;j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f &#43; 1) \times (2f &#43; 1)$となっています。$I_c(p&#43;j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
@@ -21,8 +21,8 @@ OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます
 この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
 なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
 OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
-次の左の画像にノイズをのせて右の画像を生成しました。   
-これに対して次のようにして、Non-Local Means Denoisingを適用します。'>
+次の左の画像にノイズをのせて右の画像を生成しました。 これに対して次のようにして、Non-Local Means Denoisingを適用します。
+denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='FNLMD' /><meta property='article:tag' content='ノイズ除去' /><meta property='article:published_time' content='2020-08-01T10:04:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-01T10:04:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png' />
@@ -34,8 +34,8 @@ OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます
 この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
 なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
 OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
-次の左の画像にノイズをのせて右の画像を生成しました。   
-これに対して次のようにして、Non-Local Means Denoisingを適用します。"><meta name="twitter:card" content="summary_large_image">
+次の左の画像にノイズをのせて右の画像を生成しました。 これに対して次のようにして、Non-Local Means Denoisingを適用します。
+denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -53,8 +53,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -77,23 +77,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -103,24 +98,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -139,7 +139,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -158,7 +162,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -174,9 +182,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -184,7 +194,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -192,13 +202,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -230,11 +239,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/">Non-Local Means Denoisingでノイズ除去</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/">Non-Local Means Denoisingでノイズ除去</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -254,12 +265,30 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <h1 id="non-local-means-denoisingのアイデア">Non-Local Means Denoisingのアイデア</h1>
@@ -283,39 +312,29 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 <h1 id="opencvでやってみる">OpenCVでやってみる</h1>
 <p>OpenCVでNon-Local Means Denoisingをやってみます。</p>
 <p>次の左の画像にノイズをのせて右の画像を生成しました。
-<figure 
+<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png"
+	width="251"
+	height="251"
+	srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 100; 
-			flex-basis: 240px"
-	>
-	<a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png" data-size="251x251">
-		<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png"
-			width="251"
-			height="251"
-			srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="100"
+		data-flex-basis="240px"
 	
-</figure><figure 
+><img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5.png"
+	width="251"
+	height="251"
+	srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 100; 
-			flex-basis: 240px"
-	>
-	<a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5.png" data-size="251x251">
-		<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5.png"
-			width="251"
-			height="251"
-			srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="100"
+		data-flex-basis="240px"
 	
-</figure></p>
+></p>
 <p>これに対して次のようにして、Non-Local Means Denoisingを適用します。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">denoised</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">fastNlMeansDenoisingColored</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> 
                                            <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
@@ -325,39 +344,29 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。</p>
 <p>結果が以下のとおりです。</p>
 <p>　　　　　　ノイズをのせた画像　　　　　　　　　　　　　　ノイズ除去後の画像
-<figure 
+<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png"
+	width="251"
+	height="251"
+	srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 100; 
-			flex-basis: 240px"
-	>
-	<a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png" data-size="251x251">
-		<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png"
-			width="251"
-			height="251"
-			srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="100"
+		data-flex-basis="240px"
 	
-</figure><figure 
+><img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png"
+	width="251"
+	height="251"
+	srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 100; 
-			flex-basis: 240px"
-	>
-	<a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png" data-size="251x251">
-		<img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png"
-			width="251"
-			height="251"
-			srcset="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_480x0_resize_box_3.png 480w, /blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="100"
+		data-flex-basis="240px"
 	
-</figure></p>
+></p>
 <p>体の部分がぼやけていますが、ノイズはきれいにとれてますね。</p>
 
 </section>
@@ -397,11 +406,11 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -417,14 +426,16 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
@@ -433,8 +444,9 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
                 <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 動画データから前景と背景を分離する"
+                        
                         data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
                 
             </div>
@@ -445,8 +457,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
@@ -455,8 +467,9 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
                 <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 抽出した輪郭の描画"
+                        
                         data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
                 
             </div>
@@ -467,8 +480,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
@@ -477,8 +490,9 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
                 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
                         data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
                 
             </div>
@@ -489,8 +503,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
@@ -499,8 +513,9 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
                 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
                         data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
                 
             </div>
@@ -511,8 +526,8 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="">
     <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
@@ -523,10 +538,9 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -540,12 +554,12 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -614,11 +628,11 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -634,7 +648,7 @@ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行する�
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

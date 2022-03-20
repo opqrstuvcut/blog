@@ -1,45 +1,163 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Docker on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/docker/</link>
-    <description>Recent content in Docker on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>docker-composeのbuildがはじまらないとき</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
-      <description>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
-docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
-Building xxxがずっと表示されて、そこから進まないわけです。
-以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
-docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
-全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
-対処方法  .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）  </description>
-    </item>
-    
-    <item>
-      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
-      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
- AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
-MinIOのページはこちら。https://min.io
-導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
- Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。  docker run -p 9000:9000 \ --name minio_test \ -e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \ -e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
-上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
-（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
-実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
-http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
-Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
-Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Docker on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/docker/</link>
+        <description>Recent content in Docker on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>docker-composeのbuildがはじまらないとき</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
+        <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
+        <description>&lt;p&gt;最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。&lt;br&gt;
+docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。&lt;br&gt;
+Building xxxがずっと表示されて、そこから進まないわけです。&lt;/p&gt;
+&lt;p&gt;以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。&lt;/p&gt;
+&lt;h1 id=&#34;docker-composeのbuildがはじまらない原因&#34;&gt;docker-composeのbuildがはじまらない原因&lt;/h1&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。&lt;br&gt;
+全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。&lt;/p&gt;
+&lt;h1 id=&#34;対処方法&#34;&gt;対処方法&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;.dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する&lt;/li&gt;
+&lt;li&gt;ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか）&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+        <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png" alt="Featured image of post MinIOでローカルにS3みたいなものを作って開発する" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名も&lt;strong&gt;MinIO&lt;/strong&gt;。
+今回はMinIOの使い方を簡単にご紹介します。とても簡単です。&lt;/p&gt;
+&lt;p&gt;MinIOのページはこちら。&lt;a class=&#34;link&#34; href=&#34;https://min.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://min.io&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;導入&#34;&gt;導入&lt;/h1&gt;
+&lt;p&gt;自分はDockerを利用しましたので、Docker経由での使い方になります。
+Dockerは嫌だという場合には公式のページをご確認下さい。&lt;a class=&#34;link&#34; href=&#34;https://docs.min.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.min.io/&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Dockerをインストール。
+Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。&lt;a class=&#34;link&#34; href=&#34;http://docs.docker.jp/engine/installation/docker-ce.html#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://docs.docker.jp/engine/installation/docker-ce.html#&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ターミナル等で次を実行して、MinIOのサーバを立ち上げる。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run -p 9000:9000 \
+--name minio_test \
+-e &amp;quot;MINIO_ACCESS_KEY=access_key_dayo&amp;quot; \
+-e &amp;quot;MINIO_SECRET_KEY=secret_key_dayo&amp;quot; \
+minio/minio server /data
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。&lt;br&gt;
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。&lt;br&gt;
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。&lt;/p&gt;
+&lt;p&gt;実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単&lt;br&gt;
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Endpoint:  http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Browser Access:
+   http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Object API (Amazon S3 compatible):
+   Go:         https://docs.min.io/docs/golang-client-quickstart-guide
+   Java:       https://docs.min.io/docs/java-client-quickstart-guide
+   Python:     https://docs.min.io/docs/python-client-quickstart-guide
+   JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide
+   .NET:       https://docs.min.io/docs/dotnet-client-quickstart-guide
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;使ってみる&#34;&gt;使ってみる&lt;/h1&gt;
+&lt;h2 id=&#34;ブラウザで利用&#34;&gt;ブラウザで利用&lt;/h2&gt;
+&lt;h3 id=&#34;アクセス&#34;&gt;アクセス&lt;/h3&gt;
+&lt;p&gt;ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。&lt;br&gt;
+Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;strong&gt;MINIO_ACCESS_KEY&lt;/strong&gt;と&lt;strong&gt;MINIO_SECRET_KEY&lt;/strong&gt;の値を入れましょう。これでログインできます。&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png&#34;
+	width=&#34;717&#34;
+	height=&#34;476&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hud6cb81a775978a88f5a41e08842d2fb5_16521_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;361px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ログインすると以下のような画面になります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu7acb2632ad2701ebc6714e462ef2a3a3_54367_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;バケット生成&#34;&gt;バケット生成&lt;/h3&gt;
+&lt;p&gt;ここでAWSのS3のバケット相当のものが作れます。&lt;br&gt;
+右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu987afb3e9fcd88b330805f54e10714dd_59763_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;
+左側に生成したバケットが表示されていますね。&lt;/p&gt;
+&lt;h3 id=&#34;ファイルを配置&#34;&gt;ファイルを配置&lt;/h3&gt;
+&lt;p&gt;画面の上のほうにファイルをドラッグするとこのバケット内にファイルが置けます。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu987afb3e9fcd88b330805f54e10714dd_63064_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;boto3で利用&#34;&gt;boto3で利用&lt;/h2&gt;
+&lt;p&gt;boto3を使ってS3の操作をおこないます。Python3を例にあげます。&lt;/p&gt;
+&lt;h3 id=&#34;s3と接続するためのオブジェクト生成&#34;&gt;S3と接続するためのオブジェクト生成&lt;/h3&gt;
+&lt;p&gt;以下のclientの引数のaws_access_key_idとaws_secret_access_keyには、docker runしたときに設定した&lt;strong&gt;MINIO_ACCESS_KEY&lt;/strong&gt;と&lt;strong&gt;MINIO_SECRET_KEY&lt;/strong&gt;をそれぞれ指定しましょう。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import boto3
+s3_client = boto3.client(&amp;quot;s3&amp;quot;, endpoint_url=&amp;quot;http://127.0.0.1:9000&amp;quot;,
+                         aws_access_key_id=&amp;quot;access_key_dayo&amp;quot;,
+                         aws_secret_access_key=&amp;quot;secret_key_dayo&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ファイル検索&#34;&gt;ファイル検索&lt;/h3&gt;
+&lt;p&gt;ファイルの検索を試します。以下のように、作ったBucketを指定してやります。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;contents = s3_client.list_objects(Bucket=&amp;quot;test&amp;quot;,
+                                  Prefix=&amp;quot;&amp;quot;).get(&amp;quot;Contents&amp;quot;)
+print(contents)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上記を実行すると、次のように表示されました。配置したファイルがちゃんと見つけられますね！&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[{&#39;Key&#39;: &#39;テキストたよ.txt&#39;, &#39;LastModified&#39;: datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), &#39;ETag&#39;: &#39;&amp;quot;59681d790d132065f97faf0f52e9aa41-1&amp;quot;&#39;, &#39;Size&#39;: 27, &#39;StorageClass&#39;: &#39;STANDARD&#39;, &#39;Owner&#39;: {&#39;DisplayName&#39;: &#39;&#39;, &#39;ID&#39;: &#39;02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4&#39;}}]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ファイル取得&#34;&gt;ファイル取得&lt;/h3&gt;
+&lt;p&gt;ファイルの取得も試しましょう。以下を実行します。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;text = s3_client.get_object(Bucket=&amp;quot;test&amp;quot;,
+                            Key=&amp;quot;テキストたよ.txt&amp;quot;)[&amp;quot;Body&amp;quot;].read().decode(&#39;utf-8&#39;)
+print(text)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;結果：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;テキストの中身だよ
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;正しくテキストを取得できています！&lt;/p&gt;
+&lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;MinIOはとても簡単に使えて、便利だと思いました。よくできていて感動しますね。
+手元の環境にS3が欲しいなぁって思った方は使いましょう！&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

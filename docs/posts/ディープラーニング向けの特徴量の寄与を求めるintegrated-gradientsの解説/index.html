@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
@@ -10,15 +10,15 @@
 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
  Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
  次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
- 
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。'><title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
+Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。'><title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
 参考論文：Axiomatic Attribution for Deep Networks
@@ -28,11 +28,11 @@ Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計�
 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
  Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
  次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
- 
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。'>
+Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='寄与度' /><meta property='article:tag' content='feature importance' /><meta property='article:tag' content='Integrated Gradients' /><meta property='article:published_time' content='2019-12-08T16:17:01&#43;09:00'/><meta property='article:modified_time' content='2019-12-08T16:17:01&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg' />
@@ -46,11 +46,11 @@ Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計�
 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
  Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
  次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
- 
 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
  Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
  具体例を次に示します。
-Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。"><meta name="twitter:card" content="summary_large_image">
+Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -68,8 +68,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -92,23 +92,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -118,24 +113,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -154,7 +154,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -173,7 +177,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -189,9 +197,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -199,7 +209,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -207,13 +217,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -241,11 +250,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/">ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/">ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -265,12 +276,30 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <p>機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。
@@ -295,23 +324,18 @@ Integrated Gradientsの場合もその考え方を用います。
 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。
 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。
 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。</p>
-<p><figure 
+<p><img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png"
+	width="1689"
+	height="1125"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 150; 
-			flex-basis: 360px"
-	>
-	<a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png" data-size="1689x1125">
-		<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png"
-			width="1689"
-			height="1125"
-			srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="150"
+		data-flex-basis="360px"
 	
-</figure></p>
+></p>
 <h2 id="implementation-invariance">Implementation Invariance</h2>
 <p>Implementation Invarianceの定義は以下のとおりです。</p>
 <blockquote>
@@ -348,46 +372,36 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
 <h1 id="integrated-gradientsの適用結果">Integrated Gradientsの適用結果</h1>
 <h2 id="画像の分類問題の例">画像の分類問題の例</h2>
 <p>GoogleNetを使って画像の分類問題を学習させ、それにIntegrated Gradientsを適用した結果が以下のとおりです。</p>
-<p><figure 
+<p><img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg"
+	width="938"
+	height="1588"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_480x0_resize_q75_box.jpg 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 59; 
-			flex-basis: 141px"
-	>
-	<a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg" data-size="938x1588">
-		<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg"
-			width="938"
-			height="1588"
-			srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_480x0_resize_q75_box.jpg 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_1024x0_resize_q75_box.jpg 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="59"
+		data-flex-basis="141px"
 	
-</figure>
+>
 一番左が入力画像で、その隣にラベルとスコアが書いてあり、3列目がIntegrated Gradients×入力画像、4列目が勾配×入力画像です。
 これを見ると、単に勾配を用いる場合に比べて、物体を認識するのに必要そうな箇所が寄与していると判定されていることがわかります。例えば、2行目のfireboatは勾配の場合よりも、Integrated Gradientsのほうがより水しぶきの細かい部分に着目していると判定できています。</p>
 <h2 id="テキストの分類問題の例">テキストの分類問題の例</h2>
 <p>次にテキストの分類問題の例です。
 質問の答えがどういった種類の回答かを予測する問題です。例えば答えが数値なのか、日付なのかなどを予測します。</p>
 <p>下が予測モデルにIntegrated Gradientsを適用した結果です。
-<figure 
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png"
+	width="1556"
+	height="480"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 324; 
-			flex-basis: 778px"
-	>
-	<a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png" data-size="1556x480">
-		<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png"
-			width="1556"
-			height="480"
-			srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="324"
+		data-flex-basis="778px"
 	
-</figure></p>
+></p>
 <p>赤いほど予測への寄与が大きい単語となっています。
 結果を見てみると、疑問詞やyearなどに着目していることがわかります。それらしい結果になっていますね。</p>
 <h1 id="おわりに">おわりに</h1>
@@ -434,11 +448,11 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -454,14 +468,16 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/">
         
@@ -470,8 +486,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 <img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/_hu1d3b8c411e821887d60eecf621421a88_489801_869a43c547a867a35db4ade68e3c3e93.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post ディープラーニングのモデルの特徴量の寄与を求めるDeepLift"
+                        
                         data-hash="md5-LjBaHCHDUBzxfXd8nkMlIQ==">
                 
             </div>
@@ -482,8 +499,8 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/">
         
@@ -492,8 +509,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 <img src="/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/_hu43488a00ab78527cedf1030543e53948_126524_6546c6bb7cacd72f843ee81ecaa50cb4.jpg" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post モデルの予測結果を説明するLIMEの理論"
+                        
                         data-hash="md5-Tf3/WWVZu1MBCSYAJMW8ww==">
                 
             </div>
@@ -504,8 +522,8 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
         
@@ -514,8 +532,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 <img src="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/_hu9dc25053793792fcc48628a740947cda_243061_f02d064769a0c36d601b25a242053392.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post BERTを軽量化したALBERTの概要"
+                        
                         data-hash="md5-0UnRhP/luHHGNvAoDHGsFw==">
                 
             </div>
@@ -526,8 +545,8 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/">
         
@@ -536,8 +555,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 <img src="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/_huad0610d545df126cbc0dbaec61a8f428_203414_cb5a4562feb955c5ebbb315038692722.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv"
+                        
                         data-hash="md5-YlPgyKZJByU&#43;gN8w3EvReQ==">
                 
             </div>
@@ -548,8 +568,8 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
         
@@ -558,8 +578,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
                 <img src="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/_hua413e8993b42675a600325789a072244_97816_6aec3c6f47d825c0e29c8ab807f43950.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post BERTでおこなうポケモンの説明文生成"
+                        
                         data-hash="md5-gktJkQFFs84bPGBpESaCsw==">
                 
             </div>
@@ -570,10 +591,9 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -587,12 +607,12 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -661,11 +681,11 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -681,7 +701,7 @@ $$ {\rm Integrated\ Gradients} = (x - x') \int_{0}^{1} \nabla F(x' + \alpha(x - 
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

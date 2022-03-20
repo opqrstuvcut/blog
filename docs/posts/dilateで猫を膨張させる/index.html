@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
@@ -7,20 +7,18 @@ dilateについて dilateは指定された局所領域の中で最大値のピ�
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2     
-猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'><title>dilateで猫を膨張させる</title>
+　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'><title>dilateで猫を膨張させる</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='dilateで猫を膨張させる'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='dilateで猫を膨張させる'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2     
-猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'>
+　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dilate' /><meta property='article:tag' content='膨張' /><meta property='article:published_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='article:modified_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
@@ -31,8 +29,7 @@ dilateについて dilateは指定された局所領域の中で最大値のピ�
 dilateは次のようにして利用します。
 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
 実際に試した結果が以下のとおりです。
-　元画像 iterations=1　iterations=2     
-猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。"><meta name="twitter:card" content="summary_large_image">
+　元画像 iterations=1　iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -50,8 +47,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -74,23 +71,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -100,24 +92,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -136,7 +133,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -155,7 +156,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -171,9 +176,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -181,7 +188,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -189,13 +196,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -227,11 +233,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/">dilateで猫を膨張させる</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/">dilateで猫を膨張させる</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -251,12 +259,30 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <p>OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。
@@ -271,55 +297,40 @@ if (!doNotTrack) {
 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。</p>
 <p>実際に試した結果が以下のとおりです。</p>
 <p>　　　　　元画像 　　　　　　　　　　　iterations=1　　　　　　　　　iterations=2
-<figure 
+<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png" data-size="247x252">
-		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/bd81dd3573bd9179e4fc3ee58d6261b3_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure> <figure 
+> <img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png" data-size="247x252">
-		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/306f74dca7ea0a990908a7eba0cd980e_hu2c5ec362b1ca8743aba82498cb856ecb_31140_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure><figure 
+><img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png" data-size="247x252">
-		<img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_480x0_resize_box_3.png 480w, /blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hub4b0febc1f21980679e4fd191e7dadd2_27472_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure></p>
+></p>
 <p>猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。
 iterations=2のときのほうが1のときよりも膨張していることがわかります。</p>
 
@@ -358,11 +369,11 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -378,14 +389,16 @@ iterations=2のときのほうが1のときよりも膨張していることが�
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
@@ -394,8 +407,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 動画データから前景と背景を分離する"
+                        
                         data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
                 
             </div>
@@ -406,8 +420,8 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/">
         
@@ -416,8 +430,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/_huc336200167bfc01149489055c5443329_25774_e9ccd054e805a3d2c51eea05ad5b2425.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post connectedComponentsで連結した領域の取得"
+                        
                         data-hash="md5-0r0rO&#43;hfM/SyvQLOv4QUbA==">
                 
             </div>
@@ -428,8 +443,8 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
@@ -438,8 +453,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 抽出した輪郭の描画"
+                        
                         data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
                 
             </div>
@@ -450,8 +466,8 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
@@ -460,8 +476,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
                         data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
                 
             </div>
@@ -472,8 +489,8 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
@@ -482,8 +499,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
                 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
                         data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
                 
             </div>
@@ -494,10 +512,9 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -511,12 +528,12 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -585,11 +602,11 @@ iterations=2のときのほうが1のときよりも膨張していることが�
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -605,7 +622,7 @@ iterations=2のときのほうが1のときよりも膨張していることが�
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

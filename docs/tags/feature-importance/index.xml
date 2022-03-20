@@ -1,33 +1,125 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>feature importance on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/feature-importance/</link>
-    <description>Recent content in feature importance on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 08 Dec 2019 16:17:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/feature-importance/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
-      <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
-      <description>本記事はQrunchからの転載です。
- 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
-参考論文：Axiomatic Attribution for Deep Networks
-先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
-人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
-2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
-Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
- Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
- 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
- 
-Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
- Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
- 具体例を次に示します。
-Implementation Invarianceの例例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>feature importance on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/feature-importance/</link>
+        <description>Recent content in feature importance on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 08 Dec 2019 16:17:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/feature-importance/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
+        <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg" alt="Featured image of post ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。
+Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。
+今回はそんなIntegrated Gradientsを解説します。&lt;/p&gt;
+&lt;p&gt;参考論文：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1703.01365&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Axiomatic Attribution for Deep Networks&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;先にbaselineのお話&#34;&gt;先にbaselineのお話&lt;/h1&gt;
+&lt;p&gt;本題に入る前に、大事な考え方であるbaselineを説明しておきます。&lt;/p&gt;
+&lt;p&gt;人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。
+Integrated Gradientsの場合もその考え方を用います。
+先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。&lt;/p&gt;
+&lt;h1 id=&#34;2つの公理&#34;&gt;2つの公理&lt;/h1&gt;
+&lt;p&gt;特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。
+例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。&lt;/p&gt;
+&lt;h2 id=&#34;sensitivitya&#34;&gt;Sensitivity(a)&lt;/h2&gt;
+&lt;p&gt;Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。
+$f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。
+baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。
+このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png&#34;
+	width=&#34;1689&#34;
+	height=&#34;1125&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu07f724f61396f881432f4f2af4a68d45_126309_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;implementation-invariance&#34;&gt;Implementation Invariance&lt;/h2&gt;
+&lt;p&gt;Implementation Invarianceの定義は以下のとおりです。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;具体例を次に示します。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Implementation Invarianceの例&lt;!-- raw HTML omitted --&gt;
+例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$
+とあらわせます。
+勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。
+このケースはImplementation Invarianceを満たします。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Implementation Invarianceではない例&lt;!-- raw HTML omitted --&gt;
+DeepLiftの場合は離散化した勾配を用いて寄与を計算します。
+連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。
+つまり、
+$$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$
+となります。
+このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。&lt;/p&gt;
+&lt;h3 id=&#34;implementation-invarianceを満たさないことの問題点&#34;&gt;Implementation Invarianceを満たさないことの問題点&lt;/h3&gt;
+&lt;p&gt;Implementation Invarianceを満たさないことの問題点って何なんでしょうか。論文中で指摘されているのは次のようなケースです。
+あるモデルのパラメータ数が多いなどが理由で、自由度が非常に高いモデルがあるとします。このモデルを学習した結果として、同じ入力に対して出力が同じになるが、パラメータの値が異なる組み合わせであるような学習済みモデル1とモデル2の2つが得られたとします。
+このような状況で2つのモデルに対する離散化された勾配は、モデル1の隠れ層を$h_1$、モデル2の隠れ層を$h_2$としたとき、
+$$ \frac{f(x_1) - f(x_0)}{h_1(x_1) - h_1(x_0)} \frac{h_1(x_1) - h_1(x_0)}{x_1 -x_0} \neq \frac{f(x_1) - f(x_0)}{h_2(x_1) - h_2(x_0)} \frac{h_2(x_1) - h_2(x_0)}{x_1 -x_0}$$
+となりえます。なぜかといえば、Implementation Invarianceではないので、どちらも$ {f(x_1) - f(x_0)}/{x_1 - x_0}$とは異なる何らかの値になるためです。
+入力と出力が同じであるのに、モデルによって寄与が異なるというのは確かに違和感がありますね。たしかにImplementation Invarianceも満たすべきであるといえそうです。&lt;/p&gt;
+&lt;h1 id=&#34;integrated--gradients&#34;&gt;Integrated  Gradients&lt;/h1&gt;
+&lt;p&gt;Integrated Gradientsは前述した2つの公理を満たす手法になります。&lt;/p&gt;
+&lt;h2 id=&#34;アルゴリズム&#34;&gt;アルゴリズム&lt;/h2&gt;
+&lt;p&gt;手法は単純で、また実装も簡単です。
+Integrated Gradientsではbaseline $x&#39;$から入力$x$までの勾配を積分し、入力とbaselineとの差と積を取るだけです。式であらわすと以下のようになります。
+$$ {\rm Integrated\ Gradients} = (x - x&#39;) \int_{0}^{1} \nabla F(x&#39; + \alpha(x - x&#39;)){\rm d} \alpha .$$&lt;/p&gt;
+&lt;p&gt;上記のように勾配の積分を寄与とすることで、baselineから入力$x$までの勾配をすべて考慮することができ、その結果としてSensitivity(a)を満たすことになります。またIntegrated Gradientsは勾配と積分から成りますので、Implementation Invarianceも満たされます。&lt;/p&gt;
+&lt;p&gt;コンピュータ上では上記の積分をそのまま実行することはできませんので、実際には数値積分をして、近似値を求めることになります。数値積分を厳密にやろうとするほど、計算量が多く掛かることに注意してください。&lt;/p&gt;
+&lt;h1 id=&#34;integrated-gradientsの適用結果&#34;&gt;Integrated Gradientsの適用結果&lt;/h1&gt;
+&lt;h2 id=&#34;画像の分類問題の例&#34;&gt;画像の分類問題の例&lt;/h2&gt;
+&lt;p&gt;GoogleNetを使って画像の分類問題を学習させ、それにIntegrated Gradientsを適用した結果が以下のとおりです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg&#34;
+	width=&#34;938&#34;
+	height=&#34;1588&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hua0d4d4b24f4da3a102e4452ac738b95f_358238_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;59&#34;
+		data-flex-basis=&#34;141px&#34;
+	
+&gt;
+一番左が入力画像で、その隣にラベルとスコアが書いてあり、3列目がIntegrated Gradients×入力画像、4列目が勾配×入力画像です。
+これを見ると、単に勾配を用いる場合に比べて、物体を認識するのに必要そうな箇所が寄与していると判定されていることがわかります。例えば、2行目のfireboatは勾配の場合よりも、Integrated Gradientsのほうがより水しぶきの細かい部分に着目していると判定できています。&lt;/p&gt;
+&lt;h2 id=&#34;テキストの分類問題の例&#34;&gt;テキストの分類問題の例&lt;/h2&gt;
+&lt;p&gt;次にテキストの分類問題の例です。
+質問の答えがどういった種類の回答かを予測する問題です。例えば答えが数値なのか、日付なのかなどを予測します。&lt;/p&gt;
+&lt;p&gt;下が予測モデルにIntegrated Gradientsを適用した結果です。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png&#34;
+	width=&#34;1556&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu8a345d5fa8662ec9ea07f8dad40a1a91_634917_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;324&#34;
+		data-flex-basis=&#34;778px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;赤いほど予測への寄与が大きい単語となっています。
+結果を見てみると、疑問詞やyearなどに着目していることがわかります。それらしい結果になっていますね。&lt;/p&gt;
+&lt;h1 id=&#34;おわりに&#34;&gt;おわりに&lt;/h1&gt;
+&lt;p&gt;Integrated GradientsではDeepLiftのココがダメと言及している一方で、DeepLiftはIntegrated Gradientsの性能が低いと指摘しています。使う側は難しいですね。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

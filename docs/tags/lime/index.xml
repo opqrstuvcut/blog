@@ -1,33 +1,134 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>LIME on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/lime/</link>
-    <description>Recent content in LIME on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 12 Feb 2020 00:23:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/lime/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>モデルの予測結果を説明するLIMEの理論</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
-      <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
-      <description>本記事はQrunchからの転載です。
- モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
-今回はそんなLIMEの理論について説明します。
-論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
-LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
-LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
-実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$
-ここで、
- $L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。  まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
-次に画像の場合のケースについて、詳細に踏み込みます。
-画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
-   引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
- 実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。    各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。  
-近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>LIME on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/lime/</link>
+        <description>Recent content in LIME on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Wed, 12 Feb 2020 00:23:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/lime/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>モデルの予測結果を説明するLIMEの理論</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
+        <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604.jpg" alt="Featured image of post モデルの予測結果を説明するLIMEの理論" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;モデルの予測結果を説明する方法として&lt;strong&gt;LIME&lt;/strong&gt;があります。
+LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。
+また手法としては結構有名かと思います。&lt;/p&gt;
+&lt;p&gt;今回はそんなLIMEの理論について説明します。&lt;/p&gt;
+&lt;p&gt;論文：&lt;a class=&#34;link&#34; href=&#34;https://www.kdd.org/kdd2016/papers/files/rfp0573-ribeiroA.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;“Why Should I Trust You?” Explaining the Predictions of Any Classifie&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;limeの戦略&#34;&gt;LIMEの戦略&lt;/h1&gt;
+&lt;p&gt;任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。&lt;/p&gt;
+&lt;p&gt;LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。
+例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。
+ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&#39;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&#39;$の要素が対応づいているとします。ここも詳細をあとで述べます。
+以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。&lt;/p&gt;
+&lt;p&gt;実際にどうやって$g$を求めるのかといえば、次式のようになります。
+$${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$&lt;/p&gt;
+&lt;p&gt;ここで、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。&lt;/li&gt;
+&lt;li&gt;$\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。&lt;/li&gt;
+&lt;li&gt;$\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式は&lt;strong&gt;なるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つける&lt;/strong&gt;といったことを意味します。
+この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。&lt;/p&gt;
+&lt;p&gt;次に画像の場合のケースについて、詳細に踏み込みます。&lt;/p&gt;
+&lt;h1 id=&#34;画像に対する線形モデルでのlime&#34;&gt;画像に対する線形モデルでのLIME&lt;/h1&gt;
+&lt;h2 id=&#34;superpixel&#34;&gt;superpixel&lt;/h2&gt;
+&lt;p&gt;画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604.jpg&#34;
+	width=&#34;1400&#34;
+	height=&#34;672&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604_hu43488a00ab78527cedf1030543e53948_126524_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604_hu43488a00ab78527cedf1030543e53948_126524_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;208&#34;
+		data-flex-basis=&#34;500px&#34;
+	
+&gt;
+引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da.png&#34;
+	width=&#34;171&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da_hu6d7126ae2eefee30b352f774f0e11345_5185_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/ad1fa258f844d5a4ad33e45d75dcf7da_hu6d7126ae2eefee30b352f774f0e11345_5185_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;58&#34;
+		data-flex-basis=&#34;139px&#34;
+	
+&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/cc5a03cf0c2b50e3217a99edddcc002b.jpg&#34;
+	width=&#34;171&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/cc5a03cf0c2b50e3217a99edddcc002b_hu5b33556513d4ba2ff201ef42d7d74405_11884_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/cc5a03cf0c2b50e3217a99edddcc002b_hu5b33556513d4ba2ff201ef42d7d74405_11884_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;58&#34;
+		data-flex-basis=&#34;139px&#34;
+	
+&gt;
+各領域を$g$に与える入力$x&#39;$の各要素に対応させます。例えば1番の領域が$x&#39;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&#39;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。
+具体的には
+$$x&#39; = [0, 0, 1, 1, 0,0,0,0]$$
+としたとき、3番目と4番目だけが1ですので、この$x&#39;$に対応した画像は次のようになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d.jpg&#34;
+	width=&#34;171&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d_hu6db90a2f003964354078e259fd7d6e10_11606_480x0_resize_q75_box.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/158a3d802d662d2e95988553c4d83e5d_hu6db90a2f003964354078e259fd7d6e10_11606_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;58&#34;
+		data-flex-basis=&#34;139px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;近傍のサンプリング&#34;&gt;近傍のサンプリング&lt;/h2&gt;
+&lt;p&gt;LIMEでは $x$の近傍のサンプリングをおこないます。
+画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。&lt;/p&gt;
+&lt;p&gt;LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。
+$x&#39;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。&lt;/p&gt;
+&lt;p&gt;このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。
+先程示した$x&#39;$に対応した画像も$x$の近傍になります。&lt;/p&gt;
+&lt;h2 id=&#34;線形モデルのケース&#34;&gt;線形モデルのケース&lt;/h2&gt;
+&lt;p&gt;$g$が線形モデルの場合には$g(z&#39;)$は次のようになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f.png&#34;
+	width=&#34;1335&#34;
+	height=&#34;377&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f_hub2325f5d8bd291bcd7c5eeefe69e1c35_58770_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/e25d1447ff223231a0d857396c39ef6f_hub2325f5d8bd291bcd7c5eeefe69e1c35_58770_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;354&#34;
+		data-flex-basis=&#34;849px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;線形モデルの係数（寄与）を求めるため、次のように損失関数$L$を定義します。
+$$  L(f, g, \pi_x) = \sum_{z,z&#39;∈Z}\pi_x(z) (f(z) − g(z&#39;))^2.$$
+ここで$\pi_x$は以下のとおりです。
+$$ \pi_x = \exp(−D(x, z)^2/\sigma^2).$$
+$z$は$x$近傍の画像をあらわし、$z&#39;$は先程まで説明していた（$z$に対応する）$x&#39;$と同じものです。$Z$はサンプリングされた$z$と$z&#39;$のペアになります。&lt;/p&gt;
+&lt;p&gt;上式の意味合いとしては、近傍画像$z$の学習済みモデルでの予測値$f(z)$と解釈が容易なモデル$g(z&#39;)$が近い値になるように$g$を学習していきます。&lt;/p&gt;
+&lt;p&gt;また、$\pi_x$の存在のため、$z$が$x$に近ければ（=近傍が入力画像に近い）二乗誤差$(f(z) − g(z&#39;))^2$が$L$に与える影響は大きいですが、一方で$z$が$x$と大きく異なれば（=近傍が入力画像と大きく異なる）、$(f(z) − g(z&#39;))^2$が$L$に与える影響が小さくなります。
+より$x$に近い$z$に関しては$g(z&#39;)$が良く$f(x)$に近似されるべきですので、このように重み付けされているのは分かる話かと思います。&lt;/p&gt;
+&lt;p&gt;なお論文中ではLasso回帰として${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g)$を解いています。&lt;/p&gt;
+&lt;h1 id=&#34;limeの実験結果&#34;&gt;LIMEの実験結果&lt;/h1&gt;
+&lt;p&gt;実験結果は他の方のブログなどで散々書かれていますので、そちらを参考ください（力尽きました）。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>NVIDIA on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/nvidia/</link>
-    <description>Recent content in NVIDIA on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sat, 11 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/nvidia/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>NVIDIAのGPUのdriverの更新</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
-      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
-      <description>NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。
- 古いドライバを削除しておく  公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall  もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\* libnvidia-\*    CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク）  CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads   nvidia-smiコマンドを実行して動けばOK  </description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>NVIDIA on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/nvidia/</link>
+        <description>Recent content in NVIDIA on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sat, 11 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/nvidia/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>NVIDIAのGPUのdriverの更新</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
+        <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
+        <description>&lt;h1 id=&#34;nvidiaのgpuのdriver更新手順&#34;&gt;NVIDIAのGPUのdriver更新手順&lt;/h1&gt;
+&lt;p&gt;色々手順はあると思いますが、1つのやり方のメモです。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;古いドライバを削除しておく
+&lt;ul&gt;
+&lt;li&gt;公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cd /usr/local/cuda-x/bin 
+$ sudo cuda-uninstaller
+$ sudo nvidia-uninstall
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get remove --purge nvidia\* libnvidia-\*
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク）
+&lt;ul&gt;
+&lt;li&gt;CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive&lt;/li&gt;
+&lt;li&gt;最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;nvidia-smiコマンドを実行して動けばOK&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

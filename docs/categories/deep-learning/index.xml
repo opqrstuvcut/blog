@@ -1,63 +1,176 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Deep Learning on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/categories/deep-learning/</link>
-    <description>Recent content in Deep Learning on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CANINEの論文を読んだメモ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
-      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
-      <description>BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？
-論文はこちら：https://arxiv.org/pdf/2103.06874.pdf
-エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。  CANINEのアーキテクチャ（論文より引用） 
-以下では各々の詳細について述べます。
-入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。
-各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。
-unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。
-文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。
-これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。
-$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \ B, d&#39;)$$
-ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&#39;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&#39;=768/K(=96)$となっています。
-unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。
-ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。
-ダウンサンプリングは以下のようにおこなわれます。
- 文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。  これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。   strideのサイズが4のConvolutionを実行する。  1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。
-論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。
-ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。
-アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。
- Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。  出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。   1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。  つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。   結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。  学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。</description>
-    </item>
-    
-    <item>
-      <title>画像認識モデルの性能をあげるためのTips</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
-      <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
-      <description>画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。 簡単にできるものから順に紹介しているつもりです。
-ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。 でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。
-精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。
-EfficientNetはNoisy Student版を使う 転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。
-TensorFlowであれば、こちらのレポジトリが利用可能です。 https://github.com/qubvel/efficientnet
-Label Smoothingを使う 1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。 TensorFlowだと、簡単に使えます。
-tf.keras.losses.categorical_crossentropy(y, y_hat, label_smoothing=0.1) Learning Rate Schedulerを使う 学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。
-例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。
-性能が変わらないことも多いので、あまり期待しないほうが良いかも。
-RandAugmentを使う RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。
-&amp;ldquo;パラメーターがたったの2つでいいの！？&amp;ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。
-使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。
-import imgaug.augmenters as iaa images = iaa.RandAugment(n=2, m=30)(images=images) 論文によると、AutoAugmentよりも性能が良いという結果が出ています。
-PyTorch用の実装もネットで適当に探せばすぐに見つかります。
-GridMaskを使う GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。 Cutoutと違い、Grid状のMaskをかける方法になります。
-問題によっては結構性能があがりました。
-実装はググると色々見つかります。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Deep Learning on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/deep-learning/</link>
+        <description>Recent content in Deep Learning on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CANINEの論文を読んだメモ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
+        <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;p&gt;BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。
+CANINEってなんて読むべきなんでしょう？&lt;/p&gt;
+&lt;p&gt;論文はこちら：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2103.06874.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://arxiv.org/pdf/2103.06874.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;エンコーダーのアーキテクチャ&#34;&gt;エンコーダーのアーキテクチャ&lt;/h1&gt;
+&lt;p&gt;CANINEのアーキテクチャは以下のようになっています。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png&#34;
+	width=&#34;1894&#34;
+	height=&#34;870&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu05317f9eff6b540e6631244be0e9c68b_212946_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu05317f9eff6b540e6631244be0e9c68b_212946_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;CANINEのアーキテクチャ（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;217&#34;
+		data-flex-basis=&#34;522px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;以下では各々の詳細について述べます。&lt;/p&gt;
+&lt;h2 id=&#34;入力の作り方&#34;&gt;入力の作り方&lt;/h2&gt;
+&lt;h3 id=&#34;文字列から数値列への変換&#34;&gt;文字列から数値列への変換&lt;/h3&gt;
+&lt;p&gt;エンコーダーへの入力は文字単位でおこないます。&lt;/p&gt;
+&lt;p&gt;各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。&lt;/p&gt;
+&lt;p&gt;unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。&lt;/p&gt;
+&lt;h3 id=&#34;文字のembedding&#34;&gt;文字のembedding&lt;/h3&gt;
+&lt;p&gt;文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。
+BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。
+このため、CANINEではword hash embedding trickというものを利用します。&lt;/p&gt;
+&lt;p&gt;これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。&lt;/p&gt;
+&lt;p&gt;$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \  B, d&#39;)$$&lt;/p&gt;
+&lt;p&gt;ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&#39;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&#39;=768/K(=96)$となっています。&lt;/p&gt;
+&lt;p&gt;unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。&lt;/p&gt;
+&lt;h2 id=&#34;ダウンサンプリング&#34;&gt;ダウンサンプリング&lt;/h2&gt;
+&lt;p&gt;BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。
+そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。&lt;/p&gt;
+&lt;p&gt;ダウンサンプリングは以下のようにおこなわれます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。
+&lt;ul&gt;
+&lt;li&gt;これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;strideのサイズが4のConvolutionを実行する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。&lt;br&gt;
+論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。&lt;/p&gt;
+&lt;p&gt;ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。&lt;/p&gt;
+&lt;h2 id=&#34;アップサンプリング&#34;&gt;アップサンプリング&lt;/h2&gt;
+&lt;p&gt;固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。
+このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。
+&lt;ul&gt;
+&lt;li&gt;出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。
+&lt;ul&gt;
+&lt;li&gt;つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。&lt;/li&gt;
+&lt;li&gt;最後にTransformerを一度適用する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;学習&#34;&gt;学習&lt;/h2&gt;
+&lt;p&gt;CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。
+各タスクの詳細は以下のとおりです。&lt;/p&gt;
+&lt;h3 id=&#34;文字単位のタスク&#34;&gt;文字単位のタスク&lt;/h3&gt;
+&lt;p&gt;入力されるテキストを単語単位で選択し、その単語を文字単位でmaskし、maskされた文字を予測するタスクです。&lt;br&gt;
+予測するときには文字を左から順に予測するなどのような順番が決まっておらず、maskされているなかからランダムな順番で予測をすることになります。&lt;/p&gt;
+&lt;h3 id=&#34;サブワード単位のタスク&#34;&gt;サブワード単位のタスク&lt;/h3&gt;
+&lt;p&gt;こちらのタスクではsubword単位で選択し、そのsubwordを文字単位でmaskし、maskされたsubwordを予測するタスクです。&lt;br&gt;
+予測するときにはmaskしたsubwordに含まれる文字に対応する出力をランダムに選択し、その出力からsubwordを予測します。&lt;/p&gt;
+&lt;h1 id=&#34;実験&#34;&gt;実験&lt;/h1&gt;
+&lt;p&gt;実験はTYDI QAデータセットを用いておこなわれています。&lt;/p&gt;
+&lt;h2 id=&#34;他手法との比較&#34;&gt;他手法との比較&lt;/h2&gt;
+&lt;p&gt;mBERTとの比較が次のテーブルになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png&#34;
+	width=&#34;2064&#34;
+	height=&#34;518&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu0853b78a583a8c77047379ff10ec0310_148256_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu0853b78a583a8c77047379ff10ec0310_148256_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;mBERTとの比較（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;398&#34;
+		data-flex-basis=&#34;956px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;CANINE-Sはサブワード単位のタスクで事前学習したとき、CANINE-Cは文字単位のタスクで事前学習したときをあらわします。一番右の2つの列はタスクの性能で、F1スコアで計算されているため大きいほうが良いです。
+結果を見るとmBERTに大きな差をつけていることがわかります。
+また、Example/secの列をみると、mBERTは文字単位の入力にすると非常に推論が遅いですが、CANINEはそれに比べると非常に速いです。とはいえ、mBERTのsubword単位の入力の場合に比べると当然遅いです。&lt;/p&gt;
+&lt;h2 id=&#34;ablation-study&#34;&gt;ablation study&lt;/h2&gt;
+&lt;p&gt;ablation studyです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png&#34;
+	width=&#34;1966&#34;
+	height=&#34;794&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu6f14d958577e0427a476009b815c33a8_204646_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu6f14d958577e0427a476009b815c33a8_204646_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ablation study（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;594px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;個人的に気になったところとしては、ダウンサンプリングのときによりstrideをもっと大きくすると計算量が減るのですが、この結果をみるとstrideを大きくすることで結構性能が下がってしまっています。これは残念。
+embeddingの次元も小さくすると性能が結構下がっていますね。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>画像認識モデルの性能をあげるためのTips</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
+        <description>&lt;p&gt;画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。
+簡単にできるものから順に紹介しているつもりです。&lt;/p&gt;
+&lt;h1 id=&#34;convolutionとfc層との橋渡しにはglobal-averaging-poolingを使う&#34;&gt;ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う&lt;/h1&gt;
+&lt;p&gt;ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。
+でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。&lt;br&gt;
+精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。&lt;/p&gt;
+&lt;h1 id=&#34;efficientnetはnoisy-student版を使う&#34;&gt;EfficientNetはNoisy Student版を使う&lt;/h1&gt;
+&lt;p&gt;転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。&lt;/p&gt;
+&lt;p&gt;TensorFlowであれば、こちらのレポジトリが利用可能です。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/qubvel/efficientnet&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/qubvel/efficientnet&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;label-smoothingを使う&#34;&gt;Label Smoothingを使う&lt;/h1&gt;
+&lt;p&gt;1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。
+TensorFlowだと、簡単に使えます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;tf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keras&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;losses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;categorical_crossentropy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y_hat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                         &lt;span class=&#34;n&#34;&gt;label_smoothing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;learning-rate-schedulerを使う&#34;&gt;Learning Rate Schedulerを使う&lt;/h1&gt;
+&lt;p&gt;学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。&lt;br&gt;
+例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。&lt;br&gt;
+性能が変わらないことも多いので、あまり期待しないほうが良いかも。&lt;/p&gt;
+&lt;h1 id=&#34;randaugmentを使う&#34;&gt;RandAugmentを使う&lt;/h1&gt;
+&lt;p&gt;RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。
+RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。&lt;br&gt;
+&amp;ldquo;パラメーターがたったの2つでいいの！？&amp;ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。&lt;/p&gt;
+&lt;p&gt;使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;imgaug.augmenters&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;iaa&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;images&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iaa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RandAugment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;images&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;images&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1909.13719&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;論文&lt;/a&gt;によると、AutoAugmentよりも性能が良いという結果が出ています。&lt;/p&gt;
+&lt;p&gt;PyTorch用の実装もネットで適当に探せばすぐに見つかります。&lt;/p&gt;
+&lt;h1 id=&#34;gridmaskを使う&#34;&gt;GridMaskを使う&lt;/h1&gt;
+&lt;p&gt;GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。
+Cutoutと違い、Grid状のMaskをかける方法になります。&lt;br&gt;
+問題によっては結構性能があがりました。&lt;br&gt;
+実装はググると色々見つかります。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

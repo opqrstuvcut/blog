@@ -1,53 +1,47 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
- 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像  
-大津の二値化適用  
-とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
+ 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。
 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。
 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。
 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。
 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。
-gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show()  
-ちゃんとそれっぽく二値化されてます！
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！
 adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。
-   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。'><title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
+   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。
+OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。'><title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='AdaptiveThresholdで照明環境が微妙な画像を二値化'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='AdaptiveThresholdで照明環境が微妙な画像を二値化'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
- 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像  
-大津の二値化適用  
-とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
+ 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。
 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。
 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。
 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。
 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。
-gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show()  
-ちゃんとそれっぽく二値化されてます！
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！
 adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。
-   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。'>
+   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。
+OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AdaptiveThreshold' /><meta property='article:published_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='article:modified_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
 <meta name="twitter:title" content="AdaptiveThresholdで照明環境が微妙な画像を二値化">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。
- 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像  
-大津の二値化適用  
-とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
+ 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。
 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。
 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。
 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。
 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。
-gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show()  
-ちゃんとそれっぽく二値化されてます！
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！
 adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。
-   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。"><meta name="twitter:card" content="summary_large_image">
+   引数 意味     1 入力画像   2 ここで説明した方法を使うことをあらわす値   3 threshold typeでこれは前々回説明したものと同じ   4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している   5 しきい値を決めるときに平均値から引かれる定数    局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。
+OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -65,8 +59,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -89,23 +83,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -115,24 +104,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -151,7 +145,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -170,7 +168,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -186,9 +188,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -196,7 +200,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -204,13 +208,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -242,11 +245,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/">AdaptiveThresholdで照明環境が微妙な画像を二値化</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/">AdaptiveThresholdで照明環境が微妙な画像を二値化</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -266,52 +271,60 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <p>画像処理で結構シビアなのが、照明環境です。
 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。
 入力画像
-<figure 
+<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png"
+	width="221"
+	height="251"
+	srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 88; 
-			flex-basis: 211px"
-	>
-	<a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png" data-size="221x251">
-		<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2.png"
-			width="221"
-			height="251"
-			srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/eb7aff1ca26db41846c27ade2b8681d2_hua7fece0ce3348340b30f9f727102440e_69435_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="88"
+		data-flex-basis="211px"
 	
-</figure></p>
+></p>
 <p>大津の二値化適用
-<figure 
+<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png"
+	width="221"
+	height="251"
+	srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 88; 
-			flex-basis: 211px"
-	>
-	<a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png" data-size="221x251">
-		<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10.png"
-			width="221"
-			height="251"
-			srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/520f7e6ea01d43ab346861221bf1fe10_hu587b9df3fb5c0008637b0b24756214c7_35462_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="88"
+		data-flex-basis="211px"
 	
-</figure></p>
+></p>
 <p>とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。
 そんなときにはAdaptiveThresholdが役に立ちます。</p>
 <h1 id="adaptivethresholdとは">AdaptiveThresholdとは？</h1>
@@ -330,27 +343,22 @@ if (!doNotTrack) {
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bi_img</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gray</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div><p><figure 
+</code></pre></div><p><img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863.png"
+	width="221"
+	height="251"
+	srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863_hueba77f36243da52263659709d0d32dd6_57851_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863_hueba77f36243da52263659709d0d32dd6_57851_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 88; 
-			flex-basis: 211px"
-	>
-	<a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863.png" data-size="221x251">
-		<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863.png"
-			width="221"
-			height="251"
-			srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863_hueba77f36243da52263659709d0d32dd6_57851_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/6abacf437bd256e750b4faee6d4e7863_hueba77f36243da52263659709d0d32dd6_57851_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="88"
+		data-flex-basis="211px"
 	
-</figure></p>
+></p>
 <p>ちゃんとそれっぽく二値化されてます！</p>
 <p>adaptiveThresholdの各引数は以下のとおりです。
 局所領域は$(x,y)$を中心とした領域になるため、<strong>領域の大きさは奇数で指定</strong>しなければいけないことに注意してください。</p>
-<table>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>引数</th>
@@ -379,7 +387,7 @@ if (!doNotTrack) {
 <td>しきい値を決めるときに平均値から引かれる定数</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="局所領域でのガウス分布による重み付を用いたadaptivethreshold">局所領域でのガウス分布による重み付を用いたAdaptiveThreshold</h2>
 <p>先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。
 そんなときにはガウス分布による重み付けを利用することができます。</p>
@@ -391,23 +399,18 @@ if (!doNotTrack) {
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bi_img</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gray</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div><p><figure 
+</code></pre></div><p><img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png"
+	width="221"
+	height="251"
+	srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f_hu10ea85cf68759cab2e544853b5039614_48271_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f_hu10ea85cf68759cab2e544853b5039614_48271_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 88; 
-			flex-basis: 211px"
-	>
-	<a href="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png" data-size="221x251">
-		<img src="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png"
-			width="221"
-			height="251"
-			srcset="/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f_hu10ea85cf68759cab2e544853b5039614_48271_480x0_resize_box_3.png 480w, /blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f_hu10ea85cf68759cab2e544853b5039614_48271_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="88"
+		data-flex-basis="211px"
 	
-</figure></p>
+></p>
 <p>こちらも上手くいっています。</p>
 <h1 id="おわりに">おわりに</h1>
 <p>問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。</p>
@@ -445,11 +448,11 @@ if (!doNotTrack) {
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -465,14 +468,16 @@ if (!doNotTrack) {
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
@@ -481,8 +486,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 動画データから前景と背景を分離する"
+                        
                         data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
                 
             </div>
@@ -493,8 +499,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/">
         
@@ -503,8 +509,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/_huc336200167bfc01149489055c5443329_25774_e9ccd054e805a3d2c51eea05ad5b2425.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post connectedComponentsで連結した領域の取得"
+                        
                         data-hash="md5-0r0rO&#43;hfM/SyvQLOv4QUbA==">
                 
             </div>
@@ -515,8 +522,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
@@ -525,8 +532,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 抽出した輪郭の描画"
+                        
                         data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
                 
             </div>
@@ -537,8 +545,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
@@ -547,8 +555,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
                         data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
                 
             </div>
@@ -559,8 +568,8 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
@@ -569,8 +578,9 @@ if (!doNotTrack) {
                 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
                         data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
                 
             </div>
@@ -581,10 +591,9 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -598,12 +607,12 @@ if (!doNotTrack) {
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -672,11 +681,11 @@ if (!doNotTrack) {
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -692,7 +701,7 @@ if (!doNotTrack) {
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

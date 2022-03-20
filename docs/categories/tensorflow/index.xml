@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TensorFlow on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/categories/tensorflow/</link>
-    <description>Recent content in TensorFlow on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/tensorflow/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>TensorBoardのDocker Image</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</link>
-      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</guid>
-      <description>たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。
-Docker Imageは以下のとおり。
-FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&amp;quot;tensorboard&amp;quot;, &amp;quot;--logdir&amp;quot;, &amp;quot;/logs&amp;quot;, &amp;quot;--host&amp;quot;, &amp;quot;0.0.0.0&amp;quot;] 次のような感じでdocker buildとdocker runします。
-$ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>TensorFlow on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/tensorflow/</link>
+        <description>Recent content in TensorFlow on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/tensorflow/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TensorBoardのDocker Image</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</link>
+        <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</guid>
+        <description>&lt;p&gt;たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。&lt;/p&gt;
+&lt;p&gt;Docker Imageは以下のとおり。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;FROM python:3.8
+RUN pip install tensorflow
+WORKDIR /logs
+ENTRYPOINT [&amp;quot;tensorboard&amp;quot;, &amp;quot;--logdir&amp;quot;, &amp;quot;/logs&amp;quot;, &amp;quot;--host&amp;quot;, &amp;quot;0.0.0.0&amp;quot;]   
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;次のような感じでdocker buildとdocker runします。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ docker build -t tensorboard .
+$ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;-vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

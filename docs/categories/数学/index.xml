@@ -1,23 +1,126 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>数学 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%AD%A6/</link>
-    <description>Recent content in 数学 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 11 Mar 2020 00:08:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</link>
-      <pubDate>Wed, 11 Mar 2020 00:08:01 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</guid>
-      <description>本記事はQrunchからの転載です。
- 関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。 なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。 また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。
-定義 関数が上に凸の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。 $$ f(t\mathbf{x}^{(2)} + (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) + (1 -t) f(\mathbf{x}^{(1)}).$$
-ヘッセ行列の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$のヘッセ行列$H$を以下のように定義します。 $$H_f = \nabla^2 f = \begin{pmatrix} \frac{\partial^2 f}{\partial x_1^2} &amp;amp;\frac{\partial^2 f}{\partial x_1\partial x_2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_1\partial x_n} \cr \frac{\partial^2 f}{\partial x_2\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_2^2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \cr \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \cr \frac{\partial^2 f}{\partial x_n\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{ \partial x_n^2} \end{pmatrix}.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>数学 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%AD%A6/</link>
+        <description>Recent content in 数学 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Wed, 11 Mar 2020 00:08:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</link>
+        <pubDate>Wed, 11 Mar 2020 00:08:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</guid>
+        <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。
+なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。
+また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。&lt;/p&gt;
+&lt;h1 id=&#34;定義&#34;&gt;定義&lt;/h1&gt;
+&lt;h2 id=&#34;関数が上に凸の定義&#34;&gt;関数が上に凸の定義&lt;/h2&gt;
+&lt;p&gt;関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。
+$$ f(t\mathbf{x}^{(2)} + (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) + (1 -t) f(\mathbf{x}^{(1)}).$$&lt;/p&gt;
+&lt;h2 id=&#34;ヘッセ行列の定義&#34;&gt;ヘッセ行列の定義&lt;/h2&gt;
+&lt;p&gt;関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$のヘッセ行列$H$を以下のように定義します。
+$$H_f = \nabla^2 f = \begin{pmatrix} \frac{\partial^2 f}{\partial x_1^2}   &amp;amp;\frac{\partial^2 f}{\partial x_1\partial x_2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_1\partial x_n} \cr
+\frac{\partial^2 f}{\partial x_2\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_2^2}   &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \cr
+\vdots &amp;amp;  \vdots &amp;amp; \ddots  &amp;amp; \vdots \cr
+\frac{\partial^2 f}{\partial x_n\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_n \partial x_2}   &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{ \partial x_n^2}
+\end{pmatrix}.$$&lt;/p&gt;
+&lt;h2 id=&#34;行列の半負定値性の定義&#34;&gt;行列の半負定値性の定義&lt;/h2&gt;
+&lt;p&gt;ある対称行列$A \in \mathbb{R}^{n \times n}$に対して任意のベクトル$\mathbf{x} \in \mathbb{R}^n$が次を満たすとき、$A$を半負定値といいます。
+$$ \mathbf{x}^T A \mathbf{x} \leq 0.$$&lt;/p&gt;
+&lt;h1 id=&#34;証明&#34;&gt;証明&lt;/h1&gt;
+&lt;p&gt;本題の証明に使うため、以下を先に証明しておきます。&lt;/p&gt;
+&lt;h2 id=&#34;凸関数の一次条件&#34;&gt;凸関数の一次条件&lt;/h2&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;証明&lt;!-- raw HTML omitted --&gt;
+$(\Rightarrow)$
+上に凸であることの定義から、
+$$ \begin{aligned} f(t\mathbf{x}^{(2)} + (1 -t)\mathbf{x}^{(1)}) \geq &amp;amp; tf(\mathbf{x}^{(2)}) + (1 -t) f(\mathbf{x}^{(1)}) \cr
+f(\mathbf{x}^{(1)} + t(\mathbf{x}^{(2)} - \mathbf{x}^{(1)})) \geq  &amp;amp; f(\mathbf{x}^{(1)}) + t(f(\mathbf{x}^{(2)}) - f(\mathbf{x}^{(1)}))
+\cr
+\frac{f(\mathbf{x}^{(1)} + t(\mathbf{x}^{(2)} - \mathbf{x}^{(1)})) - f(\mathbf{x}^{(1)}) }{t}
+\geq &amp;amp; f(\mathbf{x}^{(2)}) - f(\mathbf{x}^{(1)})
+\end{aligned} $$
+となります。 ここで、$g(t) = f(\mathbf{x}^{(1)} + t(\mathbf{x}^{(2)} - \mathbf{x}^{(1)}))$とおくと、以下が成り立ちます。
+$$
+\begin{aligned}
+\frac{g(t) - g(0)}{t}
+\geq &amp;amp; f(\mathbf{x}^{(2)}) - f(\mathbf{x}^{(1)})
+\end{aligned}.
+$$
+さらに$t \rightarrow 0$とすれば、以下のようになります。
+$$
+\begin{aligned}
+g&#39;(0)
+\geq &amp;amp; f(\mathbf{x}^{(2)}) - f(\mathbf{x}^{(1)})
+\end{aligned}.
+$$
+$g&#39;(0)$がなんであるかというと、これは単純に計算すればよく、
+$$g&#39;(0) = \left.\frac{{\rm d}g}{{\rm d}t}\right|_{t=0} = \nabla f(\mathbf{x}^{(1)})^
+T(\mathbf{x}^{(2)} - \mathbf{x}^{(1)})$$
+となります。
+以上から、
+$$ f(\mathbf{x}^{(2)}) - f(\mathbf{x}^{(1)})\leq \nabla f(\mathbf{x}^{(1)})^T(\mathbf{x}^{(2)}- \mathbf{x}^{(1)})$$
+が示されました。&lt;/p&gt;
+&lt;p&gt;$(\Leftarrow)$
+適当な$0\leq t \leq 1$を用いて$\mathbf{z}=t\mathbf{x}^{(2)} + (1-t)\mathbf{x}^{(1)} $とおきます。仮定から以下が成り立ちます。
+$$ \begin{aligned} f(\mathbf{x}^{(2)}) \leq &amp;amp;  f(\mathbf{z}) +  \nabla f(\mathbf{z})^T(\mathbf{x}^{(2)}- \mathbf{z}), \cr
+f(\mathbf{x}^{(1)}) \leq &amp;amp;  f(\mathbf{z}) + \nabla f(\mathbf{z})^T(\mathbf{x}^{(1)}- \mathbf{z}).
+\end{aligned}
+$$
+1つめの式に$t$を掛け、2つめの式に$1-t$を掛けて足し合わせることで以下のようになります。
+$$ \begin{aligned}
+tf(\mathbf{x}^{(2)}) + (1 -t )f(\mathbf{x}^{(1)}) \leq &amp;amp; tf(\mathbf{z})  + (1-t)f(\mathbf{z}) +  t\nabla f(\mathbf{z})^T(\mathbf{x}^{(2)}- \mathbf{z}) + (1-t) \nabla f(\mathbf{z})^T(\mathbf{x}^{(1)}- \mathbf{z}) \cr
+= &amp;amp;  f(\mathbf{z}) +  \nabla f(\mathbf{z})^T(t(\mathbf{x}^{(2)}-\mathbf{z}) + (1-t) (\mathbf{x}^{(1)}- \mathbf{z})) \cr
+= &amp;amp;  f(\mathbf{z}) +  \nabla f(\mathbf{z})^T(t\mathbf{x}^{(2)} + (1-t) \mathbf{x}^{(1)}-\mathbf{z}) \cr
+= &amp;amp;  f(\mathbf{z})  \cr
+= &amp;amp;  f(t\mathbf{x}^{(2)} + (1-t)\mathbf{x}^{(1)} ) . \cr
+\end{aligned}
+$$
+以上から逆も証明できました。&lt;/p&gt;
+&lt;p&gt;この証明の参考：
+&lt;a class=&#34;link&#34; href=&#34;http://mathgotchas.blogspot.com/2011/10/proof-for-first-order-condition-of.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://mathgotchas.blogspot.com/2011/10/proof-for-first-order-condition-of.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;テイラーの定理&#34;&gt;テイラーの定理&lt;/h2&gt;
+&lt;p&gt;本題の証明に用いるため、テイラーの定理の特別な場合を紹介しておきます。
+テイラーの定理の証明はここではしません。また実際は成り立つための条件がありますが、ここでは以下のように利用できるとします。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;関数が上に凸であることの必要十分条件がヘッセ行列が半負定値であることの証明&#34;&gt;関数が上に凸であることの必要十分条件がヘッセ行列が半負定値であることの証明&lt;/h2&gt;
+&lt;p&gt;本題の証明です。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;証明&lt;!-- raw HTML omitted --&gt;
+$(\Rightarrow)$
+適当な元$\mathbf{x}, \mathbf{y} \in \mathbb{R}^{n}$を考えます。テイラーの定理より以下が成り立ちます。
+$$ \begin{aligned} f(\mathbf{x} + \mathbf{y})  = &amp;amp;f(\mathbf{x}) + \nabla f(\mathbf{x})^T\mathbf{y}  + \frac{1}{2} \mathbf{y}^T H_f(\mathbf{x}) \mathbf{y} + o(||\mathbf{y}||^2_2).\tag{1} \end{aligned}$$
+また、$f$が上に凸であるという仮定から、一次条件より
+$$ f(\mathbf{x} + \mathbf{y})  \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^T\mathbf{y}\tag{2}$$
+が成り立ちます。式(1)と式(2)から、
+$$ \frac{1}{2} \mathbf{y}^T H_f(\mathbf{x})\mathbf{y} +  o(||\mathbf{y}||^2_2) \leq 0. $$
+$\mathbf{y} = \alpha \mathbf{z} , ||\mathbf{z}||_2 = 1 $とすると、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\frac{1}{2} \alpha^2 \mathbf{z}^T H_f(\mathbf{x})\mathbf{z} + o(\alpha^2)  \leq &amp;amp; 0 \cr
+\frac{1}{2}  \mathbf{z}^T H_f(\mathbf{x})\mathbf{z} + \frac{o(\alpha^2)}{\alpha^2} \leq &amp;amp; 0 .
+\end{aligned}
+$$
+このとき、$\alpha \rightarrow 0$とすると、$o(x^n)$の定義から以下が成り立ちます。
+$$
+\frac{1}{2}  \mathbf{z}^T H_f(\mathbf{x}) \mathbf{z} \leq 0.
+$$
+$\mathbf{y}$は任意のベクトルでしたので、$H_f(\mathbf{x})$は半負定値となります。
+よって$f$が上に凸であるとき、ヘッセ行列$H_f(\mathbf{x})$は任意の$\mathbf{x}$で半負定値であることが示されました。&lt;/p&gt;
+&lt;p&gt;$(\Leftarrow)$
+テイラーの定理より、ある$0 &amp;lt; t &amp;lt; 1$を用いて以下が成り立ちます。
+$$ \begin{aligned} f(\mathbf{x} + \mathbf{y})  = &amp;amp;f(\mathbf{x}) + \nabla f(\mathbf{x})^T\mathbf{y} +  \frac{1}{2} \mathbf{y}^T H_f(\mathbf{x} + t\mathbf{y} ) \mathbf{y}.  \end{aligned}$$
+ヘッセ行列$H_f(\mathbf{x} + t\mathbf{y} ) $が半負定値であるため、明らかに
+$$ f(\mathbf{x} + \mathbf{y})  \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^T\mathbf{y} $$
+が成り立ちます。これは先程示した一次条件であらわれる式と同じです。
+以上から、ヘッセ行列$H_f(\mathbf{x})$が任意の$\mathbf{x}$で半負定値であるとき、$f$が上に凸であることが示されました。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

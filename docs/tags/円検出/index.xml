@@ -1,25 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>円検出 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E5%86%86%E6%A4%9C%E5%87%BA/</link>
-    <description>Recent content in 円検出 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 05 Aug 2020 11:05:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%86%86%E6%A4%9C%E5%87%BA/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Hough変換で円を検出</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
-      <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
-      <description>本記事はQrunchからの転載です。
- Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
-OpenCVで円の検出 次の画像から円を検出してみます。  
-円の検出は以下のようにおこないます。
-hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。 methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。 dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。 minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。 param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
-結果は以下のとおりです。   大まかには円が検出できていることがわかります。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>円検出 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E5%86%86%E6%A4%9C%E5%87%BA/</link>
+        <description>Recent content in 円検出 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Wed, 05 Aug 2020 11:05:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%86%86%E6%A4%9C%E5%87%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hough変換で円を検出</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+        <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png" alt="Featured image of post Hough変換で円を検出" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。&lt;/p&gt;
+&lt;h1 id=&#34;opencvで円の検出&#34;&gt;OpenCVで円の検出&lt;/h1&gt;
+&lt;p&gt;次の画像から円を検出してみます。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3.png&#34;
+	width=&#34;203&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3_hu84fa5976cd5f2b7f11f7cd658ca8ed63_39987_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/e976800df4c7c67950f6c87dadab89b3_hu84fa5976cd5f2b7f11f7cd658ca8ed63_39987_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;80&#34;
+		data-flex-basis=&#34;193px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;円の検出は以下のようにおこないます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;hough_circle&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HoughCircles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HOUGH_GRADIENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minDist&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                &lt;span class=&#34;n&#34;&gt;param1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;param2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。&lt;/p&gt;
+&lt;p&gt;結果は以下のとおりです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.png&#34;
+	width=&#34;203&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91_hu4a013b8f274b2c6544f4ac056d5ab0b4_40001_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91_hu4a013b8f274b2c6544f4ac056d5ab0b4_40001_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;80&#34;
+		data-flex-basis=&#34;193px&#34;
+	
+&gt;
+大まかには円が検出できていることがわかります。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

@@ -1,26 +1,107 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>アフィン変換 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
-    <description>Recent content in アフィン変換 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Wed, 29 Jul 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>画像へのアフィン変換</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
-      <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
-      <description>本記事はQrunchからの転載です。
- アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&#39;, y&#39;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&#39; \\ y&#39; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
-今回はこのアフィン変換をOpenCVを使っておこないます。
-アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
-transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
-以下では次の画像に対するアフィン変換の例を示します。  
-平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x&#39; \\ y&#39; \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp;amp; 0 &amp;amp; c\\ 0 &amp;amp; 1 &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>アフィン変換 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+        <description>Recent content in アフィン変換 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Wed, 29 Jul 2020 11:03:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>画像へのアフィン変換</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+        <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png" alt="Featured image of post 画像へのアフィン変換" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。
+式の話をすると、ある2次元上の点$(x,y)$の$(x&#39;, y&#39;)$へのアフィン変換は次のようにして表現できます。
+$$\begin{pmatrix}x&#39; \\ y&#39;  \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
+$a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。&lt;/p&gt;
+&lt;p&gt;今回はこのアフィン変換をOpenCVを使っておこないます。&lt;/p&gt;
+&lt;h1 id=&#34;アフィン変換のやり方&#34;&gt;アフィン変換のやり方&lt;/h1&gt;
+&lt;p&gt;OpenCVでは次のようにしてアフィン変換をおこないます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;transformed_img&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warpAffine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;affine_matとしているのが、アフィン変換で用いる行列です。
+widthとheightは変換後の画像のサイズになります。&lt;/p&gt;
+&lt;p&gt;以下では次の画像に対するアフィン変換の例を示します。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png&#34;
+	width=&#34;220&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_huecfe42f32323446ee18b607833239170_70574_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;87&#34;
+		data-flex-basis=&#34;209px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;平行移動&#34;&gt;平行移動&lt;/h1&gt;
+&lt;p&gt;平行移動をするときは次のようなアフィン変換になります。
+$$\begin{pmatrix}x&#39; \\ y&#39;  \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp;amp; 0 &amp;amp; c\\ 0 &amp;amp; 1 &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
+もう少し式を書きくだせば、
+$$\begin{eqnarray}x&#39; &amp;amp;=&amp;amp; x + c, \\y&#39;&amp;amp;=&amp;amp;y+g\end{eqnarray}$$
+となるので、平行移動だとわかりますね。&lt;/p&gt;
+&lt;p&gt;$x$と$y$を1000ずつ動かすとすると、コードでは次のようになります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dtype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;float&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;transformed_img&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warpAffine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png&#34;
+	width=&#34;220&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hufcb4e2e96afc766462c6e832f300b3f4_40470_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;87&#34;
+		data-flex-basis=&#34;209px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;拡大縮小&#34;&gt;拡大・縮小&lt;/h1&gt;
+&lt;p&gt;拡大・縮小をするときは次のようなアフィン変換になります。
+$$\begin{pmatrix}x&#39; \\ y&#39;  \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; 0 &amp;amp; 0\\ 0 &amp;amp; e &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
+もう少し式を書きくだせば、
+$$\begin{eqnarray}x&#39; &amp;amp;=&amp;amp; ax \\y&#39;&amp;amp;=&amp;amp;ey\end{eqnarray}$$
+となるので、縮小だとわかりますね。&lt;/p&gt;
+&lt;p&gt;大きさを半分にする場合は次のようなコードになります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dtype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;float&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;transformed_img&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warpAffine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png&#34;
+	width=&#34;220&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_huae877b5ce981e5df5b1f313822a2339f_23587_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;87&#34;
+		data-flex-basis=&#34;209px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;回転&#34;&gt;回転&lt;/h1&gt;
+&lt;p&gt;$\theta$だけ回転をするときは次のようなアフィン変換になります。
+$$\begin{pmatrix}x&#39; \\ y&#39;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\theta &amp;amp; -\sin \theta &amp;amp; 0\\ \sin \theta &amp;amp; \cos \theta &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 1  \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.  $$
+これでなぜ回転になるかわからない方は&lt;strong&gt;回転行列&lt;/strong&gt;などでぐぐってください。
+45度時計回りに回転させるときのコードは以下のようになります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.4142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.4142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; 
+                       &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.4142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.4142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]],&lt;/span&gt; 
+                       &lt;span class=&#34;n&#34;&gt;dtype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;float&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;transformed_img&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warpAffine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;affine_mat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png&#34;
+	width=&#34;220&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu476832c9551a683b8f4490b96b748859_34786_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;87&#34;
+		data-flex-basis=&#34;209px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

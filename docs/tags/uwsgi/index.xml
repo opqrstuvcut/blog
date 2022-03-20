@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>uWSGI on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/uwsgi/</link>
-    <description>Recent content in uWSGI on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/uwsgi/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
-      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
-      <description>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
-Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
-原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
-つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
-対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
-[uwsgi] lazy-apps = true とりあえずこれで解決しました。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>uWSGI on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/uwsgi/</link>
+        <description>Recent content in uWSGI on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/uwsgi/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
+        <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow-uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
+        <description>&lt;p&gt;GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Failed to get device properties, error code: 3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。&lt;/p&gt;
+&lt;h1 id=&#34;原因&#34;&gt;原因&lt;/h1&gt;
+&lt;p&gt;確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。
+&lt;a class=&#34;link&#34; href=&#34;https://keng000.hatenablog.com/entry/2020/05/05/092425&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://keng000.hatenablog.com/entry/2020/05/05/092425&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。&lt;/p&gt;
+&lt;h1 id=&#34;対処&#34;&gt;対処&lt;/h1&gt;
+&lt;p&gt;記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[uwsgi]
+lazy-apps = true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;とりあえずこれで解決しました。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

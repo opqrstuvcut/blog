@@ -1,32 +1,110 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>分離可能フィルタ on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/</link>
-    <description>Recent content in 分離可能フィルタ on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 26 Jul 2020 11:06:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
-      <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
-      <description>本記事はQrunchからの転載です。
- OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
-分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
-分離可能フィルタの具体例1 Sobelフィルタは分離可能フィルタです。 X方向のSobelフィルタは以下であらわされます。  
-これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。 $$ \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	\begin{pmatrix} -1 &amp;amp; 0 &amp;amp; 1 \end{pmatrix}. $$
-分離可能フィルタの具体例2 平滑化フィルタは分離可能フィルタです。 3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。 $$ \begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	\begin{pmatrix} \frac{1}{3} &amp;amp; \frac{1}{3} &amp;amp; \frac{1}{3} \end{pmatrix}. $$
-分離可能フィルタで高速化できる理由 行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。
-次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。
-以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。
-実際にsepFilter2Dを試す sepFilter2Dは以下のようにして利用できます。
-sep_filter_res = cv2.sepFilter2D(img, ddepth=cv2.CV_16S, kernelY=col_kernel, kernelX=row_kernel) kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。
-実際にSobelフィルタを適用することを考えます。
-col_kernel = np.array([1, 2, 1]).T row_kernel = np.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>分離可能フィルタ on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/</link>
+        <description>Recent content in 分離可能フィルタ on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 26 Jul 2020 11:06:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+        <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/7f919cf47778b5338c27d63bca691006.png" alt="Featured image of post sepFilter2Dで分離可能フィルタを使って高速化" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときには&lt;strong&gt;sepFilter2D&lt;/strong&gt;を使うことで、&lt;strong&gt;高速化&lt;/strong&gt;できます。
+今回はこのsepFilter2Dを扱います。&lt;/p&gt;
+&lt;h1 id=&#34;分離可能フィルタ&#34;&gt;分離可能フィルタ&lt;/h1&gt;
+&lt;p&gt;分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。&lt;/p&gt;
+&lt;h2 id=&#34;分離可能フィルタの具体例1&#34;&gt;分離可能フィルタの具体例1&lt;/h2&gt;
+&lt;p&gt;Sobelフィルタは分離可能フィルタです。
+X方向のSobelフィルタは以下であらわされます。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/42a4285c83be4fd9c6397dd1b40b799c.png&#34;
+	width=&#34;182&#34;
+	height=&#34;170&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/42a4285c83be4fd9c6397dd1b40b799c_hud693d40388c1b8f25732fed8aae56e76_4314_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/42a4285c83be4fd9c6397dd1b40b799c_hud693d40388c1b8f25732fed8aae56e76_4314_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;107&#34;
+		data-flex-basis=&#34;256px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。
+$$
+\begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	 \begin{pmatrix} -1 &amp;amp; 0 &amp;amp; 1 \end{pmatrix}.
+$$&lt;/p&gt;
+&lt;h2 id=&#34;分離可能フィルタの具体例2&#34;&gt;分離可能フィルタの具体例2&lt;/h2&gt;
+&lt;p&gt;平滑化フィルタは分離可能フィルタです。
+3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。
+$$
+\begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	 \begin{pmatrix} \frac{1}{3} &amp;amp; \frac{1}{3} &amp;amp; \frac{1}{3} \end{pmatrix}.
+$$&lt;/p&gt;
+&lt;h1 id=&#34;分離可能フィルタで高速化できる理由&#34;&gt;分離可能フィルタで高速化できる理由&lt;/h1&gt;
+&lt;p&gt;行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。&lt;/p&gt;
+&lt;p&gt;次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。&lt;/p&gt;
+&lt;p&gt;以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。&lt;/p&gt;
+&lt;h1 id=&#34;実際にsepfilter2dを試す&#34;&gt;実際にsepFilter2Dを試す&lt;/h1&gt;
+&lt;p&gt;sepFilter2Dは以下のようにして利用できます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;sep_filter_res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sepFilter2D&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                 &lt;span class=&#34;n&#34;&gt;kernelY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;col_kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernelX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;row_kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。&lt;/p&gt;
+&lt;p&gt;実際にSobelフィルタを適用することを考えます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;col_kernel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;row_kernel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;sep_filter_res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sepFilter2D&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16U&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+　　　　　　　　　　　　　　　　　　　　&lt;span class=&#34;n&#34;&gt;kernelY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;col_kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernelX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;row_kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sep_filter_res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/7f919cf47778b5338c27d63bca691006.png&#34;
+	width=&#34;247&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/7f919cf47778b5338c27d63bca691006_hu8aafcebbe0a95b3ee0e4bcd249ac24b6_23002_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/7f919cf47778b5338c27d63bca691006_hu8aafcebbe0a95b3ee0e4bcd249ac24b6_23002_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;235px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;結果自体は次のようにfilter2Dを使ったSobelフィルタと等しいです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]])&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;filter_res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filter2D&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kernel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sep_filter_res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;filter_res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# output: 0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;速度比較&#34;&gt;速度比較&lt;/h2&gt;
+&lt;p&gt;上記のSobelフィルタを適用したときの速度を、Jupyter notebookの%%timeitを使って比較してみます。
+ついでにcv2.Sobelも比較してみます。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;関数&lt;/th&gt;
+&lt;th&gt;timeitの結果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;sepFilter2D&lt;/td&gt;
+&lt;td&gt;240 µs ± 12.3 µs per loop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;filter2D&lt;/td&gt;
+&lt;td&gt;523 µs ± 18.9 µs per loop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cv2.Sobel&lt;/td&gt;
+&lt;td&gt;231 µs ± 12 µs per loop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;$n=3$でこれだけ差がつきました。$n$が大きいときにはsepFilter2Dを使うといいですね。
+当たり前ですが、用意されているSobelフィルタはsepFilter2Dと同程度の速さです。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

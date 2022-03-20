@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
  画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
@@ -7,20 +7,18 @@
 OpenCVで距離変換 次のようにして距離変換をおこなえます。
 dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
 結果は以下のとおりです。
-　入力画像　距離変換適用（明るいほど距離大）   
-背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。'><title>画像の距離変換をおこなう</title>
+　入力画像　距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。'><title>画像の距離変換をおこなう</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.css"><meta property='og:title' content='画像の距離変換をおこなう'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='画像の距離変換をおこなう'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
 早速OpenCVで試してみます。
 OpenCVで距離変換 次のようにして距離変換をおこなえます。
 dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
 結果は以下のとおりです。
-　入力画像　距離変換適用（明るいほど距離大）   
-背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。'>
+　入力画像　距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。'>
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='距離変換' /><meta property='article:published_time' content='2020-08-07T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-07T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png' />
@@ -31,8 +29,7 @@ dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanc
 OpenCVで距離変換 次のようにして距離変換をおこなえます。
 dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
 結果は以下のとおりです。
-　入力画像　距離変換適用（明るいほど距離大）   
-背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。"><meta name="twitter:card" content="summary_large_image">
+　入力画像　距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png' />
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -50,8 +47,8 @@ if (!doNotTrack) {
 </script>
     </head>
     <body class="
-    article-page 
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -74,23 +71,18 @@ if (!doNotTrack) {
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        on-phone--column extended
-    
-">
-    
-        <aside class="sidebar left-sidebar sticky">
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
-    <header class="site-info">
+    <header>
         
             
             <figure class="site-avatar">
+                <a href="/blog">
                 
                     
                     
@@ -100,24 +92,29 @@ if (!doNotTrack) {
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
-
+                </a>
                 
                     <span class="emoji">🐾</span>
                 
             </figure>
             
         
-        <h1 class="site-name"><a href="https://opqrstuvcut.github.io/blog">MatLoverによるMatlab以外のブログ</a></h1>
-        <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
-    </header>
-
-    <ol class="menu" id="main-menu">
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
         
         
         
 
         <li >
-            <a href='' >
+            <a href='/blog' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -136,7 +133,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='archives' >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -155,7 +156,11 @@ if (!doNotTrack) {
         
 
         <li >
-            <a href='search' >
+            <a href='/blog/search' >
+                
+                
+                    
+                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -171,9 +176,11 @@ if (!doNotTrack) {
         </li>
         
 
-        
-            <li id="dark-mode-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -181,7 +188,7 @@ if (!doNotTrack) {
 
 
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -189,13 +196,12 @@ if (!doNotTrack) {
 
 
 
-                <span>ダークモード</span>
-            </li>
-        
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
     </ol>
 </aside>
-
-    
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -227,11 +233,13 @@ if (!doNotTrack) {
     </header>
     
 
-    <h2 class="article-title">
-        <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">画像の距離変換をおこなう</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">画像の距離変換をおこなう</a>
+        </h2>
     
+        
+    </div>
 
     
     <footer class="article-time">
@@ -251,12 +259,30 @@ if (!doNotTrack) {
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    読了時間: 1分
+                </time>
+            </div>
+        
     </footer>
+    
+
     
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>本記事はQrunchからの転載です。</p>
 <hr>
 <p>画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。</p>
@@ -271,39 +297,29 @@ if (!doNotTrack) {
 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。</p>
 <p>結果は以下のとおりです。</p>
 <p>　　　　　　　　　入力画像　　　　　　　　　　　　　距離変換適用（明るいほど距離大）
-<figure 
+<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5.png" data-size="247x252">
-		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_480x0_resize_box_3.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/0b07b8f2f4af88f042743b022481f2b5_hufc638457b40f57c91d41087c4e55f841_33623_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure><figure 
+><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png"
+	width="247"
+	height="252"
+	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_480x0_resize_box_3.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 98; 
-			flex-basis: 235px"
-	>
-	<a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png" data-size="247x252">
-		<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1.png"
-			width="247"
-			height="252"
-			srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_480x0_resize_box_3.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_huc44386e84077c5479b72411ac06532c0_16926_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			>
-	</a>
+		data-flex-grow="98"
+		data-flex-basis="235px"
 	
-</figure></p>
+></p>
 <p>背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。</p>
 
 </section>
@@ -341,11 +357,11 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -361,14 +377,16 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-        <h2 class="section-title">関連するコンテンツ</h2>
-        <div class="related-contents">
-            <div class="flex article-list--tile">
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
@@ -377,8 +395,9 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
                 <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/_hu079f0db8015dc5d47a1ebef470e8ebdd_27984_743748b314d72d41c44defe918441faa.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 動画データから前景と背景を分離する"
+                        
                         data-hash="md5-6Htuj2yiK2s2zKOytmkDYg==">
                 
             </div>
@@ -389,8 +408,8 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
@@ -399,8 +418,9 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
                 <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/_hu4313cfe2dd0d98bca2a11b97cc7461c5_40382_d3ebbeb3007d36e9fc6a122b07a702ab.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post 抽出した輪郭の描画"
+                        
                         data-hash="md5-zcUMMKJmXxvMQkWhGauLuw==">
                 
             </div>
@@ -411,8 +431,8 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
@@ -421,8 +441,9 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
                 <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
                         data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
                 
             </div>
@@ -433,8 +454,8 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="has-image">
     <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
@@ -443,8 +464,9 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
                 <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
                         width="250" 
                         height="150" 
-                        loading="lazy" 
-                        data-key="" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
                         data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
                 
             </div>
@@ -455,8 +477,8 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
     </a>
 </article>
+            
                 
-                    
 <article class="">
     <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
@@ -467,10 +489,9 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
     </a>
 </article>
-                
-            </div>
+            
         </div>
-    
+    </div>
 </aside>
 
      
@@ -484,12 +505,12 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         
             2019 - 
         
-        2021 MatLoverによるMatlab以外のブログ
+        2022 MatLoverによるMatlab以外のブログ
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -558,11 +579,11 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -578,7 +599,7 @@ maskSizeには最も近い0の値をもつピクセルまでの距離の近似�
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>

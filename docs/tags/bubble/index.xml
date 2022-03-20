@@ -1,31 +1,82 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Bubble on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/bubble/</link>
-    <description>Recent content in Bubble on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/bubble/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
-      <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
- 吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
-Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
-   
-最もシンプルな吹き出しの作り方は以下のようになります。
-Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
- 吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング  欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
-Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
-なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
-こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。  
-コードは以下の通り。
-Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Bubble on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/bubble/</link>
+        <description>Recent content in Bubble on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/bubble/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Flutterで吹き出しを作る</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+        <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76.png" alt="Featured image of post Flutterで吹き出しを作る" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;吹き出しのライブラリ&#34;&gt;吹き出しのライブラリ&lt;/h1&gt;
+&lt;p&gt;Flutterで吹き出しを出すためのライブラリとして&lt;a class=&#34;link&#34; href=&#34;https://github.com/vi-k/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bubble&lt;/a&gt;があります。こちらを使うと吹き出しを簡単に表示できます。
+もう一つ&lt;a class=&#34;link&#34; href=&#34;https://github.com/NilsBacke/PHSpeechBubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SpeechBubble&lt;/a&gt;というライブラリもありますが、Bubbleのほうが色々オプションが設定できます。&lt;/p&gt;
+&lt;h1 id=&#34;bubble&#34;&gt;Bubble&lt;/h1&gt;
+&lt;p&gt;Bubbleを使うと以下のような吹き出しが簡単に表示できます。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76.png&#34;
+	width=&#34;720&#34;
+	height=&#34;1280&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hub4d832f83afaad986e804b9ab594a001_70782_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;56&#34;
+		data-flex-basis=&#34;135px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最もシンプルな吹き出しの作り方は以下のようになります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dart&#34; data-lang=&#34;Dart&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bubble&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;nl&#34;&gt;nip:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BubbleNip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftTop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nl&#34;&gt;child:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Hi, developer!&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;bubbleのオプション&#34;&gt;Bubbleのオプション&lt;/h1&gt;
+&lt;p&gt;Bubbleでは次がオプションとして選べます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;吹き出しの色&lt;/li&gt;
+&lt;li&gt;吹き出しの形状&lt;/li&gt;
+&lt;li&gt;吹き出しからちょこんと出ているところの位置&lt;/li&gt;
+&lt;li&gt;影&lt;/li&gt;
+&lt;li&gt;マージン、パディング&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;欲しい機能は一通り揃っていてとても便利です。詳細は&lt;a class=&#34;link&#34; href=&#34;https://github.com/vi-k/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bubble&lt;/a&gt;のgithubのページをご覧ください。&lt;/p&gt;
+&lt;h1 id=&#34;bubbleの不満&#34;&gt;Bubbleの不満&lt;/h1&gt;
+&lt;p&gt;素晴らしいライブラリなのですが、ちょっとだけ不満があります。
+吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。&lt;/p&gt;
+&lt;p&gt;なので、forkして左中央に位置を指定できるようにしてみました。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/bubble&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc.png&#34;
+	width=&#34;1080&#34;
+	height=&#34;2160&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hued888fd806f401ad0e3b3541390baebe_104242_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;50&#34;
+		data-flex-basis=&#34;120px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;コードは以下の通り。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dart&#34; data-lang=&#34;Dart&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bubble&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;nl&#34;&gt;nip:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BubbleNip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCenter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nl&#34;&gt;child:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
 </rss>

@@ -1,28 +1,98 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ノイズ除去 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
-    <description>Recent content in ノイズ除去 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sat, 01 Aug 2020 10:04:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Non-Local Means Denoisingでノイズ除去</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
-      <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
-      <description>本記事はQrunchからの転載です。
- Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
-似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
-平均値の取り方 先程定義した距離を使って以下のような重みを計算します。 $$ w(p,q) = e^{-\max(d^2 - 2\sigma^2, 0) / h^2}. $$ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行するときには特にこれを指定しないので、上手く処理されている？）。$h$は与えるパラメーターで、大きいほど$w$の値に差がつきづらくなります。 距離$d^2$が小さいと$w$が1に近い値を取り、$d^2$が大きいほど$w$は小さい値になります。 この$w$を重みとしたピクセル値の重み付き平均を取ることがNon-Local Means Denoisingでの処理になります。
-この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
-なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
-OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
-次の左の画像にノイズをのせて右の画像を生成しました。   
-これに対して次のようにして、Non-Local Means Denoisingを適用します。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>ノイズ除去 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+        <description>Recent content in ノイズ除去 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sat, 01 Aug 2020 10:04:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Non-Local Means Denoisingでノイズ除去</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+        <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png" alt="Featured image of post Non-Local Means Denoisingでノイズ除去" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;non-local-means-denoisingのアイデア&#34;&gt;Non-Local Means Denoisingのアイデア&lt;/h1&gt;
+&lt;p&gt;今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。
+これは平均が0となるノイズですので、着目しているピクセルにある意味で&lt;strong&gt;似ている&lt;/strong&gt;ピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。
+これがNon-Local Means Denoisingのアイデアになります。&lt;/p&gt;
+&lt;h1 id=&#34;似ているピクセルをどう定義するか&#34;&gt;似ているピクセルをどう定義するか&lt;/h1&gt;
+&lt;p&gt;Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの&lt;strong&gt;周辺の値&lt;/strong&gt;同士の差分を取ることで、似ているかどうかを考えます。
+この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。
+$$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$
+ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。&lt;/p&gt;
+&lt;h1 id=&#34;平均値の取り方&#34;&gt;平均値の取り方&lt;/h1&gt;
+&lt;p&gt;先程定義した距離を使って以下のような重みを計算します。
+$$ w(p,q) = e^{-\max(d^2 - 2\sigma^2, 0) / h^2}. $$
+$\sigma^2$はノイズの分散になります（OpenCVの関数で実行するときには特にこれを指定しないので、上手く処理されている？）。$h$は与えるパラメーターで、大きいほど$w$の値に差がつきづらくなります。
+距離$d^2$が小さいと$w$が1に近い値を取り、$d^2$が大きいほど$w$は小さい値になります。
+この$w$を重みとしたピクセル値の重み付き平均を取ることがNon-Local Means Denoisingでの処理になります。&lt;/p&gt;
+&lt;p&gt;この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。&lt;/p&gt;
+&lt;p&gt;なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。
+このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。&lt;/p&gt;
+&lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる&lt;/h1&gt;
+&lt;p&gt;OpenCVでNon-Local Means Denoisingをやってみます。&lt;/p&gt;
+&lt;p&gt;次の左の画像にノイズをのせて右の画像を生成しました。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958.png&#34;
+	width=&#34;251&#34;
+	height=&#34;251&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/c9b2cd84393504aa9ce6c0f9929fe958_hu2d5fc8376e9ada7c28143617e2146ff5_53869_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5.png&#34;
+	width=&#34;251&#34;
+	height=&#34;251&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/74a87a7adb65b77787e724d2e7e407e5_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;これに対して次のようにして、Non-Local Means Denoisingを適用します。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;denoised&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fastNlMeansDenoisingColored&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                           &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                           &lt;span class=&#34;n&#34;&gt;templateWindowSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                           &lt;span class=&#34;n&#34;&gt;searchWindowSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。
+ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。&lt;/p&gt;
+&lt;p&gt;結果が以下のとおりです。&lt;/p&gt;
+&lt;p&gt;　　　　　　ノイズをのせた画像　　　　　　　　　　　　　　ノイズ除去後の画像
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b.png&#34;
+	width=&#34;251&#34;
+	height=&#34;251&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/94e96605a92c5ed4a27fc7f1d01b261b_hu9e4f8f630a237289f80b919494be91b7_79163_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34.png&#34;
+	width=&#34;251&#34;
+	height=&#34;251&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hubead929561f1b0e7093fb3a31d66a0bf_39514_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;体の部分がぼやけていますが、ノイズはきれいにとれてますね。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

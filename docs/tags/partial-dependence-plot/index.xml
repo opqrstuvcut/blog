@@ -1,33 +1,97 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Partial Dependence Plot on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/partial-dependence-plot/</link>
-    <description>Recent content in Partial Dependence Plot on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/partial-dependence-plot/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Partial Dependence Plot</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</link>
-      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</guid>
-      <description>Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。
-例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。
-Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。
-このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。
-こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。
-注意点として、$x_i$と$X_C$は独立でなければいけません。
-独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。
-Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
-期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_{j=1}^n f(x_i,X_{jC}) .$$
-年齢に対するPartial Dependence Plot 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。  年齢に対するPartial Dependence Plot 
-年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。
-性別に対するPartial Dependence Plot 性別についても結果を示します。  性別に対するPPD  女性のほうが生存しやすかったという傾向が見て取れます。
-実装 実装は次のとおりです。
-import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.</description>
-    </item>
+    <channel>
+        <title>Partial Dependence Plot on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/partial-dependence-plot/</link>
+        <description>Recent content in Partial Dependence Plot on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/partial-dependence-plot/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Partial Dependence Plot</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</link>
+        <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</guid>
+        <description>&lt;p&gt;Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。&lt;br&gt;
+例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。&lt;/p&gt;
+&lt;h1 id=&#34;partial-dependence-plotの概要&#34;&gt;Partial Dependence Plotの概要&lt;/h1&gt;
+&lt;p&gt;学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。&lt;br&gt;
+このとき、次のようにモデルの出力の期待値を計算します。
+$$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C .$$
+ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。&lt;br&gt;
+こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。&lt;/p&gt;
+&lt;p&gt;注意点として、$x_i$と$X_C$は独立でなければいけません。&lt;br&gt;
+独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。&lt;/p&gt;
+&lt;h1 id=&#34;partial-dependence-plotの実験&#34;&gt;Partial Dependence Plotの実験&lt;/h1&gt;
+&lt;p&gt;kaggleのtitanicの問題でPartial Dependence Plotを試してみます。
+モデルはLightGBMの勾配ブースティング法を利用しています。&lt;/p&gt;
+&lt;p&gt;期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\cdots,n$を用いて以下のように近似値を利用しています。
+$$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_{j=1}^n f(x_i,X_{jC}) .$$&lt;/p&gt;
+&lt;h2 id=&#34;年齢に対するpartial-dependence-plot&#34;&gt;年齢に対するPartial Dependence Plot&lt;/h2&gt;
+&lt;p&gt;年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age.png&#34;
+	width=&#34;907&#34;
+	height=&#34;278&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age_hu1f9af51e5f4dc174822daf9c1d9c4232_15984_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age_hu1f9af51e5f4dc174822daf9c1d9c4232_15984_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;年齢に対するPartial Dependence Plot&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;783px&#34;
+	
+&gt;&lt;br&gt;
+年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。&lt;/p&gt;
+&lt;h2 id=&#34;性別に対するpartial-dependence-plot&#34;&gt;性別に対するPartial Dependence Plot&lt;/h2&gt;
+&lt;p&gt;性別についても結果を示します。&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex.png&#34;
+	width=&#34;907&#34;
+	height=&#34;278&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex_hu8ddb742a3403f96d393fc87767c04275_6382_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex_hu8ddb742a3403f96d393fc87767c04275_6382_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;性別に対するPPD&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;783px&#34;
+	
+&gt;&lt;br&gt;
+女性のほうが生存しやすかったという傾向が見て取れます。&lt;/p&gt;
+&lt;h2 id=&#34;実装&#34;&gt;実装&lt;/h2&gt;
+&lt;p&gt;実装は次のとおりです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pandas&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pd&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;typing&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_partial_dependence_func_val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                    &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DataFrame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                    &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                    &lt;span class=&#34;n&#34;&gt;candidates&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;float&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
     
-  </channel>
+    &lt;span class=&#34;n&#34;&gt;expecteds&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;replaced_x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replaced_val&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;candidates&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;replaced_x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replaced_val&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;preds&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;replaced_x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;expecteds&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;preds&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mean&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+        
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;expecteds&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;candidates&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;70&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Age&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;ppd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_partial_dependence_func_val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+                                      &lt;span class=&#34;n&#34;&gt;train_x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                      &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                                      &lt;span class=&#34;n&#34;&gt;candidates&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;candidates&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;Partial Dependence Plotは実装が簡単で、わかりやすい結果が得られます。&lt;br&gt;
+ただし、特徴量間が独立でないときは仮定が崩れますので、注意が必要です。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

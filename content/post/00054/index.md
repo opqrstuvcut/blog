@@ -28,7 +28,7 @@ ret, encoded = cv2.imencode(".jpg", img, (cv2.IMWRITE_JPEG_QUALITY, 10))
 3つめの引数に指定した拡張子に変換するときのパラメータを指定します。
 例えばjpgの場合には画像の質を指定できますので、それをタプルの形式で与えており、ここではjpgの質を10で圧縮するようにしています。
 
-imencodによって生成されたjpgになった画像の情報はencodedに格納されています。
+imencodeによって生成されたjpgになった画像の情報はencodedに格納されています。
 
 # imdecode
 
@@ -46,7 +46,9 @@ BGRの3channelで読み込む場合には**cv2.IMREAD_COLOR**を指定し、Gray
 
 jpgのqualityを10にしてimencodeした後にimdecodeした結果を元の画像と比較してみます。
 
-　　　　　　　　元画像　　　　　　　　　　　　　　　　　　imdecode後の画像
-![](92b8b770bc70d432712df04481e7be54.png)![](ef33a82444b4c9bca9b7fb97cad0d467.png)
+|元画像|imdecode後の画像|
+|---|---|
+|![](92b8b770bc70d432712df04481e7be54.png)|![](ef33a82444b4c9bca9b7fb97cad0d467.png)|
+
 
 右側の画像はノイズがのっていることが分かるでしょうか？ちゃんとjpgの形式で圧縮されたようです。

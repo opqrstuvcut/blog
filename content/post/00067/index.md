@@ -20,15 +20,15 @@ kaggleのtitanicの問題でIndividual Conditional Expectationを試してみま
 モデルはLightGBMの勾配ブースティング法を利用しています。
 
 ## 年齢に対するIndividual Conditional Expectation 
-年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
-![年齢に対するIndividual Conditional Expectation](ice_age.png)
+年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。  
+![年齢に対するIndividual Conditional Expectation](ice_age.png)  
 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。
 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。  
 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
 
 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。  
 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。
-![年齢に対するIndividual Conditional Expectation](ice_age_centered.png)
+![年齢に対するIndividual Conditional Expectation](ice_age_centered.png)  
 データの変化の比較がしやすくなりましたね。
 
 ## 実装

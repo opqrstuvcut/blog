@@ -1,29 +1,80 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ヒストグラム平坦化 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
-    <description>Recent content in ヒストグラム平坦化 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 02 Aug 2020 22:50:29 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>ヒストグラム平坦化</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
-      <pubDate>Sun, 02 Aug 2020 22:50:29 +0900</pubDate>
-      
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</guid>
-      <description>本記事はQrunchからの転載です。
- 今日はヒストグラム平坦化を扱います。
-ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
-処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
-OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。  
-この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。  
-ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
-res = cv2.equalizeHist(img)  
-ちゃんと見えるようになりましたね。
-この画像の画素値のヒストグラムは以下のとおりです。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>ヒストグラム平坦化 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
+        <description>Recent content in ヒストグラム平坦化 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 02 Aug 2020 22:50:29 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ヒストグラム平坦化</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
+        <pubDate>Sun, 02 Aug 2020 22:50:29 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png" alt="Featured image of post ヒストグラム平坦化" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;今日はヒストグラム平坦化を扱います。&lt;/p&gt;
+&lt;p&gt;ヒストグラム平坦化はコントラストが偏っているような画像を補正します。
+結果として、コントラストがある程度平坦化された結果が得られます。&lt;/p&gt;
+&lt;p&gt;処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。&lt;/p&gt;
+&lt;h1 id=&#34;opencvでヒストグラム平坦化&#34;&gt;OpenCVでヒストグラム平坦化&lt;/h1&gt;
+&lt;p&gt;次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e.png&#34;
+	width=&#34;209&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;82&#34;
+		data-flex-basis=&#34;199px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858.png&#34;
+	width=&#34;375&#34;
+	height=&#34;259&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;347px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;equalizeHist&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png&#34;
+	width=&#34;209&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;82&#34;
+		data-flex-basis=&#34;199px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ちゃんと見えるようになりましたね。&lt;/p&gt;
+&lt;p&gt;この画像の画素値のヒストグラムは以下のとおりです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf.png&#34;
+	width=&#34;375&#34;
+	height=&#34;259&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_480x0_resize_box_3.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;347px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

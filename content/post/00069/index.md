@@ -3,6 +3,7 @@ title: FastAPI + uvicornの構成のサーバーで時間経過でメモリ使�
 tags: ["AWS", "ECS", "FastAPI", "uvicorn", "Python"]
 categories: ["AWS"]
 date: 2022-03-20
+image: memory_usage_ng.png
 ---
 
 # 問題発生時の状況

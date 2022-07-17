@@ -6,7 +6,30 @@
         <description>Recent content in Posts on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sun, 20 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</link>
+        <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</guid>
+        <description>&lt;h1 id=&#34;困ったこと&#34;&gt;困ったこと&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/ultralytics/yolov5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;YOLOv5&lt;/a&gt;は便利なライブラリですが、ONNXへモデルを変換したときにちょっと困ったことがあります。&lt;br&gt;
+というのも、変換後のONNXモデルにはNMSなどの後処理が含まれていないため、後処理は別途用意する必要があります。&lt;br&gt;
+公式ではPyTorchの関数を使ったNMSになっているため、そのまま後処理のコードをコピーしようとすれば実行環境上にONNX RuntimeとPyTorchの両方を用意しないといけません。でもせっかくONNXを使うなら、環境にPyTorchを入れたくないですよね。&lt;/p&gt;
+&lt;h1 id=&#34;解決方法&#34;&gt;解決方法&lt;/h1&gt;
+&lt;p&gt;PyTorchを入れたくないけどどうしよう…と困っていたところ、こちらのプルリクを見つけました。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/ultralytics/yolov5/pull/7736&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/ultralytics/yolov5/pull/7736&lt;/a&gt;&lt;br&gt;
+どうやらNMSの処理がONNXモデルに含まれるような修正をおこなっているようです。&lt;/p&gt;
+&lt;p&gt;2022/07/17現在はまだmasterへはマージされていないのですが、&lt;a class=&#34;link&#34; href=&#34;https://github.com/triple-Mu/yolov5/tree/trtNMS&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;fork先のブランチ&lt;/a&gt;を試してみると、うまくいくことが確認できました。&lt;br&gt;
+実際にONNXモデルへ変換をおこなうときにはexport.pyに&amp;quot;&amp;ndash;nms&amp;quot;オプションをつければOKです。
+モデルの出力値の扱いは&lt;a class=&#34;link&#34; href=&#34;https://github.com/triple-Mu/yolov5/blob/trtNMS/onnx_nms_ort.ipynb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;こちら&lt;/a&gt;を参考にすると分かるかと思います。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</title>
         <link>https://opqrstuvcut.github.io/blog/posts/fastapi-uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</link>
         <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>スピアマンの順位相関係数 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/</link>
+        <description>Recent content in スピアマンの順位相関係数 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>スピアマンの順位相関係数の導出</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</link>
+        <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</guid>
+        <description>&lt;p&gt;スピアマンの順位相関係数の導出のメモになります。&lt;/p&gt;
+&lt;h1 id=&#34;導出&#34;&gt;導出&lt;/h1&gt;
+&lt;p&gt;$n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。&lt;br&gt;
+そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。&lt;br&gt;
+また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。&lt;/p&gt;
+&lt;p&gt;いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。
+スピアマンの順位相関係数$r$は$R(x_1),\cdots, R(x_n)$と$S(y_1),\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+r &amp;amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i) - \bar{R})(S(y_i) - \bar{S}) }{\sigma_R \sigma_S}.
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;上式は次のように整理できます。
+$$
+\begin{align*}
+r &amp;amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i)S(y_i) -\bar{S}R(x_i) -\bar{R}S(y_i) + \bar{R}\bar{S}) }{\sigma_R \sigma_S} \\
+&amp;amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{S}\bar{R} -\bar{R}\bar{S} + \bar{R}\bar{S} }{\sigma_R \sigma_S} \\
+&amp;amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{R}\bar{S}  }{\sigma_R \sigma_S}.
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;ここで、$d_i= R(x_i) - S(y_i)$とおくと、&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+r &amp;amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\right\} -\bar{R}\bar{S}  }{\sigma_R \sigma_S}  \\
+&amp;amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\right\} -\bar{R}\bar{S}  }{\sigma_R \sigma_S}
+\end{align*}
+$$
+となります。&lt;/p&gt;
+&lt;p&gt;$R$と$S$の定義から、$\bar{R}=\bar{S}$と$\sigma_R = \sigma_S$が成り立つので、上式は以下のように変形できます。
+$$
+\begin{align*}
+r &amp;amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n R(x_i)^2 - \frac{1}{2}d_i^2 \right\} -\bar{R}^2  }{\sigma_R^2}  \\
+&amp;amp;= \frac{\frac{1}{n}\sum_{i=1}^n R(x_i)^2  -\bar{R}^2 - \frac{1}{2n} \sum_{i=1}^n d_i^2  }{\sigma_R^2}  \\
+&amp;amp;= \frac{\sigma_R^2 - \frac{1}{2n} \sum_{i=1}^n d_i^2  }{\sigma_R^2}  \\
+&amp;amp;= 1 - \frac{\sum_{i=1}^n d_i^2  }{2n\sigma_R^2}.
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;もう少し式を整理することができます。$\sigma_R^2$に着目するとこの部分は
+$$
+\begin{align*}
+\sigma_R^2 &amp;amp;= \mathbb{E}[R(x)^2] - \bar{R}^2 \\
+&amp;amp;= \sum_{i=1}^n i^2 - \left(\sum_{i=1}^n i\right)^2 \\
+&amp;amp;= \frac{n^2-1}{12}
+\end{align*}
+$$
+とわかります。このことから、次のスピアマンの順位相関係数が導かれます。
+$$
+\begin{align*}
+r &amp;amp;= 1 - \frac{6\sum_{i=1}^n d_i^2  }{n^3 - n}.
+\end{align*}
+$$&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

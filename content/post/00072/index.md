@@ -54,7 +54,7 @@ $$
 $$
 \begin{align*}
 \sigma_R^2 &= \mathbb{E}[R(x)^2] - \bar{R}^2 \\\
-&= \sum_{i=1}^n i^2 - \left(\sum_{i=1}^n i\right)^2 \\\
+&= \frac{1}{n}\sum_{i=1}^n i^2 - \left(\frac{1}{n}\sum_{i=1}^n i\right)^2 \\\
 &= \frac{n^2-1}{12}
 \end{align*}
 $$

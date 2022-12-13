@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='本記事はQrunchからの転載です。
- 今日はヒストグラム平坦化を扱います。
-ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
-処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
-OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
-この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
-ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
-res = cv2.equalizeHist(img) ちゃんと見えるようになりましたね。
-この画像の画素値のヒストグラムは以下のとおりです。'><title>ヒストグラム平坦化</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='昔の話 OpenCVのVideoCaptureを使っていると、あれって思うことがありました。
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。
+この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。
+これへの対応としてexiftoolあたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。
+現在の話 最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！
+詳しくはこちらのissue(https://github.com/opencv/opencv/issues/15499 )を見ていただければと思います。
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。'><title>いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='ヒストグラム平坦化'>
-<meta property='og:description' content='本記事はQrunchからの転載です。
- 今日はヒストグラム平坦化を扱います。
-ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
-処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
-OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
-この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
-ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
-res = cv2.equalizeHist(img) ちゃんと見えるようになりましたね。
-この画像の画素値のヒストグラムは以下のとおりです。'>
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/'>
+<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた'>
+<meta property='og:description' content='昔の話 OpenCVのVideoCaptureを使っていると、あれって思うことがありました。
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。
+この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。
+これへの対応としてexiftoolあたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。
+現在の話 最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！
+詳しくはこちらのissue(https://github.com/opencv/opencv/issues/15499 )を見ていただければと思います。
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='ヒストグラム平坦化' /><meta property='article:published_time' content='2020-08-02T22:50:29&#43;09:00'/><meta property='article:modified_time' content='2020-08-02T22:50:29&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png' />
-<meta name="twitter:title" content="ヒストグラム平坦化">
-<meta name="twitter:description" content="本記事はQrunchからの転載です。
- 今日はヒストグラム平坦化を扱います。
-ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
-処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
-OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
-この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
-ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
-res = cv2.equalizeHist(img) ちゃんと見えるようになりましたね。
-この画像の画素値のヒストグラムは以下のとおりです。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:published_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta name="twitter:title" content="いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた">
+<meta name="twitter:description" content="昔の話 OpenCVのVideoCaptureを使っていると、あれって思うことがありました。
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。
+この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。
+これへの対応としてexiftoolあたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。
+現在の話 最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！
+詳しくはこちらのissue(https://github.com/opencv/opencv/issues/15499 )を見ていただければと思います。
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' />
     <link rel="shortcut icon" href="favicon.ico" />
 
 <script type="application/javascript">
@@ -209,28 +209,12 @@ if (!doNotTrack) {
     </ol>
 </aside>
 <main class="main full-width">
-    <article class="has-image main-article">
+    <article class="main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
-                <img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_800x0_resize_box_3.png"
-                        srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_800x0_resize_box_3.png 800w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_1600x0_resize_box_3.png 1600w"
-                        width="800" 
-                        height="965" 
-                        loading="lazy"
-                        alt="Featured image of post ヒストグラム平坦化" />
-                
-            </a>
-        </div>
-    
 
     <div class="article-details">
     
     <header class="article-category">
-        
-            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" >
-                OpenCV生活
-            </a>
         
             <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
@@ -241,7 +225,7 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">ヒストグラム平坦化</a>
+            <a href="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた</a>
         </h2>
     
         
@@ -260,7 +244,7 @@ if (!doNotTrack) {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 02, 2020</time>
+                <time class="article-time--published">Dec 13, 2022</time>
             </div>
         
 
@@ -289,67 +273,19 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <p>本記事はQrunchからの転載です。</p>
-<hr>
-<p>今日はヒストグラム平坦化を扱います。</p>
-<p>ヒストグラム平坦化はコントラストが偏っているような画像を補正します。
-結果として、コントラストがある程度平坦化された結果が得られます。</p>
-<p>処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。</p>
-<h1 id="opencvでヒストグラム平坦化">OpenCVでヒストグラム平坦化</h1>
-<p>次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。<br>
-<img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e.png"
-	width="209"
-	height="252"
-	srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/51cf7f08ccc657141d3e65ef1b466e4e_hu3f43fad64754dc4b8f23737a57004bad_22557_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="82"
-		data-flex-basis="199px"
-	
-></p>
-<p>この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。<br>
-<img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858.png"
-	width="375"
-	height="259"
-	srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/de36036169c411bbe353ffdf628df858_hu817d8378d0a01166cab3a4276ecac395_4103_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="144"
-		data-flex-basis="347px"
-	
-></p>
-<p>ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-</code></pre></div><p><img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.png"
-	width="209"
-	height="252"
-	srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hua70cd25a91f361232721d1da9fb274b8_53437_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="82"
-		data-flex-basis="199px"
-	
-><br>
-ちゃんと見えるようになりましたね。</p>
-<p>この画像の画素値のヒストグラムは以下のとおりです。<br>
-<img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf.png"
-	width="375"
-	height="259"
-	srcset="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_480x0_resize_box_3.png 480w, /blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e250638d16771a11e5bf8cc073ff4caf_hu515917a2263e175c1592de03b7bc2560_4066_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="144"
-		data-flex-basis="347px"
-	
-></p>
+    <h1 id="昔の話">昔の話</h1>
+<p>OpenCVのVideoCaptureを使っていると、あれって思うことがありました。<br>
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。<br>
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。</p>
+<p>この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。<br>
+これへの対応として<a class="link" href="https://exiftool.org/"  target="_blank" rel="noopener"
+    >exiftool</a>あたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。</p>
+<h1 id="現在の話">現在の話</h1>
+<p>最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。<br>
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！<br>
+詳しくはこちらのissue(<a class="link" href="https://github.com/opencv/opencv/issues/15499"  target="_blank" rel="noopener"
+    >https://github.com/opencv/opencv/issues/15499</a> )を見ていただければと思います。<br>
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。</p>
 
 </section>
 
@@ -359,8 +295,6 @@ if (!doNotTrack) {
     <section class="article-tags">
         
             <a href="/blog/tags/opencv/">OpenCV</a>
-        
-            <a href="/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">ヒストグラム平坦化</a>
         
     </section>
 
@@ -417,64 +351,6 @@ if (!doNotTrack) {
             
                 
 <article class="has-image">
-    <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
-        
-        
-            <div class="article-image">
-                <img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/_hu5ddbb1da31877a9e022410b6c73f6fa0_41649_506a1de3aa05a58a02e6fc12ce7aa3c9.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Hough（ハフ）変換で直線を見つけよう"
-                        
-                        data-hash="md5-HjFhYBTp7t/q2paaheSR&#43;A==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Hough（ハフ）変換で直線を見つけよう</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
-        
-        
-            <div class="article-image">
-                <img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/_hud15ff8e0698fd4e8689d5fe3f1bbf41c_1046193_f81af94d10c05c80d40815ba50507f7d.jpg" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Canny法でエッジ検出"
-                        
-                        data-hash="md5-K5ji6WHWp&#43;r0NHD8WZYmww==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Canny法でエッジ検出</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
     <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
@@ -515,6 +391,64 @@ if (!doNotTrack) {
 
         <div class="article-details">
             <h2 class="article-title">抽出した輪郭の描画</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/_huebb2864a8a513da9c313f1fee4e2d83c_46193_1d505b8ce01693d925552b7f35f63d13.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post findContoursで輪郭の検出"
+                        
+                        data-hash="md5-Jz7QkSNGZlpVZUX8jGSKuA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">findContoursで輪郭の検出</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/_hu26ccc0caaa27d75445cd03ca7c8ff782_109523_578aa73a505a468afdb5891f9327662c.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post テンプレートマッチングで画像から物体をみつける"
+                        
+                        data-hash="md5-HhQjsnFCkc9GR6HEZ3RRuA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">テンプレートマッチングで画像から物体をみつける</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">minMaxLocで最大と最小の位置を楽に取得</h2>
         </div>
     </a>
 </article>

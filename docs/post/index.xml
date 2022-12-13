@@ -6,7 +6,28 @@
         <description>Recent content in Posts on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/</link>
+        <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/</guid>
+        <description>&lt;h1 id=&#34;昔の話&#34;&gt;昔の話&lt;/h1&gt;
+&lt;p&gt;OpenCVのVideoCaptureを使っていると、あれって思うことがありました。&lt;br&gt;
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。&lt;br&gt;
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。&lt;/p&gt;
+&lt;p&gt;この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。&lt;br&gt;
+これへの対応として&lt;a class=&#34;link&#34; href=&#34;https://exiftool.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;exiftool&lt;/a&gt;あたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。&lt;/p&gt;
+&lt;h1 id=&#34;現在の話&#34;&gt;現在の話&lt;/h1&gt;
+&lt;p&gt;最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。&lt;br&gt;
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！&lt;br&gt;
+詳しくはこちらのissue(&lt;a class=&#34;link&#34; href=&#34;https://github.com/opencv/opencv/issues/15499&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opencv/opencv/issues/15499&lt;/a&gt; )を見ていただければと思います。&lt;br&gt;
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>スピアマンの順位相関係数の導出</title>
         <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</link>
         <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>

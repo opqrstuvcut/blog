@@ -1,6 +1,8 @@
 baseURL: "https://opqrstuvcut.github.io/blog"
 languageCode : "ja-jp"
 theme: hugo-theme-stack
+disqusShortname: https-opqrstuvcut-github-io-blog
+
 paginate: 10
 title: MatLoverによるMatlab以外のブログ  
 
@@ -39,19 +41,23 @@ params:
         license:
             enabled: true
             default: Licensed under CC BY-NC-SA 4.0
+        readingTime: false
+        toc: true 
 
     widgets:
-        enabled:
-            - search
-            - archives
-            - tag-cloud
-
-        archives:
-            limit: 5
-            path: archives
-
-        tagCloud:
-            limit: 10
+        homepage:
+          - type: search
+          - type: archives
+            params:
+                limit: 5
+          - type: categories
+            params:
+                limit: 10
+          - type: tag-cloud
+            params:
+                limit: 10
+        page:
+            - type: toc
 
     opengraph:
         twitter:
@@ -72,17 +78,19 @@ params:
         toggle: true
         
         # Available values: auto, light, dark
-        default: auto
+        default: dark
 
     imageProcessing:
         cover:
             enabled: true
         content:
             enabled: true
+    comments:
+        enabled: true 
+        provider: disqus
 
 menu:
     main:
-
         - identifier: home 
           name: Home 
           url:  
@@ -100,6 +108,13 @@ menu:
           url: search
           weight: -60
           pre: search
+    
+    social:
+        - identifier: github
+          name: GitHub
+          url: https://github.com/opqrstuvcut
+          params:
+              icon: brand-github
 
 related:
     includeNewer: true

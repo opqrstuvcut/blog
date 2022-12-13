@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
+AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
+service: api: x-aws-policies: - &amp;quot;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;quot; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
+secrets: sample_secret: name: &amp;quot;シークレットのARN&amp;quot; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
+service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
+GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
+ https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。  自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
+GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
+ LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;quot;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&amp;quot;/OPTIONS=&amp;quot;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: .'>
+<title>docker composeでAWS ECSにデプロイするときのtips</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.1f41326e4e1d4e519354977cdb18ed4295a160f826fe03cb9327918b16b5c93d.css"><meta property='og:title' content='docker composeでAWS ECSにデプロイするときのtips'>
+<meta property='og:description' content='docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
+AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
+service: api: x-aws-policies: - &amp;quot;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;quot; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
+secrets: sample_secret: name: &amp;quot;シークレットのARN&amp;quot; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
+service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
+GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
+ https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。  自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
+GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
+ LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;quot;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&amp;quot;/OPTIONS=&amp;quot;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: .'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AWS' /><meta property='article:published_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog' />
+<meta name="twitter:title" content="docker composeでAWS ECSにデプロイするときのtips">
+<meta name="twitter:description" content="docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
+AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
+service: api: x-aws-policies: - &amp;quot;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;quot; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
+secrets: sample_secret: name: &amp;quot;シークレットのARN&amp;quot; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
+service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
+GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
+ https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。  自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
+GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
+ LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;quot;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&amp;quot;/OPTIONS=&amp;quot;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: ."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog' />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-181647317-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu514b2ae90ef0dd8eb7afcc14763581df_17525_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/blog' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/blog/search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>ダークモード</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目次</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#awsのサービスへのアクセス権限周り">AWSのサービスへのアクセス権限周り</a></li>
+    <li><a href="#awsのsecretの読み込み">AWSのsecretの読み込み</a></li>
+    <li><a href="#gpuインスタンス">GPUインスタンス</a>
+      <ul>
+        <li><a href="#gpuインスタンスのruntimeの設定">GPUインスタンスのruntimeの設定</a></li>
+      </ul>
+    </li>
+    <li><a href="#eni">ENI</a>
+      <ul>
+        <li><a href="#trunking">Trunking</a></li>
+        <li><a href="#awsvpc---bridge">awsvpc -&gt; bridge</a></li>
+      </ul>
+    </li>
+    <li><a href="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/aws/" >
+                AWS
+            </a>
+        
+            <a href="/blog/categories/ecs/" >
+                ECS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/">docker composeでAWS ECSにデプロイするときのtips</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 13, 2022</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。
+作業したのが半年前なので少し情報が古いかもしれないのです。</p>
+<h2 id="awsのサービスへのアクセス権限周り">AWSのサービスへのアクセス権限周り</h2>
+<p>ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。</p>
+<pre tabindex="0"><code>service:
+  api: 
+    x-aws-policies:
+      - &quot;arn:aws:iam::aws:policy/AmazonSQSFullAccess&quot;
+</code></pre><h2 id="awsのsecretの読み込み">AWSのsecretの読み込み</h2>
+<p>secretとの連携はdocker-compose.ymlに次のように記述します。</p>
+<pre tabindex="0"><code>secrets:
+  sample_secret:
+    name: &quot;シークレットのARN&quot;
+    external: true
+</code></pre><p>また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。</p>
+<pre tabindex="0"><code>service:
+  api: 
+    secrets:
+      - sample_secret
+</code></pre><p>コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。</p>
+<h2 id="gpuインスタンス">GPUインスタンス</h2>
+<p>特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。
+GPUインスタンスを使いたい場合おそらく2つ選択肢があります。</p>
+<ul>
+<li><a class="link" href="https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/"  target="_blank" rel="noopener"
+    >https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/</a> を参考にgpuの記述をdocker-compose.ymlに追加</li>
+<li>docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。</li>
+</ul>
+<p>自分は後者を選択しました。
+というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。
+このため、後者を採用し、かつ次の変更を加えています。</p>
+<h3 id="gpuインスタンスのruntimeの設定">GPUインスタンスのruntimeの設定</h3>
+<p>1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。</p>
+<pre tabindex="0"><code>  LaunchConfiguration:
+    Properties:
+      IamInstanceProfile:
+        Ref: EC2InstanceProfile
+      ImageId: ...
+      InstanceType: g4dn.xlarge
+      SecurityGroups:
+      - Ref: ...
+      AssociatePublicIpAddress: true
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            echo ECS_CLUSTER=${ClusterName} &gt;&gt; /etc/ecs/ecs.config
+            (grep -q ^OPTIONS=\&quot;--default-runtime /etc/sysconfig/docker &amp;&amp; echo '/etc/sysconfig/docker needs no changes') || (sed -i 's/^OPTIONS=&quot;/OPTIONS=&quot;--default-runtime nvidia /' /etc/sysconfig/docker &amp;&amp; echo '/etc/sysconfig/docker updated to have nvidia runtime as default' &amp;&amp; systemctl restart docker &amp;&amp; echo 'Restarted docker')
+          - {
+              ClusterName: SampleCluster
+            }
+      KeyName: ...
+    Type: AWS::AutoScaling::LaunchConfiguration
+</code></pre><p>この解決方法はどこかで見たものを利用したものですが、リンク先を失ってしまいました。</p>
+<h2 id="eni">ENI</h2>
+<p>複数のタスクを1インスタンスの上に立ち上げるとネットワークインターフェースの問題が発生してきます。<br>
+docker compose convertで生成したCloudFormationテンプレートでは、awsvpcが設定されており、これだと1タスクが1つのネットワークインターフェースに対応するようです。<br>
+ネットワークインターフェースはインスタンスによるのですが、例えばg4dnは3つですので、3タスクまでしかデプロイできないことになります。</p>
+<h3 id="trunking">Trunking</h3>
+<p>前述の問題を解決したいときの1つの解決方法はTrunkingです。<br>
+これはネットワークインターフェースをインスタンスに追加できます！<br>
+ただ話はそんなに簡単ではなく、これが適用できるのは一部のインスタンスに限ります…。自分が使いたいg4dnは対象外でした。</p>
+<h3 id="awsvpc---bridge">awsvpc -&gt; bridge</h3>
+<p>もう1つの解決方法はawsvpcを使うのを諦めてNetworkModeをbridgeにすることです。
+NetworkModeを変更するにあたって、docker compose convertで生成されたCloudFormationテンプレートを色々と変更する必要がありますが、もはや仕方がないのでこれで解決しました。</p>
+<h2 id="まとめ">まとめ</h2>
+<p>docker composeコマンドでのdeployは非常に便利ですが、特殊なことは対応していないので結局CloudFormationテンプレートを修正していく必要がでてきます。
+とはいえ、非常に便利な機能であることは間違いないですね。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/aws/">AWS</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/fastapi-uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/fastapi-uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_ng.94d4a4c293e9367f076af0436a8d2f90_hu72596f761d14dd628728bdb4e15cee9a_105746_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき"
+                        
+                        data-hash="md5-lNSkwpPpNn8HavBDao0vkA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWSのDead Letter QueueのメッセージをもとのQueueに戻す</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWSのLambdaからPostgresを利用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/_hua0e9ef26a9d3ab210e1922bc431eb065_258199_829ab3e7bac268aa85e0e362e4d7b1e0.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post FlutterでS3にファイルをアップロードする"
+                        
+                        data-hash="md5-fyDfyA/gfMrJPtCVsmhYYQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FlutterでS3にファイルをアップロードする</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/_hud6cb81a775978a88f5a41e08842d2fb5_16521_404d07c2f81c3209f29f8529531e8c04.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post MinIOでローカルにS3みたいなものを作って開発する"
+                        
+                        data-hash="md5-8ssW3SOxkZwWw8g9AirnqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MinIOでローカルにS3みたいなものを作って開発する</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2022 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

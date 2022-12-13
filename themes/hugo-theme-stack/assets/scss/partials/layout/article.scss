@@ -72,6 +72,10 @@
                 a {
                     color: var(--body-text-color);
                 }
+
+                a.link {
+                    box-shadow: unset;
+                }
             }
         }
     }
@@ -104,7 +108,7 @@
             list-style-type: none;
             counter-reset: item;
 
-            li a::before {
+            li a:first-of-type::before {
                 counter-increment: item;
                 content: counters(item, ".") ". ";
                 font-weight: bold;
@@ -166,7 +170,7 @@
     }
 }
 
-.related-contents {
+.related-content {
     overflow-x: auto;
     padding-bottom: 15px;
 
@@ -231,6 +235,16 @@
         border-inline-start: var(--blockquote-border-size) solid var(--card-separator-color);
         padding: 15px calc(var(--card-padding) - var(--blockquote-border-size));
         background-color: var(--blockquote-background-color);
+
+        .cite {
+            display: block;
+            text-align: right;
+            font-size: 0.75em;
+
+            a {
+                text-decoration: underline;
+            }
+        }
     }
 
     hr {
@@ -373,6 +387,18 @@
         }
     }
 
+    .gitlab-embed-snippets {
+        margin: 0 !important;
+
+        .file-holder.snippet-file-content {
+            margin-block-end: 0 !important;
+            margin-block-start: 0 !important;
+            margin-left: calc((var(--card-padding)) * -1) !important;
+            margin-right: calc((var(--card-padding)) * -1) !important;
+            padding: 0 var(--card-padding) !important;
+        }
+    }
+
     /// Negative margins
     blockquote,
     figure,
@@ -385,5 +411,11 @@
         margin-left: calc((var(--card-padding)) * -1);
         margin-right: calc((var(--card-padding)) * -1);
         width: calc(100% + var(--card-padding) * 2);
+    }
+
+    /// Make long KaTeX equations scrollable in the x-axis
+    .katex-display > .katex {
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }

@@ -9,11 +9,12 @@ OpenCVでのヒストグラムの計算は以下のようにおこなえます�
 hist = cv2.calcHist(images=[img], channels=[0], mask=None, histSize=[256], ranges=(0, 256))  imagesにはヒストグラムの計算のもととなる画像をリストの形式で渡します。 channelsには画像のチャネルのうち、どれを用いてヒストグラムを計算するかを指定します。いまはグレースケールで1チャネルしかないため、0を指定しています。カラー画像のときにはBGRの3チャネルなので、channelに対応する0~2のどれかを指定します。 maskには画像と同じサイズの1チャネルのマスクを与えることで、ヒストグラムを計算する領域を制限できます。 histSizeにはヒストグラムのbinの数を与えます。 rangesにはヒストグラムの下限と上限を指定します。厳密には(0,256)を与えるということは$[0, 256)$のような区間をあらわすことに注意してください。  結果を以下のように描画してみます。
 plt.bar(range(len(hist)), hist.ravel()) plt.ylabel(&amp;#34;freq&amp;#34;) plt.xlabel(&amp;#34;val&amp;#34;) plt.show() NumPyとの比較 cv2.calcHistによって得たヒストグラムと全く同じヒストグラムをNumPyを用いて得ることができます。 具体的には次のようにします。
 numpy_hist, bin_edges = np.histogram(img.ravel(), bins=256, range=(0, 255)) さて、速度はどれくらい違うかという話になりますが、%%timeitによって測定した結果が以下のとおりです。
-   方法 timeitの結果     cv2.calcHist 2.95 ms ± 186 µs per loop   np.histogram 109 ms ± 7.22 ms per loop    36倍程度OpenCVのほうが速いことがわかります。 全然違うのでびっくりしますね。'><title>OpenCVのヒストグラムの計算はNumPyより断然速い</title>
+   方法 timeitの結果     cv2.calcHist 2.95 ms ± 186 µs per loop   np.histogram 109 ms ± 7.22 ms per loop    36倍程度OpenCVのほうが速いことがわかります。 全然違うのでびっくりしますね。'>
+<title>OpenCVのヒストグラムの計算はNumPyより断然速い</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='OpenCVのヒストグラムの計算はNumPyより断然速い'>
+<link rel="stylesheet" href="/blog/scss/style.min.1f41326e4e1d4e519354977cdb18ed4295a160f826fe03cb9327918b16b5c93d.css"><meta property='og:title' content='OpenCVのヒストグラムの計算はNumPyより断然速い'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  画像処理や集計、機械学習では何かとヒストグラムを計算するケースがありますね。
 これに伴い、ヒストグラムを計算できるライブラリは色々あるかと思いますが、OpenCVでもヒストグラムを計算する機能をもっています。 NumPyでもヒストグラムの計算できるじゃない、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。
@@ -59,7 +60,7 @@ if (!doNotTrack) {
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
+                localStorage.setItem(colorSchemeKey, "dark");
             }
         })();
     </script><script>
@@ -110,7 +111,29 @@ if (!doNotTrack) {
             <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-    </header><ol class="menu" id="main-menu">
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
         
         
         
@@ -208,7 +231,10 @@ if (!doNotTrack) {
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    
+
+            <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
@@ -248,6 +274,9 @@ if (!doNotTrack) {
     </div>
 
     
+    
+    
+    
     <footer class="article-time">
         
             <div>
@@ -265,25 +294,12 @@ if (!doNotTrack) {
         
 
         
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    読了時間: 1分
-                </time>
-            </div>
-        
     </footer>
     
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -398,13 +414,13 @@ if (!doNotTrack) {
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
             ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
                 defer
                 >
             </script><script>
@@ -425,9 +441,9 @@ if (!doNotTrack) {
 
     
 
-<aside class="related-contents--wrapper">
+<aside class="related-content--wrapper">
     <h2 class="section-title">関連するコンテンツ</h2>
-    <div class="related-contents">
+    <div class="related-content">
         <div class="flex article-list--tile">
             
                 
@@ -452,6 +468,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -475,6 +492,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -498,6 +516,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -521,6 +540,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="">
@@ -533,6 +553,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
         </div>
     </div>
@@ -541,6 +562,48 @@ if (!doNotTrack) {
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">
@@ -554,7 +617,7 @@ if (!doNotTrack) {
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -631,18 +694,16 @@ if (!doNotTrack) {
                 >
             </script><link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
             ><link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
 
             </main>
-    
-
         </div>
         <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>

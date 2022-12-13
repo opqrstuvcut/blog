@@ -9,11 +9,12 @@ _, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY &#43; cv2.THRESH_OTSU) 
 contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)  第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。  細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。    見つかった輪郭を次のように描画してみます。
 drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
 輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
-contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。'><title>findContoursで輪郭の検出</title>
+contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。'>
+<title>findContoursで輪郭の検出</title>
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.1e6d614421210ada3c13bc0c430428723ab49c3d1e52abbe9483061fe89da1ef.css"><meta property='og:title' content='findContoursで輪郭の検出'>
+<link rel="stylesheet" href="/blog/scss/style.min.1f41326e4e1d4e519354977cdb18ed4295a160f826fe03cb9327918b16b5c93d.css"><meta property='og:title' content='findContoursで輪郭の検出'>
 <meta property='og:description' content='本記事はQrunchからの転載です。
  画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
 findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
@@ -59,7 +60,7 @@ if (!doNotTrack) {
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
+                localStorage.setItem(colorSchemeKey, "dark");
             }
         })();
     </script><script>
@@ -110,7 +111,29 @@ if (!doNotTrack) {
             <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-    </header><ol class="menu" id="main-menu">
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
         
         
         
@@ -208,7 +231,10 @@ if (!doNotTrack) {
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    
+
+            <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
@@ -248,6 +274,9 @@ if (!doNotTrack) {
     </div>
 
     
+    
+    
+    
     <footer class="article-time">
         
             <div>
@@ -265,25 +294,12 @@ if (!doNotTrack) {
         
 
         
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    読了時間: 1分
-                </time>
-            </div>
-        
     </footer>
     
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -408,13 +424,13 @@ if (!doNotTrack) {
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
             ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
                 defer
                 >
             </script><script>
@@ -435,9 +451,9 @@ if (!doNotTrack) {
 
     
 
-<aside class="related-contents--wrapper">
+<aside class="related-content--wrapper">
     <h2 class="section-title">関連するコンテンツ</h2>
-    <div class="related-contents">
+    <div class="related-content">
         <div class="flex article-list--tile">
             
                 
@@ -462,6 +478,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -485,6 +502,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -508,6 +526,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="">
@@ -520,6 +539,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
                 
 <article class="has-image">
@@ -543,6 +563,7 @@ if (!doNotTrack) {
         </div>
     </a>
 </article>
+
             
         </div>
     </div>
@@ -551,6 +572,48 @@ if (!doNotTrack) {
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">
@@ -564,7 +627,7 @@ if (!doNotTrack) {
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -641,18 +704,16 @@ if (!doNotTrack) {
                 >
             </script><link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
             ><link 
                 rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
 
             </main>
-    
-
         </div>
         <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
             </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>

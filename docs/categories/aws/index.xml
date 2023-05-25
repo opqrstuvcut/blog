@@ -6,7 +6,62 @@
         <description>Recent content in AWS on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Tue, 13 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/aws/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/aws/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>App Runnerを実戦投入してのメモ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+        <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;p&gt;簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。&lt;/p&gt;
+&lt;p&gt;今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。&lt;/p&gt;
+&lt;h2 id=&#34;https対応&#34;&gt;HTTPS対応&lt;/h2&gt;
+&lt;p&gt;Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。&lt;br&gt;
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。&lt;/p&gt;
+&lt;h2 id=&#34;自動デプロイ&#34;&gt;自動デプロイ&lt;/h2&gt;
+&lt;p&gt;App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。&lt;/p&gt;
+&lt;p&gt;つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。&lt;br&gt;
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。&lt;/p&gt;
+&lt;h2 id=&#34;カスタムドメイン&#34;&gt;カスタムドメイン&lt;/h2&gt;
+&lt;p&gt;お名前などで取得したドメインとの紐づけも簡単にできます。&lt;br&gt;
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。&lt;/p&gt;
+&lt;h3 id=&#34;留意点1&#34;&gt;留意点1&lt;/h3&gt;
+&lt;p&gt;注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。&lt;br&gt;
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。&lt;br&gt;
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。&lt;/p&gt;
+&lt;h3 id=&#34;留意点2&#34;&gt;留意点2&lt;/h3&gt;
+&lt;p&gt;世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。&lt;br&gt;
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。&lt;br&gt;
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。&lt;/p&gt;
+&lt;h2 id=&#34;インスタンスロール&#34;&gt;インスタンスロール&lt;/h2&gt;
+&lt;p&gt;App Runnerの設定でインスタンスロールを選ぶことができます。&lt;br&gt;
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&amp;hellip;。&lt;br&gt;
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+    &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;,
+    &amp;quot;Statement&amp;quot;: [
+        {
+            &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;,
+            &amp;quot;Principal&amp;quot;: {
+                &amp;quot;Service&amp;quot;: &amp;quot;build.apprunner.amazonaws.com&amp;quot;
+            },
+            &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;カスタムvpc&#34;&gt;カスタムVPC&lt;/h2&gt;
+&lt;p&gt;App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。&lt;br&gt;
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。&lt;/p&gt;
+&lt;h3 id=&#34;留意点1-1&#34;&gt;留意点1&lt;/h3&gt;
+&lt;p&gt;カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。&lt;br&gt;
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。&lt;/p&gt;
+&lt;h3 id=&#34;留意点2-1&#34;&gt;留意点2&lt;/h3&gt;
+&lt;p&gt;カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。&lt;br&gt;
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。&lt;/p&gt;
+&lt;p&gt;間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。&lt;br&gt;
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>docker composeでAWS ECSにデプロイするときのtips</title>
         <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
         <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>

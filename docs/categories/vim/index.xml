@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>vim on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/vim/</link>
+        <description>Recent content in vim on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/vim/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>magma-nvimで理想に近いVimでのJupyter環境を作る</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+        <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+        <description>&lt;p&gt;vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;開発中にターミナルとブラウザへ移動が面倒&lt;/li&gt;
+&lt;li&gt;vimで使っているformatterとかlinterをそのまま使いたい&lt;/li&gt;
+&lt;li&gt;Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る&lt;/li&gt;
+&lt;li&gt;vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない&lt;/li&gt;
+&lt;li&gt;PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。&lt;/p&gt;
+&lt;h2 id=&#34;magma-nvim&#34;&gt;magma-nvim&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dccsillag/magma-nvim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;magma-nvim&lt;/a&gt;はJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。&lt;br&gt;
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。
+&lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
+    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+&lt;/video&gt;&lt;/p&gt;
+&lt;p&gt;これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。&lt;/p&gt;
+&lt;p&gt;が、自分の運用上はだいぶ困った点がありました。&lt;/p&gt;
+&lt;p&gt;というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。&lt;br&gt;
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。&lt;br&gt;
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。&lt;/p&gt;
+&lt;h3 id=&#34;カーネル選択の問題の解決&#34;&gt;カーネル選択の問題の解決&lt;/h3&gt;
+&lt;p&gt;magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。&lt;br&gt;
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。&lt;/p&gt;
+&lt;p&gt;苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。&lt;br&gt;
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/magma-nvim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/magma-nvim&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;これを使うと、&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。&lt;br&gt;
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？&lt;/p&gt;
+&lt;p&gt;ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://ohke.hateblo.jp/entry/2019/05/25/180000&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://ohke.hateblo.jp/entry/2019/05/25/180000&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;magma-nvimを使う時の注意&#34;&gt;magma-nvimを使う時の注意&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方は&lt;a class=&#34;link&#34; href=&#34;https://github.com/WhiteBlackGoose/magma-nvim-goose&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/WhiteBlackGoose/magma-nvim-goose&lt;/a&gt;を利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。&lt;/li&gt;
+&lt;li&gt;画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;便利にするためのkeymap&#34;&gt;便利にするためのkeymap&lt;/h2&gt;
+&lt;p&gt;Notebookを編集するときには&lt;a class=&#34;link&#34; href=&#34;https://github.com/goerz/jupytext.vim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/goerz/jupytext.vim&lt;/a&gt;によって、いい感じにNotebookの内容をフォーマットして表示しています。&lt;br&gt;
+これと以下のようなkermapを組み合わせてNotebookを編集しています。&lt;/p&gt;
+&lt;h3 id=&#34;セルの実行&#34;&gt;セルの実行&lt;/h3&gt;
+&lt;p&gt;magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。&lt;/p&gt;
+&lt;p&gt;なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。&lt;br&gt;
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;function FindNextLineWithText(pattern)
+    local currentLine = vim.fn.line(&#39;.&#39;)
+    local totalLines = vim.fn.line(&#39;$&#39;)
+
+    for line = currentLine + 1, totalLines do
+        local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+        if lineText:find(pattern) then
+            return line
+        end
+    end
+
+    return totalLines
+end
+
+function FindPrevLineWithText(pattern, start_buffer)
+    start_buffer = start_buffer or 0
+    local currentLine = vim.fn.line(&#39;.&#39;)
+
+    for line = currentLine + start_buffer , 1, -1 do
+        local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+        if lineText:find(pattern) then
+            return line
+        end
+    end
+
+    return 0
+end
+
+function MagmaEvaluateCell()
+    local pattern = &amp;quot;# %%&amp;quot;
+    local startLine = FindPrevLineWithText(pattern)
+    local endLine = FindNextLineWithText(pattern)
+
+    vim.api.nvim_win_set_cursor(0, { startLine + 1, 0 })
+    vim.api.nvim_feedkeys(&#39;V&#39;..(endLine-1)..&#39;gg&#39;, &#39;n&#39;, true)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(&#39;:&amp;lt;C-u&amp;gt;MagmaEvaluateVisual&amp;lt;CR&amp;gt;&#39;, true, true, true), &#39;n&#39;, true)
+end
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;載せているデモ動画ではMagmaEvaluateCellを&amp;quot;mc&amp;quot;に設定しており、実行したいセル上にカーソルをもっていって利用しています。&lt;/p&gt;
+&lt;h3 id=&#34;セルの新規作成&#34;&gt;セルの新規作成&lt;/h3&gt;
+&lt;p&gt;カーソルが存在するセルの下に新しいセルを作ります。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;function AddNewCell()
+    local pattern = &amp;quot;# %%&amp;quot;
+    local endLine = FindNextLineWithText(pattern)
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_lines(bufnr, endLine, endLine, false, {&amp;quot;&amp;quot;, pattern})
+
+    vim.api.nvim_win_set_cursor(0, { endLine + 1, 0 })
+    vim.api.nvim_command(&amp;quot;startinsert&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;セルの削除&#34;&gt;セルの削除&lt;/h3&gt;
+&lt;p&gt;とりあえずセルを簡単に削除するためのものです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;function DeleteCell()
+    local pattern = &amp;quot;# %%&amp;quot;
+    local startLine = FindPrevLineWithText(pattern)
+    local endLine = FindNextLineWithText(pattern)
+    vim.api.nvim_buf_set_lines(0, startLine, endLine, false, {})
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;セルの移動&#34;&gt;セルの移動&lt;/h3&gt;
+&lt;p&gt;次のセルへの移動です。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;function MoveNextCell()
+    local pattern = &amp;quot;# %%&amp;quot;
+    local endLine = FindNextLineWithText(pattern)
+    vim.api.nvim_win_set_cursor(0, { endLine, 0 })
+end
+
+function MovePrevCell()
+    local pattern = &amp;quot;# %%&amp;quot;
+    local line = FindPrevLineWithText(pattern, -1)
+
+    if line &amp;gt; 0 then
+	vim.api.nvim_win_set_cursor(0, { line, 0 })
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

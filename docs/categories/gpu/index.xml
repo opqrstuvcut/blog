@@ -6,7 +6,28 @@
         <description>Recent content in GPU on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 11 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/gpu/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/gpu/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>GPU周りがおかしくなったときのメモ（ubuntu）</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</link>
+        <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</guid>
+        <description>&lt;p&gt;いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。&lt;/p&gt;
+&lt;h1 id=&#34;nvidia-smiが遅いubuntuが起動しているのにguiが何も表示されない&#34;&gt;①nvidia-smiが遅い、ubuntuが起動しているのにGUIが何も表示されない&lt;/h1&gt;
+&lt;h2 id=&#34;現象&#34;&gt;現象&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;何も画面に映らなくなる現象です。sshとかはいけます。&lt;/li&gt;
+&lt;li&gt;nvidia-smiを実行すると普通は一瞬でGPUの状況が表示されますが、このケースでは1分以上かかったりします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;解決方法&#34;&gt;解決方法&lt;/h2&gt;
+&lt;p&gt;cudaを入れ直して再起動したら直りました。原因はよくわかりません。&lt;br&gt;
+aptでcudaを入れている場合は次のような感じです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ sudo apt remove cuda -y
+$ sudo apt install cuda -y
+$ sudo reboot now
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
         <title>NVIDIAのGPUのdriverの更新</title>
         <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
         <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>

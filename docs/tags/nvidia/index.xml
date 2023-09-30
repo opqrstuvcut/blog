@@ -25,7 +25,34 @@ aptでcudaを入れている場合は次のような感じです。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ sudo apt remove cuda -y
 $ sudo apt install cuda -y
 $ sudo reboot now
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;突然のnvidia-smi-has-failed-because-it-couldnt-communicate-with-the-nvidia-driver-make-sure-that-the-latest-nvidia-driver-is-installed-and-running&#34;&gt;②突然のNVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.&lt;/h1&gt;
+&lt;h2 id=&#34;現象-1&#34;&gt;現象&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PCを起動してnvidia-smiを実行すると、「NVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.」が表示されます。&lt;/li&gt;
+&lt;li&gt;もちろんDockerコンテナからのGPU利用もできません。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;解決方法-1&#34;&gt;解決方法&lt;/h2&gt;
+&lt;p&gt;試しにnvccを実行しようとしたところ、nvccが見つからないのでインストール。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ sudo apt install nvidia-cuda-toolkit
+ libnvidia-gl-535 : 破壊: libnvidia-gl-535:i386 (!= 535.86.10-0ubuntu1) しかし、535.104.05-0ubuntu0.22.04.4 はインストールされようとしています
+ libnvidia-gl-535:i386 : 破壊: libnvidia-gl-535 (!= 535.104.05-0ubuntu0.22.04.4) しかし、535.86.10-0ubuntu1 はインストールされようとしています
+ nvidia-cuda-toolkit : 依存: nvidia-profiler (= 11.5.114~11.5.1-1ubuntu1) しかし、インストールされようとしていません
+                       依存: nvidia-cuda-dev (= 11.5.1-1ubuntu1) しかし、インストールされようとしていません
+                       依存: nvidia-opencl-dev (= 11.5.1-1ubuntu1) しかし、インストールされようとしていません または
+                               opencl-dev
+                       推奨: nvidia-cuda-toolkit-doc (= 11.5.1-1ubuntu1) しかし、インストールされようとしていません
+                       推奨: nvidia-cuda-gdb (= 11.5.114~11.5.1-1ubuntu1) しかし、インストールされようとしていません
+                       推奨: nvidia-visual-profiler (= 11.5.114~11.5.1-1ubuntu1) しかし、インストールされようとしていません
+                       推奨: nsight-compute (= 2021.3.1.4~11.5.1-1ubuntu1)
+                       推奨: nsight-systems (= 2021.3.3.2~11.5.1-1ubuntu1)
+ nvidia-dkms-535 : 依存: nvidia-kernel-common-535 (&amp;gt;= 535.104.05) しかし、535.86.10-0ubuntu1 はインストールされようとしています
+ nvidia-driver-535 : 依存: libnvidia-gl-535 (= 535.104.05-0ubuntu0.22.04.4) しかし、535.86.10-0ubuntu1 はインストールされようとしています
+                     依存: nvidia-kernel-common-535 (&amp;gt;= 535.104.05) しかし、535.86.10-0ubuntu1 はインストールされようとしています
+E: 未解決の依存関係です。&#39;apt --fix-broken install&#39; を実行してみてください (または解法を明示してください)。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;指摘どおりにapt &amp;ndash;fix-broken installを実行する。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ apt --fix-broken install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上記で今回は解決…。GPU周りは雰囲気で触っているのもあってこれで良いのか謎です。&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>NVIDIAのGPUのdriverの更新</title>

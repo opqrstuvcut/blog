@@ -18,7 +18,9 @@ vimで開発しているとブラウザからJupyterを触るのが嫌になっ�
 ## magma-nvim
 [magma-nvim](https://github.com/dccsillag/magma-nvim)はJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。  
 上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。
-{{< video src="magma-sample" >}}
+{{<gallery>}}
+<video src="magma-sample.webm" autoplay loop></video>
+{{</gallery>}}
 
 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。  
 

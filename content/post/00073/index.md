@@ -3,6 +3,7 @@ title: いつの間にかOpenCVのVideoCaptureが正しく向きに対応でき�
 tags: ["OpenCV"] 
 categories: ["画像処理"]
 date: 2022-12-13
+image: feature.png
 ---
 
 # 昔の話

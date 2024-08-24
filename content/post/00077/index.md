@@ -3,6 +3,7 @@ title: GPU周りがおかしくなったときのメモ（ubuntu）
 tags: ["GPU", "CUDA", "NVIDIA"] 
 categories: ["GPU"] 
 date: 2023-07-06
+image: feature.png
 ---
 
 いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。

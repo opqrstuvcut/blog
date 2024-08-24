@@ -3,6 +3,7 @@ title: magma-nvimで理想に近いVimでのJupyter環境を作る
 tags: ["vim", "Python", "Jupyter", "magma", "jupytxt"] 
 categories: ["vim","Python"] 
 date: 2023-06-12
+image: feature.png
 ---
 
 vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。  

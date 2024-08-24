@@ -3,6 +3,7 @@ title: おすすめの(Neo)Vimプラグイン
 tags: ["NeoVim", "Vim"] 
 categories: ["Vimプラグイン"] 
 date: 2024-08-22
+image: feature.png
 ---
 
 NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。  

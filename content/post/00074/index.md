@@ -3,6 +3,7 @@ title: docker composeでAWS ECSにデプロイするときのtips
 tags: ["AWS"] 
 categories: ["AWS", "ECS"] 
 date: 2022-12-13
+image: feature.png
 ---
 
 docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。

@@ -3,6 +3,7 @@ title: App Runnerを実戦投入してのメモ
 tags: ["AWS"] 
 categories: ["AWS", "App Runner"] 
 date: 2023-05-25
+image: feature.png
 ---
 
 簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。

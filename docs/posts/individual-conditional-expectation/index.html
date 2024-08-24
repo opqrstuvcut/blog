@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Individual Conditional Expectation | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="Individual Conditional Expectation, 機械学習, 説明可能AI">
+<meta name="description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
+PDPの記事を先に見ると、理解がはやいかと思います。
+Partial Dependence Plotの解説記事
+Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。
+Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
+また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="Individual Conditional Expectation" />
+<meta property="og:description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
+PDPの記事を先に見ると、理解がはやいかと思います。
+Partial Dependence Plotの解説記事
+Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。
+Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
+また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/feature.png" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-19T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/feature.png" />
+<meta name="twitter:title" content="Individual Conditional Expectation"/>
+<meta name="twitter:description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
+PDPの記事を先に見ると、理解がはやいかと思います。
+Partial Dependence Plotの解説記事
+Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。
+Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
+また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Individual Conditional Expectation",
+      "item": "https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Individual Conditional Expectation",
+  "name": "Individual Conditional Expectation",
+  "description": "Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。\n例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。\nPDPの記事を先に見ると、理解がはやいかと思います。\nPartial Dependence Plotの解説記事\nIndividual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。\nPDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。\n一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。\nIndividual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。\n年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。\nこれを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。\n生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。\nまた、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。\n各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。\n実装 実装は次のとおりです。\nimport pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -\u0026gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = \u0026#34;Age\u0026#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。",
+  "keywords": [
+    "Individual Conditional Expectation", "機械学習", "説明可能AI"
+  ],
+  "articleBody": "Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。\n例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。\nPDPの記事を先に見ると、理解がはやいかと思います。\nPartial Dependence Plotの解説記事\nIndividual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。\nPDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。\n一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。\nIndividual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。\n年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。\nこれを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。\n生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。\nまた、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。\n各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。\n実装 実装は次のとおりです。\nimport pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -\u003e np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = \"Age\" ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。\n",
+  "wordCount" : "91",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/feature.png","datePublished": "2021-10-19T00:00:00Z",
+  "dateModified": "2021-10-19T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Individual Conditional Expectation
+    </h1>
+    <div class="post-meta"><span title='2021-10-19 00:00:00 +0000 UTC'>10月 19, 2021</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。<br>
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。</p>
+<p>PDPの記事を先に見ると、理解がはやいかと思います。<br>
+<a href="https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/">Partial Dependence Plotの解説記事</a></p>
+<h1 id="individual-conditional-expectationの概要">Individual Conditional Expectationの概要<a hidden class="anchor" aria-hidden="true" href="#individual-conditional-expectationの概要">#</a></h1>
+<p>ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。<br>
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。<br>
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。</p>
+<h1 id="individual-conditional-expectationはの実験">Individual Conditional Expectationはの実験<a hidden class="anchor" aria-hidden="true" href="#individual-conditional-expectationはの実験">#</a></h1>
+<p>kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。
+モデルはLightGBMの勾配ブースティング法を利用しています。</p>
+<h2 id="年齢に対するindividual-conditional-expectation">年齢に対するIndividual Conditional Expectation<a hidden class="anchor" aria-hidden="true" href="#年齢に対するindividual-conditional-expectation">#</a></h2>
+<p>年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。<br>
+<img loading="lazy" src="ice_age.png" alt="年齢に対するIndividual Conditional Expectation"  />
+<br>
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。
+変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。<br>
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。</p>
+<p>また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。<br>
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。
+<img loading="lazy" src="ice_age_centered.png" alt="年齢に対するIndividual Conditional Expectation"  />
+<br>
+データの変化の比較がしやすくなりましたね。</p>
+<h2 id="実装">実装<a hidden class="anchor" aria-hidden="true" href="#実装">#</a></h2>
+<p>実装は次のとおりです。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">individual_conditional_expectation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                       <span class="n">x</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">target</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">candidates</span><span class="p">:</span><span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">replaced_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ice_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">replaced_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">candidates</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">replaced_x</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">replaced_val</span>
+</span></span><span class="line"><span class="cl">        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">replaced_x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ice_vals</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">preds</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ice_vals</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">candidates</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="s2">&#34;Age&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ice</span> <span class="o">=</span> <span class="n">individual_conditional_expectation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                         <span class="n">train_x</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                         <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                         <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">)</span>
+</span></span></code></pre></div><h1 id="まとめ">まとめ<a hidden class="anchor" aria-hidden="true" href="#まとめ">#</a></h1>
+<p>PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/individual-conditional-expectation/">Individual Conditional Expectation</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">機械学習</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/">説明可能AI</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

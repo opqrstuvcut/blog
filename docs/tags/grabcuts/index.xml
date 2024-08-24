@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Grabcuts on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/grabcuts/</link>
+    <description>Recent content in Grabcuts on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 09 Aug 2020 11:00:00 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/grabcuts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grabcutsで背景と猫を分離したい</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</link>
+      <pubDate>Sun, 09 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
+      <description>本記事はQrunchからの転載です。
+次のような画像があったとします。
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。 分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+0は確実に背景 1は確実に前景 2は多分背景 3は多分前景 以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.newaxis] plt.imshow(cut_img[:, :, ::-1]) plt.show() 上手く猫だけを抽出できていますね。</description>
+    </item>
+  </channel>
+</rss>

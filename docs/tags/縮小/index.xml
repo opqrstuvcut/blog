@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>縮小 on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/%E7%B8%AE%E5%B0%8F/</link>
+    <description>Recent content in 縮小 on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 20 Jul 2020 23:14:16 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/%E7%B8%AE%E5%B0%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>erodeで猫を収縮させる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <pubDate>Mon, 20 Jul 2020 23:14:16 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
+具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
+erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
+次の局所領域では最小値は2です。
+局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
+OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
+先程の例に適用 先程の例の画像でerodeを試してみましょう。
+A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.</description>
+    </item>
+  </channel>
+</rss>

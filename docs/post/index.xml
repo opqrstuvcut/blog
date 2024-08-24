@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/post/</link>
+    <description>Recent content in Posts on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 22 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>おすすめの(Neo)Vimプラグイン</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</link>
+      <pubDate>Thu, 22 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</guid>
+      <description>NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
+vim-asterisk https://github.com/haya14busa/vim-asterisk
+アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
+vim-asteriskを入れるとそういった問題が起きなくなります。
+設定例 { &amp;#34;haya14busa/vim-asterisk&amp;#34;, config = function() vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;*&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-z*)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;#&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-z#)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;g*&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-gz*)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;g#&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-gz#)&amp;#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
+C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
+お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &amp;#34;karb94/neoscroll.nvim&amp;#34;, config = function() require(&amp;#34;neoscroll&amp;#34;).setup({ mappings = { &amp;#34;&amp;lt;C-u&amp;gt;&amp;#34;, &amp;#34;&amp;lt;C-d&amp;gt;&amp;#34;, &amp;#34;zt&amp;#34;, &amp;#34;zz&amp;#34;, &amp;#34;zb&amp;#34; }, }) local t = {} local time = &amp;#34;85&amp;#34; t[&amp;#34;&amp;lt;C-u&amp;gt;&amp;#34;] = { &amp;#34;scroll&amp;#34;, { &amp;#34;-vim.wo.scroll&amp;#34;, &amp;#34;true&amp;#34;, time } } t[&amp;#34;&amp;lt;C-d&amp;gt;&amp;#34;] = { &amp;#34;scroll&amp;#34;, { &amp;#34;vim.</description>
+    </item>
+    <item>
+      <title>GPU周りがおかしくなったときのメモ（ubuntu）</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</link>
+      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</guid>
+      <description>いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。
+①nvidia-smiが遅い、ubuntuが起動しているのにGUIが何も表示されない 現象 何も画面に映らなくなる現象です。sshとかはいけます。 nvidia-smiを実行すると普通は一瞬でGPUの状況が表示されますが、このケースでは1分以上かかったりします。 解決方法 cudaを入れ直して再起動したら直りました。原因はよくわかりません。
+aptでcudaを入れている場合は次のような感じです。
+$ sudo apt remove cuda -y $ sudo apt install cuda -y $ sudo reboot now ②突然のNVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running. 現象 PCを起動してnvidia-smiを実行すると、「NVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.」が表示されます。 もちろんDockerコンテナからのGPU利用もできません。 解決方法 試しにnvccを実行しようとしたところ、nvccが見つからないのでインストール。</description>
+    </item>
+    <item>
+      <title>magma-nvimで理想に近いVimでのJupyter環境を作る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。
+開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&amp;hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。
+magma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。
+が、自分の運用上はだいぶ困った点がありました。
+というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。
+カーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。
+苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim
+これを使うと、
+:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？
+ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。
+https://ohke.hateblo.jp/entry/2019/05/25/180000
+magma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。
+これと以下のようなkermapを組み合わせてNotebookを編集しています。
+セルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。
+なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。
+function FindNextLineWithText(pattern) local currentLine = vim.fn.line(&amp;#39;.&amp;#39;) local totalLines = vim.fn.line(&amp;#39;$&amp;#39;) for line = currentLine + 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim.</description>
+    </item>
+    <item>
+      <title>App Runnerを実戦投入してのメモ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+      <description>簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。
+今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。
+HTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。
+自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。
+つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。
+カスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。
+留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。
+留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。
+インスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&amp;hellip;。
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。
+{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Principal&amp;#34;: { &amp;#34;Service&amp;#34;: &amp;#34;build.apprunner.amazonaws.com&amp;#34; }, &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。
+留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。
+留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。
+間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。</description>
+    </item>
+    <item>
+      <title>docker composeでAWS ECSにデプロイするときのtips</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
+      <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
+      <description>docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
+AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
+service: api: x-aws-policies: - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
+secrets: sample_secret: name: &amp;#34;シークレットのARN&amp;#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
+service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
+GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
+https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
+GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
+LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;) - { ClusterName: SampleCluster } KeyName: .</description>
+    </item>
+    <item>
+      <title>いつの間にかOpenCVのVideoCaptureが正しく向きに対応できるようになっていた</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/</link>
+      <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/</guid>
+      <description>昔の話 OpenCVのVideoCaptureを使っていると、あれって思うことがありました。
+動画によって、読み込まれたフレームの向きが正しかったり、90度回転していたりするんですよね。特にスマートフォンで撮影した動画で問題が起きていました。
+もちろん、一般的な動画プレーヤーで再生すると正しく表示されるような動画です。
+この原因としては、動画には向きをあらわすメタデータが含まれているのですが、昔のOpenCVのVideoCaptureだとそれを無視していたためです。
+これへの対応としてexiftoolあたりを使ってメタデータを読み込んで、自分でフレームの回転を補正する必要がありました。
+現在の話 最近OpenCVの新しめのバージョンを使っていたところ、なぜだか動画のフレームが正しく読み込まれるようになっていました。
+なんと、実は2020年の秋くらいからOpenCV側でメタデータを読み込んで回転を補正するようになっていました！めちゃくちゃ良いアップデート！
+詳しくはこちらのissue(https://github.com/opencv/opencv/issues/15499 )を見ていただければと思います。
+versionが4.5からは間違いなくこの機能が使えそうですので、動画を扱う人は新しめのOpenCVを使いましょう。</description>
+    </item>
+    <item>
+      <title>スピアマンの順位相関係数の導出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</guid>
+      <description>スピアマンの順位相関係数の導出のメモになります。
+導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。
+そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。
+また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。
+いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\cdots, R(x_n)$と$S(y_1),\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。
+$$ \begin{align*} r &amp;amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i) - \bar{R})(S(y_i) - \bar{S}) }{\sigma_R \sigma_S}. \end{align*} $$
+上式は次のように整理できます。 $$ \begin{align*} r &amp;amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i)S(y_i) -\bar{S}R(x_i) -\bar{R}S(y_i) + \bar{R}\bar{S}) }{\sigma_R \sigma_S} \\ &amp;amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{S}\bar{R} -\bar{R}\bar{S} + \bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{R}\bar{S} }{\sigma_R \sigma_S}. \end{align*} $$
+ここで、$d_i= R(x_i) - S(y_i)$とおくと、
+$$ \begin{align*} r &amp;amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \end{align*} $$ となります。</description>
+    </item>
+    <item>
+      <title>Tabularデータ向けのサーベイ論文を読んだのでメモ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</guid>
+      <description>Deep Learning(DL)を用いたテーブルデータ向けの手法は色々提案されており、度々、精度面で勾配ブースティング法を超えたとか超えないと話題になる気がします。
+テーブルデータ周りのDL手法に詳しくない身からすると実際のところどうなのかというのは謎だったので、サーベイ論文を読んでみました。
+読んだ論文：Deep Neural Networks and Tabular Data: A Survey
+手法の細かい説明をまとめるのはしんどいので省略して、結果の部分だけのメモになります。
+評価値での比較 下図は各手法のデータセットごとの評価値の比較結果をあらわしています。上部は非DL手法で、下部DL手法になります。
+これをみると、だいたいのデータセットに対してDL手法よりもXGBoostやLightGBM、CatBoostといった勾配ブースティング法が勝っていることがわかります。ただし、HIGGSデータセットではDL手法であるSAINTが他手法に勝っています。
+HIGGSデータセットはシミュレーションによって作成されたデータセットであり、データ数は1100万という巨大なものになります。巨大なデータセットに限ってはDeep Learning手法が有利になるのかもしれません。
+Accuracyと計算時間比較 次にAccuracyと計算時間(訓練と推論)の比較になります。DL手法と勾配ブースティングはGPU利用のようです。
+Adultデータセット 下図はAdultデータセットの場合をあわらしています。図中で左上にある手法ほど良く、右下に近いほど良くない手法という見方になります。
+これをみると、訓練と推論の両方で左上に書かれている決定木はバランスが良いです。 Accuracyを優先するならXGBoostやCatBoostといった選択肢があるという結果になっています（LightGBMはどこにいったのか？）。
+DL手法で比較的良いのはDeepFMといえるでしょうか。
+HIGGSデータセット 下図はHIGGSデータセットの場合をあらわしています。
+訓練はXGBoostやCatBoostが良いのですが、推論に比較的時間がかかるという結果になっています。このデータセットに対しては深い木になっているのかもしれません。
+主観ですが、訓練と推論の両方でバランスが取れているのはMLP、DeepFMでしょうか？
+Accuracyを求めるならSAINTですが、他手法よりも計算時間が多めです。
+Accuracyとモデルサイズ比較 Adultデータセットの場合のDeep LearningモデルのモデルサイズとAccuracyの比較になります。
+結果をみると、MLP、TabNet、DeepFMあたりが良いバランスでしょうか。
+ここでもSAINTはAccuracyが高めですが、同程度のAccuracyのDeepFMと比べるとモデルサイズが2桁近く大きくなっています。実運用上はモデルサイズは非常に大事でクラウドで動かすときには料金に直結しうるため、場合によっては使用するのが難しいかもしれません。
+ディープラーニングモデルの特徴量の分析 Ablation Test 次にディープラーニング手法のAttentionから得られる特徴量の寄与についての分析結果になります。
+下記の上部の図(a)は寄与が大きい特徴量から順に削除・モデルを学習・評価というプロセスを繰り返したときのAccuracyの推移をあらわしています。
+逆に下部の図(b)は寄与が小さい特徴量から順に削除していったケースをあらわします。
+(a)の場合には寄与が大きい特徴量を順に削除していくため、本当に寄与が高ければすぐにAccuracyが落ちるはずです。 実際にはすぐにガクッとAccuracyが落ちていくことはなく、いくつか特徴量を削除してからようやくAccuracyが下がっていきます。
+図中の手法のなかでは比較的TabNetのAccuracyがはやく落ちています。
+(b)の場合には寄与が小さい特徴量を順に削除していくため、あまりAccuracyが落ちていかないことが予想されます。 ここでもTabNetが他手法よりも想定に近い挙動をしています。
+以上から、比較的TabNetの寄与は信頼できるといえそうですが、全体的にはあまり予想通りの挙動ではないという印象です。
+SHAPとの相関 最後にDL手法から求まった特徴量の寄与とSHAP値（SHAPから求まった特徴量の寄与）との相関になります。 SHAPは理論的にきちんとしている数少ない（唯一？）寄与の求め方になります。
+もしDL手法から求まった特徴量の寄与が良いものであれば、SHAP値との相関が高くなることが予想されます。
+2つの値はスケールが異なる都合、相関の計算にはスピアマンの順位相関係数を用いています。これは-1から1の範囲の値を取り、1は特徴量を寄与が高い順に並べた結果が全く同じ、-1は逆順、0は全く似ていないという結果をあらわします。
+上の表をみると、ほとんど値が0ですので、DL手法で求まる寄与とSHAP値にはほぼほぼ相関がないということがわかります。
+SHAP値の計算には時間が結構かかりますので、DL手法から求まる寄与がSHAP値に類似すると大変好都合なのですが、そうはならず残念です。
+個人的な結論 ここまでの話を踏まえた上で、以下の理由からテーブルデータに対しては基本は決定木系の手法を使ってみるでOKという結論です。
+高いAccuracy 訓練、推論の両方が比較的速い GPUが必須ではない SHAP値が厳密に高速に求まる ただし、データが非常に大きかったり、マルチモーダルなデータ、テーブルデータのaugmentation、またコンペでのスタッキングなどのアンサンブル（実運用でやるのは稀かと思いますが）では活用されると思います。</description>
+    </item>
+    <item>
+      <title>YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</guid>
+      <description>困ったこと YOLOv5は便利なライブラリですが、ONNXへモデルを変換したときにちょっと困ったことがあります。
+というのも、変換後のONNXモデルにはNMSなどの後処理が含まれていないため、後処理は別途用意する必要があります。
+公式ではPyTorchの関数を使ったNMSになっているため、そのまま後処理のコードをコピーしようとすれば実行環境上にONNX RuntimeとPyTorchの両方を用意しないといけません。でもせっかくONNXを使うなら、環境にPyTorchを入れたくないですよね。
+解決方法 PyTorchを入れたくないけどどうしよう…と困っていたところ、こちらのプルリクを見つけました。
+https://github.com/ultralytics/yolov5/pull/7736
+どうやらNMSの処理がONNXモデルに含まれるような修正をおこなっているようです。
+2022/07/17現在はまだmasterへはマージされていないのですが、fork先のブランチを試してみると、うまくいくことが確認できました。
+実際にONNXモデルへ変換をおこなうときにはexport.pyに&amp;quot;&amp;ndash;nms&amp;quot;オプションをつければOKです。 モデルの出力値の扱いはこちらを参考にすると分かるかと思います。</description>
+    </item>
+    <item>
+      <title>FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</guid>
+      <description>問題発生時の状況 AWSのECS上にFastAPI + uvicornの構成でのサーバーをたてました。内容的には普通のREST APIです。
+とりあえずは順調に動作していたのですが、たまにコンテナが再起動しているっぽいけどなんだろうと思って調べていたところ、メモリ使用量が次のようになっていました。
+時間経過でメモリ使用量が勝手に増えているような振る舞いです。 実装上はこんなことにならないはず…。
+解決方法 調べてみると、同じようなissueが存在していました。
+https://github.com/tiangolo/fastapi/issues/1624 https://github.com/encode/uvicorn/issues/1226 uvicorn側のissueをみると、uvicornのバージョンが0.17.0でこのような問題が起こるようです。
+利用しているバージョンがちょうど0.17.0でしたので、0.17.6へとバージョンしてみると、見事に解決しました！
+バージョンアップ後のメモリ使用量が以下のグラフの右端の平らな部分です。時間経過でメモリ使用量が増えるようなことがなくなっています。</description>
+    </item>
+    <item>
+      <title>NVIDIAのGPUのdriverの更新</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
+      <description>NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。
+古いドライバを削除しておく 公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\* libnvidia-\* CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク） CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads nvidia-smiコマンドを実行して動けばOK </description>
+    </item>
+    <item>
+      <title>Individual Conditional Expectation</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/</guid>
+      <description>Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
+PDPの記事を先に見ると、理解がはやいかと思います。
+Partial Dependence Plotの解説記事
+Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。
+Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
+また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&amp;gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &amp;#34;Age&amp;#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。</description>
+    </item>
+    <item>
+      <title>Partial Dependence Plot</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</guid>
+      <description>Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。
+例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。
+Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。
+このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。
+こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。
+注意点として、$x_i$と$X_C$は独立でなければいけません。
+独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。
+Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_{j=1}^n f(x_i,X_{jC}) .$$
+年齢に対するPartial Dependence Plot 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。
+年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。
+性別に対するPartial Dependence Plot 性別についても結果を示します。
+女性のほうが生存しやすかったという傾向が見て取れます。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.DataFrame, target:str, candidates:List) -&amp;gt; List[float]: expecteds = [] replaced_x = x.</description>
+    </item>
+    <item>
+      <title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
+      <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
+      <description>AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。
+理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。
+使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。
+インストール
+macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。
+$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定
+これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。
+[default] aws_access_key_id = &amp;lt;YOUR_ACCESS_KEY_ID&amp;gt; aws_secret_access_key = &amp;lt;YOUR_SECRET_ACCESS_KEY&amp;gt; コマンドを実行
+次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。
+$ sqsmover --source=&amp;lt;送り元のQueue名&amp;gt; --destination=&amp;lt;送り先のQueue名&amp;gt; 次のような標準出力が確認できるかと思います。
+• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。</description>
+    </item>
+    <item>
+      <title>CANINEの論文を読んだメモ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
+      <description>BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？
+論文はこちら：https://arxiv.org/pdf/2103.06874.pdf
+エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。 以下では各々の詳細について述べます。
+入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。
+各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。
+unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。
+文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。
+これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。
+$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \ B, d&amp;rsquo;)$$
+ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&amp;rsquo;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&amp;rsquo;=768/K(=96)$となっています。
+unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。
+ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。
+ダウンサンプリングは以下のようにおこなわれます。
+文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。 これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。 strideのサイズが4のConvolutionを実行する。 1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。
+論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。
+ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。
+アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。
+Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。 出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。 1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。 つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。 結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。 学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。</description>
+    </item>
+    <item>
+      <title>画像認識モデルの性能をあげるためのTips</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
+      <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
+      <description>画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。 簡単にできるものから順に紹介しているつもりです。
+ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。 でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。
+精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。
+EfficientNetはNoisy Student版を使う 転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。
+TensorFlowであれば、こちらのレポジトリが利用可能です。 https://github.com/qubvel/efficientnet
+Label Smoothingを使う 1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。 TensorFlowだと、簡単に使えます。
+tf.keras.losses.categorical_crossentropy(y, y_hat, label_smoothing=0.1) Learning Rate Schedulerを使う 学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。
+例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。
+性能が変わらないことも多いので、あまり期待しないほうが良いかも。
+RandAugmentを使う RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。
+&amp;ldquo;パラメーターがたったの2つでいいの！？&amp;ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。
+使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。
+import imgaug.augmenters as iaa images = iaa.RandAugment(n=2, m=30)(images=images) 論文によると、AutoAugmentよりも性能が良いという結果が出ています。
+PyTorch用の実装もネットで適当に探せばすぐに見つかります。
+GridMaskを使う GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。 Cutoutと違い、Grid状のMaskをかける方法になります。
+問題によっては結構性能があがりました。
+実装はググると色々見つかります。</description>
+    </item>
+    <item>
+      <title>m3u8ファイルとtsファイルのdownload</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/</link>
+      <pubDate>Sun, 31 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/</guid>
+      <description>ライブストリーミングや動画の配信するためにm3u8とtsファイルを利用するケースがあります。 tsファイルは細切れになった小さい動画になっており、m3u8ファイルはそれらの情報をもっているプレイリストになります。
+m3u8ファイルが手元にあるorm3u8のurlを知っている場合には、Pythonのライブラリのm3u8を使えば簡単にtsファイルをdownloadできます。
+m3u8のInstall インストールは簡単で、pipを使うだけです。
+pip install m3u8 tsファイルのdownload tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。
+import urllib.request import m3u8 playlist = m3u8.load(m3u8のパス) for i, segment in enumerate(playlist.segments): # tsファイルのパス uri = segment.absolute_uri urllib.request.urlretrieve(uri, f&amp;#34;{i}.ts&amp;#34;) </description>
+    </item>
+    <item>
+      <title>This version of ChromeDriver only supports Chrome version xxとなったとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/this-version-of-chromedriver-only-supports-chrome-version-xx%E3%81%A8%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 31 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/this-version-of-chromedriver-only-supports-chrome-version-xx%E3%81%A8%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D/</guid>
+      <description>Google Chromeのバージョンをあげたあと、ImageDownloaderなどを使っているときに次のようなエラーメッセージがでることがあります。
+Message: session not created: This version of ChromeDriver only supports Chrome version 86 最後の86のところはChromeのバージョンによって変わります。
+これはChromeDriverのバージョンとGoogle Chromeのバージョンが異なっていることによって起きるエラーです。 そのため、ChromeDriverのバージョンをあげればよいです。
+例えば、Homebrewを使ってChromeDriverを入れている場合には次を実行します。
+$ brew upgrade chromedriver </description>
+    </item>
+    <item>
+      <title>Sum Treeで重みにそってサンプリングする（Python実装）</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
+      <description>問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
+3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
+0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
+Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。
+概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。
+図をもちいて具体例を示します。
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。
+サンプリング サンプリングはシンプルです。
+0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。
+サンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。
+また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。
+サンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。
+サンプルコード Python実装を最後に示します。
+import numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self.</description>
+    </item>
+    <item>
+      <title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
+GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
+こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
+手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。
+手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&amp;quot;GSA&amp;quot;はこのサービスアカウントの名称をあらわしています。
+GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。
+$ gcloud container clusters update &amp;lt;クラスタ名&amp;gt; \ --workload-pool=&amp;lt;プロジェクトID&amp;gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。
+$ gcloud container clusters get-credentials &amp;lt;作成したクラスタ名&amp;gt; \ --zone &amp;lt;asia-northeast1-aなどのzoneの指定&amp;gt; Kubernetes Service Account（KSA）を作成します。
+$ kubectl create serviceaccount --namespace default \ &amp;lt;KSAの名称（適当につける）&amp;gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。
+apiVersion: v1 kind: ServiceAccount metadata: name: &amp;lt;KSAの名称&amp;gt; GSAがSAと紐付けできるように権限を付与します。
+$ gcloud iam service-accounts add-iam-policy-binding \ --role roles/iam.workloadIdentityUser \ --member &amp;#34;serviceAccount:&amp;lt;プロジェクトID&amp;gt;.svc.id.goog[default/&amp;lt;KSAの名称&amp;gt;]&amp;#34; \ &amp;lt;GSAの名称&amp;gt;@&amp;lt;プロジェクトID&amp;gt;.iam.gserviceaccount.com 最後に次を実行。
+$ kubectl annotate serviceaccount \ --namespace default \ &amp;lt;KSAの名称&amp;gt; \ iam.</description>
+    </item>
+    <item>
+      <title>TensorBoardのDocker Image</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</guid>
+      <description>たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。
+Docker Imageは以下のとおり。
+FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&amp;#34;tensorboard&amp;#34;, &amp;#34;--logdir&amp;#34;, &amp;#34;/logs&amp;#34;, &amp;#34;--host&amp;#34;, &amp;#34;0.0.0.0&amp;#34;] 次のような感じでdocker buildとdocker runします。
+$ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。</description>
+    </item>
+    <item>
+      <title>docker-composeのbuildがはじまらないとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/</guid>
+      <description>最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。
+docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。
+Building xxxがずっと表示されて、そこから進まないわけです。
+以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。
+docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。
+なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。
+全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。
+対処方法 .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか） </description>
+    </item>
+    <item>
+      <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
+      <description>GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。
+Failed to get device properties, error code: 3 他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。
+原因 確かとは断言できないのですが、次の記事にかかれていることが怪しいと推測しました。 https://keng000.hatenablog.com/entry/2020/05/05/092425
+つまり、マルチスレッドでのモデルの読み込み方が良くないのかと。
+対処 記事に書かれている通り、uWSGIのiniファイルで次のように追記しました。
+[uwsgi] lazy-apps = true とりあえずこれで解決しました。</description>
+    </item>
+    <item>
+      <title>動画データから前景と背景を分離する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
+      <pubDate>Thu, 20 Aug 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+画像から前景と背景を分けるのは以前に取り上げたのですが、動画でもOpenCVで前景と背景をわけることが可能です。ここでいう前景は動いている物体を指します。
+前景と背景を分離する難しさ 動画から前景と背景を分離するアルゴリズムを自分で実装するのは結構大変です。 最も単純なアルゴリズムは背景だけが写っている画像を撮っておいて、運用時には背景画像とリアルタイムに取得された画像との差分を取るというのが考えられます。 ただしこのやり方だと照明環境は一定にしないといけないのですが、問題設定によってはそうできなかったりします。また背景だけの画像を撮るのが難しい場合もあります。
+問題の難しさから、リッチな処理をしたくなるのですが、変に処理をすると計算時間が伸びていく可能性もあります。
+OpenCVでやってみる OpenCVのBackgroundSubtractorMOG2を使うと、簡単に照明の変化にも適応する手法を利用できます。背景画像を撮る必要もありません。 BackgroundSubtractorMOG2では背景と前景を分離するために混合ガウス分布を利用しています。 混合ガウス分布の学習はいつするの？という話ですが、これはリアルタイムに更新されていきます。リアルタイムで更新するので照明変化などにも対応できるわけですね。
+今回のテスト用の動画としてこちらを利用させていただきました。 道路を車がビュンビュン走っています。
+次のようにしてBackgroundSubtractorMOG2を利用できます。
+import cv2 import numpy as np cap = cv2.VideoCapture(&amp;#34;ex.mp4&amp;#34;) fgbg = cv2.createBackgroundSubtractorMOG2(history=60, detectShadows=False) masks = [] kernel = np.ones((5, 5), np.uint8) while True: ret, frame = cap.read() if not ret: break fgmask = fgbg.apply(frame) fgmask = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel) masks.append(fgmask) cap.release() cv2.destroyAllWindows() createBackgroundSubtractorMOG2に渡している引数ですが、history=60とすることで、直近の60フレームだけをモデルに考慮させているようなイメージです（正確にそうなるわけではないはずですが）。 また、detectShadows=Trueの場合には影も検出できるのですが、不要なのでFalseにしています。この機能を切っておいたほうが少し早くなります。
+fgbg.apply(frame)の返り値が前景の検出結果（mask画像）になります。 ちなみに、検出された結果にオープニング処理を入れてノイズを減らしています。今回の動画ではオープニング処理を入れないと次のように結構ノイズが拾われてしまいます。
+検出されたマスクにオープニング処理も入れた結果が次のとおりです（GIFが動かない場合はクリックしてみてください）。
+コード全体 import cv2 import numpy as np cap = cv2.</description>
+    </item>
+    <item>
+      <title>connectedComponentsで連結した領域の取得</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
+      <pubDate>Tue, 18 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVでは二値画像から結合している領域の抽出をおこなうことができます。 こういうのは自分で実装すると大変なので、大変助かりますね。
+connectedComponets 次の二値画像を考えます。 領域として取り出したいのは2つの白い部分です。
+connectedComponetsを使って簡単にこの2つの領域を抽出できます。
+n_labels, labels = cv2.connectedComponents(bi_img) n_labelsはラベル付けされた領域の数です。 labelsには入力画像と同じサイズの行列が入っており、それぞれの座標の値がその位置での領域のラベルをあらわします。
+ラベルごとに色付けしてみると、次のようになります。
+colored_img = np.zeros(bi_img.shape + (3,), dtype=np.uint8) for i in range(1, n_labels): colored_img[labels == i] = [np.random.randint(0, 256), np.random.randint(0, 256), np.random.randint(0, 256)] plt.imshow(colored_img) plt.show() </description>
+    </item>
+    <item>
+      <title>抽出した輪郭の描画</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
+      <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
+drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
+引数 意味 contours findContoursで見つかった輪郭 contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画） color 描画する輪郭の色 thickness 描画する輪郭の太さ lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される hierarchy findContoursで見つかった輪郭の階層構造 maxLevel 描画する最大の階層を指定する maxLevelを1にしたときと、2にしたときの違いを次に示します。
+maxLevel=1 maxLevel=2 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。</description>
+    </item>
+    <item>
+      <title>findContoursで輪郭の検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Sun, 16 Aug 2020 17:56:36 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
+findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
+最初に次のように二値化しておきます。
+_, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) これに対して次のようにfindContoursを適用します。
+contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。 細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。 見つかった輪郭を次のように描画してみます。
+drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
+輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
+contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。</description>
+    </item>
+    <item>
+      <title>テンプレートマッチングで画像から物体をみつける</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</link>
+      <pubDate>Sat, 15 Aug 2020 11:09:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
+テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
+OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+テンプレートマッチングは次のようにしておこなえます。
+res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED) cv2.TM_CCORR_NORMEDは類似度の計算の方法です。 選択肢は複数あり、手法によって精度と計算時間が変わります。 詳細はこちらをご確認ください。
+返り値には各位置での類似度が格納されています。
+TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
+この部分の画像を次のように切り抜いてみます。
+_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] + height, max_loc[0]: max_loc[0] + width]) plt.show() 結果は以下のとおりです。 バッチリできていることがわかります。</description>
+    </item>
+    <item>
+      <title>minMaxLocで最大と最小の位置を楽に取得</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</link>
+      <pubDate>Tue, 11 Aug 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</guid>
+      <description>本記事はQrunchからの転載です。
+行列の最大値、最小値はNumPyのmaxやmin、またそれらのインデックスはargmaxやargminを使えば取得できるのですが、OpenCVでは一発ですべて取得できます。
+min_val, max_val, min_idx, max_idx = cv2.minMaxLoc(np.array([[1, 2, 3], [4, 5, 6]])) print(min_val, max_val, min_idx, max_idx) この出力は以下のとおりですが、それぞれ最小値、最大値、最小値の位置、最大値の位置をあらわします。位置は$(x,y)$をあらわしていますので、行列でいえば、（列、行）の順に格納されています。
+(1.0, 6.0, (0, 0), (2, 1)) </description>
+    </item>
+    <item>
+      <title>compHistでヒストグラム比較をいろいろなやり方でおこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Mon, 10 Aug 2020 13:20:47 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。
+compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。
+cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムをあらわすNumPy arrayです。 methodは比較方法をあらわし、以下のようなものがあります。
+方法 概要 cv2.HISTCMP_CORREL ピアソンの相関係数 cv2.HISTCMP_CHISQR カイ二乗検定 cv2.HISTCMP_KL_DIV KLダイバージェンス cv2.HISTCMP_INTERSECT 交差法 cv2.HISTCMP_BHATTACHARYYA バタチャリア距離 それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。
+比較方法の一覧 次のようなヒストグラムを対象にして各比較方法の違いをみてみます。 結果は次のとおりです。
+比較方法 2と2 1と2 2と1 2と3 1と3 HISTCMP_CORREL 1.0 0.22 0.22 -0.22 -0.87 HISTCMP_CHISQR 0.0 10.13 9.11 11.78 18.0 HISTCMP_KL_DIV 0.0 245.6 228.07 234.31 447.40 HISTCMP_INTERSECT 18.0 8.0 8.0 4.0 0.0 HISTCMP_BHATTACHARYYA 0.0 0.73 0.73 0.82 1.0 手法によって、完全一致は大きい値になるのか、小さい値になるのか、また最大値と最小値はあるのかといったところも違うので、注意が必要です。
+なお、利用したコードは以下のとおりです。
+import numpy as np import pandas as pd import matplotlib.</description>
+    </item>
+    <item>
+      <title>OpenCVのヒストグラムの計算はNumPyより断然速い</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</link>
+      <pubDate>Mon, 10 Aug 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理や集計、機械学習では何かとヒストグラムを計算するケースがありますね。
+これに伴い、ヒストグラムを計算できるライブラリは色々あるかと思いますが、OpenCVでもヒストグラムを計算する機能をもっています。 NumPyでもヒストグラムの計算できるじゃない、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。
+OpenCVのヒストグラム せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。
+OpenCVでのヒストグラムの計算は以下のようにおこなえます。
+hist = cv2.calcHist(images=[img], channels=[0], mask=None, histSize=[256], ranges=(0, 256)) imagesにはヒストグラムの計算のもととなる画像をリストの形式で渡します。 channelsには画像のチャネルのうち、どれを用いてヒストグラムを計算するかを指定します。いまはグレースケールで1チャネルしかないため、0を指定しています。カラー画像のときにはBGRの3チャネルなので、channelに対応する0~2のどれかを指定します。 maskには画像と同じサイズの1チャネルのマスクを与えることで、ヒストグラムを計算する領域を制限できます。 histSizeにはヒストグラムのbinの数を与えます。 rangesにはヒストグラムの下限と上限を指定します。厳密には(0,256)を与えるということは$[0, 256)$のような区間をあらわすことに注意してください。 結果を以下のように描画してみます。
+plt.bar(range(len(hist)), hist.ravel()) plt.ylabel(&amp;#34;freq&amp;#34;) plt.xlabel(&amp;#34;val&amp;#34;) plt.show() NumPyとの比較 cv2.calcHistによって得たヒストグラムと全く同じヒストグラムをNumPyを用いて得ることができます。 具体的には次のようにします。
+numpy_hist, bin_edges = np.histogram(img.ravel(), bins=256, range=(0, 255)) さて、速度はどれくらい違うかという話になりますが、%%timeitによって測定した結果が以下のとおりです。
+方法 timeitの結果 cv2.calcHist 2.95 ms ± 186 µs per loop np.histogram 109 ms ± 7.22 ms per loop 36倍程度OpenCVのほうが速いことがわかります。 全然違うのでびっくりしますね。</description>
+    </item>
+    <item>
+      <title>Grabcutsで背景と猫を分離したい</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</link>
+      <pubDate>Sun, 09 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
+      <description>本記事はQrunchからの転載です。
+次のような画像があったとします。
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。 分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+0は確実に背景 1は確実に前景 2は多分背景 3は多分前景 以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.newaxis] plt.imshow(cut_img[:, :, ::-1]) plt.show() 上手く猫だけを抽出できていますね。</description>
+    </item>
+    <item>
+      <title>Watershedで領域検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Sat, 08 Aug 2020 11:10:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
+実際にOpenCVでやってみましょう。
+OpenCVでWatershed 次の画像にWaterShedを適用してみます。
+いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
+marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。
+OpenCVのWatershedは次のようにして実行できます。
+res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。
+3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。</description>
+    </item>
+    <item>
+      <title>画像の距離変換をおこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Fri, 07 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
+早速OpenCVで試してみます。
+OpenCVで距離変換 次のようにして距離変換をおこなえます。
+dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
+結果は以下のとおりです。
+入力画像 距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。</description>
+    </item>
+    <item>
+      <title>floodFillで領域に色を塗る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</link>
+      <pubDate>Thu, 06 Aug 2020 11:08:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfloodFillを使うことで、選んだ点の周辺の似たような色のピクセルを塗りつぶすことができます。
+使い方 次のようにしてfloodFillを利用できます。
+mask = np.zeros((img.shape[0] + 2, img.shape[1] + 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x+1, y+1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
+結果は以下のとおりです。
+入力画像 floodFillの結果 </description>
+    </item>
+    <item>
+      <title>Hough変換で円を検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
+OpenCVで円の検出 次の画像から円を検出してみます。
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。
+大まかには円が検出できていることがわかります。</description>
+    </item>
+    <item>
+      <title>Hough（ハフ）変換で直線を見つけよう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</link>
+      <pubDate>Tue, 04 Aug 2020 19:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+Hough変換は画像から直線をみつける方法です。
+簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。
+なお、OpenCVでは直線の候補は以下のように$(\rho, \theta)$による極座標系であらわされています。 $$ \rho = x \cos \theta + y \sin \theta .$$ $\rho$は原点からの直線の距離、$\theta$は直線の角度をあらわします。
+$\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$
+わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。
+OpenCVで試してみる 次の画像に対してHough変換を適用します。
+Hough変換にかける前に、Canny法でエッジを抽出しておきます。
+canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True) Canny法の結果に対して、次のようにHough変換を適用できます。
+hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。
+検出された直線のパラメータ$(\rho, \theta)$は以下のようにして変換して、画像に直線として書き込んでいます。
+t = 3000 for params in hough_lines: rho, theta = params[0] a = np.cos(theta) b = np.</description>
+    </item>
+    <item>
+      <title>Canny法でエッジ検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Mon, 03 Aug 2020 20:17:14 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。
+Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。
+2ノルムの場合 $$ \rm{grad}=\sqrt{G_x^2 + G_y^2}. $$ 1ノルムの場合 $$ \rm{grad}= |G_x| + |G_y|. $$ 2ノルムのほうが正確ですが、計算量では1ノルムのほうが優れています。
+極大値を求める 次に、計算された勾配から、勾配の極大値を求めます。こうすることで、余計な箇所がエッジとして検出されるのを防ぎます。
+しきい値処理 最後に、しきい値処理でエッジとして扱うかどうかを決めます。 Canny法のしきい値は2つあり、1つはこの値より大きければエッジとすると決めるためのもの、もう1つはこの値よりも小さければエッジではないと決めるためのものです。 じゃあ2つのしきい値の間はどうなるの？という話ですが、隣接しているピクセルがエッジと判定されていれば、エッジと判定するようにし、そうでなければエッジではないと判定します。 単純なしきい値でのエッジの判定よりも、より柔軟ですね。
+ただし、しきい値が非常に重要になることが容易に想像できます。
+OpenCVでCanny法をためす Canny法は以下のようにして実行できます。
+canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。
+結果を以下に示します。
+元画像 canny（2ノルム） canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。</description>
+    </item>
+    <item>
+      <title>ヒストグラム平坦化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</link>
+      <pubDate>Sun, 02 Aug 2020 22:50:29 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+今日はヒストグラム平坦化を扱います。
+ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
+処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
+OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
+この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
+ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
+res = cv2.equalizeHist(img) ちゃんと見えるようになりましたね。
+この画像の画素値のヒストグラムは以下のとおりです。</description>
+    </item>
+    <item>
+      <title>Non-Local Means Denoisingでノイズ除去</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+      <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
+      <description>本記事はQrunchからの転載です。
+Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
+似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
+平均値の取り方 先程定義した距離を使って以下のような重みを計算します。 $$ w(p,q) = e^{-\max(d^2 - 2\sigma^2, 0) / h^2}. $$ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行するときには特にこれを指定しないので、上手く処理されている？）。$h$は与えるパラメーターで、大きいほど$w$の値に差がつきづらくなります。 距離$d^2$が小さいと$w$が1に近い値を取り、$d^2$が大きいほど$w$は小さい値になります。 この$w$を重みとしたピクセル値の重み付き平均を取ることがNon-Local Means Denoisingでの処理になります。
+この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
+なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
+OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
+次の左の画像にノイズをのせて右の画像を生成しました。
+これに対して次のようにして、Non-Local Means Denoisingを適用します。
+denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。</description>
+    </item>
+    <item>
+      <title>inpaintで画像の修復をする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 31 Jul 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。 今回はOpenCVで修復をおこなってみます。
+OpenCVでやってみる 次の画像にノイズをのせていきます。
+次のようなコードで画像にノイズをのせていきます。
+cv2.rectangle(img, (100,100),(300,105),(255,255,255), -1) cv2.rectangle(img, (400, 450),(600,460),(255,255,255), -1) cv2.rectangle(img, (0, 750),(800, 760),(255,255,255), -1) plt.imshow(img[:, :, ::-1]) plt.show() mask = np.zeros(img.shape[:2], dtype=np.uint8) cv2.rectangle(mask, (100,100),(300, 105),(255), -1) cv2.rectangle(mask, (400, 450),(600,460),(255), -1) cv2.rectangle(mask, (0, 750),(800, 760),(255), -1) plt.imshow(mask) plt.gray() plt.show() ノイズがのった画像 ノイズ部分のmask画像 OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。 次のように利用します。
+inpainted = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS) 第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。
+Navier Stokes法 Alexandru Telea法 どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。
+ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
+ちょっと復元した箇所が滲んだような感じになってしまってます。大きくしすぎには注意ですね。</description>
+    </item>
+    <item>
+      <title>透過変換で斜めから撮った画像を上から見下ろす</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</link>
+      <pubDate>Thu, 30 Jul 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</guid>
+      <description>本記事はQrunchからの転載です。
+透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。
+OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。
+やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。
+まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。
+src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。
+この行列を使い、次のように変換をおこないます。
+transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。</description>
+    </item>
+    <item>
+      <title>画像へのアフィン変換</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+      <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+      <description>本記事はQrunchからの転載です。
+アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&amp;rsquo;, y&amp;rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
+今回はこのアフィン変換をOpenCVを使っておこないます。
+アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
+transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
+以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp;amp; 0 &amp;amp; c\\ 0 &amp;amp; 1 &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.</description>
+    </item>
+    <item>
+      <title>動画の書き込み</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</link>
+      <pubDate>Tue, 28 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。
+fourcc = cv2.VideoWriter_fourcc(&amp;#34;m&amp;#34;, &amp;#34;p&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;v&amp;#34;) writer = cv2.VideoWriter(&amp;#34;test.mp4&amp;#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&amp;quot;m&amp;quot;, &amp;ldquo;p&amp;rdquo;, &amp;ldquo;4&amp;rdquo;, &amp;ldquo;v&amp;quot;を指定します。他にもmpgで保存するときには&amp;quot;D&amp;rdquo;, &amp;ldquo;I&amp;rdquo;, &amp;ldquo;V&amp;rdquo;, &amp;ldquo;X&amp;quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。
+実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。
+writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする </description>
+    </item>
+    <item>
+      <title>動画の読みこみ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</link>
+      <pubDate>Mon, 27 Jul 2020 22:53:54 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</guid>
+      <description>本記事はQrunchからの転載です。
+今日はOpenCVでの動画の読み書きを扱います。
+動画の読み込み 動画の読み込みは簡単です。
+最初に次のように保存されている動画を開きます。
+import cv2 v = cv2.VideoCapture(&amp;#34;./ex.mp4&amp;#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。
+v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。
+ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。
+while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。
+print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html</description>
+    </item>
+    <item>
+      <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+      <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
+分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
+分離可能フィルタの具体例1 Sobelフィルタは分離可能フィルタです。 X方向のSobelフィルタは以下であらわされます。
+これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。 $$ \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	\begin{pmatrix} -1 &amp;amp; 0 &amp;amp; 1 \end{pmatrix}. $$
+分離可能フィルタの具体例2 平滑化フィルタは分離可能フィルタです。 3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。 $$ \begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	\begin{pmatrix} \frac{1}{3} &amp;amp; \frac{1}{3} &amp;amp; \frac{1}{3} \end{pmatrix}. $$
+分離可能フィルタで高速化できる理由 行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。
+次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。
+以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。
+実際にsepFilter2Dを試す sepFilter2Dは以下のようにして利用できます。
+sep_filter_res = cv2.sepFilter2D(img, ddepth=cv2.CV_16S, kernelY=col_kernel, kernelX=row_kernel) kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。
+実際にSobelフィルタを適用することを考えます。
+col_kernel = np.array([1, 2, 1]).T row_kernel = np.array([-1, 0, 1]) sep_filter_res = cv2.</description>
+    </item>
+    <item>
+      <title>filter2Dで任意のカーネルを扱う</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
+      <pubDate>Sat, 25 Jul 2020 12:12:06 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
+filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
+res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 </description>
+    </item>
+    <item>
+      <title>膨張と収縮の組み合わせによるopeningとclosing</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</link>
+      <pubDate>Tue, 21 Jul 2020 22:31:32 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
+opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
+ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
+opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
+kernel = np.ones([2, 2], np.uint8) dilation = cv2.</description>
+    </item>
+    <item>
+      <title>erodeで猫を収縮させる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <pubDate>Mon, 20 Jul 2020 23:14:16 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
+具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
+erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
+次の局所領域では最小値は2です。
+局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
+OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
+先程の例に適用 先程の例の画像でerodeを試してみましょう。
+A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.</description>
+    </item>
+    <item>
+      <title>dilateで猫を膨張させる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <pubDate>Sun, 19 Jul 2020 20:40:11 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
+dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。
+dilateは次のようにして利用します。
+kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
+実際に試した結果が以下のとおりです。
+元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。</description>
+    </item>
+    <item>
+      <title>Laplacianで画像の2階微分</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
+      <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
+      <description>本記事はQrunchからの転載です。
+今回はLaplacianを扱います。
+そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}. $$
+これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。
+Laplacianのフィルタ Laplacianのフィルタの最も基本的なものは以下で定義されます。
+これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
+$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。
+$$ \frac{\partial f}{\partial x} \approx f(x + 1, y) - f(x,y ).$$ これを利用すると、2階の偏微分は
+$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(x+1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;amp;=&amp;amp; f(x+1, y) - 2f(x, y) + f(x-1,y ).\end{aligned}$$ 同様に $$ \begin{aligned} \frac{\partial^2 f}{\partial y^2} &amp;amp;\approx&amp;amp; f(x,y+1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;amp;=&amp;amp; f(x, y+1) - 2f(x, y) + f(x,y-1 ).</description>
+    </item>
+    <item>
+      <title>Sobelフィルタで微分</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
+      <pubDate>Thu, 16 Jul 2020 14:06:05 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
+      <description>本記事はQrunchからの転載です。
+よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。
+Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。
+x方向の微分用のSobelフィルタ
+y方向の微分用のSobelフィルタ
+これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。
+これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。
+次に平滑化ですが、これは以下のフィルタです。
+ガウス平滑化に似たように中心の重みが大きい平滑化になります。
+ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。
+以上がSobelフィルタが何をしているかの話になります。
+Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。
+soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。
+次の画像にSobelフィルタを適用してみます。
+x方向のSobelフィルタの適用
+soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。
+y方向のSobelフィルタの適用
+sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。
+なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。</description>
+    </item>
+    <item>
+      <title>imencodeとimdecodeによるメモリ上での画像圧縮</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</link>
+      <pubDate>Thu, 16 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</guid>
+      <description>本記事はQrunchからの転載です。
+画像をpngなどからjpgに変換したいときに、ぱっと思いつくのはファイルを読み込んで、それをjpgの拡張子で書き込みした後に再度読み込みなおすことです。 1度動かすならばそれでも良いのですが、何度も繰り返しおこなう場合にはファイルの読み書きの時間が気になります。
+OpenCVではファイルへの読み書きをおこなうことなく、メモリ上でファイル形式を変更できる（jpgへの圧縮などができる）ような方法が提供されています。
+流れとしては、imencodeでメモリ上にファイル形式を変更したバイト列を作成し、それをimdecodeで画像に変換するという流れになります。imencodeがファイルへの書き込み、imdecodeがファイルの読み込みに対応する感じになります。
+imencode 画像を他のファイルを形式に変更するimencodeは次のようにして利用します。
+ret, encoded = cv2.imencode(&amp;#34;.jpg&amp;#34;, img, (cv2.IMWRITE_JPEG_QUALITY, 10)) 1つめの引数がどの拡張子に変換するかをあらわす文字列で、ここではjpgを指定しています。
+3つめの引数に指定した拡張子に変換するときのパラメータを指定します。 例えばjpgの場合には画像の質を指定できますので、それをタプルの形式で与えており、ここではjpgの質を10で圧縮するようにしています。
+imencodeによって生成されたjpgになった画像の情報はencodedに格納されています。
+imdecode メモリ上の画像データを読み込むimdecodeは以下のようにします。
+decoded = cv2.imdecode(encoded, flags=cv2.IMREAD_COLOR) 第一引数はimencodeの出力です。 flagsは何かしら指定しないといけないのですが、これはどう読み込むかをあらわすフラグです。 BGRの3channelで読み込む場合にはcv2.IMREAD_COLORを指定し、Gray scaleの1channelで読み込む場合にはcv2.IMREAD_GRAYSCALEを指定します。
+適用結果 jpgのqualityを10にしてimencodeした後にimdecodeした結果を元の画像と比較してみます。
+元画像 imdecode後の画像 右側の画像はノイズがのっていることが分かるでしょうか？ちゃんとjpgの形式で圧縮されたようです。</description>
+    </item>
+    <item>
+      <title>サンプルコードでなにかとあらわれるガウス平滑化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
+      <pubDate>Tue, 14 Jul 2020 18:30:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+今日はなにかとサンプルコードで使われるガウス平滑化です。
+ガウス平滑化とは 前々回取り上げた単純平滑化は局所領域の平均をとることで、平滑化をおこないました。これは局所領域内の各ピクセルの重み付けがすべて等しいともいえます。 ガウス平滑化では二次元のガウス分布を離散化した値を重みとして利用するような平滑化になります。 $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\right).$$
+単純平滑化との違いは？ 具体的なカーネルの比較の例は以下のとおりです。
+単純平滑化 ガウス平滑化 ガウス平滑化の場合には中心の重みが大きく、そこから遠ざかるほど、重みが小さくなっていきます。
+画像に与える影響の違いとしては、単純平滑化よりも中心の重みが大きいことで、平滑化後のボケが少ないことが挙げられます。
+単純平滑化とガウス平滑化の違いを実験 OpenCVでガウス平滑化を使う場合は以下のようにすればOKです。
+blur = cv2.GaussianBlur(img, ksize=(9, 9), sigmaX=2, sigmaY=2) ksizeはカーネルの大きさ（局所領域のサイズ）、sigmaXはガウス分布のx方向の分散、sigmaYはy方向の分散になります。分散は0を入れると、デフォルト値を計算し、それを利用してくれます。
+次のようなノイズを乗せた画像を用意しました。
+それぞれの平滑化の適用結果が以下のとおりです。すべてカーネルサイズは9×9です。
+単純平滑化 メディアンフィルタ ガウス平滑化 単純平滑化とガウス平滑化を比べると、ガウス平滑化のほうが若干ノイズが多めの気がしますが、ボケが少ないです。 メディアンフィルタはノイズは取れますが、もとの情報が結構落ちてますね。</description>
+    </item>
+    <item>
+      <title>外れ値に強いMedianBlur</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</link>
+      <pubDate>Mon, 13 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</guid>
+      <description>本記事はQrunchからの転載です。
+単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
+medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
+以下がmedianBlurを実際に実行したコードになります。
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
+ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。</description>
+    </item>
+    <item>
+      <title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
+      <pubDate>Sat, 11 Jul 2020 09:22:28 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。
+入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
+AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。
+局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。
+ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。
+こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。
+この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！
+adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。
+引数 意味 1 入力画像 2 ここで説明した方法を使うことをあらわす値 3 threshold typeでこれは前々回説明したものと同じ 4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している 5 しきい値を決めるときに平均値から引かれる定数 局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。
+OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() こちらも上手くいっています。
+おわりに 問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。</description>
+    </item>
+    <item>
+      <title>大津の二値化で楽をする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 10 Jul 2020 13:08:19 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+大津の2値化とは？ シンプルな二値化では、何かしらのしきい値を決めてあげる必要がありました。
+人間がグレースケール値のヒストグラムを見てしきい値を決めたり、試行錯誤するというのも良いですが、場合によってはしきい値を自動で決定したくなります。
+そのような方法として有名なのが大津の2値化です。 大津の2値化を使うことで、ある意味での最適なしきい値を決定してくれます。
+大津の2値化の中身は？ 大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。
+つまり、画像の白い部分と黒い部分の区別がある程度はっきりとつくようなケースを指しています。 白いところ、黒いところ、それらの間くらいの色の3種類が多数を占めているような、ヒストグラム上で山が3つできるような状況は想定されていません（アプリケーションによっては、それでも上手くいくかもしれませんが）。
+さて、ヒストグラムが2つの山をもつようなグレースケールの画像が与えられたとして、大津の2値化はどのようにしきい値を決めているのでしょうか？
+大津の2値化では、しきい値以下のグレースケール値としきい値より大きい値のグレースケール値の2つのグループにわけ、それぞれの分散をそれぞれ計算した後、それらの重み付きの和を考えます。しきい値はこの分散の重み付き和が最小になるように決められます。
+式であらわせば、グレースケール値のしきい値$t$、しきい値$t$以下のグループの分散$\sigma-2_1(t)$、しきい値より大きいグループの分散$\sigma^2_2(t)$、しきい値以下の値の個数$q_1(t)$、しきい値より大きい値の個数$q_2(t)$を用いて以下のようになります。
+$$ \sigma^2(t)=p_1(t) \sigma^2_1(t) + p_2(t) \sigma^2_2(t).$$
+大津の2値化では$\sigma^2(t)$を最小化するようなしきい値$t$を見つけます。
+直感的には分散が最小になるようなしきい値を見つけるのは良い方法のように思えます。 なぜかといえば、谷の部分からしきい値を動かしていき、どちらかの山の一部が他方のグループに取り込まれると、取り込まれた分が与える分散の増加分が非常に大きいと予想できるからです。
+大津の2値化の適用結果 大津の2値化を実際に適用してみます。 次のようなグレースケールの画像が与えられたとします。
+この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。
+大津の2値化を適用する際にはThreshoold typeのところにcv2.THRESH_OTSUを追加します。
+ret, bin_img = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) 上記のようなコードを実行すると、大津の2値化によって2値化された画像が得られます。
+img = cv2.imread(&amp;#34;ex_img.jpg&amp;#34;) gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) ret, bin_img = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) plt.imshow(bin_img) plt.gray() plt.show() しきい値が自動で適切に設定され、キレイに二値化できてますね。
+ガウシアンフィルタとの組み合わせ ここでは詳しくは述べませんが、ノイズが多い画像では、ガウシアンフィルタで平滑化することでノイズが軽減され、ヒストグラムの山がよりシャープになりえます。
+そうすると、大津の2値化後の結果がより人間の感覚にあったものとなったりします。</description>
+    </item>
+    <item>
+      <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
+      <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
+      <description>本記事はQrunchからの転載です。
+最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
+例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
+BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
+実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
+比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。
+次の図がTransformer層の減らし方の一覧です。
+各方法の詳細は以下のとおりです。
+Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
+Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
+Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
+Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
+Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
+実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
+これから以下のことが分かります。
+各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。 タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
+問題によっては6層消してもほとんど変化がなかったりします。
+余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
+タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
+ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
+パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
+6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
+BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
+なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。
+上記の話には実験的な根拠があり、それを示したのが以下の図です。
+これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。</description>
+    </item>
+    <item>
+      <title>AWSのLambdaからPostgresを利用</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
+      <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
+      <description>本記事はQrunchからの転載です。
+AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+ライブラリのclone git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+適切な位置への配置
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
+Lambdaにデプロイする！</description>
+    </item>
+    <item>
+      <title>関数が上に凸であることの必要十分条件はヘッセ行列が半負定値の証明</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</link>
+      <pubDate>Wed, 11 Mar 2020 00:08:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%96%A2%E6%95%B0%E3%81%8C%E4%B8%8A%E3%81%AB%E5%87%B8%E3%81%A7%E3%81%82%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E5%BF%85%E8%A6%81%E5%8D%81%E5%88%86%E6%9D%A1%E4%BB%B6%E3%81%AF%E3%83%98%E3%83%83%E3%82%BB%E8%A1%8C%E5%88%97%E3%81%8C%E5%8D%8A%E8%B2%A0%E5%AE%9A%E5%80%A4%E3%81%AE%E8%A8%BC%E6%98%8E/</guid>
+      <description>本記事はQrunchからの転載です。
+関数が上に凸であることの必要十分条件はヘッセ行列が半負定値であることです。ネット上だと日本語でまとまっている文献があんまりないかもと思ったので、今回はこの証明をまとめます。 なお、関数が下に凸のときにはヘッセ行列は半正定値となります。上に凸の定義を使っているところを下に凸の定義に置き換え、正定値を負定値に置き換えれば、同じ議論が可能です。 また出てくる関数$f$は暗黙的に定義域で2階微分可能としています。
+定義 関数が上に凸の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$が上に凸とは任意の元$\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{n}$と任意の$t \in [0,1]$に対して以下が成り立つことを指します。 $$ f(t\mathbf{x}^{(2)} + (1 -t)\mathbf{x}^{(1)}) \geq tf(\mathbf{x}^{(2)}) + (1 -t) f(\mathbf{x}^{(1)}).$$
+ヘッセ行列の定義 関数$f:\mathbb{R}^{n} \rightarrow \mathbb{R}$のヘッセ行列$H$を以下のように定義します。 $$H_f = \nabla^2 f = \begin{pmatrix} \frac{\partial^2 f}{\partial x_1^2} &amp;amp;\frac{\partial^2 f}{\partial x_1\partial x_2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_1\partial x_n} \cr \frac{\partial^2 f}{\partial x_2\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_2^2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \cr \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \cr \frac{\partial^2 f}{\partial x_n\partial x_1} &amp;amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp;amp; \dots &amp;amp; \frac{\partial^2 f}{ \partial x_n^2} \end{pmatrix}.</description>
+    </item>
+    <item>
+      <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</link>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</guid>
+      <description>本記事はQrunchからの転載です。
+みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
+KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
+KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
+前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
+KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
+実験 上記の話が成り立つのかを実験してみます。
+実験準備 $p(\mathbf{x})$は次のようにします。
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。</description>
+    </item>
+    <item>
+      <title>画像と自然言語でのマルチモーダルなImageBERT</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
+      <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
+      <description>本記事はQrunchからの転載です。
+最近Microsoftから発表されたImageBERTについて紹介します。
+ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
+実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
+論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
+アーキテクチャ ImageBERTのアーキテクチャは以下のとおりです。 テキストの入力と画像の入力で分けて説明します。 なお、論文中では画像のcaptioningのデータセットを用いています。
+テキストの入力 テキストは通常のBERTのようにsubwordに分割して、それらのembeddingを入力します。 BERTでは2つの文を与えるときに、1つ目の文か2つ目の文かを識別する情報をsubwordのembeddingに加えますが、ImageBERTでも同じように画像か文かを識別する情報を加えます。図でいうところのSegment Embeddingになります。
+また、文の位置情報もBERTやTransformerでは与える必要があり、ImageBERTでも位置情報を加えます。しかし、ここではtokenの順番を昇順に与えるというシンプルなやり方のようです。これは図中のSequence Position Embeddingになります。
+画像の入力 画像はそのままモデルに入力するのではなく、FasterRCNNで物体検出をして、検出された箇所の特徴量をそれぞれ入力する形になります（画像の特徴量はsubwordのembeddingと同じ次元に射影します）。
+テキストの場合と同じようにSegment EmbeddingとSequence Position Embeddingも与えるのですが、Sequence Position Embeddingはテキストの場合とは与え方が異なります。テキストの場合にはsubwordに順序がありましたが、画像中の物体には順序がありませんので、すべて同じSequence Position Embeddingを与えます。
+また、これら以外にPosition Embeddingというものも与えます。Position Emebeddingは以下で与えられるベクトルをsubwordのembeddingと同じ次元に射影したものです。 $$ c = \begin{pmatrix} \frac{x_{tl}}{W}, \frac{y_{tl}}{H}, \frac{x_{br}}{W}, \frac{y_{br}}{H}, \frac{(x_{br} - x_{tl}) (y_{br} - y_{tl}) }{WH} \end{pmatrix}.$$ ここで、$x_{tl}, y_{tl}, x_{br}, y_{br}$はそれぞれ物体の左上の$x$と$y$、右下の$x$と$y$座標になります。$W$と$H$は入力画像の横と縦の大きさです。 つまり、$c$は物体の位置と面積の割合の情報になります。
+事前学習のタスク ImageBERTでは事前学習に次の4つタスクを解きます。
+Masked Language Modeling (MLM) これは通常のBERTと同じように、入力されるsubwordをランダムにマスクし、マスクされた単語を予測するようなタスクです。 Masked Object Classification (MOC) これはMLMの画像版のタスクです。検出された物体をランダムにマスクし、マスクされた物体のラベルを予測するようなタスクです。正解ラベルはFaster-RCNNで求まったラベルとしています。 Masked Region Feature Regression (MRFR) MOCはラベルを予測するようなタスクですが、MRFRはマスクされた物体の箇所の特徴量を予測するタスクです。 Image-Text Matching (ITM) 入力テキストと画像が対応しているかを予測するタスクです。ランダムに画像を選ぶことで、対応していないテキストと画像のペアを作っています。 マルチステージの事前学習 ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します） で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。</description>
+    </item>
+    <item>
+      <title>Pandasのgroupbyの使い方をまとめる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
+      <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&amp;#34;名字&amp;#34;: [&amp;#34;田中&amp;#34;, &amp;#34;山田&amp;#34;, &amp;#34;上田&amp;#34;, &amp;#34;田中&amp;#34;, &amp;#34;田中&amp;#34;], &amp;#34;年齢&amp;#34;: [10, 20, 30, 40, 50], &amp;#34;出身&amp;#34;: [&amp;#34;北海道&amp;#34;, &amp;#34;東京&amp;#34;, None, &amp;#34;沖縄&amp;#34;, &amp;#34;北海道&amp;#34;]}) 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。
+グループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。
+for name, grouped_df in df.groupby(&amp;#34;名字&amp;#34;): print(f&amp;#34;名字：{name}&amp;#34;) print(grouped_df) 名字：上田
+名字 年齢 出身 2 上田 30 名字：山田
+名字 年齢 出身 1 山田 20 東京 名字：田中</description>
+    </item>
+    <item>
+      <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</link>
+      <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</guid>
+      <description>本記事はQrunchからの転載です。
+Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+print(df.to_markdown()) 以下のように表示されます。
+| | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
+    </item>
+    <item>
+      <title>モデルの予測結果を説明するLIMEの理論</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</link>
+      <pubDate>Wed, 12 Feb 2020 00:23:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/</guid>
+      <description>本記事はQrunchからの転載です。
+モデルの予測結果を説明する方法としてLIMEがあります。 LIMEはディープラーニングに限らず、任意のモデルに対して予測結果を適用することができます。 また手法としては結構有名かと思います。
+今回はそんなLIMEの理論について説明します。
+論文：“Why Should I Trust You?” Explaining the Predictions of Any Classifie
+LIMEの戦略 任意のモデル$f$に入力$x \in \mathbb{R}^d$が与えられたときの予測結果$f(x)$への特徴量の寄与を求めることを考えます。
+LIMEでは$x$近傍（近傍については後述）に対しては$f$と同じような予測をすることができる、かつ解釈が容易なモデル$g$を求めます。 例えば$g$が線形モデルの場合には、$g$の各係数を見ることで特徴量の寄与を得ることが可能です。あるいは$g$が決定木であれば、人間でもある程度容易にモデルの解釈が可能です。ですから、このようなモデル$g$を$f$の代わりに使って、予測結果の解釈をしようというモチベーションです。 ただし、LIMEでは$g$には特徴量の値が$0$か$1$となるベクトル$x&amp;rsquo;$が入力として与えられるものとします。これは何らかのルールで$x$の要素と$x&amp;rsquo;$の要素が対応づいているとします。ここも詳細をあとで述べます。 以上のように、解釈が難しいモデル$f$を解釈が容易なモデル$g$に落とし込むことがLIMEのやりたいことになります。
+実際にどうやって$g$を求めるのかといえば、次式のようになります。 $${\rm argmin_{g \in G}} \ L(f, g, \pi_x) + \Omega(g).$$
+ここで、
+$L$は損失関数です。$x$近傍で$g$の予測値が$f$の予測値に近いと、小さくなるように$L$を定義します。 $\pi_x$は損失関数で使われる重みで、$x$の近傍点が$x$から遠いほど小さい値を取るようにします。詳細は後述する線形モデルの項を参照。 $\Omega$はモデルの複雑さとなります。決定木を使う場合には木の深さであったり、線形モデルの場合には非ゼロの重みの数になります。モデルを解釈するためには、モデルはシンプルな方が良いため、$\Omega$を加えることで$g$をなるべく人間にやさしいモデルにしてあげます。 まだ色々と詳細を述べていないため、わからないところは多々あると思いますが、上式はなるべくシンプルなモデルで$x$の近傍で$f$と近似する$g$を見つけるといったことを意味します。 この局所的に近似された$g$が得られれば、$x$近傍での特徴量が$g$へ与える寄与がわかる、つまり$f$へ与える寄与が近似的にはわかります。
+次に画像の場合のケースについて、詳細に踏み込みます。
+画像に対する線形モデルでのLIME superpixel 画像にLIMEを適用する場合、まず次のように入力画像をsuperpixelに分割し、領域ごとに寄与を求めていきます。
+引用元：https://towardsdatascience.com/understanding-how-lime-explains-predictions-d404e5d1829c
+実際には上記のようにある程度細かく領域を分けますが、以下では例として扱いやすいように次のような画像を考えて、粗く領域を分けていきます（左がオリジナルのくまモンで、右がsuperpixelに分割されたくまモンです）。
+各領域を$g$に与える入力$x&amp;rsquo;$の各要素に対応させます。例えば1番の領域が$x&amp;rsquo;$の1番目の要素、2番が2番目の要素のようにします。その上で、$x&amp;rsquo;$の各要素が1のときには対応する領域のピクセルが$x$と同じピクセル値、0のときにはその領域がグレーで埋められた画像と対応していると考えます。 具体的には $$x&amp;rsquo; = [0, 0, 1, 1, 0,0,0,0]$$ としたとき、3番目と4番目だけが1ですので、この$x&amp;rsquo;$に対応した画像は次のようになります。
+近傍のサンプリング LIMEでは $x$の近傍のサンプリングをおこないます。 画像の場合に近傍とはどうなるんでしょうか？直感的には謎じゃないでしょうか。
+LIMEの場合には分割された領域のうち、適当な個数（個数もランダムに決めますが、個数の下限は決めておきます）をそのままにし、それ以外をグレーに置き換える処理をします。 $x&amp;rsquo;$の話でいえば、適当な個数の要素については1とし、それ以外は0とする処理に等しいです。
+このようにして得られた画像を$x$の近傍として扱います。またこのようにして近傍を得ることを、近傍のサンプリングとします。 先程示した$x&amp;rsquo;$に対応した画像も$x$の近傍になります。
+線形モデルのケース $g$が線形モデルの場合には$g(z&amp;rsquo;)$は次のようになります。
+線形モデルの係数（寄与）を求めるため、次のように損失関数$L$を定義します。 $$ L(f, g, \pi_x) = \sum_{z,z&amp;rsquo;∈Z}\pi_x(z) (f(z) − g(z&amp;rsquo;))^2.</description>
+    </item>
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</guid>
+      <description>本記事はQrunchからの転載です。
+Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります） モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.write(f&amp;#34;{f_string}\n&amp;#34;) with open(&amp;#34;.</description>
+    </item>
+    <item>
+      <title>Flutterで吹き出しを作る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
+Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
+最もシンプルな吹き出しの作り方は以下のようになります。
+Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
+吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング 欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
+Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
+なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
+こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。
+コードは以下の通り。
+Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
+    </item>
+    <item>
+      <title>Matplotlibの凡例を外側に表示したい人へ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
+      <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
+      <description>本記事はQrunchからの転載です。
+Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。
+例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+    </item>
+    <item>
+      <title>Pythonのnamedtupleを使おう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
+      <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。 他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&amp;#34;Person&amp;#34;, [&amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;, &amp;#34;sex&amp;#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&amp;#34;Person&amp;#34;, &amp;#34;name age sex&amp;#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) print(p.</description>
+    </item>
+    <item>
+      <title>BERTを軽量化したALBERTの概要</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
+      <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
+      <description>本記事はQrunchからの転載です。
+BERTのパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。
+参考論文：ALBERT: A Lite BERT for Self-supervised Learning of Language Representations
+問題意識 2018年に提案されたBERTは自然言語界隈では非常に上手くいった手法です。先程論文の引用数を見たら、もう3000を超えていまして、この数字を見てもよくわかります。
+BERTは高い性能で色々な問題に適用することができる汎用性の高いモデルですが、パラメータ数が多いという特徴があります。なんでパラメータ数が多いかといえば、全結合層が沢山使われるからです。これは内部的にはそれなりに大きな行列を沢山持っているような状態です。
+パラメータ数が多いことで以下のような問題が起こります。
+メモリにモデルが乗らない 計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。） また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。
+BERT-xlargeというのがBERT-largeよりも隠れ層のパラメータ数を多くしたものですが、RACEを解いたときのAccuracyが大きく下がっているのがわかります（過学習のように思われますが、過学習だと明確にわかるようなサインが出ていないと論文には書かれています）。
+提案手法 語彙の埋め込みの行列分解 英版のBERTでは30000の語彙が存在します。BERTではこの語彙の埋め込みベクトルの次元が隠れ層の次元と同じですので、BERT-largeの場合には30000×1024のサイズの行列をもつことになります。
+これに対してALBERTでは行列を分解して、語彙の埋め込みベクトルのサイズと隠れ層のサイズを別にしてしまいます。具体的には、語彙の数を$V$、語彙の埋め込みベクトルの次元を$E$、隠れ層の次元を$H$としたとき、語彙の埋め込みベクトルの行列のサイズは$V \times E$となり、それに$E \times H$のサイズの行列を掛けて$H$次元の空間に射影するようにします。そうすることで、もともとパラメータ数が$O(V \times H)$だったのが、$O(V \times E + E \times H)$となり、$E \ll H$のときには大きくパラメータ数が削減されることになります。
+このようにしてしまって問題ないかと疑問が出てきますね。
+語彙のベクトル自体は文脈に依存しないベクトルで、その後の隠れ層を経て文脈を考慮したベクトルへと変わっていきます。この文脈に依存しないベクトルが持つ情報は大きくなく、次元を隠れ層ほど大きくする必要がないため、上記のようにしても問題がないということのようです。
+層間のパラメータの共有 BERTではEncoderを何度も重ねる構造になっています。ALBERTでは各層の重みを共通にすることで、パラメータ数を大きく削減しています。
+NSPからSOPへの変更 BERTではMASKされたトークンを予測することと、与えられた2つの文が連続しているかどうかを予測するタスクであるnext-sentence prediction(NSP)を同時に解けるように学習していきます。
+NSPの学習のため、実際に連続した文を与えるケースとランダムに選ばれた2つの文を与えるケースを用意します。NSPの意図はBERTに文の一貫性の理解を促すためです。しかしながら、ランダムに選ばれた2つの文だと、そもそも文のトピックが異なるために、あまり文脈を理解できなくともNSPが解けてしまいます。NSPは問題が簡単すぎるということです。
+これを修正するため、ALBERTではsentence-order prediction(SOP)を提案しています。
+SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。
+実験結果 実験で使われているALBERTのモデルは以下のとおりです。 ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。
+BERTとの比較 BERTとの比較実験です。 ALBERTではパラメータ数が減るだけではなく、性能も大きく向上しています。少しじゃなく結構良くなっている感じですね。 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。
+他の手法と比較 XLNetやRoBERTaとの比較です。 大体のタスクにおいて、ALBERTの性能が高いことがわかります。
+感想 ALBERTはどれくらいのメモリや訓練時間が必要なのかが気になって読んでみました。 BERTに比べるとパラメータ数と訓練時間が減っていますが、まだまだ自分で学習をさせられるものではないなぁという印象です。</description>
+    </item>
+    <item>
+      <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
+      <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
+      <description>本記事はQrunchからの転載です。
+ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
+参考文献：Learning Important Features Through Propagating Activation Differences
+従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
+saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &amp;lt; 1$では勾配が$1$となり、$x&amp;gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
+discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。
+DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。
+なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。
+DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \cdots, x_n^0$としておきます。
+ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。
+Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。
+入力（あるいはある隠れ層の出力）$x_1,\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \cdots, x_n^0$でも同様に $$y^0 = \sum_{i=1}^N w_i x_i^0 + b$$ となります。</description>
+    </item>
+    <item>
+      <title>FlutterでS3にファイルをアップロードする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
+事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
+{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor0&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: [ &amp;#34;mobileanalytics:PutEvents&amp;#34;, &amp;#34;cognito-sync:*&amp;#34; ], &amp;#34;Resource&amp;#34;: &amp;#34;*&amp;#34; }, { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor1&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: &amp;#34;s3:*Object&amp;#34;, &amp;#34;Resource&amp;#34;: &amp;#34;arn:aws:s3:::(バケット名)*&amp;#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
+Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
+import &amp;#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&amp;#39;; import &amp;#39;package:amazon_s3_cognito/aws_region.dart&amp;#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1) imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。 IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion.AP_NORTHEAST_1はregionを指定しています。2つ目はsub region？の設定らしいですが、なければ同じもので特に問題ありません。 返り値はS3上の保存先のファイルパスになります。失敗したときは&amp;quot;Failed&amp;quot;だったり空のパスが渡ってきます。</description>
+    </item>
+    <item>
+      <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
+      <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
+      <description>本記事はQrunchからの転載です。
+機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。
+参考論文：Axiomatic Attribution for Deep Networks
+先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。
+人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。
+2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。
+Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。
+Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。
+次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。
+Implementation Invariance Implementation Invarianceの定義は以下のとおりです。
+Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。
+具体例を次に示します。
+Implementation Invarianceの例 例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$ とあらわせます。 勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。
+Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</description>
+    </item>
+    <item>
+      <title>CNNで画像中のピクセルの座標情報を考慮できるCoordConv</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</link>
+      <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</guid>
+      <description>本記事はQrunchからの転載です。
+CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。
+このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。
+今回はこのCoordConvの紹介です。
+論文：https://arxiv.org/pdf/1807.03247.pdf Keras実装：https://github.com/titu1994/keras-coordconv
+PyTorch実装：https://github.com/mkocabas/CoordConv-pytorch
+ちなみに、Keras実装は使ったことがありますが、いい感じに仕事してくれました。
+通常のCNNだと解けない問題 解けない問題の紹介 以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。
+Supervised Coordinate Classification は2次元座標xとyを入力として2次元のグレイスケールの画像を出力する問題です。入力の(x,y)の座標に対応するピクセルだけが1、それ以外のところは0になるように出力します。出力されるピクセルの数の分類問題となります。 Supervised Renderingも画像を出力しますが、入力(x,y)を中心とした9×9の四角に含まれるピクセルは1、それ以外は0になるように出力します。 Unsupervised Density LearningはGANによって赤か青の四角と丸が書かれた画像を出力する問題となります。 上記の画像にはないのですが、Supervised Coordinate Classification の入力と出力を逆にした問題も論文では試されています。つまり、1ピクセルだけ1でそれ以外は0であるようなone hot encodingを入力として、1の値をもつピクセルの座標(x,y)を出力するような問題です。 Supervised Coordinate Classificationを通常のCNNで学習させた結果 Supervised Coordinate Classificationを通常のCNNで学習させたときの結果を示します。
+訓練データとテストデータの分け方で2種類の実験をおこなっています。
+1つは取りうる座標全体からランダムに訓練データとテストデータに分けたケースです。もう一つは座標全体のうち、右下の部分をテストデータにし、それ以外を訓練データとするケースです。これをあらわしたのが、それぞれ以下の図のUniform splitとQuadrant splitになります。
+上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。
+1つの点が1つの学習されたモデルでの訓練データとテストデータのaccuracyに対応しています（多分それぞれのモデルはハイパーパラメータが異なるのですが、はっきりと読み取れませんでした）。
+このグラフから、Uniform splitのときには訓練データのaccuracyは1.0になることがあっても、テストデータは高々0.86程度にしかならないことがわかります。また、Quadrant splitのときにはさらにひどい状況で、テストデータはまったく正解しません（ほとんど0ですね）。
+問題設定を見ると、一見簡単な問題のように思えますが、実際には驚くほど解きにくい問題であることがわかります。
+Unsupervised Density Learningを通常のCNNで学習させた結果 次にGANのケースも見てみます。
+学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が一様に色々なところに描かれて欲しいところです。
+しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。 CoordConv 前述の問題はなぜ解きにくいのでしょうか。
+理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。
+座標を考慮できていないから解けないならば、畳み込むときに座標情報を付与すればよいのでは、というのがCoordConvの発想です。
+具体的には以下の右の層がCoordConvになります。 通常のCNNとの違いは、画像の各ピクセルのx軸の座標をあらわしたチャネル（i coordinate）とy軸の座標をあらわしたチャネル（j coordinate）を追加するということだけです。ただし、それぞれのチャネルの値は[-1,1]に正規化されています。
+例えば、5×5の画像の場合では、x軸の座標をあらわしたチャネル（i coordinate）は以下のような行列になります。
+$$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp;amp; -0.5 &amp;amp; 0 &amp;amp; 0.</description>
+    </item>
+    <item>
+      <title>安易に逆行列を数値計算するのはやめよう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</link>
+      <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
+逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
+実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
+連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
+以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
+LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
+LU分解の計算量は乗除算が$(n-1)(n^2+n+3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
+もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
+前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
+$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
+$Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n+1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回 となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
+LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
+この方法の前進後退代入の計算量は乗除算$n(2n^2+1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 + n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
+計算量のまとめ 計算量についてまとめると、以下のようになります。
+方法 乗除算 加減算 掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$ 行列とベクトルの積 $n^2$ $n(n-1)$ LU分解 $(n-1)(n^2+n+3)/3$ $n(n-1)(2n-1)/6$ 前進後退代入 $n^2$ $n(n-1)$ LU分解+前進後退代入による逆行列の計算 $n^3+n-1$ $n(n-1)^2$ LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める+ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。</description>
+    </item>
+    <item>
+      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &amp;#34;MINIO_ACCESS_KEY=access_key_dayo&amp;#34; \ -e &amp;#34;MINIO_SECRET_KEY=secret_key_dayo&amp;#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
+右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。</description>
+    </item>
+    <item>
+      <title>BERTでおこなうポケモンの説明文生成</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
+      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
+      <description>本記事はQrunchからの転載です。
+概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
+参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
+使用した事前学習モデル：BERT日本語Pretrainedモデル
+実装したソースコード：https://github.com/opqrstuvcut/BertMouth
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。
+ネットワークへの入力となる各トークンはサブワードになります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、
+何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
+ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。
+長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
+実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
+生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！
+結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。
+生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。</description>
+    </item>
+  </channel>
+</rss>

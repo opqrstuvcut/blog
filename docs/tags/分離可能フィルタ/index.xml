@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>分離可能フィルタ on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/</link>
+    <description>Recent content in 分離可能フィルタ on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 26 Jul 2020 11:06:00 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+      <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
+分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
+分離可能フィルタの具体例1 Sobelフィルタは分離可能フィルタです。 X方向のSobelフィルタは以下であらわされます。
+これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。 $$ \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	\begin{pmatrix} -1 &amp;amp; 0 &amp;amp; 1 \end{pmatrix}. $$
+分離可能フィルタの具体例2 平滑化フィルタは分離可能フィルタです。 3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。 $$ \begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	\begin{pmatrix} \frac{1}{3} &amp;amp; \frac{1}{3} &amp;amp; \frac{1}{3} \end{pmatrix}. $$
+分離可能フィルタで高速化できる理由 行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。
+次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。
+以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。
+実際にsepFilter2Dを試す sepFilter2Dは以下のようにして利用できます。
+sep_filter_res = cv2.sepFilter2D(img, ddepth=cv2.CV_16S, kernelY=col_kernel, kernelX=row_kernel) kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。
+実際にSobelフィルタを適用することを考えます。
+col_kernel = np.array([1, 2, 1]).T row_kernel = np.array([-1, 0, 1]) sep_filter_res = cv2.</description>
+    </item>
+  </channel>
+</rss>

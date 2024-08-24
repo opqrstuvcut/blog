@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pabdas on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/pabdas/</link>
+    <description>Recent content in Pabdas on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Fri, 14 Feb 2020 12:04:01 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/pabdas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pandasのgroupbyの使い方をまとめる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
+      <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&amp;#34;名字&amp;#34;: [&amp;#34;田中&amp;#34;, &amp;#34;山田&amp;#34;, &amp;#34;上田&amp;#34;, &amp;#34;田中&amp;#34;, &amp;#34;田中&amp;#34;], &amp;#34;年齢&amp;#34;: [10, 20, 30, 40, 50], &amp;#34;出身&amp;#34;: [&amp;#34;北海道&amp;#34;, &amp;#34;東京&amp;#34;, None, &amp;#34;沖縄&amp;#34;, &amp;#34;北海道&amp;#34;]}) 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。
+グループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。
+for name, grouped_df in df.groupby(&amp;#34;名字&amp;#34;): print(f&amp;#34;名字：{name}&amp;#34;) print(grouped_df) 名字：上田
+名字 年齢 出身 2 上田 30 名字：山田
+名字 年齢 出身 1 山田 20 東京 名字：田中</description>
+    </item>
+  </channel>
+</rss>

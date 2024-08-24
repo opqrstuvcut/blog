@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NeoVim on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/neovim/</link>
+    <description>Recent content in NeoVim on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 22 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>おすすめの(Neo)Vimプラグイン</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</link>
+      <pubDate>Thu, 22 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</guid>
+      <description>NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
+vim-asterisk https://github.com/haya14busa/vim-asterisk
+アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
+vim-asteriskを入れるとそういった問題が起きなくなります。
+設定例 { &amp;#34;haya14busa/vim-asterisk&amp;#34;, config = function() vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;*&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-z*)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;#&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-z#)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;g*&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-gz*)&amp;#34;, {}) vim.api.nvim_set_keymap(&amp;#34;&amp;#34;, &amp;#34;g#&amp;#34;, &amp;#34;&amp;lt;Plug&amp;gt;(asterisk-gz#)&amp;#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
+C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
+お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &amp;#34;karb94/neoscroll.nvim&amp;#34;, config = function() require(&amp;#34;neoscroll&amp;#34;).setup({ mappings = { &amp;#34;&amp;lt;C-u&amp;gt;&amp;#34;, &amp;#34;&amp;lt;C-d&amp;gt;&amp;#34;, &amp;#34;zt&amp;#34;, &amp;#34;zz&amp;#34;, &amp;#34;zb&amp;#34; }, }) local t = {} local time = &amp;#34;85&amp;#34; t[&amp;#34;&amp;lt;C-u&amp;gt;&amp;#34;] = { &amp;#34;scroll&amp;#34;, { &amp;#34;-vim.wo.scroll&amp;#34;, &amp;#34;true&amp;#34;, time } } t[&amp;#34;&amp;lt;C-d&amp;gt;&amp;#34;] = { &amp;#34;scroll&amp;#34;, { &amp;#34;vim.</description>
+    </item>
+  </channel>
+</rss>

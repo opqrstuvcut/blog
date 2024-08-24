@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ONNX on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/onnx/</link>
+    <description>Recent content in ONNX on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/onnx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</guid>
+      <description>困ったこと YOLOv5は便利なライブラリですが、ONNXへモデルを変換したときにちょっと困ったことがあります。
+というのも、変換後のONNXモデルにはNMSなどの後処理が含まれていないため、後処理は別途用意する必要があります。
+公式ではPyTorchの関数を使ったNMSになっているため、そのまま後処理のコードをコピーしようとすれば実行環境上にONNX RuntimeとPyTorchの両方を用意しないといけません。でもせっかくONNXを使うなら、環境にPyTorchを入れたくないですよね。
+解決方法 PyTorchを入れたくないけどどうしよう…と困っていたところ、こちらのプルリクを見つけました。
+https://github.com/ultralytics/yolov5/pull/7736
+どうやらNMSの処理がONNXモデルに含まれるような修正をおこなっているようです。
+2022/07/17現在はまだmasterへはマージされていないのですが、fork先のブランチを試してみると、うまくいくことが確認できました。
+実際にONNXモデルへ変換をおこなうときにはexport.pyに&amp;quot;&amp;ndash;nms&amp;quot;オプションをつければOKです。 モデルの出力値の扱いはこちらを参考にすると分かるかと思います。</description>
+    </item>
+  </channel>
+</rss>

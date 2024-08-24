@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>App Runnerを実戦投入してのメモ | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="AWS">
+<meta name="description" content="簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。
+今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。
+HTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。
+自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。
+つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。
+カスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。
+留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。
+留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。
+インスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&hellip;。
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Effect&#34;: &#34;Allow&#34;, &#34;Principal&#34;: { &#34;Service&#34;: &#34;build.apprunner.amazonaws.com&#34; }, &#34;Action&#34;: &#34;sts:AssumeRole&#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。
+留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。
+留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。
+間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="App Runnerを実戦投入してのメモ" />
+<meta property="og:description" content="簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。
+今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。
+HTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。
+自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。
+つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。
+カスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。
+留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。
+留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。
+インスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&hellip;。
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Effect&#34;: &#34;Allow&#34;, &#34;Principal&#34;: { &#34;Service&#34;: &#34;build.apprunner.amazonaws.com&#34; }, &#34;Action&#34;: &#34;sts:AssumeRole&#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。
+留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。
+留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。
+間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-05-25T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png" />
+<meta name="twitter:title" content="App Runnerを実戦投入してのメモ"/>
+<meta name="twitter:description" content="簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。
+今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。
+HTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。
+自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。
+つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。
+カスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。
+留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。
+留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。
+インスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&hellip;。
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。
+{ &#34;Version&#34;: &#34;2012-10-17&#34;, &#34;Statement&#34;: [ { &#34;Effect&#34;: &#34;Allow&#34;, &#34;Principal&#34;: { &#34;Service&#34;: &#34;build.apprunner.amazonaws.com&#34; }, &#34;Action&#34;: &#34;sts:AssumeRole&#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。
+留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。
+留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。
+間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "App Runnerを実戦投入してのメモ",
+      "item": "https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "App Runnerを実戦投入してのメモ",
+  "name": "App Runnerを実戦投入してのメモ",
+  "description": "簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。\n今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。\nHTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。\n簡単にhttps対応のシステムを作る必要がある場合は楽ですね。\n自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。\nつまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。\nこのため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。\nカスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。\n「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。\n留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。\nそんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。\n結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。\n留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。\n72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。\nこのため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。\nインスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。\nこのため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません\u0026hellip;。\nなぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。\n{ \u0026#34;Version\u0026#34;: \u0026#34;2012-10-17\u0026#34;, \u0026#34;Statement\u0026#34;: [ { \u0026#34;Effect\u0026#34;: \u0026#34;Allow\u0026#34;, \u0026#34;Principal\u0026#34;: { \u0026#34;Service\u0026#34;: \u0026#34;build.apprunner.amazonaws.com\u0026#34; }, \u0026#34;Action\u0026#34;: \u0026#34;sts:AssumeRole\u0026#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。\nこれへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。\n留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。\nこのため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。\n留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。\n紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。\n間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。\nただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。",
+  "keywords": [
+    "AWS"
+  ],
+  "articleBody": "簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。\n今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。\nHTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。\n簡単にhttps対応のシステムを作る必要がある場合は楽ですね。\n自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。\nつまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。\nこのため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。\nカスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。\n「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。\n留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。\nそんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。\n結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。\n留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。\n72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。\nこのため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。\nインスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。\nこのため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません…。\nなぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。\n{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"Service\": \"build.apprunner.amazonaws.com\" }, \"Action\": \"sts:AssumeRole\" } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。\nこれへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。\n留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。\nこのため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。\n留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。\n紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。\n間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。\nただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。\n",
+  "wordCount" : "65",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png","datePublished": "2023-05-25T00:00:00Z",
+  "dateModified": "2023-05-25T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      App Runnerを実戦投入してのメモ
+    </h1>
+    <div class="post-meta"><span title='2023-05-25 00:00:00 +0000 UTC'>5月 25, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。</p>
+<p>今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。</p>
+<h2 id="https対応">HTTPS対応<a hidden class="anchor" aria-hidden="true" href="#https対応">#</a></h2>
+<p>Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。<br>
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。</p>
+<h2 id="自動デプロイ">自動デプロイ<a hidden class="anchor" aria-hidden="true" href="#自動デプロイ">#</a></h2>
+<p>App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。</p>
+<p>つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。<br>
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。</p>
+<h2 id="カスタムドメイン">カスタムドメイン<a hidden class="anchor" aria-hidden="true" href="#カスタムドメイン">#</a></h2>
+<p>お名前などで取得したドメインとの紐づけも簡単にできます。<br>
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。</p>
+<h3 id="留意点1">留意点1<a hidden class="anchor" aria-hidden="true" href="#留意点1">#</a></h3>
+<p>注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。<br>
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。<br>
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。</p>
+<h3 id="留意点2">留意点2<a hidden class="anchor" aria-hidden="true" href="#留意点2">#</a></h3>
+<p>世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。<br>
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。<br>
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。</p>
+<h2 id="インスタンスロール">インスタンスロール<a hidden class="anchor" aria-hidden="true" href="#インスタンスロール">#</a></h2>
+<p>App Runnerの設定でインスタンスロールを選ぶことができます。<br>
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&hellip;。<br>
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。</p>
+<pre tabindex="0"><code>{
+    &#34;Version&#34;: &#34;2012-10-17&#34;,
+    &#34;Statement&#34;: [
+        {
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Principal&#34;: {
+                &#34;Service&#34;: &#34;build.apprunner.amazonaws.com&#34;
+            },
+            &#34;Action&#34;: &#34;sts:AssumeRole&#34;
+        }
+    ]
+}
+</code></pre><h2 id="カスタムvpc">カスタムVPC<a hidden class="anchor" aria-hidden="true" href="#カスタムvpc">#</a></h2>
+<p>App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。<br>
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。</p>
+<h3 id="留意点1-1">留意点1<a hidden class="anchor" aria-hidden="true" href="#留意点1-1">#</a></h3>
+<p>カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。<br>
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。</p>
+<h3 id="留意点2-1">留意点2<a hidden class="anchor" aria-hidden="true" href="#留意点2-1">#</a></h3>
+<p>カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。<br>
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。</p>
+<p>間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。<br>
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/aws/">AWS</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

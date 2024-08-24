@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Affine on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/affine/</link>
+    <description>Recent content in Affine on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 29 Jul 2020 11:03:00 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/affine/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>画像へのアフィン変換</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+      <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+      <description>本記事はQrunchからの転載です。
+アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&amp;rsquo;, y&amp;rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
+今回はこのアフィン変換をOpenCVを使っておこないます。
+アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
+transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
+以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp;amp; 0 &amp;amp; c\\ 0 &amp;amp; 1 &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.</description>
+    </item>
+  </channel>
+</rss>

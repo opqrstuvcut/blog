@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenCV on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/categories/opencv/</link>
+    <description>Recent content in OpenCV on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 20 Aug 2020 11:04:00 +0900</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/categories/opencv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>動画データから前景と背景を分離する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</link>
+      <pubDate>Thu, 20 Aug 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+画像から前景と背景を分けるのは以前に取り上げたのですが、動画でもOpenCVで前景と背景をわけることが可能です。ここでいう前景は動いている物体を指します。
+前景と背景を分離する難しさ 動画から前景と背景を分離するアルゴリズムを自分で実装するのは結構大変です。 最も単純なアルゴリズムは背景だけが写っている画像を撮っておいて、運用時には背景画像とリアルタイムに取得された画像との差分を取るというのが考えられます。 ただしこのやり方だと照明環境は一定にしないといけないのですが、問題設定によってはそうできなかったりします。また背景だけの画像を撮るのが難しい場合もあります。
+問題の難しさから、リッチな処理をしたくなるのですが、変に処理をすると計算時間が伸びていく可能性もあります。
+OpenCVでやってみる OpenCVのBackgroundSubtractorMOG2を使うと、簡単に照明の変化にも適応する手法を利用できます。背景画像を撮る必要もありません。 BackgroundSubtractorMOG2では背景と前景を分離するために混合ガウス分布を利用しています。 混合ガウス分布の学習はいつするの？という話ですが、これはリアルタイムに更新されていきます。リアルタイムで更新するので照明変化などにも対応できるわけですね。
+今回のテスト用の動画としてこちらを利用させていただきました。 道路を車がビュンビュン走っています。
+次のようにしてBackgroundSubtractorMOG2を利用できます。
+import cv2 import numpy as np cap = cv2.VideoCapture(&amp;#34;ex.mp4&amp;#34;) fgbg = cv2.createBackgroundSubtractorMOG2(history=60, detectShadows=False) masks = [] kernel = np.ones((5, 5), np.uint8) while True: ret, frame = cap.read() if not ret: break fgmask = fgbg.apply(frame) fgmask = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel) masks.append(fgmask) cap.release() cv2.destroyAllWindows() createBackgroundSubtractorMOG2に渡している引数ですが、history=60とすることで、直近の60フレームだけをモデルに考慮させているようなイメージです（正確にそうなるわけではないはずですが）。 また、detectShadows=Trueの場合には影も検出できるのですが、不要なのでFalseにしています。この機能を切っておいたほうが少し早くなります。
+fgbg.apply(frame)の返り値が前景の検出結果（mask画像）になります。 ちなみに、検出された結果にオープニング処理を入れてノイズを減らしています。今回の動画ではオープニング処理を入れないと次のように結構ノイズが拾われてしまいます。
+検出されたマスクにオープニング処理も入れた結果が次のとおりです（GIFが動かない場合はクリックしてみてください）。
+コード全体 import cv2 import numpy as np cap = cv2.</description>
+    </item>
+    <item>
+      <title>connectedComponentsで連結した領域の取得</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
+      <pubDate>Tue, 18 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVでは二値画像から結合している領域の抽出をおこなうことができます。 こういうのは自分で実装すると大変なので、大変助かりますね。
+connectedComponets 次の二値画像を考えます。 領域として取り出したいのは2つの白い部分です。
+connectedComponetsを使って簡単にこの2つの領域を抽出できます。
+n_labels, labels = cv2.connectedComponents(bi_img) n_labelsはラベル付けされた領域の数です。 labelsには入力画像と同じサイズの行列が入っており、それぞれの座標の値がその位置での領域のラベルをあらわします。
+ラベルごとに色付けしてみると、次のようになります。
+colored_img = np.zeros(bi_img.shape + (3,), dtype=np.uint8) for i in range(1, n_labels): colored_img[labels == i] = [np.random.randint(0, 256), np.random.randint(0, 256), np.random.randint(0, 256)] plt.imshow(colored_img) plt.show() </description>
+    </item>
+    <item>
+      <title>抽出した輪郭の描画</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</link>
+      <pubDate>Mon, 17 Aug 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。
+drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。
+引数 意味 contours findContoursで見つかった輪郭 contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画） color 描画する輪郭の色 thickness 描画する輪郭の太さ lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される hierarchy findContoursで見つかった輪郭の階層構造 maxLevel 描画する最大の階層を指定する maxLevelを1にしたときと、2にしたときの違いを次に示します。
+maxLevel=1 maxLevel=2 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。</description>
+    </item>
+    <item>
+      <title>findContoursで輪郭の検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Sun, 16 Aug 2020 17:56:36 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+画像から物体の輪郭を見つけたくなることが多々あります。 そんなときにもOpenCVを利用することができます。
+findContoursで輪郭抽出 次の画像から輪郭の抽出をおこなうことを考えます。
+最初に次のように二値化しておきます。
+_, bi_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) これに対して次のようにfindContoursを適用します。
+contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) 第二引数は輪郭の取り出し方を指定しており、cv2.RETR_EXTERNALは一番外側の輪郭だけを取り出します。ここに指定できる方法の比較は後でおこないます。 第三引数は輪郭の近似方法をあらわします。例えば、cv2.CHAIN_APPROX_SIMPLEにすると、返ってくる点の数が大きく減ります。cv2.CHAIN_APPROX_TC89_L1にすると返ってくる点の数をうまい具合に減らしてくれますが、他に比べると計算量がかかります。 返り値の1つめが輪郭を格納したリストです。２つめが輪郭の階層構造をあらわしています。 細かく言うと、輪郭の方は、点のリストが1つの輪郭をあらわし、それらのリストが格納されています。 階層構造の方は、輪郭ごとに１つの階層構造をあらわす4つの要素をもつリストが存在します。各要素の0番目は次の輪郭のインデックス、1番目は前の輪郭のインデックス、2番目は子の輪郭のなかで1番目のインデックス、3番目は親の輪郭のインデックスをあらわします。親と子が何かといえば、親はみている輪郭を囲んでいる輪郭のことで、子は中にある輪郭のことです。 見つかった輪郭を次のように描画してみます。
+drawed = cv2.drawContours(np.stack([img, img, img], axis=-1), contours, -1, (255, 0, 0), 10) plt.imshow(drawed) plt.show() 描画の結果は以下のとおりです。
+輪郭の取り出し方を変えてみる 先程は輪郭の取り出し方にcv2.RETR_EXTERNALを指定しました。これは一番外側の輪郭しか取れません。 次にちゃんと階層構造をもった結果を返すようにしてみます。これにはcv2.RETR_TREEを指定します。
+contours, hierarcies = cv2.findContours(bi_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 他にもcv2.RETR_LISTやcv2.RETR_CCOMPなどがありますが、hierarciesの中の階層構造の情報の持ち方が変わってきます。</description>
+    </item>
+    <item>
+      <title>テンプレートマッチングで画像から物体をみつける</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</link>
+      <pubDate>Sat, 15 Aug 2020 11:09:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+カメラを固定しておいて、何らかの被写体を取り続けるということはよくある問題設定です。 ただし、被写体の位置が毎回少しズレるということも多々あります。 そんなときにテンプレートマッチングを使うことができます。
+テンプレートマッチングについて テンプレートマッチングではテンプレート画像と呼ばれるものを事前に用意しておきます。 そして、検出したいものが写っている画像の左上の領域から順にテンプレート画像とどれくらい似ているかを計算していきます。 このようにして、テンプレート画像とよく似た領域を検出するというのがテンプレートマッチングです。
+OpenCVでテンプレートマッチング 次の左の画像をテンプレート画像として、右から同じ物体を検出してみます。
+テンプレートマッチングは次のようにしておこなえます。
+res = cv2.matchTemplate(img, template, cv2.TM_CCORR_NORMED) cv2.TM_CCORR_NORMEDは類似度の計算の方法です。 選択肢は複数あり、手法によって精度と計算時間が変わります。 詳細はこちらをご確認ください。
+返り値には各位置での類似度が格納されています。
+TM_CCORR_NORMEDの場合には大きな値ほど、似ていますので明るい部分がもっともテンプレートとマッチしたことをあらわします。
+この部分の画像を次のように切り抜いてみます。
+_, max_val, _, max_loc = cv2.minMaxLoc(res) height, width = template.shape plt.imshow(img[max_loc[1]: max_loc[1] + height, max_loc[0]: max_loc[0] + width]) plt.show() 結果は以下のとおりです。 バッチリできていることがわかります。</description>
+    </item>
+    <item>
+      <title>minMaxLocで最大と最小の位置を楽に取得</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</link>
+      <pubDate>Tue, 11 Aug 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/</guid>
+      <description>本記事はQrunchからの転載です。
+行列の最大値、最小値はNumPyのmaxやmin、またそれらのインデックスはargmaxやargminを使えば取得できるのですが、OpenCVでは一発ですべて取得できます。
+min_val, max_val, min_idx, max_idx = cv2.minMaxLoc(np.array([[1, 2, 3], [4, 5, 6]])) print(min_val, max_val, min_idx, max_idx) この出力は以下のとおりですが、それぞれ最小値、最大値、最小値の位置、最大値の位置をあらわします。位置は$(x,y)$をあらわしていますので、行列でいえば、（列、行）の順に格納されています。
+(1.0, 6.0, (0, 0), (2, 1)) </description>
+    </item>
+    <item>
+      <title>compHistでヒストグラム比較をいろいろなやり方でおこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Mon, 10 Aug 2020 13:20:47 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。
+compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。
+cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムをあらわすNumPy arrayです。 methodは比較方法をあらわし、以下のようなものがあります。
+方法 概要 cv2.HISTCMP_CORREL ピアソンの相関係数 cv2.HISTCMP_CHISQR カイ二乗検定 cv2.HISTCMP_KL_DIV KLダイバージェンス cv2.HISTCMP_INTERSECT 交差法 cv2.HISTCMP_BHATTACHARYYA バタチャリア距離 それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。
+比較方法の一覧 次のようなヒストグラムを対象にして各比較方法の違いをみてみます。 結果は次のとおりです。
+比較方法 2と2 1と2 2と1 2と3 1と3 HISTCMP_CORREL 1.0 0.22 0.22 -0.22 -0.87 HISTCMP_CHISQR 0.0 10.13 9.11 11.78 18.0 HISTCMP_KL_DIV 0.0 245.6 228.07 234.31 447.40 HISTCMP_INTERSECT 18.0 8.0 8.0 4.0 0.0 HISTCMP_BHATTACHARYYA 0.0 0.73 0.73 0.82 1.0 手法によって、完全一致は大きい値になるのか、小さい値になるのか、また最大値と最小値はあるのかといったところも違うので、注意が必要です。
+なお、利用したコードは以下のとおりです。
+import numpy as np import pandas as pd import matplotlib.</description>
+    </item>
+    <item>
+      <title>OpenCVのヒストグラムの計算はNumPyより断然速い</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</link>
+      <pubDate>Mon, 10 Aug 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/opencv%E3%81%AE%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E8%A8%88%E7%AE%97%E3%81%AFnumpy%E3%82%88%E3%82%8A%E6%96%AD%E7%84%B6%E9%80%9F%E3%81%84/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理や集計、機械学習では何かとヒストグラムを計算するケースがありますね。
+これに伴い、ヒストグラムを計算できるライブラリは色々あるかと思いますが、OpenCVでもヒストグラムを計算する機能をもっています。 NumPyでもヒストグラムの計算できるじゃない、と思いますが、実はOpenCVの方がNumPyのヒストグラムよりも断然速いです。今回はその辺りの比較もおこなっていきます。
+OpenCVのヒストグラム せっかくOpenCVを使うので、以下の画像の画素値のヒストグラムを計算してみます。
+OpenCVでのヒストグラムの計算は以下のようにおこなえます。
+hist = cv2.calcHist(images=[img], channels=[0], mask=None, histSize=[256], ranges=(0, 256)) imagesにはヒストグラムの計算のもととなる画像をリストの形式で渡します。 channelsには画像のチャネルのうち、どれを用いてヒストグラムを計算するかを指定します。いまはグレースケールで1チャネルしかないため、0を指定しています。カラー画像のときにはBGRの3チャネルなので、channelに対応する0~2のどれかを指定します。 maskには画像と同じサイズの1チャネルのマスクを与えることで、ヒストグラムを計算する領域を制限できます。 histSizeにはヒストグラムのbinの数を与えます。 rangesにはヒストグラムの下限と上限を指定します。厳密には(0,256)を与えるということは$[0, 256)$のような区間をあらわすことに注意してください。 結果を以下のように描画してみます。
+plt.bar(range(len(hist)), hist.ravel()) plt.ylabel(&amp;#34;freq&amp;#34;) plt.xlabel(&amp;#34;val&amp;#34;) plt.show() NumPyとの比較 cv2.calcHistによって得たヒストグラムと全く同じヒストグラムをNumPyを用いて得ることができます。 具体的には次のようにします。
+numpy_hist, bin_edges = np.histogram(img.ravel(), bins=256, range=(0, 255)) さて、速度はどれくらい違うかという話になりますが、%%timeitによって測定した結果が以下のとおりです。
+方法 timeitの結果 cv2.calcHist 2.95 ms ± 186 µs per loop np.histogram 109 ms ± 7.22 ms per loop 36倍程度OpenCVのほうが速いことがわかります。 全然違うのでびっくりしますね。</description>
+    </item>
+    <item>
+      <title>Grabcutsで背景と猫を分離したい</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</link>
+      <pubDate>Sun, 09 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/grabcuts%E3%81%A7%E8%83%8C%E6%99%AF%E3%81%A8%E7%8C%AB%E3%82%92%E5%88%86%E9%9B%A2%E3%81%97%E3%81%9F%E3%81%84/</guid>
+      <description>本記事はQrunchからの転載です。
+次のような画像があったとします。
+ここから猫だけ抽出したいときに、ツールを使えば少し手間はかかりますが、切り取れると思います。
+実はOpenCVのGrabcutsを使えば非常に簡単にそれが実現できます。 （ディープラーニング使えばできるよね？はおいておいて）
+Grabcutsを使ってみる 矩形を指定 最初に猫を囲うような矩形を指定する方法を試していきます。 OpenCVのGrabcutsは以下のように利用できます。
+bgd_model = np.zeros((1, 65), np.float64) fgd_model = np.zeros((1, 65), np.float64) rect = (0, 30, 300, 120) mask = np.zeros(img.shape[:2], np.uint8) cv2.grabCut(img, mask, rect, bgd_model, fgd_model, 10, cv2.GC_INIT_WITH_RECT) 各引数の意味は以下のとおりです。
+maskの詳細は一旦おいておきます。 rectは猫を囲う矩形をあらわし、$(x,y,w,h)$の形式のタプルです。 bgd_modelとfgd_modelは内部で利用する変数なのですが、わざわざ外から与える必要があります。 なぜかといえば、grabCut関数を適用したあとに、同じ画像に再度grabCutを適用したいケースがあるのですが、そういったときに同じbgd_modelとfgd_modelを使い回す必要があるためです。 そのため、外から変数を与えられるようになっています。 6つめの引数の10とあるのは、アルゴリズムの反復回数です。 最後のcv2.GC_INIT_WITH_RECTは指定した矩形をもとに前景である猫を抽出してくださいと指定しているflagです。 分割された領域の情報はmaskに格納されます。 maskに格納される値は以下のような意味になります。
+0は確実に背景 1は確実に前景 2は多分背景 3は多分前景 以下のようにして抽出された前景を抽出します。
+def plot_cut_image(img, mask): cut_img = img * np.where((mask==1) | (mask==3), 1, 0).astype(np.uint8)[:, :, np.newaxis] plt.imshow(cut_img[:, :, ::-1]) plt.show() 上手く猫だけを抽出できていますね。</description>
+    </item>
+    <item>
+      <title>Watershedで領域検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Sat, 08 Aug 2020 11:10:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。
+実際にOpenCVでやってみましょう。
+OpenCVでWatershed 次の画像にWaterShedを適用してみます。
+いま、4つの物体が写っていますので、これを4つの領域と背景に分けることを考えます。 マーカーは以下のように指定します。
+marker = np.zeros((504, 378), np.int32) marker[90:130, 100:130] = 1 marker[230:270, 125:180] = 2 marker[120:150, 250:280] = 3 marker[280:310, 290:320] = 4 markerに代入した1~4の値がそれぞれの物体上にくるようにしています。 マーカーの位置と画像を重ねると次のようになります。
+OpenCVのWatershedは次のようにして実行できます。
+res = cv2.watershed(img, marker) 返り値には領域を分割した結果をあらわす行列が格納されています。 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。 描画してみると以下のようになります。
+3つはちゃんと領域が分割できています。 白いボトルは上手くいきませんでした。エッジがあまり取れていないのかもしれないです。</description>
+    </item>
+    <item>
+      <title>画像の距離変換をおこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Fri, 07 Aug 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
+早速OpenCVで試してみます。
+OpenCVで距離変換 次のようにして距離変換をおこなえます。
+dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
+結果は以下のとおりです。
+入力画像 距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。</description>
+    </item>
+    <item>
+      <title>floodFillで領域に色を塗る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</link>
+      <pubDate>Thu, 06 Aug 2020 11:08:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfloodFillを使うことで、選んだ点の周辺の似たような色のピクセルを塗りつぶすことができます。
+使い方 次のようにしてfloodFillを利用できます。
+mask = np.zeros((img.shape[0] + 2, img.shape[1] + 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x+1, y+1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
+結果は以下のとおりです。
+入力画像 floodFillの結果 </description>
+    </item>
+    <item>
+      <title>Hough変換で円を検出</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</link>
+      <pubDate>Wed, 05 Aug 2020 11:05:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/</guid>
+      <description>本記事はQrunchからの転載です。
+Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
+OpenCVで円の検出 次の画像から円を検出してみます。
+円の検出は以下のようにおこないます。
+hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
+methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
+dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
+minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
+param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
+結果は以下のとおりです。
+大まかには円が検出できていることがわかります。</description>
+    </item>
+    <item>
+      <title>Non-Local Means Denoisingでノイズ除去</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</link>
+      <pubDate>Sat, 01 Aug 2020 10:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/</guid>
+      <description>本記事はQrunchからの転載です。
+Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
+似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f + 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p+j) - I_c(q+j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f + 1) \times (2f + 1)$となっています。$I_c(p+j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
+平均値の取り方 先程定義した距離を使って以下のような重みを計算します。 $$ w(p,q) = e^{-\max(d^2 - 2\sigma^2, 0) / h^2}. $$ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行するときには特にこれを指定しないので、上手く処理されている？）。$h$は与えるパラメーターで、大きいほど$w$の値に差がつきづらくなります。 距離$d^2$が小さいと$w$が1に近い値を取り、$d^2$が大きいほど$w$は小さい値になります。 この$w$を重みとしたピクセル値の重み付き平均を取ることがNon-Local Means Denoisingでの処理になります。
+この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
+なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
+OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
+次の左の画像にノイズをのせて右の画像を生成しました。
+これに対して次のようにして、Non-Local Means Denoisingを適用します。
+denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。</description>
+    </item>
+    <item>
+      <title>inpaintで画像の修復をする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 31 Jul 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。 今回はOpenCVで修復をおこなってみます。
+OpenCVでやってみる 次の画像にノイズをのせていきます。
+次のようなコードで画像にノイズをのせていきます。
+cv2.rectangle(img, (100,100),(300,105),(255,255,255), -1) cv2.rectangle(img, (400, 450),(600,460),(255,255,255), -1) cv2.rectangle(img, (0, 750),(800, 760),(255,255,255), -1) plt.imshow(img[:, :, ::-1]) plt.show() mask = np.zeros(img.shape[:2], dtype=np.uint8) cv2.rectangle(mask, (100,100),(300, 105),(255), -1) cv2.rectangle(mask, (400, 450),(600,460),(255), -1) cv2.rectangle(mask, (0, 750),(800, 760),(255), -1) plt.imshow(mask) plt.gray() plt.show() ノイズがのった画像 ノイズ部分のmask画像 OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。 次のように利用します。
+inpainted = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS) 第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。
+Navier Stokes法 Alexandru Telea法 どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。
+ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
+ちょっと復元した箇所が滲んだような感じになってしまってます。大きくしすぎには注意ですね。</description>
+    </item>
+    <item>
+      <title>透過変換で斜めから撮った画像を上から見下ろす</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</link>
+      <pubDate>Thu, 30 Jul 2020 11:04:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/</guid>
+      <description>本記事はQrunchからの転載です。
+透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。
+OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。
+やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。
+まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。
+src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。
+この行列を使い、次のように変換をおこないます。
+transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。</description>
+    </item>
+    <item>
+      <title>画像へのアフィン変換</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</link>
+      <pubDate>Wed, 29 Jul 2020 11:03:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/</guid>
+      <description>本記事はQrunchからの転載です。
+アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&amp;rsquo;, y&amp;rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp;amp; b &amp;amp; c\\ e &amp;amp; f &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
+今回はこのアフィン変換をOpenCVを使っておこないます。
+アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
+transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
+以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x&amp;rsquo; \\ y&amp;rsquo; \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp;amp; 0 &amp;amp; c\\ 0 &amp;amp; 1 &amp;amp; g \\ 0 &amp;amp; 0 &amp;amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}.</description>
+    </item>
+    <item>
+      <title>動画の書き込み</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</link>
+      <pubDate>Tue, 28 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。
+fourcc = cv2.VideoWriter_fourcc(&amp;#34;m&amp;#34;, &amp;#34;p&amp;#34;, &amp;#34;4&amp;#34;, &amp;#34;v&amp;#34;) writer = cv2.VideoWriter(&amp;#34;test.mp4&amp;#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&amp;quot;m&amp;quot;, &amp;ldquo;p&amp;rdquo;, &amp;ldquo;4&amp;rdquo;, &amp;ldquo;v&amp;quot;を指定します。他にもmpgで保存するときには&amp;quot;D&amp;rdquo;, &amp;ldquo;I&amp;rdquo;, &amp;ldquo;V&amp;rdquo;, &amp;ldquo;X&amp;quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。
+実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。
+writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする </description>
+    </item>
+    <item>
+      <title>動画の読みこみ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</link>
+      <pubDate>Mon, 27 Jul 2020 22:53:54 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/</guid>
+      <description>本記事はQrunchからの転載です。
+今日はOpenCVでの動画の読み書きを扱います。
+動画の読み込み 動画の読み込みは簡単です。
+最初に次のように保存されている動画を開きます。
+import cv2 v = cv2.VideoCapture(&amp;#34;./ex.mp4&amp;#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。
+v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。
+ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。
+while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。
+print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html</description>
+    </item>
+    <item>
+      <title>sepFilter2Dで分離可能フィルタを使って高速化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+      <pubDate>Sun, 26 Jul 2020 11:06:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
+分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
+分離可能フィルタの具体例1 Sobelフィルタは分離可能フィルタです。 X方向のSobelフィルタは以下であらわされます。
+これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。 $$ \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	\begin{pmatrix} -1 &amp;amp; 0 &amp;amp; 1 \end{pmatrix}. $$
+分離可能フィルタの具体例2 平滑化フィルタは分離可能フィルタです。 3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。 $$ \begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	\begin{pmatrix} \frac{1}{3} &amp;amp; \frac{1}{3} &amp;amp; \frac{1}{3} \end{pmatrix}. $$
+分離可能フィルタで高速化できる理由 行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。
+次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。
+以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。
+実際にsepFilter2Dを試す sepFilter2Dは以下のようにして利用できます。
+sep_filter_res = cv2.sepFilter2D(img, ddepth=cv2.CV_16S, kernelY=col_kernel, kernelX=row_kernel) kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。
+実際にSobelフィルタを適用することを考えます。
+col_kernel = np.array([1, 2, 1]).T row_kernel = np.array([-1, 0, 1]) sep_filter_res = cv2.</description>
+    </item>
+    <item>
+      <title>filter2Dで任意のカーネルを扱う</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
+      <pubDate>Sat, 25 Jul 2020 12:12:06 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
+filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
+res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
+filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
+ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
+blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 </description>
+    </item>
+    <item>
+      <title>膨張と収縮の組み合わせによるopeningとclosing</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</link>
+      <pubDate>Tue, 21 Jul 2020 22:31:32 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/</guid>
+      <description>本記事はQrunchからの転載です。
+画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
+opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
+ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
+opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
+np.random.seed(0) A = (np.random.rand(15, 15) &amp;gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
+kernel = np.ones([2, 2], np.uint8) dilation = cv2.</description>
+    </item>
+    <item>
+      <title>erodeで猫を収縮させる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <pubDate>Mon, 20 Jul 2020 23:14:16 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
+具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
+erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
+次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
+次の局所領域では最小値は2です。
+局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
+OpenCVでerode OpenCVでのerodeは次のようにおこないます。
+kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
+先程の例に適用 先程の例の画像でerodeを試してみましょう。
+A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
+kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
+array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
+kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.</description>
+    </item>
+    <item>
+      <title>dilateで猫を膨張させる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</link>
+      <pubDate>Sun, 19 Jul 2020 20:40:11 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
+dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。
+dilateは次のようにして利用します。
+kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
+実際に試した結果が以下のとおりです。
+元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。</description>
+    </item>
+    <item>
+      <title>Laplacianで画像の2階微分</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
+      <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
+      <description>本記事はQrunchからの転載です。
+今回はLaplacianを扱います。
+そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}. $$
+これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。
+Laplacianのフィルタ Laplacianのフィルタの最も基本的なものは以下で定義されます。
+これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
+$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。
+$$ \frac{\partial f}{\partial x} \approx f(x + 1, y) - f(x,y ).$$ これを利用すると、2階の偏微分は
+$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(x+1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;amp;=&amp;amp; f(x+1, y) - 2f(x, y) + f(x-1,y ).\end{aligned}$$ 同様に $$ \begin{aligned} \frac{\partial^2 f}{\partial y^2} &amp;amp;\approx&amp;amp; f(x,y+1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;amp;=&amp;amp; f(x, y+1) - 2f(x, y) + f(x,y-1 ).</description>
+    </item>
+    <item>
+      <title>Sobelフィルタで微分</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
+      <pubDate>Thu, 16 Jul 2020 14:06:05 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
+      <description>本記事はQrunchからの転載です。
+よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。
+Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。
+x方向の微分用のSobelフィルタ
+y方向の微分用のSobelフィルタ
+これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。
+これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。
+次に平滑化ですが、これは以下のフィルタです。
+ガウス平滑化に似たように中心の重みが大きい平滑化になります。
+ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。
+以上がSobelフィルタが何をしているかの話になります。
+Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。
+soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。
+次の画像にSobelフィルタを適用してみます。
+x方向のSobelフィルタの適用
+soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。
+y方向のSobelフィルタの適用
+sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。
+なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。</description>
+    </item>
+    <item>
+      <title>imencodeとimdecodeによるメモリ上での画像圧縮</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</link>
+      <pubDate>Thu, 16 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/imencode%E3%81%A8imdecode%E3%81%AB%E3%82%88%E3%82%8B%E3%83%A1%E3%83%A2%E3%83%AA%E4%B8%8A%E3%81%A7%E3%81%AE%E7%94%BB%E5%83%8F%E5%9C%A7%E7%B8%AE/</guid>
+      <description>本記事はQrunchからの転載です。
+画像をpngなどからjpgに変換したいときに、ぱっと思いつくのはファイルを読み込んで、それをjpgの拡張子で書き込みした後に再度読み込みなおすことです。 1度動かすならばそれでも良いのですが、何度も繰り返しおこなう場合にはファイルの読み書きの時間が気になります。
+OpenCVではファイルへの読み書きをおこなうことなく、メモリ上でファイル形式を変更できる（jpgへの圧縮などができる）ような方法が提供されています。
+流れとしては、imencodeでメモリ上にファイル形式を変更したバイト列を作成し、それをimdecodeで画像に変換するという流れになります。imencodeがファイルへの書き込み、imdecodeがファイルの読み込みに対応する感じになります。
+imencode 画像を他のファイルを形式に変更するimencodeは次のようにして利用します。
+ret, encoded = cv2.imencode(&amp;#34;.jpg&amp;#34;, img, (cv2.IMWRITE_JPEG_QUALITY, 10)) 1つめの引数がどの拡張子に変換するかをあらわす文字列で、ここではjpgを指定しています。
+3つめの引数に指定した拡張子に変換するときのパラメータを指定します。 例えばjpgの場合には画像の質を指定できますので、それをタプルの形式で与えており、ここではjpgの質を10で圧縮するようにしています。
+imencodeによって生成されたjpgになった画像の情報はencodedに格納されています。
+imdecode メモリ上の画像データを読み込むimdecodeは以下のようにします。
+decoded = cv2.imdecode(encoded, flags=cv2.IMREAD_COLOR) 第一引数はimencodeの出力です。 flagsは何かしら指定しないといけないのですが、これはどう読み込むかをあらわすフラグです。 BGRの3channelで読み込む場合にはcv2.IMREAD_COLORを指定し、Gray scaleの1channelで読み込む場合にはcv2.IMREAD_GRAYSCALEを指定します。
+適用結果 jpgのqualityを10にしてimencodeした後にimdecodeした結果を元の画像と比較してみます。
+元画像 imdecode後の画像 右側の画像はノイズがのっていることが分かるでしょうか？ちゃんとjpgの形式で圧縮されたようです。</description>
+    </item>
+    <item>
+      <title>サンプルコードでなにかとあらわれるガウス平滑化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</link>
+      <pubDate>Tue, 14 Jul 2020 18:30:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%AB%E3%81%8B%E3%81%A8%E3%81%82%E3%82%89%E3%82%8F%E3%82%8C%E3%82%8B%E3%82%AC%E3%82%A6%E3%82%B9%E5%B9%B3%E6%BB%91%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+今日はなにかとサンプルコードで使われるガウス平滑化です。
+ガウス平滑化とは 前々回取り上げた単純平滑化は局所領域の平均をとることで、平滑化をおこないました。これは局所領域内の各ピクセルの重み付けがすべて等しいともいえます。 ガウス平滑化では二次元のガウス分布を離散化した値を重みとして利用するような平滑化になります。 $$g(x,y) = \frac{1}{2\pi\sqrt{\sigma^2}}\exp\left(-\frac{x^2 + y^2}{\sigma^2}\right).$$
+単純平滑化との違いは？ 具体的なカーネルの比較の例は以下のとおりです。
+単純平滑化 ガウス平滑化 ガウス平滑化の場合には中心の重みが大きく、そこから遠ざかるほど、重みが小さくなっていきます。
+画像に与える影響の違いとしては、単純平滑化よりも中心の重みが大きいことで、平滑化後のボケが少ないことが挙げられます。
+単純平滑化とガウス平滑化の違いを実験 OpenCVでガウス平滑化を使う場合は以下のようにすればOKです。
+blur = cv2.GaussianBlur(img, ksize=(9, 9), sigmaX=2, sigmaY=2) ksizeはカーネルの大きさ（局所領域のサイズ）、sigmaXはガウス分布のx方向の分散、sigmaYはy方向の分散になります。分散は0を入れると、デフォルト値を計算し、それを利用してくれます。
+次のようなノイズを乗せた画像を用意しました。
+それぞれの平滑化の適用結果が以下のとおりです。すべてカーネルサイズは9×9です。
+単純平滑化 メディアンフィルタ ガウス平滑化 単純平滑化とガウス平滑化を比べると、ガウス平滑化のほうが若干ノイズが多めの気がしますが、ボケが少ないです。 メディアンフィルタはノイズは取れますが、もとの情報が結構落ちてますね。</description>
+    </item>
+    <item>
+      <title>外れ値に強いMedianBlur</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</link>
+      <pubDate>Mon, 13 Jul 2020 11:00:00 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/</guid>
+      <description>本記事はQrunchからの転載です。
+単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。
+medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。
+以下がmedianBlurを実際に実行したコードになります。
+import cv2 import matplotlib.pyplot as plt image = cv2.imread(&amp;#39;noro-min.jpeg&amp;#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。
+ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。</description>
+    </item>
+    <item>
+      <title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
+      <pubDate>Sat, 11 Jul 2020 09:22:28 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/</guid>
+      <description>本記事はQrunchからの転載です。
+画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。
+入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。
+AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。
+局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。
+ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。
+こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。
+この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！
+adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。
+引数 意味 1 入力画像 2 ここで説明した方法を使うことをあらわす値 3 threshold typeでこれは前々回説明したものと同じ 4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している 5 しきい値を決めるときに平均値から引かれる定数 局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。
+OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() こちらも上手くいっています。
+おわりに 問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。</description>
+    </item>
+    <item>
+      <title>大津の二値化で楽をする</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 10 Jul 2020 13:08:19 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+大津の2値化とは？ シンプルな二値化では、何かしらのしきい値を決めてあげる必要がありました。
+人間がグレースケール値のヒストグラムを見てしきい値を決めたり、試行錯誤するというのも良いですが、場合によってはしきい値を自動で決定したくなります。
+そのような方法として有名なのが大津の2値化です。 大津の2値化を使うことで、ある意味での最適なしきい値を決定してくれます。
+大津の2値化の中身は？ 大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。
+つまり、画像の白い部分と黒い部分の区別がある程度はっきりとつくようなケースを指しています。 白いところ、黒いところ、それらの間くらいの色の3種類が多数を占めているような、ヒストグラム上で山が3つできるような状況は想定されていません（アプリケーションによっては、それでも上手くいくかもしれませんが）。
+さて、ヒストグラムが2つの山をもつようなグレースケールの画像が与えられたとして、大津の2値化はどのようにしきい値を決めているのでしょうか？
+大津の2値化では、しきい値以下のグレースケール値としきい値より大きい値のグレースケール値の2つのグループにわけ、それぞれの分散をそれぞれ計算した後、それらの重み付きの和を考えます。しきい値はこの分散の重み付き和が最小になるように決められます。
+式であらわせば、グレースケール値のしきい値$t$、しきい値$t$以下のグループの分散$\sigma-2_1(t)$、しきい値より大きいグループの分散$\sigma^2_2(t)$、しきい値以下の値の個数$q_1(t)$、しきい値より大きい値の個数$q_2(t)$を用いて以下のようになります。
+$$ \sigma^2(t)=p_1(t) \sigma^2_1(t) + p_2(t) \sigma^2_2(t).$$
+大津の2値化では$\sigma^2(t)$を最小化するようなしきい値$t$を見つけます。
+直感的には分散が最小になるようなしきい値を見つけるのは良い方法のように思えます。 なぜかといえば、谷の部分からしきい値を動かしていき、どちらかの山の一部が他方のグループに取り込まれると、取り込まれた分が与える分散の増加分が非常に大きいと予想できるからです。
+大津の2値化の適用結果 大津の2値化を実際に適用してみます。 次のようなグレースケールの画像が与えられたとします。
+この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。
+大津の2値化を適用する際にはThreshoold typeのところにcv2.THRESH_OTSUを追加します。
+ret, bin_img = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) 上記のようなコードを実行すると、大津の2値化によって2値化された画像が得られます。
+img = cv2.imread(&amp;#34;ex_img.jpg&amp;#34;) gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) ret, bin_img = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) plt.imshow(bin_img) plt.gray() plt.show() しきい値が自動で適切に設定され、キレイに二値化できてますね。
+ガウシアンフィルタとの組み合わせ ここでは詳しくは述べませんが、ノイズが多い画像では、ガウシアンフィルタで平滑化することでノイズが軽減され、ヒストグラムの山がよりシャープになりえます。
+そうすると、大津の2値化後の結果がより人間の感覚にあったものとなったりします。</description>
+    </item>
+  </channel>
+</rss>

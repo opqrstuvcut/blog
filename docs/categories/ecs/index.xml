@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ECS on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/categories/ecs/</link>
+    <description>Recent content in ECS on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 13 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/categories/ecs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker composeでAWS ECSにデプロイするときのtips</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
+      <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
+      <description>docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
+AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
+service: api: x-aws-policies: - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
+secrets: sample_secret: name: &amp;#34;シークレットのARN&amp;#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
+service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
+GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
+https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
+GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
+LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;) - { ClusterName: SampleCluster } KeyName: .</description>
+    </item>
+  </channel>
+</rss>

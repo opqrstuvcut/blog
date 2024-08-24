@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>MinIOでローカルにS3みたいなものを作って開発する | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="MinIO, Python, boto3, AWS, S3, Docker">
+<meta name="description" content="本記事はQrunchからの転載です。
+AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \ -e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
+右下の&#43;マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="MinIOでローカルにS3みたいなものを作って開発する" />
+<meta property="og:description" content="本記事はQrunchからの転載です。
+AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \ -e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
+右下の&#43;マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/feature.png" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-11-09T12:48:01+09:00" />
+<meta property="article:modified_time" content="2019-11-09T12:48:01+09:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/feature.png" />
+<meta name="twitter:title" content="MinIOでローカルにS3みたいなものを作って開発する"/>
+<meta name="twitter:description" content="本記事はQrunchからの転載です。
+AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \ -e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
+右下の&#43;マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "MinIOでローカルにS3みたいなものを作って開発する",
+      "item": "https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MinIOでローカルにS3みたいなものを作って開発する",
+  "name": "MinIOでローカルにS3みたいなものを作って開発する",
+  "description": "本記事はQrunchからの転載です。\nAWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。\nMinIOのページはこちら。https://min.io\n導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/\nDockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \\ --name minio_test \\ -e \u0026#34;MINIO_ACCESS_KEY=access_key_dayo\u0026#34; \\ -e \u0026#34;MINIO_SECRET_KEY=secret_key_dayo\u0026#34; \\ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。\n上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。\n（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。\n実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単\nhttp://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。\nEndpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。\nAccess KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。\nログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。\n右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。",
+  "keywords": [
+    "MinIO", "Python", "boto3", "AWS", "S3", "Docker"
+  ],
+  "articleBody": "本記事はQrunchからの転載です。\nAWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。\nMinIOのページはこちら。https://min.io\n導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/\nDockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \\ --name minio_test \\ -e \"MINIO_ACCESS_KEY=access_key_dayo\" \\ -e \"MINIO_SECRET_KEY=secret_key_dayo\" \\ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。\n上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。\n（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。\n実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単\nhttp://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。\nEndpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。\nAccess KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。\nログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。\n右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。\nファイルを配置 画面の上のほうにファイルをドラッグするとこのバケット内にファイルが置けます。 boto3で利用 boto3を使ってS3の操作をおこないます。Python3を例にあげます。\nS3と接続するためのオブジェクト生成 以下のclientの引数のaws_access_key_idとaws_secret_access_keyには、docker runしたときに設定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYをそれぞれ指定しましょう。\nimport boto3 s3_client = boto3.client(\"s3\", endpoint_url=\"http://127.0.0.1:9000\", aws_access_key_id=\"access_key_dayo\", aws_secret_access_key=\"secret_key_dayo\") ファイル検索 ファイルの検索を試します。以下のように、作ったBucketを指定してやります。\ncontents = s3_client.list_objects(Bucket=\"test\", Prefix=\"\").get(\"Contents\") print(contents) 上記を実行すると、次のように表示されました。配置したファイルがちゃんと見つけられますね！\n[{'Key': 'テキストたよ.txt', 'LastModified': datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), 'ETag': '\"59681d790d132065f97faf0f52e9aa41-1\"', 'Size': 27, 'StorageClass': 'STANDARD', 'Owner': {'DisplayName': '', 'ID': '02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4'}}] ファイル取得 ファイルの取得も試しましょう。以下を実行します。\ntext = s3_client.get_object(Bucket=\"test\", Key=\"テキストたよ.txt\")[\"Body\"].read().decode('utf-8') print(text) 結果：\nテキストの中身だよ 正しくテキストを取得できています！\nまとめ MinIOはとても簡単に使えて、便利だと思いました。よくできていて感動しますね。 手元の環境にS3が欲しいなぁって思った方は使いましょう！\n",
+  "wordCount" : "130",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/feature.png","datePublished": "2019-11-09T12:48:01+09:00",
+  "dateModified": "2019-11-09T12:48:01+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      MinIOでローカルにS3みたいなものを作って開発する
+    </h1>
+    <div class="post-meta"><span title='2019-11-09 12:48:01 +0900 JST'>11月 9, 2019</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目次</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%b0%8e%e5%85%a5" aria-label="導入">導入</a></li>
+                <li>
+                    <a href="#%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%8b" aria-label="使ってみる">使ってみる</a><ul>
+                        
+                <li>
+                    <a href="#%e3%83%96%e3%83%a9%e3%82%a6%e3%82%b6%e3%81%a7%e5%88%a9%e7%94%a8" aria-label="ブラウザで利用">ブラウザで利用</a><ul>
+                        
+                <li>
+                    <a href="#%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9" aria-label="アクセス">アクセス</a></li>
+                <li>
+                    <a href="#%e3%83%90%e3%82%b1%e3%83%83%e3%83%88%e7%94%9f%e6%88%90" aria-label="バケット生成">バケット生成</a></li>
+                <li>
+                    <a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e9%85%8d%e7%bd%ae" aria-label="ファイルを配置">ファイルを配置</a></li></ul>
+                </li>
+                <li>
+                    <a href="#boto3%e3%81%a7%e5%88%a9%e7%94%a8" aria-label="boto3で利用">boto3で利用</a><ul>
+                        
+                <li>
+                    <a href="#s3%e3%81%a8%e6%8e%a5%e7%b6%9a%e3%81%99%e3%82%8b%e3%81%9f%e3%82%81%e3%81%ae%e3%82%aa%e3%83%96%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%94%9f%e6%88%90" aria-label="S3と接続するためのオブジェクト生成">S3と接続するためのオブジェクト生成</a></li>
+                <li>
+                    <a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e6%a4%9c%e7%b4%a2" aria-label="ファイル検索">ファイル検索</a></li>
+                <li>
+                    <a href="#%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e5%8f%96%e5%be%97" aria-label="ファイル取得">ファイル取得</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e3%81%be%e3%81%a8%e3%82%81" aria-label="まとめ">まとめ</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名も<strong>MinIO</strong>。
+今回はMinIOの使い方を簡単にご紹介します。とても簡単です。</p>
+<p>MinIOのページはこちら。<a href="https://min.io">https://min.io</a></p>
+<h1 id="導入">導入<a hidden class="anchor" aria-hidden="true" href="#導入">#</a></h1>
+<p>自分はDockerを利用しましたので、Docker経由での使い方になります。
+Dockerは嫌だという場合には公式のページをご確認下さい。<a href="https://docs.min.io/">https://docs.min.io/</a></p>
+<ol>
+<li>Dockerをインストール。
+Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。<a href="http://docs.docker.jp/engine/installation/docker-ce.html#">http://docs.docker.jp/engine/installation/docker-ce.html#</a></li>
+<li>ターミナル等で次を実行して、MinIOのサーバを立ち上げる。</li>
+</ol>
+<pre tabindex="0"><code>docker run -p 9000:9000 \
+--name minio_test \
+-e &#34;MINIO_ACCESS_KEY=access_key_dayo&#34; \
+-e &#34;MINIO_SECRET_KEY=secret_key_dayo&#34; \
+minio/minio server /data
+</code></pre><p>MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。<br>
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。<br>
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。</p>
+<p>実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単<br>
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。</p>
+<pre tabindex="0"><code>Endpoint:  http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Browser Access:
+   http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Object API (Amazon S3 compatible):
+   Go:         https://docs.min.io/docs/golang-client-quickstart-guide
+   Java:       https://docs.min.io/docs/java-client-quickstart-guide
+   Python:     https://docs.min.io/docs/python-client-quickstart-guide
+   JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide
+   .NET:       https://docs.min.io/docs/dotnet-client-quickstart-guide
+</code></pre><h1 id="使ってみる">使ってみる<a hidden class="anchor" aria-hidden="true" href="#使ってみる">#</a></h1>
+<h2 id="ブラウザで利用">ブラウザで利用<a hidden class="anchor" aria-hidden="true" href="#ブラウザで利用">#</a></h2>
+<h3 id="アクセス">アクセス<a hidden class="anchor" aria-hidden="true" href="#アクセス">#</a></h3>
+<p>ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。<br>
+Access KeyとSecret Keyはdocker runコマンドのときに指定した<strong>MINIO_ACCESS_KEY</strong>と<strong>MINIO_SECRET_KEY</strong>の値を入れましょう。これでログインできます。<br>
+<img loading="lazy" src="2d89cc4c8b3b3d34194b32b843ff40bf.png" alt=""  />
+</p>
+<p>ログインすると以下のような画面になります。
+<img loading="lazy" src="3417aa166eed538583c50395327d69e3.png" alt=""  />
+</p>
+<h3 id="バケット生成">バケット生成<a hidden class="anchor" aria-hidden="true" href="#バケット生成">#</a></h3>
+<p>ここでAWSのS3のバケット相当のものが作れます。<br>
+右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。
+<img loading="lazy" src="6ef57990b7aa37c68828ed21e0d68815.png" alt=""  />
+
+左側に生成したバケットが表示されていますね。</p>
+<h3 id="ファイルを配置">ファイルを配置<a hidden class="anchor" aria-hidden="true" href="#ファイルを配置">#</a></h3>
+<p>画面の上のほうにファイルをドラッグするとこのバケット内にファイルが置けます。
+<img loading="lazy" src="e813fb861ef723fe31beeb162fe1d8cf.png" alt=""  />
+</p>
+<h2 id="boto3で利用">boto3で利用<a hidden class="anchor" aria-hidden="true" href="#boto3で利用">#</a></h2>
+<p>boto3を使ってS3の操作をおこないます。Python3を例にあげます。</p>
+<h3 id="s3と接続するためのオブジェクト生成">S3と接続するためのオブジェクト生成<a hidden class="anchor" aria-hidden="true" href="#s3と接続するためのオブジェクト生成">#</a></h3>
+<p>以下のclientの引数のaws_access_key_idとaws_secret_access_keyには、docker runしたときに設定した<strong>MINIO_ACCESS_KEY</strong>と<strong>MINIO_SECRET_KEY</strong>をそれぞれ指定しましょう。</p>
+<pre tabindex="0"><code>import boto3
+s3_client = boto3.client(&#34;s3&#34;, endpoint_url=&#34;http://127.0.0.1:9000&#34;,
+                         aws_access_key_id=&#34;access_key_dayo&#34;,
+                         aws_secret_access_key=&#34;secret_key_dayo&#34;)
+</code></pre><h3 id="ファイル検索">ファイル検索<a hidden class="anchor" aria-hidden="true" href="#ファイル検索">#</a></h3>
+<p>ファイルの検索を試します。以下のように、作ったBucketを指定してやります。</p>
+<pre tabindex="0"><code>contents = s3_client.list_objects(Bucket=&#34;test&#34;,
+                                  Prefix=&#34;&#34;).get(&#34;Contents&#34;)
+print(contents)
+</code></pre><p>上記を実行すると、次のように表示されました。配置したファイルがちゃんと見つけられますね！</p>
+<pre tabindex="0"><code>[{&#39;Key&#39;: &#39;テキストたよ.txt&#39;, &#39;LastModified&#39;: datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), &#39;ETag&#39;: &#39;&#34;59681d790d132065f97faf0f52e9aa41-1&#34;&#39;, &#39;Size&#39;: 27, &#39;StorageClass&#39;: &#39;STANDARD&#39;, &#39;Owner&#39;: {&#39;DisplayName&#39;: &#39;&#39;, &#39;ID&#39;: &#39;02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4&#39;}}]
+</code></pre><h3 id="ファイル取得">ファイル取得<a hidden class="anchor" aria-hidden="true" href="#ファイル取得">#</a></h3>
+<p>ファイルの取得も試しましょう。以下を実行します。</p>
+<pre tabindex="0"><code>text = s3_client.get_object(Bucket=&#34;test&#34;,
+                            Key=&#34;テキストたよ.txt&#34;)[&#34;Body&#34;].read().decode(&#39;utf-8&#39;)
+print(text)
+</code></pre><p>結果：</p>
+<pre tabindex="0"><code>テキストの中身だよ
+</code></pre><p>正しくテキストを取得できています！</p>
+<h1 id="まとめ">まとめ<a hidden class="anchor" aria-hidden="true" href="#まとめ">#</a></h1>
+<p>MinIOはとても簡単に使えて、便利だと思いました。よくできていて感動しますね。
+手元の環境にS3が欲しいなぁって思った方は使いましょう！</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/minio/">MinIO</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/python/">Python</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/boto3/">Boto3</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/aws/">AWS</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/s3/">S3</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/docker/">Docker</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

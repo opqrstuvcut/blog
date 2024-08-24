@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>おすすめの(Neo)Vimプラグイン | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="NeoVim, Vim">
+<meta name="description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
+vim-asterisk https://github.com/haya14busa/vim-asterisk
+アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
+vim-asteriskを入れるとそういった問題が起きなくなります。
+設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
+C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
+お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="おすすめの(Neo)Vimプラグイン" />
+<meta property="og:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
+vim-asterisk https://github.com/haya14busa/vim-asterisk
+アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
+vim-asteriskを入れるとそういった問題が起きなくなります。
+設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
+C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
+お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-08-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-08-22T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp" />
+<meta name="twitter:title" content="おすすめの(Neo)Vimプラグイン"/>
+<meta name="twitter:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
+vim-asterisk https://github.com/haya14busa/vim-asterisk
+アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
+vim-asteriskを入れるとそういった問題が起きなくなります。
+設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
+C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
+お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "おすすめの(Neo)Vimプラグイン",
+      "item": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "おすすめの(Neo)Vimプラグイン",
+  "name": "おすすめの(Neo)Vimプラグイン",
+  "description": "NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。\n下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。\nvim-asterisk https://github.com/haya14busa/vim-asterisk\nアスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。\n個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。\nvim-asteriskを入れるとそういった問題が起きなくなります。\n設定例 { \u0026#34;haya14busa/vim-asterisk\u0026#34;, config = function() vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;*\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-z*)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;#\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-z#)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;g*\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-gz*)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;g#\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-gz#)\u0026#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim\nC-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。\nneoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \u0026#34;karb94/neoscroll.nvim\u0026#34;, config = function() require(\u0026#34;neoscroll\u0026#34;).setup({ mappings = { \u0026#34;\u0026lt;C-u\u0026gt;\u0026#34;, \u0026#34;\u0026lt;C-d\u0026gt;\u0026#34;, \u0026#34;zt\u0026#34;, \u0026#34;zz\u0026#34;, \u0026#34;zb\u0026#34; }, }) local t = {} local time = \u0026#34;85\u0026#34; t[\u0026#34;\u0026lt;C-u\u0026gt;\u0026#34;] = { \u0026#34;scroll\u0026#34;, { \u0026#34;-vim.wo.scroll\u0026#34;, \u0026#34;true\u0026#34;, time } } t[\u0026#34;\u0026lt;C-d\u0026gt;\u0026#34;] = { \u0026#34;scroll\u0026#34;, { \u0026#34;vim.",
+  "keywords": [
+    "NeoVim", "Vim"
+  ],
+  "articleBody": "NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。\n下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。\nvim-asterisk https://github.com/haya14busa/vim-asterisk\nアスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。\n個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。\nvim-asteriskを入れるとそういった問題が起きなくなります。\n設定例 { \"haya14busa/vim-asterisk\", config = function() vim.api.nvim_set_keymap(\"\", \"*\", \"(asterisk-z*)\", {}) vim.api.nvim_set_keymap(\"\", \"#\", \"(asterisk-z#)\", {}) vim.api.nvim_set_keymap(\"\", \"g*\", \"(asterisk-gz*)\", {}) vim.api.nvim_set_keymap(\"\", \"g#\", \"(asterisk-gz#)\", {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim\nC-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。\nneoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"karb94/neoscroll.nvim\", config = function() require(\"neoscroll\").setup({ mappings = { \"\", \"\", \"zt\", \"zz\", \"zb\" }, }) local t = {} local time = \"85\" t[\"\"] = { \"scroll\", { \"-vim.wo.scroll\", \"true\", time } } t[\"\"] = { \"scroll\", { \"vim.wo.scroll\", \"true\", time } } t[\"zt\"] = { \"zt\", { time } } t[\"zz\"] = { \"zz\", { time } } t[\"zb\"] = { \"zb\", { time } } require(\"neoscroll.config\").set_mappings(t) end, } nvim-bqf https://github.com/kevinhwang91/nvim-bqf\nQuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。\nこれがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"kevinhwang91/nvim-bqf\", config = function() require(\"bqf\").setup({}) end, ft = \"qf\", } vim-qfreplace https://github.com/thinca/vim-qfreplace\nQuickFixでの置換を楽にしてくれます。 自分はTelescopeで単語の検索 -\u003e でQuickFixを開く -\u003e :Qfreplace -\u003e 置換を実行 という感じのフローを使います。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 registers.nvim https://github.com/tversteeg/registers.nvim\nレジスタの内容が見やすくなります。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"tversteeg/registers.nvim\", cmd = \"Registers\", config = function() local registers = require(\"registers\") registers.setup({ window = { border = \"rounded\", transparency = 0, }, }) end, keys = { { '\"', mode = { \"n\", \"v\" } }, { \"\", mode = \"i\" }, }, name = \"registers\", } tiny-code-action.nvim https://github.com/rachartier/tiny-code-action.nvim\nCodeActionの変更内容が見やすくなります。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"rachartier/tiny-code-action.nvim\", dependencies = { { \"nvim-lua/plenary.nvim\" }, { \"nvim-telescope/telescope.nvim\" }, }, event = \"LspAttach\", config = function() require(\"tiny-code-action\").setup() vim.keymap.set(\"n\", \"ca\", function() require(\"tiny-code-action\").code_action() end, { noremap = true, silent = true }) end, } tiny-inline-diagnostic.nvim https://github.com/rachartier/tiny-inline-diagnostic.nvim\nDiagnosticが見やすくなります。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"rachartier/tiny-inline-diagnostic.nvim\", event = \"VeryLazy\", config = function() require(\"tiny-inline-diagnostic\").setup() end, } project-cli-commands.nvim https://github.com/dimaportenko/project-cli-commands.nvim\nプロジェクトごとにCLIコマンドを登録しておいて、それを簡単に実行できるようにしてくれます。\n（自分の設定だと）ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。\n登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"dimaportenko/project-cli-commands.nvim\", dependencies = { \"akinsho/toggleterm.nvim\", \"nvim-telescope/telescope.nvim\", }, -- optional keymap config config = function() local OpenActions = require(\"project_cli_commands.open_actions\") local RunActions = require(\"project_cli_commands.actions\") local config = { -- Key mappings bound inside the telescope window running_telescope_mapping = { [\"\"] = RunActions.exit_terminal, [\"\"] = RunActions.open_float, [\"\"] = RunActions.open_vertical, [\"\"] = RunActions.open_horizontal, }, open_telescope_mapping = { { mode = \"i\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"i\", key = \"\", action = OpenActions.execute_script }, { mode = \"n\", key = \"\", action = OpenActions.execute_script }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_with_input }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_with_input }, { mode = \"i\", key = \"\", action = OpenActions.copy_command_clipboard }, { mode = \"n\", key = \"\", action = OpenActions.copy_command_clipboard }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_float }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_float }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_vertical }, }, } require(\"project_cli_commands\").setup(config) end, } markview.nvim https://github.com/OXY2DEV/markview.nvim\nマークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"OXY2DEV/markview.nvim\", lazy = false, -- Recommended branch = \"dev\", -- ft = \"markdown\" -- If you decide to lazy-load anyway dependencies = { -- You will not need this if you installed the -- parsers manually -- Or if the parsers are in your $RUNTIMEPATH \"nvim-treesitter/nvim-treesitter\", \"nvim-tree/nvim-web-devicons\", }, config = function() vim.cmd([[highlight MarkviewHeading1 guibg=#E67E80 guifg=white]]) vim.cmd([[highlight MarkviewHeading2 guibg=#EB9C5F guifg=white]]) vim.cmd([[highlight MarkviewHeading3 guibg=#83C092 guifg=white]]) vim.cmd([[highlight MarkviewHeading4 guibg=#7FBBB3 guifg=white]]) vim.cmd([[highlight MarkviewHeading5 guibg=#D3C6AA guifg=white]]) vim.cmd([[highlight MarkviewHeading6 guibg=#384B55 guifg=white]]) vim.cmd([[highlight MarkviewCode guibg=#1e2326]]) end, } nvim-cokeline https://github.com/willothy/nvim-cokeline\nバッファーラインのフレームワークです。\n元々は、bufferline.nvimやbarbar.nvimを使っていたのですが、なにかの挙動が想定通りいかず試しに切り替えてみようくらいのモチベーションでした。\n使ってみると、カスタマイズ性が高いですが、難しいところがあるわけではなく、また気になるような変な動作などもない個人的には理想のバッファーラインのプラグインです。\nここまでのデモ動画で表示されているバッファーラインに適用されています。\n設定例 *色はカラースキームにあわせて設定が必要なはずです。\n{ \"willothy/nvim-cokeline\", dependencies = { \"nvim-lua/plenary.nvim\", \"nvim-tree/nvim-web-devicons\", \"stevearc/resession.nvim\", }, config = function() local is_picking_focus = require(\"cokeline.mappings\").is_picking_focus local is_picking_close = require(\"cokeline.mappings\").is_picking_close local get_hex = require(\"cokeline.hlgroups\").get_hl_attr local red = vim.g.terminal_color_1 local yellow = vim.g.terminal_color_3 require(\"cokeline\").setup({ default_hl = { fg = function(buffer) return buffer.is_focused and get_hex(\"Normal\", \"fg\") or get_hex(\"Comment\", \"fg\") end, bg = function(buffer) return buffer.is_focused and get_hex(\"DiffChange\", \"bg\") or get_hex(\"ColorColumn\", \"bg\") end, }, components = { { text = function(buffer) return (buffer.index ~= 1) and \"▏\" or \"\" end, }, { text = \" \", }, { text = function(buffer) return buffer.is_focused and \" \" or \"\" end, fg = function(buffer) if buffer.is_focused then return \"red\" end end, }, { text = function(buffer) return (is_picking_focus() or is_picking_close()) and buffer.pick_letter .. \" \" or buffer.devicon.icon end, fg = function(buffer) return (is_picking_focus() and yellow) or (is_picking_close() and red) or buffer.devicon.color end, italic = function() return (is_picking_focus() or is_picking_close()) end, bold = function() return (is_picking_focus() or is_picking_close()) end, }, { text = function(buffer) return buffer.index .. \": \" .. buffer.filename end, bold = function(buffer) return buffer.is_focused end, fg = function(buffer) if buffer.is_modified then return \"blue\" else return get_hex(\"Normal\", \"fg\") end end, }, { text = function(buffer) return (buffer.diagnostics.errors \u003e 0) and \"  \" .. buffer.diagnostics.errors or \"\" end, fg = function(buffer) return \"red\" end, }, { text = function(buffer) return (buffer.diagnostics.warnings \u003e 0) and \"  \" .. buffer.diagnostics.warnings or \"\" end, fg = function(buffer) return \"yellow\" end, }, { text = function(buffer) return (buffer.diagnostics.infos \u003e 0) and \"  \" .. buffer.diagnostics.infos or \"\" end, fg = function(buffer) return \"blue\" end, }, { text = function(buffer) return (buffer.diagnostics.hints \u003e 0) and \"  \" .. buffer.diagnostics.hints or \"\" end, fg = function(buffer) return \"blue\" end, }, { text = \" \", }, { text = \"☓\", on_click = function(_, _, _, _, buffer) buffer:delete() end, }, { text = \" \", }, }, tabs = { placement = \"right\", components = { { text = function(tabpage) return \" \" .. tabpage.number .. \" |\" end, fg = function(buffer) return buffer.is_active and get_hex(\"Normal\", \"fg\") or get_hex(\"Comment\", \"fg\") end, bg = function(tabpage) return tabpage.is_active and get_hex(\"StatusLine\", \"bg\") or get_hex(\"ColorColumn\", \"bg\") end, }, }, }, }) local map = vim.api.nvim_set_keymap for i = 1, 9 do map(\"n\", (\"%s\"):format(i), (\"(cokeline-focus-%s)\"):format(i), { silent = true }) end map(\"n\", \"bc\", \"(cokeline-pick-close)\", { silent = true }) map(\"n\", \"bp\", \"(cokeline-pick-focus)\", { silent = true }) end, } chowcho.nvim https://github.com/tkmpypy/chowcho.nvim\n簡単にwindowを移動できるようにするためのプラグインです。これがあるとwindowの移動がかなり楽です。\n具体的には、このプラグインを使うと、例えば2つしかwindowがなければでもう一方のwindowに移動するという設定ができます。 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設置例 { \"tkmpypy/chowcho.nvim\", config = function() require(\"chowcho\").setup({ icon_enabled = true, active_border_color = \"#FF9E3B\", border_style = \"default\", use_exclude_default = false, exclude = function(buf, win) local fname = vim.fn.expand(\"#\" .. buf .. \":t\") return fname == \"\" end, zindex = 10000, }) chowcho = require(\"chowcho\") local win_keymap_set = function(key, callback) vim.keymap.set({ \"n\", \"t\" }, \"\" .. key, callback) vim.keymap.set({ \"n\", \"t\" }, \"",
+  "wordCount" : "1515",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp","datePublished": "2024-08-22T00:00:00Z",
+  "dateModified": "2024-08-22T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      おすすめの(Neo)Vimプラグイン
+    </h1>
+    <div class="post-meta"><span title='2024-08-22 00:00:00 +0000 UTC'>8月 22, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。<br>
+下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。</p>
+<h2 id="vim-asterisk">vim-asterisk<a hidden class="anchor" aria-hidden="true" href="#vim-asterisk">#</a></h2>
+<p><a href="https://github.com/haya14busa/vim-asterisk">https://github.com/haya14busa/vim-asterisk</a></p>
+<p>アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。<br>
+個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。<br>
+vim-asteriskを入れるとそういった問題が起きなくなります。</p>
+<h3 id="設定例">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;haya14busa/vim-asterisk&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-z*)&#34;</span><span class="p">,</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;#&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-z#)&#34;</span><span class="p">,</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;g*&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-gz*)&#34;</span><span class="p">,</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;g#&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-gz#)&#34;</span><span class="p">,</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="neoscrollnvim">neoscroll.nvim<a hidden class="anchor" aria-hidden="true" href="#neoscrollnvim">#</a></h2>
+<p><a href="https://github.com/karb94/neoscroll.nvim">https://github.com/karb94/neoscroll.nvim</a></p>
+<p>C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。<br>
+neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-1">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-1">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;karb94/neoscroll.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;neoscroll&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mappings</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;&lt;C-u&gt;&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;C-d&gt;&#34;</span><span class="p">,</span> <span class="s2">&#34;zt&#34;</span><span class="p">,</span> <span class="s2">&#34;zz&#34;</span><span class="p">,</span> <span class="s2">&#34;zb&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">time</span> <span class="o">=</span> <span class="s2">&#34;85&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">[</span><span class="s2">&#34;&lt;C-u&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;scroll&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;-vim.wo.scroll&#34;</span><span class="p">,</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span> <span class="n">time</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">[</span><span class="s2">&#34;&lt;C-d&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;scroll&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;vim.wo.scroll&#34;</span><span class="p">,</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span> <span class="n">time</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">[</span><span class="s2">&#34;zt&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;zt&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">time</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">[</span><span class="s2">&#34;zz&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;zz&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">time</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">[</span><span class="s2">&#34;zb&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;zb&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">time</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;neoscroll.config&#34;</span><span class="p">).</span><span class="n">set_mappings</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="nvim-bqf">nvim-bqf<a hidden class="anchor" aria-hidden="true" href="#nvim-bqf">#</a></h2>
+<p><a href="https://github.com/kevinhwang91/nvim-bqf">https://github.com/kevinhwang91/nvim-bqf</a></p>
+<p>QuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。<br>
+これがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-2">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-2">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;kevinhwang91/nvim-bqf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;bqf&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ft</span> <span class="o">=</span> <span class="s2">&#34;qf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="vim-qfreplace">vim-qfreplace<a hidden class="anchor" aria-hidden="true" href="#vim-qfreplace">#</a></h2>
+<p><a href="https://github.com/thinca/vim-qfreplace">https://github.com/thinca/vim-qfreplace</a></p>
+<p>QuickFixでの置換を楽にしてくれます。
+自分はTelescopeで単語の検索 -&gt; &lt;C-q&gt;でQuickFixを開く -&gt; :Qfreplace -&gt; 置換を実行 という感じのフローを使います。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h2 id="registersnvim">registers.nvim<a hidden class="anchor" aria-hidden="true" href="#registersnvim">#</a></h2>
+<p><a href="https://github.com/tversteeg/registers.nvim">https://github.com/tversteeg/registers.nvim</a></p>
+<p>レジスタの内容が見やすくなります。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-3">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-3">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;tversteeg/registers.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&#34;Registers&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">registers</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;registers&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registers.setup</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">window</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">border</span> <span class="o">=</span> <span class="s2">&#34;rounded&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">transparency</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">keys</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="s1">&#39;&#34;&#39;</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;v&#34;</span> <span class="p">}</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="s2">&#34;&lt;C-R&gt;&#34;</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;registers&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="tiny-code-actionnvim">tiny-code-action.nvim<a hidden class="anchor" aria-hidden="true" href="#tiny-code-actionnvim">#</a></h2>
+<p><a href="https://github.com/rachartier/tiny-code-action.nvim">https://github.com/rachartier/tiny-code-action.nvim</a></p>
+<p>CodeActionの変更内容が見やすくなります。
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video></p>
+<h3 id="設定例-4">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-4">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;rachartier/tiny-code-action.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="s2">&#34;nvim-lua/plenary.nvim&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="s2">&#34;nvim-telescope/telescope.nvim&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">event</span> <span class="o">=</span> <span class="s2">&#34;LspAttach&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;tiny-code-action&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;leader&gt;ca&#34;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">require</span><span class="p">(</span><span class="s2">&#34;tiny-code-action&#34;</span><span class="p">).</span><span class="n">code_action</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="tiny-inline-diagnosticnvim">tiny-inline-diagnostic.nvim<a hidden class="anchor" aria-hidden="true" href="#tiny-inline-diagnosticnvim">#</a></h2>
+<p><a href="https://github.com/rachartier/tiny-inline-diagnostic.nvim">https://github.com/rachartier/tiny-inline-diagnostic.nvim</a></p>
+<p>Diagnosticが見やすくなります。
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video></p>
+<h3 id="設定例-5">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-5">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;rachartier/tiny-inline-diagnostic.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">event</span> <span class="o">=</span> <span class="s2">&#34;VeryLazy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;tiny-inline-diagnostic&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="project-cli-commandsnvim">project-cli-commands.nvim<a hidden class="anchor" aria-hidden="true" href="#project-cli-commandsnvim">#</a></h2>
+<p><a href="https://github.com/dimaportenko/project-cli-commands.nvim">https://github.com/dimaportenko/project-cli-commands.nvim</a></p>
+<p>プロジェクトごとにCLIコマンドを登録しておいて、それを簡単に実行できるようにしてくれます。<br>
+（自分の設定だと）&lt;leader&gt;ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。<br>
+登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-6">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-6">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;dimaportenko/project-cli-commands.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;akinsho/toggleterm.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;nvim-telescope/telescope.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">-- optional keymap config</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">OpenActions</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;project_cli_commands.open_actions&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">RunActions</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;project_cli_commands.actions&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">-- Key mappings bound inside the telescope window</span>
+</span></span><span class="line"><span class="cl">            <span class="n">running_telescope_mapping</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="s2">&#34;&lt;C-c&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RunActions.exit_terminal</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="s2">&#34;&lt;C-f&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RunActions.open_float</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="s2">&#34;&lt;C-v&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RunActions.open_vertical</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="s2">&#34;&lt;C-h&gt;&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RunActions.open_horizontal</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">open_telescope_mapping</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_vertical</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_vertical</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-h&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-h&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-i&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_with_input</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-i&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_with_input</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-c&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.copy_command_clipboard</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-c&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.copy_command_clipboard</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-f&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_float</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-f&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_float</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;i&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-v&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_vertical</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;&lt;C-v&gt;&#34;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">OpenActions.execute_script_vertical</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;project_cli_commands&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="markviewnvim">markview.nvim<a hidden class="anchor" aria-hidden="true" href="#markviewnvim">#</a></h2>
+<p><a href="https://github.com/OXY2DEV/markview.nvim">https://github.com/OXY2DEV/markview.nvim</a></p>
+<p>マークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-7">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-7">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;OXY2DEV/markview.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lazy</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">-- Recommended</span>
+</span></span><span class="line"><span class="cl">    <span class="n">branch</span> <span class="o">=</span> <span class="s2">&#34;dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">-- ft = &#34;markdown&#34; -- If you decide to lazy-load anyway</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">-- You will not need this if you installed the</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">-- parsers manually</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">-- Or if the parsers are in your $RUNTIMEPATH</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;nvim-treesitter/nvim-treesitter&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;nvim-tree/nvim-web-devicons&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading1 guibg=#E67E80 guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading2 guibg=#EB9C5F guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading3 guibg=#83C092 guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading4 guibg=#7FBBB3 guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading5 guibg=#D3C6AA guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewHeading6 guibg=#384B55 guifg=white]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewCode guibg=#1e2326]]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="nvim-cokeline">nvim-cokeline<a hidden class="anchor" aria-hidden="true" href="#nvim-cokeline">#</a></h2>
+<p><a href="https://github.com/willothy/nvim-cokeline">https://github.com/willothy/nvim-cokeline</a></p>
+<p>バッファーラインのフレームワークです。<br>
+元々は、bufferline.nvimやbarbar.nvimを使っていたのですが、なにかの挙動が想定通りいかず試しに切り替えてみようくらいのモチベーションでした。<br>
+使ってみると、カスタマイズ性が高いですが、難しいところがあるわけではなく、また気になるような変な動作などもない個人的には理想のバッファーラインのプラグインです。</p>
+<p>ここまでのデモ動画で表示されているバッファーラインに適用されています。</p>
+<h3 id="設定例-8">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-8">#</a></h3>
+<p>*色はカラースキームにあわせて設定が必要なはずです。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;willothy/nvim-cokeline&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;nvim-lua/plenary.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;nvim-tree/nvim-web-devicons&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stevearc/resession.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">is_picking_focus</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;cokeline.mappings&#34;</span><span class="p">).</span><span class="n">is_picking_focus</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">is_picking_close</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;cokeline.mappings&#34;</span><span class="p">).</span><span class="n">is_picking_close</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">get_hex</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;cokeline.hlgroups&#34;</span><span class="p">).</span><span class="n">get_hl_attr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">red</span> <span class="o">=</span> <span class="n">vim.g</span><span class="p">.</span><span class="n">terminal_color_1</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">yellow</span> <span class="o">=</span> <span class="n">vim.g</span><span class="p">.</span><span class="n">terminal_color_3</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;cokeline&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">default_hl</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">return</span> <span class="n">buffer.is_focused</span> <span class="ow">and</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;Normal&#34;</span><span class="p">,</span> <span class="s2">&#34;fg&#34;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;Comment&#34;</span><span class="p">,</span> <span class="s2">&#34;fg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">return</span> <span class="n">buffer.is_focused</span> <span class="ow">and</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;DiffChange&#34;</span><span class="p">,</span> <span class="s2">&#34;bg&#34;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;ColorColumn&#34;</span><span class="p">,</span> <span class="s2">&#34;bg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">components</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">buffer.index</span> <span class="o">~=</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&#34;▏&#34;</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;  &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="n">buffer.is_focused</span> <span class="ow">and</span> <span class="s2">&#34; &#34;</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">if</span> <span class="n">buffer.is_focused</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="s2">&#34;red&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">is_picking_focus</span><span class="p">()</span> <span class="ow">or</span> <span class="n">is_picking_close</span><span class="p">())</span> <span class="ow">and</span> <span class="n">buffer.pick_letter</span> <span class="o">..</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl">                            <span class="ow">or</span> <span class="n">buffer.devicon</span><span class="p">.</span><span class="n">icon</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">is_picking_focus</span><span class="p">()</span> <span class="ow">and</span> <span class="n">yellow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="ow">or</span> <span class="p">(</span><span class="n">is_picking_close</span><span class="p">()</span> <span class="ow">and</span> <span class="n">red</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="ow">or</span> <span class="n">buffer.devicon</span><span class="p">.</span><span class="n">color</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">italic</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">is_picking_focus</span><span class="p">()</span> <span class="ow">or</span> <span class="n">is_picking_close</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">bold</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">is_picking_focus</span><span class="p">()</span> <span class="ow">or</span> <span class="n">is_picking_close</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="n">buffer.index</span> <span class="o">..</span> <span class="s2">&#34;: &#34;</span> <span class="o">..</span> <span class="n">buffer.filename</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">bold</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="n">buffer.is_focused</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">if</span> <span class="n">buffer.is_modified</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="s2">&#34;blue&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">else</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;Normal&#34;</span><span class="p">,</span> <span class="s2">&#34;fg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&#34;  &#34;</span> <span class="o">..</span> <span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">errors</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="s2">&#34;red&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">warnings</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&#34;  &#34;</span> <span class="o">..</span> <span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">warnings</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="s2">&#34;yellow&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">infos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&#34;  &#34;</span> <span class="o">..</span> <span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">infos</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="s2">&#34;blue&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="p">(</span><span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">hints</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&#34;  &#34;</span> <span class="o">..</span> <span class="n">buffer.diagnostics</span><span class="p">.</span><span class="n">hints</span> <span class="ow">or</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span> <span class="s2">&#34;blue&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34; &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;☓&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">on_click</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">buffer</span><span class="p">:</span><span class="n">delete</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;  &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tabs</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">placement</span> <span class="o">=</span> <span class="s2">&#34;right&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">components</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">text</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">tabpage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="s2">&#34; &#34;</span> <span class="o">..</span> <span class="n">tabpage.number</span> <span class="o">..</span> <span class="s2">&#34; |&#34;</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">fg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="n">buffer.is_active</span> <span class="ow">and</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;Normal&#34;</span><span class="p">,</span> <span class="s2">&#34;fg&#34;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;Comment&#34;</span><span class="p">,</span> <span class="s2">&#34;fg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">bg</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">tabpage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">return</span> <span class="n">tabpage.is_active</span> <span class="ow">and</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;StatusLine&#34;</span><span class="p">,</span> <span class="s2">&#34;bg&#34;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_hex</span><span class="p">(</span><span class="s2">&#34;ColorColumn&#34;</span><span class="p">,</span> <span class="s2">&#34;bg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">map</span> <span class="o">=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">            <span class="n">map</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&#34;&lt;Leader&gt;%s&#34;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;&lt;Plug&gt;(cokeline-focus-%s)&#34;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;leader&gt;bc&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(cokeline-pick-close)&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;leader&gt;bp&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(cokeline-pick-focus)&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="chowchonvim">chowcho.nvim<a hidden class="anchor" aria-hidden="true" href="#chowchonvim">#</a></h2>
+<p><a href="https://github.com/tkmpypy/chowcho.nvim">https://github.com/tkmpypy/chowcho.nvim</a></p>
+<p>簡単にwindowを移動できるようにするためのプラグインです。これがあるとwindowの移動がかなり楽です。<br>
+具体的には、このプラグインを使うと、例えば2つしかwindowがなければ&lt;C-w&gt;&lt;C-w&gt;でもう一方のwindowに移動するという設定ができます。
+またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設置例">設置例<a hidden class="anchor" aria-hidden="true" href="#設置例">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;tkmpypy/chowcho.nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;chowcho&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">icon_enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">active_border_color</span> <span class="o">=</span> <span class="s2">&#34;#FF9E3B&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">border_style</span> <span class="o">=</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">use_exclude_default</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exclude</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">win</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">local</span> <span class="n">fname</span> <span class="o">=</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&#34;#&#34;</span> <span class="o">..</span> <span class="n">buf</span> <span class="o">..</span> <span class="s2">&#34;:t&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">return</span> <span class="n">fname</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">zindex</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">chowcho</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;chowcho&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">win_keymap_set</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.keymap</span><span class="p">.</span><span class="n">set</span><span class="p">({</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;t&#34;</span> <span class="p">},</span> <span class="s2">&#34;&lt;C-w&gt;&#34;</span> <span class="o">..</span> <span class="n">key</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.keymap</span><span class="p">.</span><span class="n">set</span><span class="p">({</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;t&#34;</span> <span class="p">},</span> <span class="s2">&#34;&lt;C-w&gt;&lt;C-&#34;</span> <span class="o">..</span> <span class="n">key</span> <span class="o">..</span> <span class="s2">&#34;&gt;&#34;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">win_keymap_set</span><span class="p">(</span><span class="s2">&#34;w&#34;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">wins</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">winnr</span><span class="p">(</span><span class="s2">&#34;$&#34;</span><span class="p">)</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">local</span> <span class="n">win_id</span> <span class="o">=</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">win_getid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">local</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_get_config</span><span class="p">(</span><span class="n">win_id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="kr">if</span> <span class="n">conf.focusable</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">wins</span> <span class="o">=</span> <span class="n">wins</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="kr">if</span> <span class="n">wins</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">chowcho.run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                        <span class="kr">return</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_command</span><span class="p">(</span><span class="s2">&#34;wincmd w&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="lualine-time">lualine-time<a hidden class="anchor" aria-hidden="true" href="#lualine-time">#</a></h2>
+<p><a href="https://github.com/archibate/lualine-time">https://github.com/archibate/lualine-time</a></p>
+<p>lualineに時間が表示されるようになります。地味にかなり便利だと思っていますが、ターミナルで時間を表示させている人などは不要そうです。
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video></p>
+<h2 id="vim-arsync">vim-arsync<a hidden class="anchor" aria-hidden="true" href="#vim-arsync">#</a></h2>
+<p><a href="https://github.com/KenN7/vim-arsync">https://github.com/KenN7/vim-arsync</a></p>
+<p>リモートのサーバーへファイルを同期してくれます。<br>
+ファイルを保存したときに自動で同期してくれたり、同期したくないファイルを選べたりと機能は充実しているかと思います。</p>
+<h2 id="molten-nvim">molten-nvim<a hidden class="anchor" aria-hidden="true" href="#molten-nvim">#</a></h2>
+<p><a href="https://github.com/benlubas/molten-nvim">https://github.com/benlubas/molten-nvim</a></p>
+<p>PythonのJupyter NotebookをNeoVim上から実行するときに使っています。現在はこれがないのは結構苦行と感じるレベルです。<br>
+もともとはmagma.nvimというプラグインがあったのですが、これのforkになっていてそこから色々と機能が足されたりしています。</p>
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video>
+<h3 id="設定例-9">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-9">#</a></h3>
+<p>これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;benlubas/molten-nvim&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;3rd/image.nvim&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">build</span> <span class="o">=</span> <span class="s2">&#34;:UpdateRemotePlugins&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">init</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_image_provider</span> <span class="o">=</span> <span class="s2">&#34;image.nvim&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_split_direction</span> <span class="o">=</span> <span class="s2">&#34;right&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_output_win_border</span> <span class="o">=</span> <span class="s2">&#34;rounded&#34;</span> <span class="c1">-- &#39;:h nvim_open_win()&#39; -&gt; border option</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_auto_open_output</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_output_virt_lines</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_virt_text_output</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_use_border_highlights</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.g</span><span class="p">.</span><span class="n">molten_output_win_border</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;x&#34;</span><span class="p">,</span> <span class="s2">&#34;━&#34;</span><span class="p">,</span> <span class="s2">&#34;x&#34;</span><span class="p">,</span> <span class="s2">&#34;┃&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;ml&#34;</span><span class="p">,</span> <span class="s2">&#34;:MoltenEvaluateLine&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;mr&#34;</span><span class="p">,</span> <span class="s2">&#34;:MoltenReevaluateCell&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;ms&#34;</span><span class="p">,</span> <span class="s2">&#34;:MoltenShowOutput&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;n&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;me&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;:MoltenShowOutput&lt;CR&gt;:noautocmd MoltenEnterOutput&lt;CR&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;mh&#34;</span><span class="p">,</span> <span class="s2">&#34;:MoltenHideOutput&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&#34;```python&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">end_pattern</span> <span class="o">=</span> <span class="s2">&#34;```&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;n&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;mi&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">[[&lt;Cmd&gt;lua MoltenInitJupyterKernel()&lt;CR&gt;]]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">FindNextLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">currentLine</span> <span class="o">=</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">line</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">totalLines</span> <span class="o">=</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">line</span><span class="p">(</span><span class="s2">&#34;$&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">for</span> <span class="n">line</span> <span class="o">=</span> <span class="n">currentLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">totalLines</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">local</span> <span class="n">lineText</span> <span class="o">=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_get_lines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="kc">false</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">if</span> <span class="n">lineText</span><span class="p">:</span><span class="n">find</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">return</span> <span class="n">line</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">return</span> <span class="n">totalLines</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">FindPrevLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">start_buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">start_buffer</span> <span class="o">=</span> <span class="n">start_buffer</span> <span class="ow">or</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">currentLine</span> <span class="o">=</span> <span class="n">vim.fn</span><span class="p">.</span><span class="n">line</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">for</span> <span class="n">line</span> <span class="o">=</span> <span class="n">currentLine</span> <span class="o">+</span> <span class="n">start_buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">local</span> <span class="n">lineText</span> <span class="o">=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_get_lines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="kc">false</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">if</span> <span class="n">lineText</span><span class="p">:</span><span class="n">find</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                    <span class="kr">return</span> <span class="n">line</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">MoltenEvaluateCell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_get_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_feedkeys</span><span class="p">(</span><span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_replace_termcodes</span><span class="p">(</span><span class="s2">&#34;zt&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_feedkeys</span><span class="p">(</span><span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_replace_termcodes</span><span class="p">(</span><span class="s2">&#34;5&lt;C-y&gt;&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">startLine</span> <span class="o">=</span> <span class="n">FindPrevLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">endLine</span> <span class="o">=</span> <span class="n">FindNextLineWithText</span><span class="p">(</span><span class="n">end_pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.opt</span><span class="p">.</span><span class="n">scrolloff</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">-- scrolloffをもとに戻さないと正しく処理できないため、一旦1にする</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_set_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_feedkeys</span><span class="p">(</span><span class="s2">&#34;V&#34;</span><span class="p">,</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_feedkeys</span><span class="p">((</span><span class="n">endLine</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">..</span> <span class="s2">&#34;G&#34;</span><span class="p">,</span> <span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_feedkeys</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_replace_termcodes</span><span class="p">(</span><span class="s2">&#34;:&lt;C-u&gt;MoltenEvaluateVisual&lt;CR&gt;&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;n&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.schedule</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_set_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vim.opt</span><span class="p">.</span><span class="n">scrolloff</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;mc&#34;</span><span class="p">,</span> <span class="s">[[&lt;Cmd&gt;lua MoltenEvaluateCell()&lt;CR&gt;]]</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">DeleteCell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">startLine</span> <span class="o">=</span> <span class="n">FindPrevLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">endLine</span> <span class="o">=</span> <span class="n">FindNextLineWithText</span><span class="p">(</span><span class="n">end_pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_set_lines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">endLine</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;md&#34;</span><span class="p">,</span> <span class="s">[[&lt;Cmd&gt;lua DeleteCell()&lt;CR&gt;]]</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">MoveNextCell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">startLine</span> <span class="o">=</span> <span class="n">FindNextLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_set_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="n">startLine</span><span class="p">,</span> <span class="mi">0</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;mn&#34;</span><span class="p">,</span> <span class="s">[[&lt;Cmd&gt;lua MoveNextCell()&lt;CR&gt;]]</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">MovePrevCell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">line</span> <span class="o">=</span> <span class="n">FindPrevLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">if</span> <span class="n">line</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_set_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="n">line</span><span class="p">,</span> <span class="mi">0</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;mp&#34;</span><span class="p">,</span> <span class="s">[[&lt;Cmd&gt;lua MovePrevCell()&lt;CR&gt;]]</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">function</span> <span class="nf">AddNewCell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">startLine</span> <span class="o">=</span> <span class="n">FindNextLineWithText</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">local</span> <span class="n">bufnr</span> <span class="o">=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_get_current_buf</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">if</span> <span class="n">startLine</span> <span class="o">&gt;=</span> <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_line_count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">                <span class="n">startLine</span> <span class="o">=</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_set_lines</span><span class="p">(</span><span class="n">bufnr</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">pattern</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_set_lines</span><span class="p">(</span><span class="n">bufnr</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="p">{</span> <span class="n">end_pattern</span><span class="p">,</span> <span class="s2">&#34;&#34;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_buf_set_lines</span><span class="p">(</span><span class="n">bufnr</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;&#34;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_win_set_cursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span> <span class="n">startLine</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_command</span><span class="p">(</span><span class="s2">&#34;startinsert&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;ma&#34;</span><span class="p">,</span> <span class="s">[[&lt;Cmd&gt;lua AddNewCell()&lt;CR&gt;]]</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/neovim/">NeoVim</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/vim/">Vim</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

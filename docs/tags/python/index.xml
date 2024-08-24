@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/python/</link>
+    <description>Recent content in Python on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>magma-nvimで理想に近いVimでのJupyter環境を作る</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。
+開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&amp;hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。
+magma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。
+が、自分の運用上はだいぶ困った点がありました。
+というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。
+カーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。
+苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim
+これを使うと、
+:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？
+ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。
+https://ohke.hateblo.jp/entry/2019/05/25/180000
+magma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。
+これと以下のようなkermapを組み合わせてNotebookを編集しています。
+セルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。
+なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。
+function FindNextLineWithText(pattern) local currentLine = vim.fn.line(&amp;#39;.&amp;#39;) local totalLines = vim.fn.line(&amp;#39;$&amp;#39;) for line = currentLine + 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim.</description>
+    </item>
+    <item>
+      <title>FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</link>
+      <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</guid>
+      <description>問題発生時の状況 AWSのECS上にFastAPI + uvicornの構成でのサーバーをたてました。内容的には普通のREST APIです。
+とりあえずは順調に動作していたのですが、たまにコンテナが再起動しているっぽいけどなんだろうと思って調べていたところ、メモリ使用量が次のようになっていました。
+時間経過でメモリ使用量が勝手に増えているような振る舞いです。 実装上はこんなことにならないはず…。
+解決方法 調べてみると、同じようなissueが存在していました。
+https://github.com/tiangolo/fastapi/issues/1624 https://github.com/encode/uvicorn/issues/1226 uvicorn側のissueをみると、uvicornのバージョンが0.17.0でこのような問題が起こるようです。
+利用しているバージョンがちょうど0.17.0でしたので、0.17.6へとバージョンしてみると、見事に解決しました！
+バージョンアップ後のメモリ使用量が以下のグラフの右端の平らな部分です。時間経過でメモリ使用量が増えるようなことがなくなっています。</description>
+    </item>
+    <item>
+      <title>m3u8ファイルとtsファイルのdownload</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/</link>
+      <pubDate>Sun, 31 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/</guid>
+      <description>ライブストリーミングや動画の配信するためにm3u8とtsファイルを利用するケースがあります。 tsファイルは細切れになった小さい動画になっており、m3u8ファイルはそれらの情報をもっているプレイリストになります。
+m3u8ファイルが手元にあるorm3u8のurlを知っている場合には、Pythonのライブラリのm3u8を使えば簡単にtsファイルをdownloadできます。
+m3u8のInstall インストールは簡単で、pipを使うだけです。
+pip install m3u8 tsファイルのdownload tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。
+import urllib.request import m3u8 playlist = m3u8.load(m3u8のパス) for i, segment in enumerate(playlist.segments): # tsファイルのパス uri = segment.absolute_uri urllib.request.urlretrieve(uri, f&amp;#34;{i}.ts&amp;#34;) </description>
+    </item>
+    <item>
+      <title>Sum Treeで重みにそってサンプリングする（Python実装）</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</link>
+      <pubDate>Sun, 17 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/</guid>
+      <description>問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
+3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
+0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
+Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。
+概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。
+図をもちいて具体例を示します。
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。
+サンプリング サンプリングはシンプルです。
+0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。
+サンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。
+また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。
+サンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。
+サンプルコード Python実装を最後に示します。
+import numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self.</description>
+    </item>
+    <item>
+      <title>AWSのLambdaからPostgresを利用</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
+      <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
+      <description>本記事はQrunchからの転載です。
+AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
+ライブラリのclone git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
+適切な位置への配置
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
+Lambdaにデプロイする！</description>
+    </item>
+    <item>
+      <title>KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</link>
+      <pubDate>Mon, 02 Mar 2020 18:01:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</guid>
+      <description>本記事はQrunchからの転載です。
+みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
+KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
+KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
+前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
+KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
+実験 上記の話が成り立つのかを実験してみます。
+実験準備 $p(\mathbf{x})$は次のようにします。
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;amp;-0.7 \\ -0.7 &amp;amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。</description>
+    </item>
+    <item>
+      <title>Pandasのgroupbyの使い方をまとめる</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</link>
+      <pubDate>Fri, 14 Feb 2020 12:04:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&amp;#34;名字&amp;#34;: [&amp;#34;田中&amp;#34;, &amp;#34;山田&amp;#34;, &amp;#34;上田&amp;#34;, &amp;#34;田中&amp;#34;, &amp;#34;田中&amp;#34;], &amp;#34;年齢&amp;#34;: [10, 20, 30, 40, 50], &amp;#34;出身&amp;#34;: [&amp;#34;北海道&amp;#34;, &amp;#34;東京&amp;#34;, None, &amp;#34;沖縄&amp;#34;, &amp;#34;北海道&amp;#34;]}) 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&amp;#34;名字&amp;#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。
+グループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。
+for name, grouped_df in df.groupby(&amp;#34;名字&amp;#34;): print(f&amp;#34;名字：{name}&amp;#34;) print(grouped_df) 名字：上田
+名字 年齢 出身 2 上田 30 名字：山田
+名字 年齢 出身 1 山田 20 東京 名字：田中</description>
+    </item>
+    <item>
+      <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</link>
+      <pubDate>Thu, 13 Feb 2020 01:55:35 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/</guid>
+      <description>本記事はQrunchからの転載です。
+Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。
+print(df.to_markdown()) 以下のように表示されます。
+| | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。
+名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。</description>
+    </item>
+    <item>
+      <title>Uber製の機械学習モデルのデバッグツールManifold</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</link>
+      <pubDate>Tue, 28 Jan 2020 22:52:36 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/</guid>
+      <description>本記事はQrunchからの転載です。
+Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります） モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&amp;#34;./titanic_res/features.csv&amp;#34;, &amp;#34;w&amp;#34;) as f: columns = &amp;#34;,&amp;#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&amp;#34;{columns}\n&amp;#34;) for i, features in X_test.iterrows():　f_string = &amp;#34;,&amp;#34;.join([str(x) for x in features]) f.write(f&amp;#34;{f_string}\n&amp;#34;) with open(&amp;#34;.</description>
+    </item>
+    <item>
+      <title>Matplotlibの凡例を外側に表示したい人へ</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</link>
+      <pubDate>Mon, 20 Jan 2020 21:09:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/matplotlib%E3%81%AE%E5%87%A1%E4%BE%8B%E3%82%92%E5%A4%96%E5%81%B4%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%97%E3%81%9F%E3%81%84%E4%BA%BA%E3%81%B8/</guid>
+      <description>本記事はQrunchからの転載です。
+Matplotlibの凡例を外側に出したい人用に色々な例を書いておきます。
+次のような凡例の位置をいじらずに表示した状態からいじっていきます。
+data = np.random.rand(10, 3) labels = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;] plt.plot(range(10), data, marker=&amp;#34;o&amp;#34;, linewidth=3) plt.legend(labels) plt.title(&amp;#34;title&amp;#34;) plt.ylabel(&amp;#34;y label&amp;#34;) plt.xlabel(&amp;#34;x label&amp;#34;) plt.show() 右上に表示 凡例の枠の上部をグラフの枠の上部にあわせて、右上に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper left&amp;#39;, bbox_to_anchor=(1, 1)) 右中央に表示 凡例の上下の位置をグラフと揃えて、右に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;center left&amp;#39;, bbox_to_anchor=(1., .5)) 上に表示 凡例の左右の位置をグラフと揃えて、上に表示するときは以下のようにします。 ncol=3とすることで横一列に3つ分のグラフの凡例を表示できます。
+plt.legend(labels, loc=&amp;#39;lower center&amp;#39;, bbox_to_anchor=(.5, 1.1), ncol=3) 下に表示 凡例の左右の位置をグラフと揃えて、下に表示するときは以下のようにします。
+plt.legend(labels, loc=&amp;#39;upper center&amp;#39;, bbox_to_anchor=(.5, -.15), ncol=3) 理屈 plt.legendの引数のlocに指定した凡例の箇所がbbox_to_anchorで指定した座標になるように位置が調整されます。ここで、座標はグラフの枠の左下が(0,0)で右上が(1,1)となります。
+例1 loc=&amp;lsquo;upper left&amp;rsquo;、bbox_to_anchor=(1, 1)であるときには、凡例の枠の左上（locがupper leftなので）が(1,1)になるように凡例が配置されます。
+例2 loc=&amp;lsquo;lower center&amp;rsquo;、bbox_to_anchor=(0.5, 1.1)であるときには、凡例の枠の中央下（locがlower centerなので）が(0.5,1.1)になるように凡例が配置されます。</description>
+    </item>
+    <item>
+      <title>Pythonのnamedtupleを使おう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</link>
+      <pubDate>Mon, 06 Jan 2020 21:57:05 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/python%E3%81%AEnamedtuple%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+Pythonのnamedtuple使ってますか？ 案外使っていない方が多いので、ご紹介しておきます。
+namedtupleとは？ 通常のタプルはインデックス指定でのみ要素を参照します。一方で、NamedTupleはタプルの各要素を名前によって参照できます。
+例えばpというnamedtupleの要素にnameというものがあれば、次のようにして参照できます。
+name = p.name 他の部分はほとんど通常のタプルと同じと思って問題ありません。
+namedtupleを使うメリット 要素に名前がつけられるようになっただけですが、私が思うメリットは以下の通りです。
+タプルのようなインデックスの指定では参照する要素を誤る可能性が出てきますが、名前で指定することで誤りを防ぐことができます。 タプルの各要素の意味がはっきりするのでコードの可読性がよくなります。 タプルを生成する箇所が複数あった場合に、要素の順番を誤ったり要素数を誤ったりすることがなくなります。 他にもいいところがあるかもしれませんね。
+namedtupleの使い方 その1 使い方はそれほど難しくありません。以下のようにしてnamedtupleを定義できます。
+from collections import namedtuple Person = namedtuple(&amp;#34;Person&amp;#34;, [&amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;, &amp;#34;sex&amp;#34;]) 上記により、Personのタプルが宣言できました。Personはnamedtupleの第二引数に指定されたnameとageとsexを要素にもつタプルです。ちなみに以下のようにリストではなく、スペース区切りの文字列で与えても同じ意味となります。
+Person = namedtuple(&amp;#34;Person&amp;#34;, &amp;#34;name age sex&amp;#34;) 宣言したPersonというタプルを生成するには以下のようにします。
+p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) このpの要素の参照は以下のようにしてできます。
+print(p.name, p.age, p.sex) # output: 太郎 10 男 簡単です！
+その2 （おそらく）Python3.6からは次のようにもnamedtupleが利用できます。
+from typing import NamedTuple class Person(NamedTuple): name: str age: int sex: str p = Person(&amp;#34;太郎&amp;#34;, 10, &amp;#34;男&amp;#34;) print(p.</description>
+    </item>
+    <item>
+      <title>安易に逆行列を数値計算するのはやめよう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</link>
+      <pubDate>Fri, 15 Nov 2019 01:35:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/%E5%AE%89%E6%98%93%E3%81%AB%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%E3%82%84%E3%82%81%E3%82%88%E3%81%86/</guid>
+      <description>本記事はQrunchからの転載です。
+逆行列を使った計算というのは機械学習ではそれなりに出てきます。 例えば、最小二乗法では $$ x = (X^T X) ^{-1} Xb$$ の形の式を計算する必要がありますし、正規分布の分散を扱うときにも逆行列が出てきます。 こういうときにnp.linalg.invを使って逆行列を求めて、その後にベクトルとの積を求めるは簡単にできますから、特に何も考えずにそういうふうにしたくなります。
+でもそれって本当に逆行列の計算が必要ですか？
+多くの問題では逆行列の値そのものよりも、$x=A^{-1}b$のような逆行列とベクトルとの積が必要になります。そのような場合、実は計算はもっと速くできますよ、というのが今日のお話です。
+ただし今回は式を深く追うことはしませんので、細かい計算量などが気になる方は別途どこかの講義資料などの参照をお願いします。
+逆行列を求めるための計算量 逆行列を求めるための方法として多くの人が思いつくのが、おそらく線形代数の教科書に載っている掃き出し法でしょう。掃き出し法は逆行列を求めたい行列$A$に対して操作をおこない、単位行列にしていくやり方ですね。 行列$A$のサイズを$n \times n$としたとき、掃き出し法に必要な乗除算は$n^3$回、引き算は$n(n-1)^2$回です。 また別途、行列$b$との積を計算する場合には乗算が$n^2$回、足し算が$n(n-1)$回かかることに注意してください。
+実際にはnp.linalg.invはこの方法ではなく、後述する方法を利用して（半ば無理やり？）逆行列を求めますが、そうしても計算量は上記と同じ程度になります。
+連立一次方程式を解く方法 $x=A^{-1}b$の計算は、$Ax=b$の形をした連立一次方程式とみなすことができます（$x=A^{-1}b$の両辺に左から$A$を掛けるとわかりますね）。よって、連立一次方程式が解ければ、逆行列を求める必要はないということです。
+以下ではnp.linalg.solveでもおこなわれている、LU分解と前進後退代入を使った連立一次方程式の解き方について述べます。
+LU分解 行列$A$に対してLU分解をおこなうことを考えます。LU分解というのは下三角行列$L$と上三角行列$U$の積に行列$A$を分解することを指します。つまり、$$A = LU$$が成り立つような$L$と$U$を求めます。
+LU分解の計算量は乗除算が$(n-1)(n^2+n+3)/3$回で引き算が$n(n-1)(2n-1)/6$回です。ここまでは先程出てきた逆行列を求めるための計算量よりも大分少ない計算量です。
+もちろんLU分解だけでは連立一次方程式は解けず、次の前進後退代入をおこなう必要があります。
+前進後退代入 LU分解が済んでいるとすると、$Ax=b$は$LUx=b$とあらわせます。$y=Ux$とおいてあげると、 $$Ax=LUx= Ly=b$$ となりますので、$Ly=b$の連立一次方程式が出てきます。これを$y$について解くと次に $$Ux = y$$ の連立一次方程式があらわれます。最後にこれを$x$について解くことで、ようやく欲しかった$x$が求まります。
+$Ly=b$と$Ux=y$という連立一次方程式を解くなんて計算が重そうだ！と思うかもしれません。 しかしながら、$L$は下三角行列、$U$は上三角行列であるということを考慮するとそれほど計算量は多くなりません。実際、
+$Ly=b$を求める計算（前進代入）：乗算$n(n-1)/2$回、加減算$n(n-1)/2$回 $Ux=y$を求める計算（後退代入）：乗除算$n(n+1)/2$回、加減算$n(n-1)/2$回 上2つの計算量の和：乗除算$n^2$回、加減算$n(n-1)$回 となります。なんとこれは前述した$A^{-1}$を$b$に掛けるときの計算量と等しいです！ 一見大変そうな計算をしているのに、実は行列とベクトルの積と同じ計算量だなんて驚きです。
+LU分解と前進後退代入から逆行列を求める方法 np.linalg.invでは連立一次方程式の計算を利用して逆行列を求めるといいました。これは単位行列$E$を右辺とした連立一次方程式を解くことを指しています。つまり以下の方程式です（右辺と解$X$が行列になりますが、単純に列の分だけ解くべき方程式が増えたと思えばOKです）。 $$A X = E.$$ この方程式を解くと、$X = A^{-1}$となるのがわかりますね。
+この方法の前進後退代入の計算量は乗除算$n(2n^2+1)/3$回、加減算$n(n-1)(4n-5)/6$回となります（この計算量の計算は結構大変…）。 LU分解の計算量との合計は乗除算が$n^3 + n- 1$回、加減算が$n(n-1)^2$回となります。掃き出し法と比べて乗除算が$n-1$回増えますが、$n$が大きくなれば無視できる程度の差です。
+計算量のまとめ 計算量についてまとめると、以下のようになります。
+方法 乗除算 加減算 掃き出し法による逆行列の計算 $n^3$ $n(n-1)^2$ 行列とベクトルの積 $n^2$ $n(n-1)$ LU分解 $(n-1)(n^2+n+3)/3$ $n(n-1)(2n-1)/6$ 前進後退代入 $n^2$ $n(n-1)$ LU分解+前進後退代入による逆行列の計算 $n^3+n-1$ $n(n-1)^2$ LU分解と前進後退代入によって$Ax=b$を解いた場合の計算量では$n^3$に$1/3$がかかっていますから、「逆行列を求める+ベクトルとの積を計算する」の場合に比べて$1/3$程度計算量が減ることがわかります。</description>
+    </item>
+    <item>
+      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+      <description>本記事はQrunchからの転載です。
+AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
+MinIOのページはこちら。https://min.io
+導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
+Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &amp;#34;MINIO_ACCESS_KEY=access_key_dayo&amp;#34; \ -e &amp;#34;MINIO_SECRET_KEY=secret_key_dayo&amp;#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
+実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
+Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
+Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
+ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
+右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。</description>
+    </item>
+    <item>
+      <title>BERTでおこなうポケモンの説明文生成</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
+      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
+      <description>本記事はQrunchからの転載です。
+概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
+実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
+参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
+使用した事前学習モデル：BERT日本語Pretrainedモデル
+実装したソースコード：https://github.com/opqrstuvcut/BertMouth
+BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。
+ネットワークへの入力となる各トークンはサブワードになります。
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、
+何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
+上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
+ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。
+長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
+実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
+生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！
+結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。
+生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。</description>
+    </item>
+  </channel>
+</rss>

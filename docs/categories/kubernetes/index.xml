@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Kubernetes on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/categories/kubernetes/</link>
+    <description>Recent content in Kubernetes on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 16 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</link>
+      <pubDate>Sat, 16 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/</guid>
+      <description>Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
+GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
+こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
+手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。
+手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&amp;quot;GSA&amp;quot;はこのサービスアカウントの名称をあらわしています。
+GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。
+$ gcloud container clusters update &amp;lt;クラスタ名&amp;gt; \ --workload-pool=&amp;lt;プロジェクトID&amp;gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。
+$ gcloud container clusters get-credentials &amp;lt;作成したクラスタ名&amp;gt; \ --zone &amp;lt;asia-northeast1-aなどのzoneの指定&amp;gt; Kubernetes Service Account（KSA）を作成します。
+$ kubectl create serviceaccount --namespace default \ &amp;lt;KSAの名称（適当につける）&amp;gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。
+apiVersion: v1 kind: ServiceAccount metadata: name: &amp;lt;KSAの名称&amp;gt; GSAがSAと紐付けできるように権限を付与します。
+$ gcloud iam service-accounts add-iam-policy-binding \ --role roles/iam.workloadIdentityUser \ --member &amp;#34;serviceAccount:&amp;lt;プロジェクトID&amp;gt;.svc.id.goog[default/&amp;lt;KSAの名称&amp;gt;]&amp;#34; \ &amp;lt;GSAの名称&amp;gt;@&amp;lt;プロジェクトID&amp;gt;.iam.gserviceaccount.com 最後に次を実行。
+$ kubectl annotate serviceaccount \ --namespace default \ &amp;lt;KSAの名称&amp;gt; \ iam.</description>
+    </item>
+  </channel>
+</rss>

@@ -34,8 +34,7 @@ https://github.com/karb94/neoscroll.nvim
 C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。  
 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
 
-{{<gallery>}} <video src="neoscroll.webm" autoplay loop></video> {{</gallery>}}
-
+{{< video src="neoscroll" >}}
 
 ### 設定例
 ```lua
@@ -66,7 +65,7 @@ https://github.com/kevinhwang91/nvim-bqf
 QuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。  
 これがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。
 
-{{<gallery>}} <video src="nvim-bqf.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="nvim-bqf" >}}
 
 ### 設定例
 ```lua
@@ -85,14 +84,13 @@ https://github.com/thinca/vim-qfreplace
 QuickFixでの置換を楽にしてくれます。
 自分はTelescopeで単語の検索 -> \<C-q>でQuickFixを開く -> :Qfreplace -> 置換を実行 という感じのフローを使います。
 
-
-{{<gallery>}} <video src="qfreplace.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="qfreplace" >}}
 ## registers.nvim
 https://github.com/tversteeg/registers.nvim
 
 レジスタの内容が見やすくなります。
 
-{{<gallery>}} <video src="registers.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="registers" >}}
 
 ### 設定例
 ```lua
@@ -121,7 +119,7 @@ https://github.com/tversteeg/registers.nvim
 https://github.com/rachartier/tiny-code-action.nvim
 
 CodeActionの変更内容が見やすくなります。
-{{<gallery>}} <video src="tiny-code-action.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="tiny-code-action" >}}
 
 ### 設定例
 ```lua
@@ -145,7 +143,7 @@ CodeActionの変更内容が見やすくなります。
 https://github.com/rachartier/tiny-inline-diagnostic.nvim
 
 Diagnosticが見やすくなります。
-{{<gallery>}} <video src="tiny-inline-diagnostic.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="tiny-inline-diagnostic" >}}
 
 ### 設定例
 ```lua
@@ -165,7 +163,7 @@ https://github.com/dimaportenko/project-cli-commands.nvim
 （自分の設定だと）\<leader>ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。  
 登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。
 
-{{<gallery>}} <video src="cliproject.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="cliproject" >}}
 
 ### 設定例
 ```lua
@@ -216,7 +214,7 @@ https://github.com/OXY2DEV/markview.nvim
 
 マークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。
 
-{{<gallery>}} <video src="markview.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="markview" >}}
 
 ### 設定例
 ```lua 
@@ -414,7 +412,7 @@ https://github.com/tkmpypy/chowcho.nvim
 具体的には、このプラグインを使うと、例えば2つしかwindowがなければ\<C-w>\<C-w>でもう一方のwindowに移動するという設定ができます。
 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。
 
-{{<gallery>}} <video src="chowcho.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="chowcho" >}}
 
 ### 設置例
 ```lua
@@ -467,7 +465,7 @@ https://github.com/tkmpypy/chowcho.nvim
 https://github.com/archibate/lualine-time
 
 lualineに時間が表示されるようになります。地味にかなり便利だと思っていますが、ターミナルで時間を表示させている人などは不要そうです。
-{{<gallery>}} <video src="lualine-time.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="lualine-time" >}}
 
 ## vim-arsync
 https://github.com/KenN7/vim-arsync
@@ -481,7 +479,7 @@ https://github.com/benlubas/molten-nvim
 PythonのJupyter NotebookをNeoVim上から実行するときに使っています。現在はこれがないのは結構苦行と感じるレベルです。  
 もともとはmagma.nvimというプラグインがあったのですが、これのforkになっていてそこから色々と機能が足されたりしています。
 
-{{<gallery>}} <video src="molten.webm" autoplay loop></video> {{</gallery>}}
+{{< video src="molten" >}}
 
 ### 設定例
 これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。

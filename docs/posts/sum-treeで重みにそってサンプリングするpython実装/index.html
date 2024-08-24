@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Sum Treeで重みにそってサンプリングする（Python実装） | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="Python, Sum Tree, サンプリング">
+<meta name="description" content="問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
+3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
+0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
+Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。
+概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。
+図をもちいて具体例を示します。
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。
+サンプリング サンプリングはシンプルです。
+0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。
+サンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。
+また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。
+サンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。
+サンプルコード Python実装を最後に示します。
+import numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self.">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="Sum Treeで重みにそってサンプリングする（Python実装）" />
+<meta property="og:description" content="問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
+3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
+0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
+Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。
+概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。
+図をもちいて具体例を示します。
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。
+サンプリング サンプリングはシンプルです。
+0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。
+サンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。
+また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。
+サンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。
+サンプルコード Python実装を最後に示します。
+import numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/feature.png" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-01-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-17T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/feature.png" />
+<meta name="twitter:title" content="Sum Treeで重みにそってサンプリングする（Python実装）"/>
+<meta name="twitter:description" content="問題設定 次のような設定でサンプリングをしたいことはよくあると思います。
+3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。
+0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。
+Sum Tree Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。
+概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。
+図をもちいて具体例を示します。
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。
+サンプリング サンプリングはシンプルです。
+0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。
+サンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。
+また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。
+サンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。
+サンプルコード Python実装を最後に示します。
+import numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Sum Treeで重みにそってサンプリングする（Python実装）",
+      "item": "https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Sum Treeで重みにそってサンプリングする（Python実装）",
+  "name": "Sum Treeで重みにそってサンプリングする（Python実装）",
+  "description": "問題設定 次のような設定でサンプリングをしたいことはよくあると思います。\n3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。\n0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。\nSum Tree Sum Treeを用いれば、計算量のオーダーを$O(\\log n)$にできます。\n概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。\n図をもちいて具体例を示します。\nデータは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。\nサンプリング サンプリングはシンプルです。\n0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。\nサンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。\nこの葉にたどり着く確率は$$\\frac{40}{100} \\times \\frac{40}{40} \\times \\frac{40}{40} = \\frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。\nまた、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。\nサンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\\frac{60}{100} \\times \\frac{35}{60} \\times \\frac{30}{35} = \\frac{30}{100}$$です。\nサンプルコード Python実装を最後に示します。\nimport numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self.",
+  "keywords": [
+    "Python", "Sum Tree", "サンプリング"
+  ],
+  "articleBody": "問題設定 次のような設定でサンプリングをしたいことはよくあると思います。\n3つのデータがあり、それぞれに重みがつけられているとする。 それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。 このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。 つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。 シンプルな方法 さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。 手順は次のようになります。\n0~1の乱数を生成する。 i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。 i番目のデータの重みを全体の重みの和で割る。 1.で計算した重みをsumに足す。 i番目のデータをサンプリングされたデータとする。 この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。\nSum Tree Sum Treeを用いれば、計算量のオーダーを$O(\\log n)$にできます。\n概要 木の構成 Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。 各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。\n図をもちいて具体例を示します。\nデータは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。 緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。\nサンプリング サンプリングはシンプルです。\n0からrootノードの重みの間の乱数を生成する。これをvとおく。 rootノードから葉にたどり着くまで、以下の処理を繰り返す。 左の子の重みがv以上ならば、左の子のノードに移動する。 左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。 たどり着いた葉をサンプリングされたデータとする。 これだけだとよく分からないと思うので次から例をみていきます。\nサンプリングの例1 1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。 処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。 このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。 ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。\nこの葉にたどり着く確率は$$\\frac{40}{100} \\times \\frac{40}{40} \\times \\frac{40}{40} = \\frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。\nまた、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。\nサンプリングの例2 また別の例として乱数が50のときも示します。 重み30の葉にたどり着いていますが、そうなる確率は $$\\frac{60}{100} \\times \\frac{35}{60} \\times \\frac{30}{35} = \\frac{30}{100}$$です。\nサンプルコード Python実装を最後に示します。\nimport numpy as np from typing import List, Optional, Union class Node: def __init__(self, weight, parent): self.weight: int = weight self.left: Optional[Node, Leaf] = None self.right: Optional[Node, Leaf] = None self.parent: Optional[Node, Leaf] = parent class Leaf: def __init__(self, parent): self.weight = 0 self.val = 0 self.parent: Optional[Node] = parent class SumTree: def __init__(self, max_leaves): self._root: Node = Node(weight=0, parent=None) self._max_leaves: int = max_leaves self._leaf_index: int = 0 self._reached_limit: bool = False self._all_leaves: List[Leaf] = [] self._init_tree() def _init_tree(self): hierarchy = int(np.ceil(np.log2(self._max_leaves))) pre_hierarchies = [self._root] for _ in range(1, hierarchy): new_hierarchies = [] for pre_hierarchy_node in pre_hierarchies: left_node = Node(0, paent=pre_hierarchy_node) right_node = Node(0, parent=pre_hierarchy_node) pre_hierarchy_node.left = left_node pre_hierarchy_node.right = right_node new_hierarchies.append(left_node) new_hierarchies.append(right_node) pre_hierarchies = new_hierarchies for node in pre_hierarchies: node.left = Leaf(parent=node) node.right = Leaf(parent=node) self._all_leaves.append(node.left) self._all_leaves.append(node.right) def _update_node_weight(self, node: Node): while node: weight_sum = 0 if node.left: weight_sum += node.left.weight if node.right: weight_sum += node.right.weight node.weight = weight_sum node = node.parent def __len__(self): return self._max_leaves if self._reached_limit else self._leaf_index def __getitem__(self, item): if item \u003e= self.__len__(): raise Exception(\"index out of range\") if not self._reached_limit: idx = item else: idx = self._leaf_index + item if idx \u003e= self._max_leaves: idx -= self._max_leaves return self._all_leaves[idx] def add(self, val, weight): target_leaf = self._all_leaves[self._leaf_index] target_leaf.val = val target_leaf.weight = weight self._leaf_index += 1 if self._leaf_index \u003e= self._max_leaves: self._leaf_index = 0 self._reached_limit = True self._update_node_weight(target_leaf.parent) def sample(self): target_val = np.random.random() * self._root.weight target_node = self._root while True: if target_node.left.weight \u003e target_val: target_node = target_node.left else: target_val -= target_node.left.weight target_node = target_node.right if isinstance(target_node, Leaf): break return target_node 次のように使用します。\nst = SumTree(max_leaves=10) st.add(\"a\", 5) st.add(\"b\", 20) st.add(\"c\", 30) st.add(\"d\", 5) st.add(\"e\", 40) st.sample() 次のようにして、サンプリングが上手くいっているかどうかを確認できます。\ncount_dict = {\"a\": 0, \"b\": 0, \"c\": 0, \"d\": 0, \"e\": 0} for i in range(100000): count_dict[st.sample().val] += 1 print(count_dict) # {'a': 4941, 'b': 19941, 'c': 29892, 'd': 5234, 'e': 39992} ",
+  "wordCount" : "361",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/feature.png","datePublished": "2021-01-17T00:00:00Z",
+  "dateModified": "2021-01-17T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/sum-tree%E3%81%A7%E9%87%8D%E3%81%BF%E3%81%AB%E3%81%9D%E3%81%A3%E3%81%A6%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8Bpython%E5%AE%9F%E8%A3%85/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Sum Treeで重みにそってサンプリングする（Python実装）
+    </h1>
+    <div class="post-meta"><span title='2021-01-17 00:00:00 +0000 UTC'>1月 17, 2021</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="問題設定">問題設定<a hidden class="anchor" aria-hidden="true" href="#問題設定">#</a></h1>
+<p>次のような設定でサンプリングをしたいことはよくあると思います。</p>
+<pre tabindex="0"><code>3つのデータがあり、それぞれに重みがつけられているとする。
+それぞれ、データ1の重みは10、データ2の重みは20、データ3の重みは30である。
+このときに各データの重みと全体の重みの和の比を確率としてサンプリングをしたい。
+つまり、データ1は10/60、データ2は20/60、データ3は30/60の確率でサンプリングすることになる。
+</code></pre><h1 id="シンプルな方法">シンプルな方法<a hidden class="anchor" aria-hidden="true" href="#シンプルな方法">#</a></h1>
+<p>さきほどの問題設定のとき、簡単にサンプリングする方法は正規化された重みの和を順に足していき、一様分布からサンプリングした乱数がその和を超えたときのデータを取得するという方法です。
+手順は次のようになります。</p>
+<ol>
+<li>0~1の乱数を生成する。</li>
+<li>i=0、sum=0とし、生成した乱数をsumが超えるまで以下を実行する。
+<ol>
+<li>i番目のデータの重みを全体の重みの和で割る。</li>
+<li>1.で計算した重みをsumに足す。</li>
+</ol>
+</li>
+<li>i番目のデータをサンプリングされたデータとする。</li>
+</ol>
+<p>この方法は簡単に実装でき、理解も容易ですが、データの重みを順に足していくため、$O(n)$の計算量がかかります。</p>
+<h1 id="sum-tree">Sum Tree<a hidden class="anchor" aria-hidden="true" href="#sum-tree">#</a></h1>
+<p>Sum Treeを用いれば、計算量のオーダーを$O(\log n)$にできます。</p>
+<h2 id="概要">概要<a hidden class="anchor" aria-hidden="true" href="#概要">#</a></h2>
+<h3 id="木の構成">木の構成<a hidden class="anchor" aria-hidden="true" href="#木の構成">#</a></h3>
+<p>Sum Treeでは二分木を作成し、各ノードがもつ重みを用いてサンプリングの処理をおこないます。
+各ノードの重みはそのノードにぶら下がっている葉の重みの和になります。</p>
+<p>図をもちいて具体例を示します。<br>
+データは5つで重みはそれぞれ5、20、30、5、40としたときには以下のような木が作られます。
+<img loading="lazy" src="sum_tree_example.png" alt=""  />
+</p>
+<p>緑色の丸はノード、オレンジは葉になります。葉の数値はデータの重み、ノードの数値はノードにぶら下がっている葉の重みの和です。</p>
+<h3 id="サンプリング">サンプリング<a hidden class="anchor" aria-hidden="true" href="#サンプリング">#</a></h3>
+<p>サンプリングはシンプルです。</p>
+<ol>
+<li>0からrootノードの重みの間の乱数を生成する。これをvとおく。</li>
+<li>rootノードから葉にたどり着くまで、以下の処理を繰り返す。
+<ol>
+<li>左の子の重みがv以上ならば、左の子のノードに移動する。</li>
+<li>左の子の重みがv以上でなければ、右の子のノードに移動する。またv=v-（左の子の重み）とする。</li>
+</ol>
+</li>
+<li>たどり着いた葉をサンプリングされたデータとする。</li>
+</ol>
+<p>これだけだとよく分からないと思うので次から例をみていきます。</p>
+<h4 id="サンプリングの例1">サンプリングの例1<a hidden class="anchor" aria-hidden="true" href="#サンプリングの例1">#</a></h4>
+<p>1つめのサンプリングの例は次のとおりです。乱数が70のときは以下の赤のような経路を通ります。
+<img loading="lazy" src="sum_tree_sampling2.png" alt=""  />
+</p>
+<p>処理をおっていくと、はじめにrootノードが100という重みをもっているので、70を生成したときは右の子ノードに移ります。
+このとき、左側の子ノードの重みを生成した値から引くことで、右側のノードの重み(40)以下の値になることが保証されます。
+ノードの重みで引いた値が10になるため、次に左側のノードにいき、結果として40の重みをもつデータがサンプリングされています。<br>
+この葉にたどり着く確率は$$\frac{40}{100} \times \frac{40}{40} \times \frac{40}{40} = \frac{40}{100}$$となりますので、狙い通り40%の確率でサンプリングできます。</p>
+<p>また、見てわかるように、二分木を使うことで葉の重みを個別には見ずに和を利用するため、計算量を減らすことができています。</p>
+<h4 id="サンプリングの例2">サンプリングの例2<a hidden class="anchor" aria-hidden="true" href="#サンプリングの例2">#</a></h4>
+<p>また別の例として乱数が50のときも示します。
+<img loading="lazy" src="sum_tree_sample1.png" alt=""  />
+</p>
+<p>重み30の葉にたどり着いていますが、そうなる確率は
+$$\frac{60}{100} \times \frac{35}{60} \times \frac{30}{35} = \frac{30}{100}$$です。</p>
+<h3 id="サンプルコード">サンプルコード<a hidden class="anchor" aria-hidden="true" href="#サンプルコード">#</a></h3>
+<p>Python実装を最後に示します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">weight</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="n">Leaf</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="n">Leaf</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="n">Leaf</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Leaf</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SumTree</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_leaves</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">:</span> <span class="n">Node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">max_leaves</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_reached_limit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_all_leaves</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Leaf</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_init_tree</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_init_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hierarchy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre_hierarchies</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">hierarchy</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_hierarchies</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">pre_hierarchy_node</span> <span class="ow">in</span> <span class="n">pre_hierarchies</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">left_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">paent</span><span class="o">=</span><span class="n">pre_hierarchy_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">pre_hierarchy_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pre_hierarchy_node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left_node</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pre_hierarchy_node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right_node</span>
+</span></span><span class="line"><span class="cl">                <span class="n">new_hierarchies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">new_hierarchies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right_node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pre_hierarchies</span> <span class="o">=</span> <span class="n">new_hierarchies</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">pre_hierarchies</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Leaf</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Leaf</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_all_leaves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_all_leaves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_update_node_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">weight_sum</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">weight_sum</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">weight</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">weight_sum</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">weight</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">node</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight_sum</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reached_limit</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">item</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&#34;index out of range&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reached_limit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">idx</span> <span class="o">=</span> <span class="n">item</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span> <span class="o">+</span> <span class="n">item</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">idx</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_leaves</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target_leaf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_leaves</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target_leaf</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target_leaf</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_leaves</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_reached_limit</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_update_node_weight</span><span class="p">(</span><span class="n">target_leaf</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">weight</span>
+</span></span><span class="line"><span class="cl">        <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">target_node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;</span> <span class="n">target_val</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">target_node</span><span class="o">.</span><span class="n">left</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">target_val</span> <span class="o">-=</span> <span class="n">target_node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">weight</span>
+</span></span><span class="line"><span class="cl">                <span class="n">target_node</span> <span class="o">=</span> <span class="n">target_node</span><span class="o">.</span><span class="n">right</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_node</span><span class="p">,</span> <span class="n">Leaf</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">target_node</span>
+</span></span></code></pre></div><p>次のように使用します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">st</span> <span class="o">=</span> <span class="n">SumTree</span><span class="p">(</span><span class="n">max_leaves</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;b&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;c&#34;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;d&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;e&#34;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">st</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+</span></span></code></pre></div><p>次のようにして、サンプリングが上手くいっているかどうかを確認できます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">count_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;a&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="s2">&#34;b&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="s2">&#34;c&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="s2">&#34;d&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="s2">&#34;e&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">               
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count_dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span><span class="o">.</span><span class="n">val</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">count_dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># {&#39;a&#39;: 4941, &#39;b&#39;: 19941, &#39;c&#39;: 29892, &#39;d&#39;: 5234, &#39;e&#39;: 39992}</span>
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/python/">Python</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/sum-tree/">Sum Tree</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0/">サンプリング</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>機械学習 | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://opqrstuvcut.github.io/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/index.xml">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="機械学習" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="機械学習"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    機械学習
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Tabularデータ向けのサーベイ論文を読んだのでメモ
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Deep Learning(DL)を用いたテーブルデータ向けの手法は色々提案されており、度々、精度面で勾配ブースティング法を超えたとか超えないと話題になる気がします。
+テーブルデータ周りのDL手法に詳しくない身からすると実際のところどうなのかというのは謎だったので、サーベイ論文を読んでみました。
+読んだ論文：Deep Neural Networks and Tabular Data: A Survey
+手法の細かい説明をまとめるのはしんどいので省略して、結果の部分だけのメモになります。
+評価値での比較 下図は各手法のデータセットごとの評価値の比較結果をあらわしています。上部は非DL手法で、下部DL手法になります。
+これをみると、だいたいのデータセットに対してDL手法よりもXGBoostやLightGBM、CatBoostといった勾配ブースティング法が勝っていることがわかります。ただし、HIGGSデータセットではDL手法であるSAINTが他手法に勝っています。
+HIGGSデータセットはシミュレーションによって作成されたデータセットであり、データ数は1100万という巨大なものになります。巨大なデータセットに限ってはDeep Learning手法が有利になるのかもしれません。
+Accuracyと計算時間比較 次にAccuracyと計算時間(訓練と推論)の比較になります。DL手法と勾配ブースティングはGPU利用のようです。
+Adultデータセット 下図はAdultデータセットの場合をあわらしています。図中で左上にある手法ほど良く、右下に近いほど良くない手法という見方になります。
+これをみると、訓練と推論の両方で左上に書かれている決定木はバランスが良いです。 Accuracyを優先するならXGBoostやCatBoostといった選択肢があるという結果になっています（LightGBMはどこにいったのか？）。
+DL手法で比較的良いのはDeepFMといえるでしょうか。
+HIGGSデータセット 下図はHIGGSデータセットの場合をあらわしています。
+訓練はXGBoostやCatBoostが良いのですが、推論に比較的時間がかかるという結果になっています。このデータセットに対しては深い木になっているのかもしれません。
+主観ですが、訓練と推論の両方でバランスが取れているのはMLP、DeepFMでしょうか？
+Accuracyを求めるならSAINTですが、他手法よりも計算時間が多めです。
+Accuracyとモデルサイズ比較 Adultデータセットの場合のDeep LearningモデルのモデルサイズとAccuracyの比較になります。
+結果をみると、MLP、TabNet、DeepFMあたりが良いバランスでしょうか。
+ここでもSAINTはAccuracyが高めですが、同程度のAccuracyのDeepFMと比べるとモデルサイズが2桁近く大きくなっています。実運用上はモデルサイズは非常に大事でクラウドで動かすときには料金に直結しうるため、場合によっては使用するのが難しいかもしれません。
+ディープラーニングモデルの特徴量の分析 Ablation Test 次にディープラーニング手法のAttentionから得られる特徴量の寄与についての分析結果になります。
+下記の上部の図(a)は寄与が大きい特徴量から順に削除・モデルを学習・評価というプロセスを繰り返したときのAccuracyの推移をあらわしています。
+逆に下部の図(b)は寄与が小さい特徴量から順に削除していったケースをあらわします。
+(a)の場合には寄与が大きい特徴量を順に削除していくため、本当に寄与が高ければすぐにAccuracyが落ちるはずです。 実際にはすぐにガクッとAccuracyが落ちていくことはなく、いくつか特徴量を削除してからようやくAccuracyが下がっていきます。
+図中の手法のなかでは比較的TabNetのAccuracyがはやく落ちています。
+(b)の場合には寄与が小さい特徴量を順に削除していくため、あまりAccuracyが落ちていかないことが予想されます。 ここでもTabNetが他手法よりも想定に近い挙動をしています。
+以上から、比較的TabNetの寄与は信頼できるといえそうですが、全体的にはあまり予想通りの挙動ではないという印象です。
+SHAPとの相関 最後にDL手法から求まった特徴量の寄与とSHAP値（SHAPから求まった特徴量の寄与）との相関になります。 SHAPは理論的にきちんとしている数少ない（唯一？）寄与の求め方になります。
+もしDL手法から求まった特徴量の寄与が良いものであれば、SHAP値との相関が高くなることが予想されます。
+2つの値はスケールが異なる都合、相関の計算にはスピアマンの順位相関係数を用いています。これは-1から1の範囲の値を取り、1は特徴量を寄与が高い順に並べた結果が全く同じ、-1は逆順、0は全く似ていないという結果をあらわします。
+上の表をみると、ほとんど値が0ですので、DL手法で求まる寄与とSHAP値にはほぼほぼ相関がないということがわかります。
+SHAP値の計算には時間が結構かかりますので、DL手法から求まる寄与がSHAP値に類似すると大変好都合なのですが、そうはならず残念です。
+個人的な結論 ここまでの話を踏まえた上で、以下の理由からテーブルデータに対しては基本は決定木系の手法を使ってみるでOKという結論です。
+高いAccuracy 訓練、推論の両方が比較的速い GPUが必須ではない SHAP値が厳密に高速に求まる ただし、データが非常に大きかったり、マルチモーダルなデータ、テーブルデータのaugmentation、またコンペでのスタッキングなどのアンサンブル（実運用でやるのは稀かと思いますが）では活用されると思います。</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-07-17 00:00:00 +0000 UTC'>7月 17, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to Tabularデータ向けのサーベイ論文を読んだのでメモ" href="https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>困ったこと YOLOv5は便利なライブラリですが、ONNXへモデルを変換したときにちょっと困ったことがあります。
+というのも、変換後のONNXモデルにはNMSなどの後処理が含まれていないため、後処理は別途用意する必要があります。
+公式ではPyTorchの関数を使ったNMSになっているため、そのまま後処理のコードをコピーしようとすれば実行環境上にONNX RuntimeとPyTorchの両方を用意しないといけません。でもせっかくONNXを使うなら、環境にPyTorchを入れたくないですよね。
+解決方法 PyTorchを入れたくないけどどうしよう…と困っていたところ、こちらのプルリクを見つけました。
+https://github.com/ultralytics/yolov5/pull/7736
+どうやらNMSの処理がONNXモデルに含まれるような修正をおこなっているようです。
+2022/07/17現在はまだmasterへはマージされていないのですが、fork先のブランチを試してみると、うまくいくことが確認できました。
+実際にONNXモデルへ変換をおこなうときにはexport.pyに&#34;–nms&#34;オプションをつければOKです。 モデルの出力値の扱いはこちらを参考にすると分かるかと思います。</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-07-17 00:00:00 +0000 UTC'>7月 17, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき" href="https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Individual Conditional Expectation
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。
+例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。
+PDPの記事を先に見ると、理解がはやいかと思います。
+Partial Dependence Plotの解説記事
+Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。
+PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。
+一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。
+Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。
+これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。
+生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。
+また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。
+各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-10-19 00:00:00 +0000 UTC'>10月 19, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to Individual Conditional Expectation" href="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Partial Dependence Plot
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。
+例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。
+Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。
+このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。
+こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。
+注意点として、$x_i$と$X_C$は独立でなければいけません。
+独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。
+Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。
+期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_{j=1}^n f(x_i,X_{jC}) .$$
+年齢に対するPartial Dependence Plot 年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。
+年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。
+性別に対するPartial Dependence Plot 性別についても結果を示します。
+女性のほうが生存しやすかったという傾向が見て取れます。
+実装 実装は次のとおりです。
+import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.DataFrame, target:str, candidates:List) -&gt; List[float]: expecteds = [] replaced_x = x....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-10-14 00:00:00 +0000 UTC'>10月 14, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to Partial Dependence Plot" href="https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">貧乏人なのでPoor Man’s BERTを読んで解説
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本記事はQrunchからの転載です。
+最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
+例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
+BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
+実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
+比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。
+次の図がTransformer層の減らし方の一覧です。
+各方法の詳細は以下のとおりです。
+Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
+Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
+Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
+Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
+Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
+実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
+これから以下のことが分かります。
+各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。 タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
+問題によっては6層消してもほとんど変化がなかったりします。
+余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
+タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
+ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
+パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
+6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
+BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
+なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。
+上記の話には実験的な根拠があり、それを示したのが以下の図です。
+これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-06-21 15:22:01 +0900 JST'>6月 21, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to 貧乏人なのでPoor Man’s BERTを読んで解説" href="https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本記事はQrunchからの転載です。
+みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。
+KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \int p(\mathbf{x}) \log \left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) {\rm d\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \geq 0$が成り立つことに注意してください。
+KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。
+前述したKL divergenceの定義をみてみると、$p(\mathbf{x})$が0でない値をもつ領域では$q(\mathbf{x})$も$p(\mathbf{x})$に近い値かあるいは$p(\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。
+KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \int q(\mathbf{x}) \log \left(\frac{q(\mathbf{x})}{p(\mathbf{x})}\right) {\rm d\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\mathbf{x})$が0に近いような領域で$q(\mathbf{x})$が小さくなるようにすればよいです。$p(\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\mathbf{x})$が割り当てられると、$KL(p||q)$が大きくなってしまいますね。このため、イメージとしては、$KL(p||q)$を最小化するような$q$は$p$の値が大きいところに集中するような分布になると考えられます。
+実験 上記の話が成り立つのかを実験してみます。
+実験準備 $p(\mathbf{x})$は次のようにします。
+$$p(\mathbf{x}|\mathbf{u},\Sigma)=\frac{1}{{2\pi}|\Sigma|^{1/2}}\exp\biggl[-\frac{(\mathbf{x}-\mathbf{u})^{\top}\Sigma^{-1}(\mathbf{x}-\mathbf{u})}{2}\biggr].$$ また$\mathbf{u}$と$\Sigma$はそれぞれ $$\mathbf{u} = \begin{pmatrix} 0.3 \\ -0.2 \end{pmatrix}, \Sigma =\begin{pmatrix} 0.9&amp;-0.7 \\ -0.7 &amp; 0.9 \end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-03-02 18:01:01 +0900 JST'>3月 2, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？" href="https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">画像と自然言語でのマルチモーダルなImageBERT
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本記事はQrunchからの転載です。
+最近Microsoftから発表されたImageBERTについて紹介します。
+ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。 また論文ではモデルのアーキテクチャだけではなく、学習方法にも新たな提案がされています。
+実験ではImage-to-Sentenceでの検索とSentence-to-Imageの検索タスクでSOTAが示されています。
+論文：ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data
+アーキテクチャ ImageBERTのアーキテクチャは以下のとおりです。 テキストの入力と画像の入力で分けて説明します。 なお、論文中では画像のcaptioningのデータセットを用いています。
+テキストの入力 テキストは通常のBERTのようにsubwordに分割して、それらのembeddingを入力します。 BERTでは2つの文を与えるときに、1つ目の文か2つ目の文かを識別する情報をsubwordのembeddingに加えますが、ImageBERTでも同じように画像か文かを識別する情報を加えます。図でいうところのSegment Embeddingになります。
+また、文の位置情報もBERTやTransformerでは与える必要があり、ImageBERTでも位置情報を加えます。しかし、ここではtokenの順番を昇順に与えるというシンプルなやり方のようです。これは図中のSequence Position Embeddingになります。
+画像の入力 画像はそのままモデルに入力するのではなく、FasterRCNNで物体検出をして、検出された箇所の特徴量をそれぞれ入力する形になります（画像の特徴量はsubwordのembeddingと同じ次元に射影します）。
+テキストの場合と同じようにSegment EmbeddingとSequence Position Embeddingも与えるのですが、Sequence Position Embeddingはテキストの場合とは与え方が異なります。テキストの場合にはsubwordに順序がありましたが、画像中の物体には順序がありませんので、すべて同じSequence Position Embeddingを与えます。
+また、これら以外にPosition Embeddingというものも与えます。Position Emebeddingは以下で与えられるベクトルをsubwordのembeddingと同じ次元に射影したものです。 $$ c = \begin{pmatrix} \frac{x_{tl}}{W}, \frac{y_{tl}}{H}, \frac{x_{br}}{W}, \frac{y_{br}}{H}, \frac{(x_{br} - x_{tl}) (y_{br} - y_{tl}) }{WH} \end{pmatrix}.$$ ここで、$x_{tl}, y_{tl}, x_{br}, y_{br}$はそれぞれ物体の左上の$x$と$y$、右下の$x$と$y$座標になります。$W$と$H$は入力画像の横と縦の大きさです。 つまり、$c$は物体の位置と面積の割合の情報になります。
+事前学習のタスク ImageBERTでは事前学習に次の4つタスクを解きます。
+Masked Language Modeling (MLM) これは通常のBERTと同じように、入力されるsubwordをランダムにマスクし、マスクされた単語を予測するようなタスクです。 Masked Object Classification (MOC) これはMLMの画像版のタスクです。検出された物体をランダムにマスクし、マスクされた物体のラベルを予測するようなタスクです。正解ラベルはFaster-RCNNで求まったラベルとしています。 Masked Region Feature Regression (MRFR) MOCはラベルを予測するようなタスクですが、MRFRはマスクされた物体の箇所の特徴量を予測するタスクです。 Image-Text Matching (ITM) 入力テキストと画像が対応しているかを予測するタスクです。ランダムに画像を選ぶことで、対応していないテキストと画像のペアを作っています。 マルチステージの事前学習 ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します） で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-02-24 19:46:50 +0900 JST'>2月 24, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to 画像と自然言語でのマルチモーダルなImageBERT" href="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Pandasのgroupbyの使い方をまとめる
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本記事はQrunchからの転載です。
+Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。
+以下では次のようなDataFrameを使用します。
+df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]}) 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。
+例えば名字という列をキーとしてgroupbyするときには次のようにします。
+df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。
+グループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。
+for name, grouped_df in df.groupby(&#34;名字&#34;): print(f&#34;名字：{name}&#34;) print(grouped_df) 名字：上田
+名字 年齢 出身 2 上田 30 名字：山田
+名字 年齢 出身 1 山田 20 東京 名字：田中...</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-02-14 12:04:01 +0900 JST'>2月 14, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to Pandasのgroupbyの使い方をまとめる" href="https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Uber製の機械学習モデルのデバッグツールManifold
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本記事はQrunchからの転載です。
+Uberが公開している機械学習モデルの予測と特徴量の関係性を可視化するツールであるManifoldを紹介します。
+Manifoldを試す Manifoldでできることを見ていきます。
+インストール レポジトリをgit cloneしてから、githubのページにあるように以下のようにしてインストールできました。
+# under the root directory, install all dependencies yarn # demo app is in examples/manifold directory cd examples/manifold # instal demo app dependencies yarn # start the app npm run start 準備 まずユーザーは次の3つのデータを用意します。
+入力データの特徴量を記述したcsv 入力データに対するラベル 入力データに対するモデルの予測値（分類問題の場合には各クラスに属する確率になります） モデルはなんでも良く、必要なのは予測値であることに注意してください。
+今回はkaggleのタイタニックのデータから適当にテストデータを作ってみました。 テストデータとlightgbmのモデルを用いて、次のような感じでManifoldに必要なデータを作ってます。
+with open(&#34;./titanic_res/features.csv&#34;, &#34;w&#34;) as f: columns = &#34;,&#34;.join(list(X_test.columns)) # X_testがテストデータの特徴量 f.write(f&#34;{columns}\n&#34;) for i, features in X_test.iterrows():　f_string = &#34;,&#34;.join([str(x) for x in features]) f.write(f&#34;{f_string}\n&#34;) with open(&#34;....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-01-28 22:52:36 +0900 JST'>1月 28, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to Uber製の機械学習モデルのデバッグツールManifold" href="https://opqrstuvcut.github.io/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>magma-nvimで理想に近いVimでのJupyter環境を作る | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="vim, Python, Jupyter, magma, jupytxt">
+<meta name="description" content="vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。
+開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。
+magma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。
+が、自分の運用上はだいぶ困った点がありました。
+というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。
+カーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。
+苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim
+これを使うと、
+:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？
+ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。
+https://ohke.hateblo.jp/entry/2019/05/25/180000
+magma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。
+これと以下のようなkermapを組み合わせてNotebookを編集しています。
+セルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。
+なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。
+function FindNextLineWithText(pattern) local currentLine = vim.fn.line(&#39;.&#39;) local totalLines = vim.fn.line(&#39;$&#39;) for line = currentLine &#43; 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim.">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="magma-nvimで理想に近いVimでのJupyter環境を作る" />
+<meta property="og:description" content="vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。
+開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。
+magma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。
+が、自分の運用上はだいぶ困った点がありました。
+というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。
+カーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。
+苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim
+これを使うと、
+:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？
+ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。
+https://ohke.hateblo.jp/entry/2019/05/25/180000
+magma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。
+これと以下のようなkermapを組み合わせてNotebookを編集しています。
+セルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。
+なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。
+function FindNextLineWithText(pattern) local currentLine = vim.fn.line(&#39;.&#39;) local totalLines = vim.fn.line(&#39;$&#39;) for line = currentLine &#43; 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/" />
+<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" />
+<meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-06-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-12T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" />
+<meta name="twitter:title" content="magma-nvimで理想に近いVimでのJupyter環境を作る"/>
+<meta name="twitter:description" content="vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。
+開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。
+magma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。
+が、自分の運用上はだいぶ困った点がありました。
+というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。
+カーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。
+苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim
+これを使うと、
+:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？
+ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。
+https://ohke.hateblo.jp/entry/2019/05/25/180000
+magma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。
+これと以下のようなkermapを組み合わせてNotebookを編集しています。
+セルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。
+なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。
+function FindNextLineWithText(pattern) local currentLine = vim.fn.line(&#39;.&#39;) local totalLines = vim.fn.line(&#39;$&#39;) for line = currentLine &#43; 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "magma-nvimで理想に近いVimでのJupyter環境を作る",
+      "item": "https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "magma-nvimで理想に近いVimでのJupyter環境を作る",
+  "name": "magma-nvimで理想に近いVimでのJupyter環境を作る",
+  "description": "vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。\n開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました\u0026hellip; 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。\nmagma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。\n上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。\nが、自分の運用上はだいぶ困った点がありました。\nというのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。\n自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。\nDocker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。\nカーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。\nじゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。\n苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。\n非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim\nこれを使うと、\n:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。\n自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？\nちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。\nhttps://ohke.hateblo.jp/entry/2019/05/25/180000\nmagma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。\nこれと以下のようなkermapを組み合わせてNotebookを編集しています。\nセルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。\nなのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。\nこれは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。\nfunction FindNextLineWithText(pattern) local currentLine = vim.fn.line(\u0026#39;.\u0026#39;) local totalLines = vim.fn.line(\u0026#39;$\u0026#39;) for line = currentLine + 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim.",
+  "keywords": [
+    "vim", "Python", "Jupyter", "magma", "jupytxt"
+  ],
+  "articleBody": "vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。\n開発中にターミナルとブラウザへ移動が面倒 vimで使っているformatterとかlinterをそのまま使いたい Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました… 前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。\nmagma-nvim magma-nvimはJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。\n上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。\nが、自分の運用上はだいぶ困った点がありました。\nというのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。\n自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。\nDocker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。\nカーネル選択の問題の解決 magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。\nじゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。\n苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。\n非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。 https://github.com/opqrstuvcut/magma-nvim\nこれを使うと、\n:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。\n自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？\nちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。\nhttps://ohke.hateblo.jp/entry/2019/05/25/180000\nmagma-nvimを使う時の注意 最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方はhttps://github.com/WhiteBlackGoose/magma-nvim-gooseを利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。 画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。 便利にするためのkeymap Notebookを編集するときにはhttps://github.com/goerz/jupytext.vimによって、いい感じにNotebookの内容をフォーマットして表示しています。\nこれと以下のようなkermapを組み合わせてNotebookを編集しています。\nセルの実行 magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。\nなのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。\nこれは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。\nfunction FindNextLineWithText(pattern) local currentLine = vim.fn.line('.') local totalLines = vim.fn.line('$') for line = currentLine + 1, totalLines do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return totalLines end function FindPrevLineWithText(pattern, start_buffer) start_buffer = start_buffer or 0 local currentLine = vim.fn.line('.') for line = currentLine + start_buffer , 1, -1 do local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] if lineText:find(pattern) then return line end end return 0 end function MagmaEvaluateCell() local pattern = \"# %%\" local startLine = FindPrevLineWithText(pattern) local endLine = FindNextLineWithText(pattern) vim.api.nvim_win_set_cursor(0, { startLine + 1, 0 }) vim.api.nvim_feedkeys('V'..(endLine-1)..'gg', 'n', true) vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(':MagmaEvaluateVisual', true, true, true), 'n', true) end 載せているデモ動画ではMagmaEvaluateCellを\"mc\"に設定しており、実行したいセル上にカーソルをもっていって利用しています。\nセルの新規作成 カーソルが存在するセルの下に新しいセルを作ります。\nfunction AddNewCell() local pattern = \"# %%\" local endLine = FindNextLineWithText(pattern) local bufnr = vim.api.nvim_get_current_buf() vim.api.nvim_buf_set_lines(bufnr, endLine, endLine, false, {\"\", pattern}) vim.api.nvim_win_set_cursor(0, { endLine + 1, 0 }) vim.api.nvim_command(\"startinsert\") end セルの削除 とりあえずセルを簡単に削除するためのものです。\nfunction DeleteCell() local pattern = \"# %%\" local startLine = FindPrevLineWithText(pattern) local endLine = FindNextLineWithText(pattern) vim.api.nvim_buf_set_lines(0, startLine, endLine, false, {}) end セルの移動 次のセルへの移動です。\nfunction MoveNextCell() local pattern = \"# %%\" local endLine = FindNextLineWithText(pattern) vim.api.nvim_win_set_cursor(0, { endLine, 0 }) end function MovePrevCell() local pattern = \"# %%\" local line = FindPrevLineWithText(pattern, -1) if line \u003e 0 then vim.api.nvim_win_set_cursor(0, { line, 0 }) end end ",
+  "wordCount" : "256",
+  "inLanguage": "ja",
+  "image": "https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png","datePublished": "2023-06-12T00:00:00Z",
+  "dateModified": "2023-06-12T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      magma-nvimで理想に近いVimでのJupyter環境を作る
+    </h1>
+    <div class="post-meta"><span title='2023-06-12 00:00:00 +0000 UTC'>6月 12, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。</p>
+<ul>
+<li>開発中にターミナルとブラウザへ移動が面倒</li>
+<li>vimで使っているformatterとかlinterをそのまま使いたい</li>
+<li>Jupyter上でもvimキーバインドを設定しているけど、ブラウザのキーバインドと被る</li>
+<li>vimからIPython上に実行結果を表示する方法もあるが、残念ながらめんどくさかったりで運用面があわない</li>
+<li>PyCharmやVSCodeを使えばいいじゃんという声が聞こえてきますが、とりあえずPyCharmは気になるところが多くて疲れました&hellip;</li>
+</ul>
+<p>前々からvimで完結するようにしたいなぁと思っていたのですが、ようやくそれがある程度実現されてきたので紹介していきます。</p>
+<h2 id="magma-nvim">magma-nvim<a hidden class="anchor" aria-hidden="true" href="#magma-nvim">#</a></h2>
+<p><a href="https://github.com/dccsillag/magma-nvim">magma-nvim</a>はJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。<br>
+上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。
+<video controls preload="auto" width="100%"  playsinline class="html-video">
+    <source src="/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+</video></p>
+<p>これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。</p>
+<p>が、自分の運用上はだいぶ困った点がありました。</p>
+<p>というのも、magma-nvimでは:MagmaInitで用意したJupyterのカーネルを選択することができますが、基本的にはホスト上にあるカーネルを選択することになります。<br>
+自分の場合は、案件ごとにJupyter labのサーバーをDockerコンテナ内に立てるようにしていますので、ここが噛み合わないのです。<br>
+Docker内のカーネルをホストのJupyterに追加できるらしい方法はいくつか試したのですが、うまくいかず…。</p>
+<h3 id="カーネル選択の問題の解決">カーネル選択の問題の解決<a hidden class="anchor" aria-hidden="true" href="#カーネル選択の問題の解決">#</a></h3>
+<p>magma-nvimのコードを眺めていると、Jupyter Clientとかいう謎のライブラリを使ってカーネルを操作していることがわかりました。<br>
+じゃあJupyter ClientでDockerコンテナ上で動いているカーネルを触りにいけばいいじゃないとなるのですが、無理っぽい雰囲気です。おそらく。正直このあたり何も知らないのでよく分かりませんが。</p>
+<p>苦渋の選択ですが、サーバー上のJupyterカーネルを触るためのAPIが存在しますので、こちらを使ってうまく既存のmagma-nvimと連携させようという方向性になりました。<br>
+非常に重い腰をあげて、それっぽく動くところまで実装したのがこちらになります。
+<a href="https://github.com/opqrstuvcut/magma-nvim">https://github.com/opqrstuvcut/magma-nvim</a></p>
+<p>これを使うと、</p>
+<pre tabindex="0"><code>:MagmaInit http://localhost:8080/?token=5fe4e1d52e7b0fc72986a7683b8d7a71f804b92fee991b7e
+</code></pre><p>みたいな感じでJupyterサーバーへのURLをMagmaInitに渡すことで、サーバー上のカーネルを実行できるようになります。<br>
+自分の実装が悪いのか、セルの実行をしたときにもっさりしているような…？</p>
+<p>ちなみにJupyterのAPIを扱う部分の実装には下記のブログ記事をかなり参考にさせていただきました。ありがとうございます。<br>
+<a href="https://ohke.hateblo.jp/entry/2019/05/25/180000">https://ohke.hateblo.jp/entry/2019/05/25/180000</a></p>
+<h3 id="magma-nvimを使う時の注意">magma-nvimを使う時の注意<a hidden class="anchor" aria-hidden="true" href="#magma-nvimを使う時の注意">#</a></h3>
+<ul>
+<li>最近はmagma-nvimの開発がおこなわれていないようです。とりあえずmagma-nvimを使ってみたい方は<a href="https://github.com/WhiteBlackGoose/magma-nvim-goose">https://github.com/WhiteBlackGoose/magma-nvim-goose</a>を利用するとバグが直っていたり、機能が追加されていたりするので良いかと思います。</li>
+<li>画像の表示がうまくいかないケースが報告されています。自分の環境でも画像が表示されたり、されなかったり不思議な現象がおきています。これはなんとかしたいですが、magma-nvimを使わない理由とまではいきません。</li>
+</ul>
+<h2 id="便利にするためのkeymap">便利にするためのkeymap<a hidden class="anchor" aria-hidden="true" href="#便利にするためのkeymap">#</a></h2>
+<p>Notebookを編集するときには<a href="https://github.com/goerz/jupytext.vim">https://github.com/goerz/jupytext.vim</a>によって、いい感じにNotebookの内容をフォーマットして表示しています。<br>
+これと以下のようなkermapを組み合わせてNotebookを編集しています。</p>
+<h3 id="セルの実行">セルの実行<a hidden class="anchor" aria-hidden="true" href="#セルの実行">#</a></h3>
+<p>magma-nvimだと、例えばvisual modeで複数行を選択し、:MagmaEvaluateVisualを実行することでセルが定義されます（Notebook上のセルとは違う話です）。一度セルを定義すれば、その後はvisual modeで行選択をしなくてもセル単位で実行することができます。</p>
+<p>なのですが、やはりめんどうなのと、jupytextを使えば実際のNotebook上のセルを# %%で挟んで表示してくれますので、# %%で囲まれたコード単位で実行したくなります。<br>
+これは次のMagmaEvaluateCellを定義して実現しています（luaやvimのapiの使い方のセオリーがわからないので変だったらすみません）。</p>
+<pre tabindex="0"><code>function FindNextLineWithText(pattern)
+    local currentLine = vim.fn.line(&#39;.&#39;)
+    local totalLines = vim.fn.line(&#39;$&#39;)
+
+    for line = currentLine + 1, totalLines do
+        local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+        if lineText:find(pattern) then
+            return line
+        end
+    end
+
+    return totalLines
+end
+
+function FindPrevLineWithText(pattern, start_buffer)
+    start_buffer = start_buffer or 0
+    local currentLine = vim.fn.line(&#39;.&#39;)
+
+    for line = currentLine + start_buffer , 1, -1 do
+        local lineText = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+        if lineText:find(pattern) then
+            return line
+        end
+    end
+
+    return 0
+end
+
+function MagmaEvaluateCell()
+    local pattern = &#34;# %%&#34;
+    local startLine = FindPrevLineWithText(pattern)
+    local endLine = FindNextLineWithText(pattern)
+
+    vim.api.nvim_win_set_cursor(0, { startLine + 1, 0 })
+    vim.api.nvim_feedkeys(&#39;V&#39;..(endLine-1)..&#39;gg&#39;, &#39;n&#39;, true)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(&#39;:&lt;C-u&gt;MagmaEvaluateVisual&lt;CR&gt;&#39;, true, true, true), &#39;n&#39;, true)
+end
+</code></pre><p>載せているデモ動画ではMagmaEvaluateCellを&quot;mc&quot;に設定しており、実行したいセル上にカーソルをもっていって利用しています。</p>
+<h3 id="セルの新規作成">セルの新規作成<a hidden class="anchor" aria-hidden="true" href="#セルの新規作成">#</a></h3>
+<p>カーソルが存在するセルの下に新しいセルを作ります。</p>
+<pre tabindex="0"><code>function AddNewCell()
+    local pattern = &#34;# %%&#34;
+    local endLine = FindNextLineWithText(pattern)
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_lines(bufnr, endLine, endLine, false, {&#34;&#34;, pattern})
+
+    vim.api.nvim_win_set_cursor(0, { endLine + 1, 0 })
+    vim.api.nvim_command(&#34;startinsert&#34;)
+end
+</code></pre><h3 id="セルの削除">セルの削除<a hidden class="anchor" aria-hidden="true" href="#セルの削除">#</a></h3>
+<p>とりあえずセルを簡単に削除するためのものです。</p>
+<pre tabindex="0"><code>function DeleteCell()
+    local pattern = &#34;# %%&#34;
+    local startLine = FindPrevLineWithText(pattern)
+    local endLine = FindNextLineWithText(pattern)
+    vim.api.nvim_buf_set_lines(0, startLine, endLine, false, {})
+end
+</code></pre><h3 id="セルの移動">セルの移動<a hidden class="anchor" aria-hidden="true" href="#セルの移動">#</a></h3>
+<p>次のセルへの移動です。</p>
+<pre tabindex="0"><code>function MoveNextCell()
+    local pattern = &#34;# %%&#34;
+    local endLine = FindNextLineWithText(pattern)
+    vim.api.nvim_win_set_cursor(0, { endLine, 0 })
+end
+
+function MovePrevCell()
+    local pattern = &#34;# %%&#34;
+    local line = FindPrevLineWithText(pattern, -1)
+
+    if line &gt; 0 then
+	vim.api.nvim_win_set_cursor(0, { line, 0 })
+    end
+end
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/vim/">Vim</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/python/">Python</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/jupyter/">Jupyter</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/magma/">Magma</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/jupytxt/">Jupytxt</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

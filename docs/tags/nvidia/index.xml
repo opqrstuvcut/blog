@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NVIDIA on MatLoverによるMatlab以外のブログ</title>
+    <link>https://opqrstuvcut.github.io/blog/tags/nvidia/</link>
+    <description>Recent content in NVIDIA on MatLoverによるMatlab以外のブログ</description>
+    <generator>Hugo -- 0.133.0</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://opqrstuvcut.github.io/blog/tags/nvidia/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPU周りがおかしくなったときのメモ（ubuntu）</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</link>
+      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</guid>
+      <description>いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。
+①nvidia-smiが遅い、ubuntuが起動しているのにGUIが何も表示されない 現象 何も画面に映らなくなる現象です。sshとかはいけます。 nvidia-smiを実行すると普通は一瞬でGPUの状況が表示されますが、このケースでは1分以上かかったりします。 解決方法 cudaを入れ直して再起動したら直りました。原因はよくわかりません。
+aptでcudaを入れている場合は次のような感じです。
+$ sudo apt remove cuda -y $ sudo apt install cuda -y $ sudo reboot now ②突然のNVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running. 現象 PCを起動してnvidia-smiを実行すると、「NVIDIA-SMI has failed because it couldn&amp;rsquo;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.」が表示されます。 もちろんDockerコンテナからのGPU利用もできません。 解決方法 試しにnvccを実行しようとしたところ、nvccが見つからないのでインストール。</description>
+    </item>
+    <item>
+      <title>NVIDIAのGPUのdriverの更新</title>
+      <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
+      <description>NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。
+古いドライバを削除しておく 公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\* libnvidia-\* CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク） CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads nvidia-smiコマンドを実行して動けばOK </description>
+    </item>
+  </channel>
+</rss>

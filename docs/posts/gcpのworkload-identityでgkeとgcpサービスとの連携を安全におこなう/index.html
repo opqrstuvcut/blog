@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう | MatLoverによるMatlab以外のブログ</title>
+<meta name="keywords" content="GCP, GKE, Workload Identity, Kubernetes">
+<meta name="description" content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
+GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
+こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
+手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。
+手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。
+GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。
+$ gcloud container clusters update &lt;クラスタ名&gt; \ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。
+$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。
+$ kubectl create serviceaccount --namespace default \ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。
+apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。
+$ gcloud iam service-accounts add-iam-policy-binding \ --role roles/iam.workloadIdentityUser \ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。
+$ kubectl annotate serviceaccount \ --namespace default \ &lt;KSAの名称&gt; \ iam.">
+<meta name="author" content="">
+<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+    
+      
+    
+  
+
+<meta property="og:title" content="GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう" />
+<meta property="og:description" content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
+GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
+こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
+手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。
+手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。
+GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。
+$ gcloud container clusters update &lt;クラスタ名&gt; \ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。
+$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。
+$ kubectl create serviceaccount --namespace default \ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。
+apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。
+$ gcloud iam service-accounts add-iam-policy-binding \ --role roles/iam.workloadIdentityUser \ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。
+$ kubectl annotate serviceaccount \ --namespace default \ &lt;KSAの名称&gt; \ iam." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-01-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-16T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう"/>
+<meta name="twitter:description" content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。
+GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。
+こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。
+手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。
+手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。
+GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。
+$ gcloud container clusters update &lt;クラスタ名&gt; \ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。
+$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。
+$ kubectl create serviceaccount --namespace default \ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。
+apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。
+$ gcloud iam service-accounts add-iam-policy-binding \ --role roles/iam.workloadIdentityUser \ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。
+$ kubectl annotate serviceaccount \ --namespace default \ &lt;KSAの名称&gt; \ iam."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://opqrstuvcut.github.io/blog/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう",
+      "item": "https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう",
+  "name": "GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう",
+  "description": "Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。\nGCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。\nこういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。\n手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。\n手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される\u0026quot;GSA\u0026quot;はこのサービスアカウントの名称をあらわしています。\nGCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。\n$ gcloud container clusters update \u0026lt;クラスタ名\u0026gt; \\ --workload-pool=\u0026lt;プロジェクトID\u0026gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。\n$ gcloud container clusters get-credentials \u0026lt;作成したクラスタ名\u0026gt; \\ --zone \u0026lt;asia-northeast1-aなどのzoneの指定\u0026gt; Kubernetes Service Account（KSA）を作成します。\n$ kubectl create serviceaccount --namespace default \\ \u0026lt;KSAの名称（適当につける）\u0026gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。\napiVersion: v1 kind: ServiceAccount metadata: name: \u0026lt;KSAの名称\u0026gt; GSAがSAと紐付けできるように権限を付与します。\n$ gcloud iam service-accounts add-iam-policy-binding \\ --role roles/iam.workloadIdentityUser \\ --member \u0026#34;serviceAccount:\u0026lt;プロジェクトID\u0026gt;.svc.id.goog[default/\u0026lt;KSAの名称\u0026gt;]\u0026#34; \\ \u0026lt;GSAの名称\u0026gt;@\u0026lt;プロジェクトID\u0026gt;.iam.gserviceaccount.com 最後に次を実行。\n$ kubectl annotate serviceaccount \\ --namespace default \\ \u0026lt;KSAの名称\u0026gt; \\ iam.",
+  "keywords": [
+    "GCP", "GKE", "Workload Identity", "Kubernetes"
+  ],
+  "articleBody": "Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。\nGCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。\nこういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。\n手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。\n手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される\"GSA\"はこのサービスアカウントの名称をあらわしています。\nGCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。\n$ gcloud container clusters update \u003cクラスタ名\u003e \\ --workload-pool=\u003cプロジェクトID\u003e.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。\n$ gcloud container clusters get-credentials \u003c作成したクラスタ名\u003e \\ --zone Kubernetes Service Account（KSA）を作成します。\n$ kubectl create serviceaccount --namespace default \\ 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。\napiVersion: v1 kind: ServiceAccount metadata: name: GSAがSAと紐付けできるように権限を付与します。\n$ gcloud iam service-accounts add-iam-policy-binding \\ --role roles/iam.workloadIdentityUser \\ --member \"serviceAccount:\u003cプロジェクトID\u003e.svc.id.goog[default/]\" \\ @\u003cプロジェクトID\u003e.iam.gserviceaccount.com 最後に次を実行。\n$ kubectl annotate serviceaccount \\ --namespace default \\ \\ iam.gke.io/gcp-service-account=@\u003cプロジェクトID\u003e.iam.gserviceaccount.com ",
+  "wordCount" : "78",
+  "inLanguage": "ja",
+  "datePublished": "2021-01-16T00:00:00Z",
+  "dateModified": "2021-01-16T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://opqrstuvcut.github.io/blog/posts/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MatLoverによるMatlab以外のブログ",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
+                    <span>homeHome</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
+                    <span>archivesArchives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>searchSearch</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう
+    </h1>
+    <div class="post-meta"><span title='2021-01-16 00:00:00 +0000 UTC'>1月 16, 2021</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="workload-identityについて">Workload Identityについて<a hidden class="anchor" aria-hidden="true" href="#workload-identityについて">#</a></h1>
+<p>Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。</p>
+<p>GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。</p>
+<p>こういった問題を解決してくれるのがWorkload Identityです。Workload  IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。</p>
+<p>手順は基本的には<a href="https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity?hl=ja">公式</a>に従えばいいですが、ここでは簡素化したものを載せておきます。</p>
+<h1 id="手順">手順<a hidden class="anchor" aria-hidden="true" href="#手順">#</a></h1>
+<ol>
+<li>
+<p>プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。</p>
+</li>
+<li>
+<p>GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。
+既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud container clusters update &lt;クラスタ名&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --workload-pool<span class="o">=</span>&lt;プロジェクトID&gt;.svc.id.goog
+</span></span></code></pre></div></li>
+<li>
+<p>terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --zone &lt;asia-northeast1-aなどのzoneの指定&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>Kubernetes Service Account（KSA）を作成します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl create serviceaccount --namespace default <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;KSAの名称（適当につける）&gt;
+</span></span></code></pre></div><p>次のようなmanifestを作成し、podを作成しておくでもOKなはずです。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;KSAの名称&gt;</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p>GSAがSAと紐付けできるように権限を付与します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud iam service-accounts add-iam-policy-binding <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --role roles/iam.workloadIdentityUser <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --member <span class="s2">&#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com
+</span></span></code></pre></div></li>
+<li>
+<p>最後に次を実行。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl annotate serviceaccount <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --namespace default <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;KSAの名称&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  iam.gke.io/gcp-service-account<span class="o">=</span>&lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com
+</span></span></code></pre></div></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/gcp/">GCP</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/gke/">GKE</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/workload-identity/">Workload Identity</a></li>
+      <li><a href="https://opqrstuvcut.github.io/blog/tags/kubernetes/">Kubernetes</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

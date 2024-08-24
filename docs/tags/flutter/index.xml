@@ -1,41 +1,198 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Flutter on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/flutter/</link>
-    <description>Recent content in Flutter on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flutterで吹き出しを作る</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
-      <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
-吹き出しのライブラリ Flutterで吹き出しを出すためのライブラリとしてBubbleがあります。こちらを使うと吹き出しを簡単に表示できます。 もう一つSpeechBubbleというライブラリもありますが、Bubbleのほうが色々オプションが設定できます。
-Bubble Bubbleを使うと以下のような吹き出しが簡単に表示できます。
-最もシンプルな吹き出しの作り方は以下のようになります。
-Bubble( nip: BubbleNip.leftTop, child: Text(&amp;#39;Hi, developer!&amp;#39;), ) Bubbleのオプション Bubbleでは次がオプションとして選べます。
-吹き出しの色 吹き出しの形状 吹き出しからちょこんと出ているところの位置 影 マージン、パディング 欲しい機能は一通り揃っていてとても便利です。詳細はBubbleのgithubのページをご覧ください。
-Bubbleの不満 素晴らしいライブラリなのですが、ちょっとだけ不満があります。 吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。
-なので、forkして左中央に位置を指定できるようにしてみました。 https://github.com/opqrstuvcut/bubble
-こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。
-コードは以下の通り。
-Bubble( nip: BubbleNip.leftCenter, child: Text(&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;), ) </description>
-    </item>
-    <item>
-      <title>FlutterでS3にファイルをアップロードする</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
-      <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
-FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
-事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
-{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor0&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: [ &amp;#34;mobileanalytics:PutEvents&amp;#34;, &amp;#34;cognito-sync:*&amp;#34; ], &amp;#34;Resource&amp;#34;: &amp;#34;*&amp;#34; }, { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor1&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: &amp;#34;s3:*Object&amp;#34;, &amp;#34;Resource&amp;#34;: &amp;#34;arn:aws:s3:::(バケット名)*&amp;#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
-Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
-import &amp;#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&amp;#39;; import &amp;#39;package:amazon_s3_cognito/aws_region.dart&amp;#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1) imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。 IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion.AP_NORTHEAST_1はregionを指定しています。2つ目はsub region？の設定らしいですが、なければ同じもので特に問題ありません。 返り値はS3上の保存先のファイルパスになります。失敗したときは&amp;quot;Failed&amp;quot;だったり空のパスが渡ってきます。</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Flutter on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/flutter/</link>
+        <description>Recent content in Flutter on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Tue, 28 Jan 2020 00:29:30 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/flutter/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Flutterで吹き出しを作る</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+        <pubDate>Tue, 28 Jan 2020 00:29:30 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+        <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;吹き出しのライブラリ&#34;&gt;吹き出しのライブラリ
+&lt;/h1&gt;&lt;p&gt;Flutterで吹き出しを出すためのライブラリとして&lt;a class=&#34;link&#34; href=&#34;https://github.com/vi-k/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bubble&lt;/a&gt;があります。こちらを使うと吹き出しを簡単に表示できます。
+もう一つ&lt;a class=&#34;link&#34; href=&#34;https://github.com/NilsBacke/PHSpeechBubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SpeechBubble&lt;/a&gt;というライブラリもありますが、Bubbleのほうが色々オプションが設定できます。&lt;/p&gt;
+&lt;h1 id=&#34;bubble&#34;&gt;Bubble
+&lt;/h1&gt;&lt;p&gt;Bubbleを使うと以下のような吹き出しが簡単に表示できます。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76.png&#34;
+	width=&#34;720&#34;
+	height=&#34;1280&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hu15818339682852320269.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/56ff1ce17d741bc7f6aeb54a9c567e76_hu6501341767035063604.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;56&#34;
+		data-flex-basis=&#34;135px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最もシンプルな吹き出しの作り方は以下のようになります。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dart&#34; data-lang=&#34;Dart&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bubble&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nl&#34;&gt;nip:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BubbleNip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftTop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nl&#34;&gt;child:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Hi, developer!&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;bubbleのオプション&#34;&gt;Bubbleのオプション
+&lt;/h1&gt;&lt;p&gt;Bubbleでは次がオプションとして選べます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;吹き出しの色&lt;/li&gt;
+&lt;li&gt;吹き出しの形状&lt;/li&gt;
+&lt;li&gt;吹き出しからちょこんと出ているところの位置&lt;/li&gt;
+&lt;li&gt;影&lt;/li&gt;
+&lt;li&gt;マージン、パディング&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;欲しい機能は一通り揃っていてとても便利です。詳細は&lt;a class=&#34;link&#34; href=&#34;https://github.com/vi-k/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bubble&lt;/a&gt;のgithubのページをご覧ください。&lt;/p&gt;
+&lt;h1 id=&#34;bubbleの不満&#34;&gt;Bubbleの不満
+&lt;/h1&gt;&lt;p&gt;素晴らしいライブラリなのですが、ちょっとだけ不満があります。
+吹き出しからちょこんと出ているやつ（なんというか知らないんですが）の位置が現状は左上、左下、右上、右下しか選べません。&lt;/p&gt;
+&lt;p&gt;なので、forkして左中央に位置を指定できるようにしてみました。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/bubble&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/bubble&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;こちらを使うと次のように吹き出しの左中央からちょこんとあれが出せます。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7%E5%90%B9%E3%81%8D%E5%87%BA%E3%81%97%E3%82%92%E4%BD%9C%E3%82%8B/c9279461ed3598038212e7371b2a88fc_hu11421262876504316784.png&#34; alt=&#34;メモリ使用量&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;コードは以下の通り。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dart&#34; data-lang=&#34;Dart&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bubble&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nl&#34;&gt;nip:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BubbleNip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCenter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nl&#34;&gt;child:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ちょこんとでるのが左中央だよ&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>FlutterでS3にファイルをアップロードする</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
+        <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8.png" alt="Featured image of post FlutterでS3にファイルをアップロードする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリ&lt;a class=&#34;link&#34; href=&#34;https://pub.dev/packages/amazon_s3_cognito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;amazon_s3_cognito&lt;/a&gt;があります。
+今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。&lt;/p&gt;
+&lt;h1 id=&#34;事前準備&#34;&gt;事前準備
+&lt;/h1&gt;&lt;p&gt;AWS cognitoでIDプールを作っておく必要があります。
+cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1.png&#34;
+	width=&#34;1852&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1_hu2667509742149476979.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1_hu5502335763659211470.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;210&#34;
+		data-flex-basis=&#34;505px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;新しいIDプールの作成を押し、以下のような感じで設定をします。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128.png&#34;
+	width=&#34;2848&#34;
+	height=&#34;1226&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128_hu15444419030030802851.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128_hu14667372473313047011.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;557px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b.png&#34;
+	width=&#34;1776&#34;
+	height=&#34;1276&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b_hu15340611110795044177.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b_hu4994744904916791470.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;334px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+    &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;,
+    &amp;#34;Statement&amp;#34;: [
+        {
+            &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor0&amp;#34;,
+            &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,
+            &amp;#34;Action&amp;#34;: [
+                &amp;#34;mobileanalytics:PutEvents&amp;#34;,
+                &amp;#34;cognito-sync:*&amp;#34;
+            ],
+            &amp;#34;Resource&amp;#34;: &amp;#34;*&amp;#34;
+        },
+        {
+            &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor1&amp;#34;,
+            &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,
+            &amp;#34;Action&amp;#34;: &amp;#34;s3:*Object&amp;#34;,
+            &amp;#34;Resource&amp;#34;: &amp;#34;arn:aws:s3:::(バケット名)*&amp;#34;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;おそらくこれでAWS側の設定は大丈夫かと思います。&lt;/p&gt;
+&lt;h1 id=&#34;flutter側からファイルを送信する&#34;&gt;Flutter側からファイルを送信する
+&lt;/h1&gt;&lt;p&gt;amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。
+次のようなコードでファイルをS3に送ることができます。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import &amp;#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&amp;#39;;
+import &amp;#39;package:amazon_s3_cognito/aws_region.dart&amp;#39;;
+
+String uploadedImageUrl = await AmazonS3Cognito.upload(
+            imagePath,
+            BUCKET_NAME,
+            IDENTITY_POOL_ID,
+            IMAGE_NAME,
+            AwsRegion.AP_NORTHEAST_1,
+            AwsRegion.AP_NORTHEAST_1)
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;imagePathはスマートフォン内の送りたいファイルのパスを指定します。&lt;/li&gt;
+&lt;li&gt;BUCKET_NAMEはS3のバケット名を指定します。&lt;/li&gt;
+&lt;li&gt;IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8.png&#34;
+	width=&#34;2874&#34;
+	height=&#34;1122&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8_hu18005698746459658494.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8_hu316031451399761708.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;256&#34;
+		data-flex-basis=&#34;614px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。&lt;/li&gt;
+&lt;li&gt;AwsRegion.AP_NORTHEAST_1はregionを指定しています。2つ目はsub region？の設定らしいですが、なければ同じもので特に問題ありません。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;返り値はS3上の保存先のファイルパスになります。失敗したときは&amp;quot;Failed&amp;quot;だったり空のパスが渡ってきます。&lt;/p&gt;
+&lt;h2 id=&#34;あれiosでは失敗する&#34;&gt;あれ、iOSでは失敗する…
+&lt;/h2&gt;&lt;p&gt;Androidではここまでの設定等でうまくいったのですが、iOSでは常にうまく送信できませんし、空のパスが返り値として受け取られます。
+実はこれはアクセス権の問題でうまく動きませんでした。iOS版の実装をみると、publicなバケットにしかファイルを送れないようになっていました。
+というわけで、amazon_s3_cognitoのレポジトリをforkして、privateなバケットにもファイルを送れるように修正しましたので、よければ使ってみてください。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/amazon_s3_cognito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/amazon_s3_cognito&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;pubspec.yamlには以下のようにかけばOKです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  amazon_s3_cognito:
+      git:
+        url: https://github.com/opqrstuvcut/amazon_s3_cognito
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        
+    </channel>
 </rss>

@@ -1,230 +1,278 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="スピアマンの順位相関係数の導出のメモになります。 導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。 また$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。 いまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$ 上式は次のように整理できます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$ ここで、$d_i= R(x_i) - S(y_i)$とおくと、 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。">
+<title>スピアマンの順位相関係数の導出</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>スピアマンの順位相関係数の導出 | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="統計, スピアマンの順位相関係数">
-<meta name="description" content="スピアマンの順位相関係数の導出のメモになります。
-導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。
-そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。
-また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。
-いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\cdots, R(x_n)$と$S(y_1),\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i) - \bar{R})(S(y_i) - \bar{S}) }{\sigma_R \sigma_S}. \end{align*} $$
-上式は次のように整理できます。 $$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i)S(y_i) -\bar{S}R(x_i) -\bar{R}S(y_i) &#43; \bar{R}\bar{S}) }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{S}\bar{R} -\bar{R}\bar{S} &#43; \bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{R}\bar{S} }{\sigma_R \sigma_S}. \end{align*} $$
-ここで、$d_i= R(x_i) - S(y_i)$とおくと、
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) &#43; S(y_i)^2 - d_i^2) &#43; R(x_i)S(y_i)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 &#43; S(y_i)^2 - d_i^2)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \end{align*} $$ となります。">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="スピアマンの順位相関係数の導出">
+<meta property='og:description' content="スピアマンの順位相関係数の導出のメモになります。 導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。 また$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。 いまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$ 上式は次のように整理できます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$ ここで、$d_i= R(x_i) - S(y_i)$とおくと、 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='統計' /><meta property='article:tag' content='スピアマンの順位相関係数' /><meta property='article:published_time' content='2022-07-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png' />
+<meta name="twitter:title" content="スピアマンの順位相関係数の導出">
+<meta name="twitter:description" content="スピアマンの順位相関係数の導出のメモになります。 導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。 また$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。 いまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$ 上式は次のように整理できます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$ ここで、$d_i= R(x_i) - S(y_i)$とおくと、 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="スピアマンの順位相関係数の導出" />
-<meta property="og:description" content="スピアマンの順位相関係数の導出のメモになります。
-導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。
-そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。
-また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。
-いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\cdots, R(x_n)$と$S(y_1),\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i) - \bar{R})(S(y_i) - \bar{S}) }{\sigma_R \sigma_S}. \end{align*} $$
-上式は次のように整理できます。 $$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i)S(y_i) -\bar{S}R(x_i) -\bar{R}S(y_i) &#43; \bar{R}\bar{S}) }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{S}\bar{R} -\bar{R}\bar{S} &#43; \bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{R}\bar{S} }{\sigma_R \sigma_S}. \end{align*} $$
-ここで、$d_i= R(x_i) - S(y_i)$とおくと、
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) &#43; S(y_i)^2 - d_i^2) &#43; R(x_i)S(y_i)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 &#43; S(y_i)^2 - d_i^2)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \end{align*} $$ となります。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/" />
-<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png" />
-<meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-07-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-18T00:00:00+00:00" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png" />
-<meta name="twitter:title" content="スピアマンの順位相関係数の導出"/>
-<meta name="twitter:description" content="スピアマンの順位相関係数の導出のメモになります。
-導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。
-そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。
-また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。
-いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\cdots, R(x_n)$と$S(y_1),\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i) - \bar{R})(S(y_i) - \bar{S}) }{\sigma_R \sigma_S}. \end{align*} $$
-上式は次のように整理できます。 $$ \begin{align*} r &amp;= \frac{\frac{1}{n}\sum_{i=1}^n (R(x_i)S(y_i) -\bar{S}R(x_i) -\bar{R}S(y_i) &#43; \bar{R}\bar{S}) }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{S}\bar{R} -\bar{R}\bar{S} &#43; \bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}(\sum_{i=1}^n R(x_i)S(y_i)) -\bar{R}\bar{S} }{\sigma_R \sigma_S}. \end{align*} $$
-ここで、$d_i= R(x_i) - S(y_i)$とおくと、
-$$ \begin{align*} r &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) &#43; S(y_i)^2 - d_i^2) &#43; R(x_i)S(y_i)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \\ &amp;= \frac{\frac{1}{n}\left\{\sum_{i=1}^n \frac{1}{2}(R(x_i)^2 &#43; S(y_i)^2 - d_i^2)\right\} -\bar{R}\bar{S} }{\sigma_R \sigma_S} \end{align*} $$ となります。"/>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://opqrstuvcut.github.io/blog/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "スピアマンの順位相関係数の導出",
-      "item": "https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/"
-    }
-  ]
-}
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "スピアマンの順位相関係数の導出",
-  "name": "スピアマンの順位相関係数の導出",
-  "description": "スピアマンの順位相関係数の導出のメモになります。\n導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。\nそして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。\nまた$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。\nいまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。\n$$ \\begin{align*} r \u0026amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$\n上式は次のように整理できます。 $$ \\begin{align*} r \u0026amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ \u0026amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ \u0026amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$\nここで、$d_i= R(x_i) - S(y_i)$とおくと、\n$$ \\begin{align*} r \u0026amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ \u0026amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。",
-  "keywords": [
-    "統計", "スピアマンの順位相関係数"
-  ],
-  "articleBody": "スピアマンの順位相関係数の導出のメモになります。\n導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。\nそして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。\nまた$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。\nいまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。\n$$ \\begin{align*} r \u0026= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$\n上式は次のように整理できます。 $$ \\begin{align*} r \u0026= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ \u0026= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ \u0026= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$\nここで、$d_i= R(x_i) - S(y_i)$とおくと、\n$$ \\begin{align*} r \u0026= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ \u0026= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。\n$R$と$S$の定義から、$\\bar{R}=\\bar{S}$と$\\sigma_R = \\sigma_S$が成り立つので、上式は以下のように変形できます。 $$ \\begin{align*} r \u0026= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n R(x_i)^2 - \\frac{1}{2}d_i^2 \\right\\} -\\bar{R}^2 }{\\sigma_R^2} \\\\ \u0026= \\frac{\\frac{1}{n}\\sum_{i=1}^n R(x_i)^2 -\\bar{R}^2 - \\frac{1}{2n} \\sum_{i=1}^n d_i^2 }{\\sigma_R^2} \\\\ \u0026= \\frac{\\sigma_R^2 - \\frac{1}{2n} \\sum_{i=1}^n d_i^2 }{\\sigma_R^2} \\\\ \u0026= 1 - \\frac{\\sum_{i=1}^n d_i^2 }{2n\\sigma_R^2}. \\end{align*} $$\nもう少し式を整理することができます。$\\sigma_R^2$に着目するとこの部分は $$ \\begin{align*} \\sigma_R^2 \u0026= \\mathbb{E}[R(x)^2] - \\bar{R}^2 \\\\ \u0026= \\frac{1}{n}\\sum_{i=1}^n i^2 - \\left(\\frac{1}{n}\\sum_{i=1}^n i\\right)^2 \\\\ \u0026= \\frac{n^2-1}{12} \\end{align*} $$ とわかります。このことから、次のスピアマンの順位相関係数が導かれます。 $$ \\begin{align*} r \u0026= 1 - \\frac{6\\sum_{i=1}^n d_i^2 }{n^3 - n}. \\end{align*} $$\n",
-  "wordCount" : "173",
-  "inLanguage": "ja",
-  "image": "https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png","datePublished": "2022-07-18T00:00:00Z",
-  "dateModified": "2022-07-18T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "MatLoverによるMatlab以外のブログ",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
 
-<article class="post-single">
-  <header class="post-header">
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
     
-    <h1 class="post-title entry-hint-parent">
-      スピアマンの順位相関係数の導出
-    </h1>
-    <div class="post-meta"><span title='2022-07-18 00:00:00 +0000 UTC'>7月 18, 2022</span>
 
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">
+                <img src="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature_hu3920101458494766285.png"
+                        srcset="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature_hu3920101458494766285.png 800w, /blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature_hu17284891089093178471.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post スピアマンの順位相関係数の導出" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E7%B5%B1%E8%A8%88/" >
+                統計
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">スピアマンの順位相関係数の導出</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 18, 2022</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
 </div>
-  </header> 
-  <div class="post-content"><p>スピアマンの順位相関係数の導出のメモになります。</p>
-<h1 id="導出">導出<a hidden class="anchor" aria-hidden="true" href="#導出">#</a></h1>
-<p>$n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。<br>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>スピアマンの順位相関係数の導出のメモになります。</p>
+<h1 id="導出">導出
+</h1><p>$n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。<br>
 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。<br>
 また$R(x_1),\cdots,R(x_n)$の平均を$\bar{R}$、標準偏差を$\sigma_R$、$S(y_1),\cdots,S(y_n)$の平均を$\bar{S}$、標準偏差を$\sigma_S$とします。</p>
 <p>いまやりたいことは$x_1,\cdots, x_n$と$y_1,\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。
@@ -274,87 +322,225 @@ r &amp;= 1 - \frac{6\sum_{i=1}^n d_i^2  }{n^3 - n}.
 \end{align*}
 $$</p>
 
+</section>
 
-  </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E7%B5%B1%E8%A8%88/">統計</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/">スピアマンの順位相関係数</a></li>
-    </ul>
-  </footer>
-</article>
-    </main>
+    <footer class="article-footer">
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E7%B5%B1%E8%A8%88/">統計</a>
+        
+            <a href="/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/">スピアマンの順位相関係数</a>
+        
+    </section>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
 </script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
 <script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    window.disqus_config = function () {
+    
+    
+    
     };
-
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
 <script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
         }
     })
-
 </script>
-</body>
 
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

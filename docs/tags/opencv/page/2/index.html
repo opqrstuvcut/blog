@@ -1,422 +1,696 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。">
+<title>Tag: OpenCV - Pager 2 - MatLoverによるMatlab以外のブログ</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>OpenCV | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/tags/opencv/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://opqrstuvcut.github.io/blog/tags/opencv/index.xml">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/tags/opencv/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/tags/opencv/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Tag: OpenCV - MatLoverによるMatlab以外のブログ">
+<meta property='og:description' content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/tags/opencv/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2024-08-22T00:00:00&#43;00:00 '/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta name="twitter:title" content="Tag: OpenCV - MatLoverによるMatlab以外のブログ">
+<meta name="twitter:description" content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' /><link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/tags/opencv/index.xml">
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="OpenCV" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/tags/opencv/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="OpenCV"/>
-<meta name="twitter:description" content=""/>
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-</head>
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/blog/search/" class="search-form widget" >
+        <p>
+            <label>検索</label>
+            <input name="keyword" required placeholder="入力..." />
+        
+            <button title="検索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">アーカイブ</h2>
+
+        
+        
+        
+        
+        
+        <div class="widget-archive--list">
+            <div class="archives-year">
+                    <a href="/blog/archives/#2024">
+                        
+                            <span class="year">2024</span>
+                            <span class="count">1</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2023">
+                        
+                            <span class="year">2023</span>
+                            <span class="count">3</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2022">
+                        
+                            <span class="year">2022</span>
+                            <span class="count">6</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2021">
+                        
+                            <span class="year">2021</span>
+                            <span class="count">10</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2020">
+                        
+                            <span class="year">2020</span>
+                            <span class="count">49</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2019">
+                        
+                            <span class="year">さらに見る</span>
+                        
+                    </a> 
+                </div>
+            
+        </div>
+    </section>
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">カテゴリ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" class="font_size_36">
+                画像処理
+            </a>
+        
+            <a href="/blog/categories/opencv/" class="font_size_31">
+                OpenCV
+            </a>
+        
+            <a href="/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_9">
+                機械学習
+            </a>
+        
+            <a href="/blog/categories/aws/" class="font_size_7">
+                AWS
+            </a>
+        
+            <a href="/blog/categories/python/" class="font_size_5">
+                Python
+            </a>
+        
+            <a href="/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" class="font_size_4">
+                自然言語処理
+            </a>
+        
+            <a href="/blog/categories/feature-importance/" class="font_size_3">
+                Feature Importance
+            </a>
+        
+            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" class="font_size_3">
+                OpenCV生活
+            </a>
+        
+            <a href="/blog/categories/deep-learning/" class="font_size_2">
+                Deep Learning
+            </a>
+        
+            <a href="/blog/categories/gpu/" class="font_size_2">
+                GPU
+            </a>
+        
+    </div>
+</section>
+
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">タグ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/tags/opencv/" class="font_size_30">
+                OpenCV
+            </a>
+        
+            <a href="/blog/tags/python/" class="font_size_14">
+                Python
+            </a>
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" class="font_size_9">
+                深層学習
+            </a>
+        
+            <a href="/blog/tags/aws/" class="font_size_7">
+                AWS
+            </a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" class="font_size_6">
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_5">
+                機械学習
+            </a>
+        
+            <a href="/blog/tags/bert/" class="font_size_4">
+                BERT
+            </a>
+        
+            <a href="/blog/tags/pytorch/" class="font_size_4">
+                PyTorch
+            </a>
+        
+            <a href="/blog/tags/deep-learning/" class="font_size_3">
+                Deep Learning
+            </a>
+        
+            <a href="/blog/tags/tensorflow/" class="font_size_3">
+                TensorFlow
+            </a>
+        
+    </div>
+</section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <header>
+        <h3 class="section-title">
+            
+                Tags
+            
+        </h3>
+
+        <div class="section-card">
+            <div class="section-details">
+                <h3 class="section-count">30 ページ目</h3>
+                <h1 class="section-term">OpenCV</h1>
+                
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-<header class="page-header">
-  <h1>
-    OpenCV
-  </h1>
-</header>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">画像の距離変換をおこなう
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-画像に対する距離変換とは、グレースケールの画像において、ピクセルから最も近い0の値をもつピクセルまでの距離を求めたものです。
-早速OpenCVで試してみます。
-OpenCVで距離変換 次のようにして距離変換をおこなえます。
-dist = cv2.distanceTransform(img, distanceType=cv2.DIST_L2, maskSize=5 ) distanceTypeに距離の計算方法を指定します。DIST_L2はユークリッド距離です。 maskSizeには最も近い0の値をもつピクセルまでの距離の近似値を計算するときに使うmaskの大きさを指定します。maskSize=5の例でいえば、maskをあらわす$5\times5$の行列の各要素にはmaskの中心からの距離が格納されています。このmaskを使うことで、正確に距離を計算するよりも速く距離（の近似値）が計算できます。
-結果は以下のとおりです。
-入力画像 距離変換適用（明るいほど距離大） 背景が0の値をもつので、そこまでの距離が反映されています。窓の中心や、猫の顔の中心は背景から遠いので、大きな値をもっています。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-07 11:00:00 +0900 JST'>8月 7, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 画像の距離変換をおこなう" href="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">floodFillで領域に色を塗る
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-OpenCVのfloodFillを使うことで、選んだ点の周辺の似たような色のピクセルを塗りつぶすことができます。
-使い方 次のようにしてfloodFillを利用できます。
-mask = np.zeros((img.shape[0] &#43; 2, img.shape[1] &#43; 2), dtype=np.uint8) res = cv2.floodFill(img, mask=mask, seedPoint=(400, 700), newVal=(0, 0, 255), loDiff=30, upDiff=30) まずmaskですが、入力画像の$(x,y)$がmaskの$(x&#43;1, y&#43;1)$に対応し、maskの値が0でないところは塗りつぶされません。入力画像に比べて縦横が2ピクセルずつ大きいので、元の画像の周辺に1ピクセルずつpaddingができたようなイメージですね。 seedPointに指定した座標が塗りつぶしの処理の起点になります。 newValに塗りつぶす色を指定します。 seedPointに指定したピクセルの値からloDiffを引いた値とseedPointに指定したピクセルの値にupDiffを加えた値の間に入っているピクセルをseedPointの隣から順に塗りつぶしていきます。
-結果は以下のとおりです。
-入力画像 floodFillの結果 </p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-06 11:08:00 +0900 JST'>8月 6, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to floodFillで領域に色を塗る" href="https://opqrstuvcut.github.io/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Hough変換で円を検出
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-Hough変換は直線を検出する方法として前回紹介したのですが、Hough変換を応用することで、円の検出も行えます。
-OpenCVで円の検出 次の画像から円を検出してみます。
-円の検出は以下のようにおこないます。
-hough_circle = cv2.HoughCircles(img, method=cv2.HOUGH_GRADIENT, dp=1, minDist=5, param1=100, param2=80) HoughLinesと異なり、画像はグレースケールの状態で渡せば、なかでエッジ検出をおこなってくれます。
-methodには手法を指定しますが、HOUGH_GRADIENTしかないようです。
-dpには分解能を指定しています。1にすると画像の解像度と同じ分解能をもちます。
-minDistには円同士の最小の距離を指定します。これより近いと2つの円として認識されません。
-param1はCanny法のしきい値の上限、param2は円上にあると判定されたエッジの点の数に対するしきい値です。
-結果は以下のとおりです。
-大まかには円が検出できていることがわかります。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-05 11:05:00 +0900 JST'>8月 5, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Hough変換で円を検出" href="https://opqrstuvcut.github.io/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Hough（ハフ）変換で直線を見つけよう
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-Hough変換は画像から直線をみつける方法です。
-簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。
-なお、OpenCVでは直線の候補は以下のように$(\rho, \theta)$による極座標系であらわされています。 $$ \rho = x \cos \theta &#43; y \sin \theta .$$ $\rho$は原点からの直線の距離、$\theta$は直線の角度をあらわします。
-$\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$
-わざわざ極座標系であらわす理由はなにかというと、$y=ax&#43;b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。
-OpenCVで試してみる 次の画像に対してHough変換を適用します。
-Hough変換にかける前に、Canny法でエッジを抽出しておきます。
-canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True) Canny法の結果に対して、次のようにHough変換を適用できます。
-hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。
-検出された直線のパラメータ$(\rho, \theta)$は以下のようにして変換して、画像に直線として書き込んでいます。
-t = 3000 for params in hough_lines: rho, theta = params[0] a = np.cos(theta) b = np....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-04 19:00:00 +0900 JST'>8月 4, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Hough（ハフ）変換で直線を見つけよう" href="https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Canny法でエッジ検出
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。
-Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。
-2ノルムの場合 $$ \rm{grad}=\sqrt{G_x^2 &#43; G_y^2}. $$ 1ノルムの場合 $$ \rm{grad}= |G_x| &#43; |G_y|. $$ 2ノルムのほうが正確ですが、計算量では1ノルムのほうが優れています。
-極大値を求める 次に、計算された勾配から、勾配の極大値を求めます。こうすることで、余計な箇所がエッジとして検出されるのを防ぎます。
-しきい値処理 最後に、しきい値処理でエッジとして扱うかどうかを決めます。 Canny法のしきい値は2つあり、1つはこの値より大きければエッジとすると決めるためのもの、もう1つはこの値よりも小さければエッジではないと決めるためのものです。 じゃあ2つのしきい値の間はどうなるの？という話ですが、隣接しているピクセルがエッジと判定されていれば、エッジと判定するようにし、そうでなければエッジではないと判定します。 単純なしきい値でのエッジの判定よりも、より柔軟ですね。
-ただし、しきい値が非常に重要になることが容易に想像できます。
-OpenCVでCanny法をためす Canny法は以下のようにして実行できます。
-canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。
-結果を以下に示します。
-元画像 canny（2ノルム） canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-03 20:17:14 +0900 JST'>8月 3, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Canny法でエッジ検出" href="https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">ヒストグラム平坦化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-今日はヒストグラム平坦化を扱います。
-ヒストグラム平坦化はコントラストが偏っているような画像を補正します。 結果として、コントラストがある程度平坦化された結果が得られます。
-処理の中身としては、実際には画像のピクセル値の累積分布関数で写像したうえで、最大値と最小値が広がるように調整してあげるというイメージです。
-OpenCVでヒストグラム平坦化 次の画像にヒストグラム平坦化を適用してみます。このままだと全くみえません。
-この画像の画素値のヒストグラムは以下のとおりです。だいぶ偏ってますね。
-ヒストグラム平坦化は次のようにしておこなえます。めちゃくちゃ簡単です。
-res = cv2.equalizeHist(img) ちゃんと見えるようになりましたね。
-この画像の画素値のヒストグラムは以下のとおりです。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-02 22:50:29 +0900 JST'>8月 2, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to ヒストグラム平坦化" href="https://opqrstuvcut.github.io/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Non-Local Means Denoisingでノイズ除去
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-Non-Local Means Denoisingのアイデア 今回はノイズ除去を扱うのですが、特にガウスノイズを考えます。 これは平均が0となるノイズですので、着目しているピクセルにある意味で似ているピクセルを画像中から探してきて、それらの平均を取れば、ノイズの影響が消えたピクセルが得られるはずです。 これがNon-Local Means Denoisingのアイデアになります。
-似ているピクセルをどう定義するか Non-Local Means Denoisingでは着目しているピクセルの値自体ではなく、着目しているピクセルの周辺の値同士の差分を取ることで、似ているかどうかを考えます。 この考えから定義されるピクセル$p$と$q$間の距離は以下のようになります。 $$ d^2(B(p, f), B(q,f)) = \frac{1}{3(2f &#43; 1)^2} \sum_{c=1}^3 \sum_{j \in B(0, f)} (I_c(p&#43;j) - I_c(q&#43;j))^2. $$ ここで$B(p,f)$は着目しているピクセル$p$のサイズの周辺のピクセルで、サイズが$(2f &#43; 1) \times (2f &#43; 1)$となっています。$I_c(p&#43;j)$が周辺ピクセルの$c$番目のchannelの値をあらわします。
-平均値の取り方 先程定義した距離を使って以下のような重みを計算します。 $$ w(p,q) = e^{-\max(d^2 - 2\sigma^2, 0) / h^2}. $$ $\sigma^2$はノイズの分散になります（OpenCVの関数で実行するときには特にこれを指定しないので、上手く処理されている？）。$h$は与えるパラメーターで、大きいほど$w$の値に差がつきづらくなります。 距離$d^2$が小さいと$w$が1に近い値を取り、$d^2$が大きいほど$w$は小さい値になります。 この$w$を重みとしたピクセル値の重み付き平均を取ることがNon-Local Means Denoisingでの処理になります。
-この重み付き平均をとることで、似ているピクセルは強く考慮されますが、似ていないピクセルはほとんど影響を与えないため、似ているピクセルだけでの平均が取れるような計算処理になっています。
-なお、すべてのピクセル同士で距離$d^2$を計算すると、当然計算量が大変なことになります。 このため、実際には着目しているピクセルの周辺のどこまでを考慮するかを指定します。
-OpenCVでやってみる OpenCVでNon-Local Means Denoisingをやってみます。
-次の左の画像にノイズをのせて右の画像を生成しました。
-これに対して次のようにして、Non-Local Means Denoisingを適用します。
-denoised = cv2.fastNlMeansDenoisingColored(img, h=3, templateWindowSize=7, searchWindowSize=21) hはさきほどの重みで出てきた$h$と同じで、templateWindowSizeは$d^2$の計算で使われる$f$と同じで、searchWindowSizeは着目しているピクセルの周辺をどこまで考慮するかをあらわします。 ちなみに、fastNlMeansDenoisingという関数もありますが、カラー画像に対してはfastNlMeansDenoisingColoredが良いらしいです。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-08-01 10:04:00 +0900 JST'>8月 1, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Non-Local Means Denoisingでノイズ除去" href="https://opqrstuvcut.github.io/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">inpaintで画像の修復をする
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。 今回はOpenCVで修復をおこなってみます。
-OpenCVでやってみる 次の画像にノイズをのせていきます。
-次のようなコードで画像にノイズをのせていきます。
-cv2.rectangle(img, (100,100),(300,105),(255,255,255), -1) cv2.rectangle(img, (400, 450),(600,460),(255,255,255), -1) cv2.rectangle(img, (0, 750),(800, 760),(255,255,255), -1) plt.imshow(img[:, :, ::-1]) plt.show() mask = np.zeros(img.shape[:2], dtype=np.uint8) cv2.rectangle(mask, (100,100),(300, 105),(255), -1) cv2.rectangle(mask, (400, 450),(600,460),(255), -1) cv2.rectangle(mask, (0, 750),(800, 760),(255), -1) plt.imshow(mask) plt.gray() plt.show() ノイズがのった画像 ノイズ部分のmask画像 OpenCVのinpaint関数を使うと、このノイズがのった画像をある程度復元できます。 次のように利用します。
-inpainted = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS) 第一引数に復元したい画像を指定し、第二引数に復元したい箇所をあらわしたマスク画像を指定します。第三引数が復元時に周辺のピクセルをいくつ利用するかを指定します。第四引数に復元のアルゴリズムを指定します。INPAINT_NS（Navier Stokes法）かINPAINT_TELEA（Alexandru Telea法）を指定できます。
-Navier Stokes法 Alexandru Telea法 どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。
-ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。
-ちょっと復元した箇所が滲んだような感じになってしまってます。大きくしすぎには注意ですね。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-31 11:04:00 +0900 JST'>7月 31, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to inpaintで画像の修復をする" href="https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">透過変換で斜めから撮った画像を上から見下ろす
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。
-OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。
-やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。
-まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。
-src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。
-この行列を使い、次のように変換をおこないます。
-transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-30 11:04:00 +0900 JST'>7月 30, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 透過変換で斜めから撮った画像を上から見下ろす" href="https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">画像へのアフィン変換
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x’, y’)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x’ \\ y’ \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp; b &amp; c\\ e &amp; f &amp; g \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
-今回はこのアフィン変換をOpenCVを使っておこないます。
-アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
-transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
-以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x’ \\ y’ \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp; 0 &amp; c\\ 0 &amp; 1 &amp; g \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-29 11:03:00 +0900 JST'>7月 29, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 画像へのアフィン変換" href="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://opqrstuvcut.github.io/blog/tags/opencv/">
-      «&nbsp;前へ&nbsp;
-    </a>
-    <a class="next" href="https://opqrstuvcut.github.io/blog/tags/opencv/page/3/">次へ&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
-    </main>
+    </header>
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-list--compact">
+        
+            <article>
+    <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">
+        <div class="article-details">
+            <h2 class="article-title">画像の距離変換をおこなう</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-07T11:00:00&#43;09:00'>Aug 07, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%AE%E8%B7%9D%E9%9B%A2%E5%A4%89%E6%8F%9B%E3%82%92%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/10fec2481837301639f81cf34c21e4b1_hu11754967932789338322.png" 
+                        width="120"
+                        height="120" 
+                        alt="画像の距離変換をおこなう"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/">
+        <div class="article-details">
+            <h2 class="article-title">floodFillで領域に色を塗る</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-06T11:08:00&#43;09:00'>Aug 06, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/floodfill%E3%81%A7%E9%A0%98%E5%9F%9F%E3%81%AB%E8%89%B2%E3%82%92%E5%A1%97%E3%82%8B/b7d4e85930d3ec37e0350ab3fe75e877_hu2338843273138293081.png" 
+                        width="120"
+                        height="120" 
+                        alt="floodFillで領域に色を塗る"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/">
+        <div class="article-details">
+            <h2 class="article-title">Hough変換で円を検出</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-05T11:05:00&#43;09:00'>Aug 05, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91_hu9718158363343046326.png" 
+                        width="120"
+                        height="120" 
+                        alt="Hough変換で円を検出"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
+        <div class="article-details">
+            <h2 class="article-title">Hough（ハフ）変換で直線を見つけよう</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-04T19:00:00&#43;09:00'>Aug 04, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu2629163388531141622.png" 
+                        width="120"
+                        height="120" 
+                        alt="Hough（ハフ）変換で直線を見つけよう"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
+        <div class="article-details">
+            <h2 class="article-title">Canny法でエッジ検出</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-03T20:17:14&#43;09:00'>Aug 03, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu4739635933458974968.jpg" 
+                        width="120"
+                        height="120" 
+                        alt="Canny法でエッジ検出"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
+        <div class="article-details">
+            <h2 class="article-title">ヒストグラム平坦化</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-02T22:50:29&#43;09:00'>Aug 02, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112_hu5566378395534093408.png" 
+                        width="120"
+                        height="120" 
+                        alt="ヒストグラム平坦化"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/">
+        <div class="article-details">
+            <h2 class="article-title">Non-Local Means Denoisingでノイズ除去</h2>
+            <footer class="article-time">
+                <time datetime='2020-08-01T10:04:00&#43;09:00'>Aug 01, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/non-local-means-denoising%E3%81%A7%E3%83%8E%E3%82%A4%E3%82%BA%E9%99%A4%E5%8E%BB/783215bfb0d1c75f10337b84d03a1a34_hu9097800561960416236.png" 
+                        width="120"
+                        height="120" 
+                        alt="Non-Local Means Denoisingでノイズ除去"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/">
+        <div class="article-details">
+            <h2 class="article-title">inpaintで画像の修復をする</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-31T11:04:00&#43;09:00'>Jul 31, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620_hu10521117378499412111.png" 
+                        width="120"
+                        height="120" 
+                        alt="inpaintで画像の修復をする"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/">
+        <div class="article-details">
+            <h2 class="article-title">透過変換で斜めから撮った画像を上から見下ろす</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-30T11:04:00&#43;09:00'>Jul 30, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu7446275181351740139.png" 
+                        width="120"
+                        height="120" 
+                        alt="透過変換で斜めから撮った画像を上から見下ろす"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">
+        <div class="article-details">
+            <h2 class="article-title">画像へのアフィン変換</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-29T11:03:00&#43;09:00'>Jul 29, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu13360766827317026452.png" 
+                        width="120"
+                        height="120" 
+                        alt="画像へのアフィン変換"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+    </section>
+    <nav class='pagination'>
+        
+        
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
+        
+            
+                    <a class='page-link' href='/blog/tags/opencv/'>1</a>
+                
+            
+            
+                <span class='page-link current'>2</span>
+                
+            
+            
+                    <a class='page-link' href='/blog/tags/opencv/page/3/'>3</a>
+                
+            
+    </nav>
+
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
 
+        document.head.appendChild(customFont);
+    }());
 </script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-
+    </body>
 </html>

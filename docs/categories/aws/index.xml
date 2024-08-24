@@ -1,132 +1,507 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>AWS on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/categories/aws/</link>
-    <description>Recent content in AWS on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/categories/aws/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>App Runnerを実戦投入してのメモ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
-      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
-      <description>簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。
-今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。
-HTTPS対応 Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。
-簡単にhttps対応のシステムを作る必要がある場合は楽ですね。
-自動デプロイ App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。
-つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。
-このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。
-カスタムドメイン お名前などで取得したドメインとの紐づけも簡単にできます。
-「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。
-留意点1 注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。
-そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。
-結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。
-留意点2 世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。
-72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。
-このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。
-インスタンスロール App Runnerの設定でインスタンスロールを選ぶことができます。
-このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&amp;hellip;。
-なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。
-{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Principal&amp;#34;: { &amp;#34;Service&amp;#34;: &amp;#34;build.apprunner.amazonaws.com&amp;#34; }, &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34; } ] } カスタムVPC App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。
-これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。
-留意点1 カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。
-このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。
-留意点2 カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。
-紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。
-間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。
-ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。</description>
-    </item>
-    <item>
-      <title>docker composeでAWS ECSにデプロイするときのtips</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
-      <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
-      <description>docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
-AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
-service: api: x-aws-policies: - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
-secrets: sample_secret: name: &amp;#34;シークレットのARN&amp;#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
-service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
-GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
-https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
-GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
-LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;) - { ClusterName: SampleCluster } KeyName: .</description>
-    </item>
-    <item>
-      <title>FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</link>
-      <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</guid>
-      <description>問題発生時の状況 AWSのECS上にFastAPI + uvicornの構成でのサーバーをたてました。内容的には普通のREST APIです。
-とりあえずは順調に動作していたのですが、たまにコンテナが再起動しているっぽいけどなんだろうと思って調べていたところ、メモリ使用量が次のようになっていました。
-時間経過でメモリ使用量が勝手に増えているような振る舞いです。 実装上はこんなことにならないはず…。
-解決方法 調べてみると、同じようなissueが存在していました。
-https://github.com/tiangolo/fastapi/issues/1624 https://github.com/encode/uvicorn/issues/1226 uvicorn側のissueをみると、uvicornのバージョンが0.17.0でこのような問題が起こるようです。
-利用しているバージョンがちょうど0.17.0でしたので、0.17.6へとバージョンしてみると、見事に解決しました！
-バージョンアップ後のメモリ使用量が以下のグラフの右端の平らな部分です。時間経過でメモリ使用量が増えるようなことがなくなっています。</description>
-    </item>
-    <item>
-      <title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
-      <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
-      <description>AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。
-理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。
-使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。
-インストール
-macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。
-$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定
-これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。
-[default] aws_access_key_id = &amp;lt;YOUR_ACCESS_KEY_ID&amp;gt; aws_secret_access_key = &amp;lt;YOUR_SECRET_ACCESS_KEY&amp;gt; コマンドを実行
-次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。
-$ sqsmover --source=&amp;lt;送り元のQueue名&amp;gt; --destination=&amp;lt;送り先のQueue名&amp;gt; 次のような標準出力が確認できるかと思います。
-• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。</description>
-    </item>
-    <item>
-      <title>AWSのLambdaからPostgresを利用</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
-      <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
-      <description>本記事はQrunchからの転載です。
-AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。 ライブラリのレポジトリはこちらです。
-ライブラリのclone git clone https://github.com/jkehler/awslambda-psycopg2.git 適切な名前にリネーム LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにあるpsycopg2-3.6をpsycopg2にリネームします。あるいはPython3.7を利用する方はpsycopg2-3.7をpsycopg2にリネームします。
-適切な位置への配置
-psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。 例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。
-Lambdaにデプロイする！</description>
-    </item>
-    <item>
-      <title>FlutterでS3にファイルをアップロードする</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
-      <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
-FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリamazon_s3_cognitoがあります。 今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。
-事前準備 AWS cognitoでIDプールを作っておく必要があります。 cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。 新しいIDプールの作成を押し、以下のような感じで設定をします。 次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。 ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。
-{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor0&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: [ &amp;#34;mobileanalytics:PutEvents&amp;#34;, &amp;#34;cognito-sync:*&amp;#34; ], &amp;#34;Resource&amp;#34;: &amp;#34;*&amp;#34; }, { &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor1&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Action&amp;#34;: &amp;#34;s3:*Object&amp;#34;, &amp;#34;Resource&amp;#34;: &amp;#34;arn:aws:s3:::(バケット名)*&amp;#34; } ] } おそらくこれでAWS側の設定は大丈夫かと思います。
-Flutter側からファイルを送信する amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。 次のようなコードでファイルをS3に送ることができます。
-import &amp;#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&amp;#39;; import &amp;#39;package:amazon_s3_cognito/aws_region.dart&amp;#39;; String uploadedImageUrl = await AmazonS3Cognito.upload( imagePath, BUCKET_NAME, IDENTITY_POOL_ID, IMAGE_NAME, AwsRegion.AP_NORTHEAST_1, AwsRegion.AP_NORTHEAST_1) imagePathはスマートフォン内の送りたいファイルのパスを指定します。 BUCKET_NAMEはS3のバケット名を指定します。 IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。 IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。 AwsRegion.AP_NORTHEAST_1はregionを指定しています。2つ目はsub region？の設定らしいですが、なければ同じもので特に問題ありません。 返り値はS3上の保存先のファイルパスになります。失敗したときは&amp;quot;Failed&amp;quot;だったり空のパスが渡ってきます。</description>
-    </item>
-    <item>
-      <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
-      <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
-      <description>本記事はQrunchからの転載です。
-AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名もMinIO。 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。
-MinIOのページはこちら。https://min.io
-導入 自分はDockerを利用しましたので、Docker経由での使い方になります。 Dockerは嫌だという場合には公式のページをご確認下さい。https://docs.min.io/
-Dockerをインストール。 Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。http://docs.docker.jp/engine/installation/docker-ce.html# ターミナル等で次を実行して、MinIOのサーバを立ち上げる。 docker run -p 9000:9000 \ --name minio_test \ -e &amp;#34;MINIO_ACCESS_KEY=access_key_dayo&amp;#34; \ -e &amp;#34;MINIO_SECRET_KEY=secret_key_dayo&amp;#34; \ minio/minio server /data MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。
-上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。
-（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。
-実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単
-http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。
-Endpoint: http://172.17.0.2:9000 http://127.0.0.1:9000 Browser Access: http://172.17.0.2:9000 http://127.0.0.1:9000 Object API (Amazon S3 compatible): Go: https://docs.min.io/docs/golang-client-quickstart-guide Java: https://docs.min.io/docs/java-client-quickstart-guide Python: https://docs.min.io/docs/python-client-quickstart-guide JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide .NET: https://docs.min.io/docs/dotnet-client-quickstart-guide 使ってみる ブラウザで利用 アクセス ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。
-Access KeyとSecret Keyはdocker runコマンドのときに指定したMINIO_ACCESS_KEYとMINIO_SECRET_KEYの値を入れましょう。これでログインできます。
-ログインすると以下のような画面になります。 バケット生成 ここでAWSのS3のバケット相当のものが作れます。
-右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。 左側に生成したバケットが表示されていますね。</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>AWS on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/aws/</link>
+        <description>Recent content in AWS on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/aws/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>App Runnerを実戦投入してのメモ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+        <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png" alt="Featured image of post App Runnerを実戦投入してのメモ" /&gt;&lt;p&gt;簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。&lt;/p&gt;
+&lt;p&gt;今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。&lt;/p&gt;
+&lt;h2 id=&#34;https対応&#34;&gt;HTTPS対応
+&lt;/h2&gt;&lt;p&gt;Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。&lt;br&gt;
+簡単にhttps対応のシステムを作る必要がある場合は楽ですね。&lt;/p&gt;
+&lt;h2 id=&#34;自動デプロイ&#34;&gt;自動デプロイ
+&lt;/h2&gt;&lt;p&gt;App Runnerの設定で自動デプロイができまして、これはDocker Imageを使っている場合は新しくpushされたImageのtagが現状デプロイされているImageのtagと同一のときに、新しくpushされたイメージをデプロイしてくれるというものです。&lt;/p&gt;
+&lt;p&gt;つまり、例えばlatestのtagのImageがデプロイ済みの場合、新しくlatestがpushされたときに自動でデプロイが走ります。&lt;br&gt;
+このため、Imageに普段何らかのタグをつけてバージョン管理しているけど、自動デプロイを使いたいという場合、バージョンの他にlatestタグをつけてpushするような形にすると良さそうです。&lt;/p&gt;
+&lt;h2 id=&#34;カスタムドメイン&#34;&gt;カスタムドメイン
+&lt;/h2&gt;&lt;p&gt;お名前などで取得したドメインとの紐づけも簡単にできます。&lt;br&gt;
+「ドメインをリンク」のボタンをおもむろに押すと、お名前やRoute53で登録すべきレコードの情報が得られます。&lt;/p&gt;
+&lt;h3 id=&#34;留意点1&#34;&gt;留意点1
+&lt;/h3&gt;&lt;p&gt;注意が必要なのですが、ここで表示されるレコードの名前が長すぎてお名前では登録できないことがあります。&lt;br&gt;
+そんなときは、例えばサブドメインをRoute53に委任したりなどで対応しましょう。さすがにAWSのRoute53上ならば問題なくレコードの情報を入力できます。&lt;br&gt;
+結構酷い罠だなと思ったので使う人には知っておいて欲しい点です。&lt;/p&gt;
+&lt;h3 id=&#34;留意点2&#34;&gt;留意点2
+&lt;/h3&gt;&lt;p&gt;世の中には他社や他部署にレコードの登録をお願いするみたいなフローが発生することもあるかと思いますが、そのときに気になるのがレコードに存在する有効期限です。&lt;br&gt;
+72時間以内に登録しないとダメと書いてあるので、のろのろしているとアウトな感じがして焦りそうになりますが、実際は有効期限が切れた後にレコードの情報を再発行しても同じ情報が出力されます。&lt;br&gt;
+このため、有効期限以内に担当者が対応してくれなかった…となっても大丈夫だったりします（現状の仕様ならば）。&lt;/p&gt;
+&lt;h2 id=&#34;インスタンスロール&#34;&gt;インスタンスロール
+&lt;/h2&gt;&lt;p&gt;App Runnerの設定でインスタンスロールを選ぶことができます。&lt;br&gt;
+このため、いざロールを作ろうとコンソールを開いたはいいものの、「AWSのサービス」のエンティティタイプのユースケースからはApp Runnerが選べません&amp;hellip;。&lt;br&gt;
+なぜかApp Runner向けのものは用意されていないので、「カスタム信頼ポリシー」のエンティティタイプを選択して次の内容をポリシーとして与える感じになります。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+    &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;,
+    &amp;#34;Statement&amp;#34;: [
+        {
+            &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,
+            &amp;#34;Principal&amp;#34;: {
+                &amp;#34;Service&amp;#34;: &amp;#34;build.apprunner.amazonaws.com&amp;#34;
+            },
+            &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;カスタムvpc&#34;&gt;カスタムVPC
+&lt;/h2&gt;&lt;p&gt;App Runnerによってデプロイされたシステムのインスタンスが存在するのはどこか謎のVPCになるっぽいのですが、自分で用意したプライベートサブネット上のDBなどに接続したいときに困ってしまいます。&lt;br&gt;
+これへの対応としてカスタムVPCという仕組みがあり、これを使うとプライベートなサブネットにも触りにいけるようになります。&lt;/p&gt;
+&lt;h3 id=&#34;留意点1-1&#34;&gt;留意点1
+&lt;/h3&gt;&lt;p&gt;カスタムVPCを使うとインスタンスのアウトバウンドが指定したサブネット経由になります。&lt;br&gt;
+このため、プライベートなサブネットの場合に外部との通信が必要ならばNATが必要になりますので気をつけましょう。正直NATは高いので避けたいですが…。&lt;/p&gt;
+&lt;h3 id=&#34;留意点2-1&#34;&gt;留意点2
+&lt;/h3&gt;&lt;p&gt;カスタムVPCを使うときにVPCコネクタという謎の概念が出てきますが、このVPCコネクタにVPCとサブネットを設定することになります。&lt;br&gt;
+紐づけるサブネットの変更が後からはできないはずなので気をつけましょう。&lt;/p&gt;
+&lt;p&gt;間違って作ってしまった場合はaws cliのdelete-vpc-connectorで削除しましょう。&lt;br&gt;
+ただ、削除したいVPCコネクタがApp Runnerに設定されていると消せなかったと思うので、この場合はApp Runnerのサービス自体を消したりちょっと回りくどい感じになるかと思います。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>docker composeでAWS ECSにデプロイするときのtips</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
+        <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png" alt="Featured image of post docker composeでAWS ECSにデプロイするときのtips" /&gt;&lt;p&gt;docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。
+作業したのが半年前なので少し情報が古いかもしれないのです。&lt;/p&gt;
+&lt;h2 id=&#34;awsのサービスへのアクセス権限周り&#34;&gt;AWSのサービスへのアクセス権限周り
+&lt;/h2&gt;&lt;p&gt;ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;service:
+  api: 
+    x-aws-policies:
+      - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;awsのsecretの読み込み&#34;&gt;AWSのsecretの読み込み
+&lt;/h2&gt;&lt;p&gt;secretとの連携はdocker-compose.ymlに次のように記述します。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;secrets:
+  sample_secret:
+    name: &amp;#34;シークレットのARN&amp;#34;
+    external: true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;service:
+  api: 
+    secrets:
+      - sample_secret
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。&lt;/p&gt;
+&lt;h2 id=&#34;gpuインスタンス&#34;&gt;GPUインスタンス
+&lt;/h2&gt;&lt;p&gt;特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。
+GPUインスタンスを使いたい場合おそらく2つ選択肢があります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/&lt;/a&gt; を参考にgpuの記述をdocker-compose.ymlに追加&lt;/li&gt;
+&lt;li&gt;docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自分は後者を選択しました。
+というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。
+このため、後者を採用し、かつ次の変更を加えています。&lt;/p&gt;
+&lt;h3 id=&#34;gpuインスタンスのruntimeの設定&#34;&gt;GPUインスタンスのruntimeの設定
+&lt;/h3&gt;&lt;p&gt;1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  LaunchConfiguration:
+    Properties:
+      IamInstanceProfile:
+        Ref: EC2InstanceProfile
+      ImageId: ...
+      InstanceType: g4dn.xlarge
+      SecurityGroups:
+      - Ref: ...
+      AssociatePublicIpAddress: true
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config
+            (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;)
+          - {
+              ClusterName: SampleCluster
+            }
+      KeyName: ...
+    Type: AWS::AutoScaling::LaunchConfiguration
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;この解決方法はどこかで見たものを利用したものですが、リンク先を失ってしまいました。&lt;/p&gt;
+&lt;h2 id=&#34;eni&#34;&gt;ENI
+&lt;/h2&gt;&lt;p&gt;複数のタスクを1インスタンスの上に立ち上げるとネットワークインターフェースの問題が発生してきます。&lt;br&gt;
+docker compose convertで生成したCloudFormationテンプレートでは、awsvpcが設定されており、これだと1タスクが1つのネットワークインターフェースに対応するようです。&lt;br&gt;
+ネットワークインターフェースはインスタンスによるのですが、例えばg4dnは3つですので、3タスクまでしかデプロイできないことになります。&lt;/p&gt;
+&lt;h3 id=&#34;trunking&#34;&gt;Trunking
+&lt;/h3&gt;&lt;p&gt;前述の問題を解決したいときの1つの解決方法はTrunkingです。&lt;br&gt;
+これはネットワークインターフェースをインスタンスに追加できます！&lt;br&gt;
+ただ話はそんなに簡単ではなく、これが適用できるのは一部のインスタンスに限ります…。自分が使いたいg4dnは対象外でした。&lt;/p&gt;
+&lt;h3 id=&#34;awsvpc---bridge&#34;&gt;awsvpc -&amp;gt; bridge
+&lt;/h3&gt;&lt;p&gt;もう1つの解決方法はawsvpcを使うのを諦めてNetworkModeをbridgeにすることです。
+NetworkModeを変更するにあたって、docker compose convertで生成されたCloudFormationテンプレートを色々と変更する必要がありますが、もはや仕方がないのでこれで解決しました。&lt;/p&gt;
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;docker composeコマンドでのdeployは非常に便利ですが、特殊なことは対応していないので結局CloudFormationテンプレートを修正していく必要がでてきます。
+とはいえ、非常に便利な機能であることは間違いないですね。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</link>
+        <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_ng.png" alt="Featured image of post FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき" /&gt;&lt;h1 id=&#34;問題発生時の状況&#34;&gt;問題発生時の状況
+&lt;/h1&gt;&lt;p&gt;AWSのECS上にFastAPI + uvicornの構成でのサーバーをたてました。内容的には普通のREST APIです。&lt;br&gt;
+とりあえずは順調に動作していたのですが、たまにコンテナが再起動しているっぽいけどなんだろうと思って調べていたところ、メモリ使用量が次のようになっていました。&lt;br&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_ng.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_ng_hu944618716889460683.png&#34; alt=&#34;メモリ使用量&#34;&gt;
+	&lt;/a&gt;
+
+&lt;/p&gt;
+&lt;p&gt;時間経過でメモリ使用量が勝手に増えているような振る舞いです。 実装上はこんなことにならないはず…。&lt;/p&gt;
+&lt;h1 id=&#34;解決方法&#34;&gt;解決方法
+&lt;/h1&gt;&lt;p&gt;調べてみると、同じようなissueが存在していました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/tiangolo/fastapi/issues/1624&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/tiangolo/fastapi/issues/1624&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/encode/uvicorn/issues/1226&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/encode/uvicorn/issues/1226&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;uvicorn側のissueをみると、uvicornのバージョンが0.17.0でこのような問題が起こるようです。&lt;br&gt;
+利用しているバージョンがちょうど0.17.0でしたので、0.17.6へとバージョンしてみると、見事に解決しました！&lt;/p&gt;
+&lt;p&gt;バージョンアップ後のメモリ使用量が以下のグラフの右端の平らな部分です。時間経過でメモリ使用量が増えるようなことがなくなっています。&lt;br&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_improved.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_improved_hu17318454284546302220.png&#34; alt=&#34;メモリ使用量&#34;&gt;
+	&lt;/a&gt;
+
+&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
+        <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
+        <description>&lt;p&gt;AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。
+調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。&lt;/p&gt;
+&lt;p&gt;理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。
+それが&lt;a class=&#34;link&#34; href=&#34;https://github.com/mercury2269/sqsmover&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SQS Message Mover&lt;/a&gt;です。&lt;/p&gt;
+&lt;p&gt;使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;インストール&lt;/p&gt;
+&lt;p&gt;macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;credentialsへのキーの指定&lt;/p&gt;
+&lt;p&gt;これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[default]
+aws_access_key_id = &amp;lt;YOUR_ACCESS_KEY_ID&amp;gt;
+aws_secret_access_key = &amp;lt;YOUR_SECRET_ACCESS_KEY&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;コマンドを実行&lt;/p&gt;
+&lt;p&gt;次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ sqsmover --source=&amp;lt;送り元のQueue名&amp;gt; --destination=&amp;lt;送り先のQueue名&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;次のような標準出力が確認できるかと思います。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from
+• Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to
+• Approximate number of messages in the source queue: x
+• Starting to move messages...
+
+             |████████████████████████████████████████| 100%
+
+• Done. Moved x messages
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;とてもお手軽なので同じ状況の人にはおすすめです。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>AWSのLambdaからPostgresを利用</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</link>
+        <pubDate>Mon, 04 May 2020 13:35:16 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/</guid>
+        <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;AWSのLambda（Python）からPostgresを利用するためのライブラリの使い方のメモです。何もトラブルなく使えましたが、一応。
+ライブラリのレポジトリは&lt;a class=&#34;link&#34; href=&#34;https://github.com/jkehler/awslambda-psycopg2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;こちら&lt;/a&gt;です。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ライブラリのclone&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/jkehler/awslambda-psycopg2.git
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;適切な名前にリネーム
+LambdaでPython3.6を利用する場合にはcloneしてきたレポジトリにある&lt;strong&gt;psycopg2-3.6&lt;/strong&gt;を&lt;strong&gt;psycopg2&lt;/strong&gt;にリネームします。あるいはPython3.7を利用する方は&lt;strong&gt;psycopg2-3.7&lt;/strong&gt;を&lt;strong&gt;psycopg2&lt;/strong&gt;にリネームします。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;適切な位置への配置&lt;br&gt;
+psycopg2をLambdaにデプロイするコードと同じディレクトリに配置します。
+例： lambda/hoge.pyというPythonスクリプトをデプロイする場合にはlambdaディレクトリ以下にpsycopg2を配置する。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lambdaにデプロイする！&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>FlutterでS3にファイルをアップロードする</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</link>
+        <pubDate>Sun, 08 Dec 2019 19:04:32 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8.png" alt="Featured image of post FlutterでS3にファイルをアップロードする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;FlutterでS3へファイルをアップロードするための公式のライブラリはありませんが、有志によるライブラリ&lt;a class=&#34;link&#34; href=&#34;https://pub.dev/packages/amazon_s3_cognito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;amazon_s3_cognito&lt;/a&gt;があります。
+今回はこちらの紹介+forkしてちょっと修正したのでよければ使ってねという話になります。&lt;/p&gt;
+&lt;h1 id=&#34;事前準備&#34;&gt;事前準備
+&lt;/h1&gt;&lt;p&gt;AWS cognitoでIDプールを作っておく必要があります。
+cognitoのページを開くと以下のような表示がされるので、「IDプールの管理」を押します。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1.png&#34;
+	width=&#34;1852&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1_hu2667509742149476979.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/51dca99b7523115a42a0e5331b29bba1_hu5502335763659211470.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;210&#34;
+		data-flex-basis=&#34;505px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;新しいIDプールの作成を押し、以下のような感じで設定をします。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128.png&#34;
+	width=&#34;2848&#34;
+	height=&#34;1226&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128_hu15444419030030802851.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/f29b36e4c772d25380ee184e5d4b7128_hu14667372473313047011.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;557px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;次のページでRoleのポリシーの設定ができますので、「詳細を表示」 -&amp;gt; 「ポリシードキュメントを表示」 からポリシーを編集します。Uauthと書いてある方だけ編集すればOKです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b.png&#34;
+	width=&#34;1776&#34;
+	height=&#34;1276&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b_hu15340611110795044177.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/ec491a947954374fa40c7f89a030e67b_hu4994744904916791470.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;334px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ポリシーは以下のようにすれば大丈夫ですが、バケット名は自分で適当なものに変更してください。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+    &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;,
+    &amp;#34;Statement&amp;#34;: [
+        {
+            &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor0&amp;#34;,
+            &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,
+            &amp;#34;Action&amp;#34;: [
+                &amp;#34;mobileanalytics:PutEvents&amp;#34;,
+                &amp;#34;cognito-sync:*&amp;#34;
+            ],
+            &amp;#34;Resource&amp;#34;: &amp;#34;*&amp;#34;
+        },
+        {
+            &amp;#34;Sid&amp;#34;: &amp;#34;VisualEditor1&amp;#34;,
+            &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,
+            &amp;#34;Action&amp;#34;: &amp;#34;s3:*Object&amp;#34;,
+            &amp;#34;Resource&amp;#34;: &amp;#34;arn:aws:s3:::(バケット名)*&amp;#34;
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;おそらくこれでAWS側の設定は大丈夫かと思います。&lt;/p&gt;
+&lt;h1 id=&#34;flutter側からファイルを送信する&#34;&gt;Flutter側からファイルを送信する
+&lt;/h1&gt;&lt;p&gt;amazon_s3_cognitoをpubspec.yamlに追加して、flutter pub getしたら使う準備はできました。
+次のようなコードでファイルをS3に送ることができます。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import &amp;#39;package:amazon_s3_cognito/amazon_s3_cognito.dart&amp;#39;;
+import &amp;#39;package:amazon_s3_cognito/aws_region.dart&amp;#39;;
+
+String uploadedImageUrl = await AmazonS3Cognito.upload(
+            imagePath,
+            BUCKET_NAME,
+            IDENTITY_POOL_ID,
+            IMAGE_NAME,
+            AwsRegion.AP_NORTHEAST_1,
+            AwsRegion.AP_NORTHEAST_1)
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;imagePathはスマートフォン内の送りたいファイルのパスを指定します。&lt;/li&gt;
+&lt;li&gt;BUCKET_NAMEはS3のバケット名を指定します。&lt;/li&gt;
+&lt;li&gt;IDENTITY_POOL_IDはさきほど設定したAWS cognitoから次のような詳細ページにいくことで、取得できます。以下のIDプールのIDと書かれている行のダブルクォーテーションの部分をコピペすればOKです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8.png&#34;
+	width=&#34;2874&#34;
+	height=&#34;1122&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8_hu18005698746459658494.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8_hu316031451399761708.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;256&#34;
+		data-flex-basis=&#34;614px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;IMAGE_NAMEはS3のバケット以下のファイルの保存先のパスを指定します。&lt;/li&gt;
+&lt;li&gt;AwsRegion.AP_NORTHEAST_1はregionを指定しています。2つ目はsub region？の設定らしいですが、なければ同じもので特に問題ありません。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;返り値はS3上の保存先のファイルパスになります。失敗したときは&amp;quot;Failed&amp;quot;だったり空のパスが渡ってきます。&lt;/p&gt;
+&lt;h2 id=&#34;あれiosでは失敗する&#34;&gt;あれ、iOSでは失敗する…
+&lt;/h2&gt;&lt;p&gt;Androidではここまでの設定等でうまくいったのですが、iOSでは常にうまく送信できませんし、空のパスが返り値として受け取られます。
+実はこれはアクセス権の問題でうまく動きませんでした。iOS版の実装をみると、publicなバケットにしかファイルを送れないようになっていました。
+というわけで、amazon_s3_cognitoのレポジトリをforkして、privateなバケットにもファイルを送れるように修正しましたので、よければ使ってみてください。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/amazon_s3_cognito&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/amazon_s3_cognito&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;pubspec.yamlには以下のようにかけばOKです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  amazon_s3_cognito:
+      git:
+        url: https://github.com/opqrstuvcut/amazon_s3_cognito
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
+        <title>MinIOでローカルにS3みたいなものを作って開発する</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+        <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png" alt="Featured image of post MinIOでローカルにS3みたいなものを作って開発する" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名も&lt;strong&gt;MinIO&lt;/strong&gt;。
+今回はMinIOの使い方を簡単にご紹介します。とても簡単です。&lt;/p&gt;
+&lt;p&gt;MinIOのページはこちら。&lt;a class=&#34;link&#34; href=&#34;https://min.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://min.io&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;導入&#34;&gt;導入
+&lt;/h1&gt;&lt;p&gt;自分はDockerを利用しましたので、Docker経由での使い方になります。
+Dockerは嫌だという場合には公式のページをご確認下さい。&lt;a class=&#34;link&#34; href=&#34;https://docs.min.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.min.io/&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Dockerをインストール。
+Dockerを入れていない人はこの機会にぜひ入れましょう！今使っていなくとも、きっといつの日か別の機会にも使うんじゃないかと思います。インストールにはこの辺が参考になりそうです。&lt;a class=&#34;link&#34; href=&#34;http://docs.docker.jp/engine/installation/docker-ce.html#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://docs.docker.jp/engine/installation/docker-ce.html#&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ターミナル等で次を実行して、MinIOのサーバを立ち上げる。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run -p 9000:9000 \
+--name minio_test \
+-e &amp;#34;MINIO_ACCESS_KEY=access_key_dayo&amp;#34; \
+-e &amp;#34;MINIO_SECRET_KEY=secret_key_dayo&amp;#34; \
+minio/minio server /data
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;MINIO_ACCESS_KEYがAWSのアクセスキーで、MINIO_SECRET_KEYはシークレットキーに対応します。都合がよいように決めましょう。&lt;br&gt;
+上のコマンドの初回実行時にはdocker imageのdownloadなどが走るのでちょっと時間がかかります。&lt;br&gt;
+（Dockerを知らない人向け）アクセスするときにポートが9000は嫌だという人は、9000:9000の左側の数字を変えましょう。例えば8888:9000とかです。&lt;/p&gt;
+&lt;p&gt;実行がうまくいくと次のようなメッセージが表示されるかと思います。これでS3のようなものができました！すごく簡単&lt;br&gt;
+http://127.0.0.1:9000 からMinIOのサーバにアクセスできるはずです。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Endpoint:  http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Browser Access:
+   http://172.17.0.2:9000  http://127.0.0.1:9000
+
+Object API (Amazon S3 compatible):
+   Go:         https://docs.min.io/docs/golang-client-quickstart-guide
+   Java:       https://docs.min.io/docs/java-client-quickstart-guide
+   Python:     https://docs.min.io/docs/python-client-quickstart-guide
+   JavaScript: https://docs.min.io/docs/javascript-client-quickstart-guide
+   .NET:       https://docs.min.io/docs/dotnet-client-quickstart-guide
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;使ってみる&#34;&gt;使ってみる
+&lt;/h1&gt;&lt;h2 id=&#34;ブラウザで利用&#34;&gt;ブラウザで利用
+&lt;/h2&gt;&lt;h3 id=&#34;アクセス&#34;&gt;アクセス
+&lt;/h3&gt;&lt;p&gt;ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。&lt;br&gt;
+Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;strong&gt;MINIO_ACCESS_KEY&lt;/strong&gt;と&lt;strong&gt;MINIO_SECRET_KEY&lt;/strong&gt;の値を入れましょう。これでログインできます。&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png&#34;
+	width=&#34;717&#34;
+	height=&#34;476&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu14764778762107054764.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu16781334479171285341.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;361px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ログインすると以下のような画面になります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu3581942525005770045.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu14659264454896312631.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;バケット生成&#34;&gt;バケット生成
+&lt;/h3&gt;&lt;p&gt;ここでAWSのS3のバケット相当のものが作れます。&lt;br&gt;
+右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu7042911282238135707.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu3052797522554135940.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;
+左側に生成したバケットが表示されていますね。&lt;/p&gt;
+&lt;h3 id=&#34;ファイルを配置&#34;&gt;ファイルを配置
+&lt;/h3&gt;&lt;p&gt;画面の上のほうにファイルをドラッグするとこのバケット内にファイルが置けます。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf.png&#34;
+	width=&#34;1917&#34;
+	height=&#34;939&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu14059729123044929790.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu7338949595088942478.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;489px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;boto3で利用&#34;&gt;boto3で利用
+&lt;/h2&gt;&lt;p&gt;boto3を使ってS3の操作をおこないます。Python3を例にあげます。&lt;/p&gt;
+&lt;h3 id=&#34;s3と接続するためのオブジェクト生成&#34;&gt;S3と接続するためのオブジェクト生成
+&lt;/h3&gt;&lt;p&gt;以下のclientの引数のaws_access_key_idとaws_secret_access_keyには、docker runしたときに設定した&lt;strong&gt;MINIO_ACCESS_KEY&lt;/strong&gt;と&lt;strong&gt;MINIO_SECRET_KEY&lt;/strong&gt;をそれぞれ指定しましょう。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import boto3
+s3_client = boto3.client(&amp;#34;s3&amp;#34;, endpoint_url=&amp;#34;http://127.0.0.1:9000&amp;#34;,
+                         aws_access_key_id=&amp;#34;access_key_dayo&amp;#34;,
+                         aws_secret_access_key=&amp;#34;secret_key_dayo&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ファイル検索&#34;&gt;ファイル検索
+&lt;/h3&gt;&lt;p&gt;ファイルの検索を試します。以下のように、作ったBucketを指定してやります。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;contents = s3_client.list_objects(Bucket=&amp;#34;test&amp;#34;,
+                                  Prefix=&amp;#34;&amp;#34;).get(&amp;#34;Contents&amp;#34;)
+print(contents)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上記を実行すると、次のように表示されました。配置したファイルがちゃんと見つけられますね！&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[{&amp;#39;Key&amp;#39;: &amp;#39;テキストたよ.txt&amp;#39;, &amp;#39;LastModified&amp;#39;: datetime.datetime(2019, 11, 9, 3, 7, 27, 360000, tzinfo=tzutc()), &amp;#39;ETag&amp;#39;: &amp;#39;&amp;#34;59681d790d132065f97faf0f52e9aa41-1&amp;#34;&amp;#39;, &amp;#39;Size&amp;#39;: 27, &amp;#39;StorageClass&amp;#39;: &amp;#39;STANDARD&amp;#39;, &amp;#39;Owner&amp;#39;: {&amp;#39;DisplayName&amp;#39;: &amp;#39;&amp;#39;, &amp;#39;ID&amp;#39;: &amp;#39;02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4&amp;#39;}}]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ファイル取得&#34;&gt;ファイル取得
+&lt;/h3&gt;&lt;p&gt;ファイルの取得も試しましょう。以下を実行します。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;text = s3_client.get_object(Bucket=&amp;#34;test&amp;#34;,
+                            Key=&amp;#34;テキストたよ.txt&amp;#34;)[&amp;#34;Body&amp;#34;].read().decode(&amp;#39;utf-8&amp;#39;)
+print(text)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;結果：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;テキストの中身だよ
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;正しくテキストを取得できています！&lt;/p&gt;
+&lt;h1 id=&#34;まとめ&#34;&gt;まとめ
+&lt;/h1&gt;&lt;p&gt;MinIOはとても簡単に使えて、便利だと思いました。よくできていて感動しますね。
+手元の環境にS3が欲しいなぁって思った方は使いましょう！&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

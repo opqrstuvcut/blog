@@ -1,234 +1,268 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。 理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。 使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。 インストール macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。 $ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定 これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。 [default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行 次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。 $ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。 • Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。">
+<title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="AWS, SQS, DLQ">
-<meta name="description" content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。
-理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。
-使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。
-インストール
-macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。
-$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定
-これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。
-[default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行
-次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。
-$ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。
-• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="AWSのDead Letter QueueのメッセージをもとのQueueに戻す">
+<meta property='og:description' content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。 理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。 使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。 インストール macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。 $ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定 これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。 [default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行 次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。 $ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。 • Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AWS' /><meta property='article:tag' content='SQS' /><meta property='article:tag' content='DLQ' /><meta property='article:published_time' content='2021-06-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-05T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta name="twitter:title" content="AWSのDead Letter QueueのメッセージをもとのQueueに戻す">
+<meta name="twitter:description" content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。 理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。 使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。 インストール macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。 $ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定 これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。 [default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行 次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。 $ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。 • Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="AWSのDead Letter QueueのメッセージをもとのQueueに戻す" />
-<meta property="og:description" content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。
-理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。
-使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。
-インストール
-macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。
-$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定
-これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。
-[default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行
-次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。
-$ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。
-• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-05T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-06-05T00:00:00+00:00" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="AWSのDead Letter QueueのメッセージをもとのQueueに戻す"/>
-<meta name="twitter:description" content="AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。
-理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。
-使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。
-インストール
-macの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。
-$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定
-これは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。
-[default] aws_access_key_id = &lt;YOUR_ACCESS_KEY_ID&gt; aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt; コマンドを実行
-次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。
-$ sqsmover --source=&lt;送り元のQueue名&gt; --destination=&lt;送り先のQueue名&gt; 次のような標準出力が確認できるかと思います。
-• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。"/>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://opqrstuvcut.github.io/blog/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "AWSのDead Letter QueueのメッセージをもとのQueueに戻す",
-      "item": "https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/"
-    }
-  ]
-}
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "AWSのDead Letter QueueのメッセージをもとのQueueに戻す",
-  "name": "AWSのDead Letter QueueのメッセージをもとのQueueに戻す",
-  "description": "AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。\n理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。\n使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。\nインストール\nmacの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。\n$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定\nこれは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。\n[default] aws_access_key_id = \u0026lt;YOUR_ACCESS_KEY_ID\u0026gt; aws_secret_access_key = \u0026lt;YOUR_SECRET_ACCESS_KEY\u0026gt; コマンドを実行\n次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。\n$ sqsmover --source=\u0026lt;送り元のQueue名\u0026gt; --destination=\u0026lt;送り先のQueue名\u0026gt; 次のような標準出力が確認できるかと思います。\n• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。",
-  "keywords": [
-    "AWS", "SQS", "DLQ"
-  ],
-  "articleBody": "AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。\n理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。 それがSQS Message Moverです。\n使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。\nインストール\nmacの方はbrewで入れても良いと思いますが、自分は次のコマンドで入れました（brew installより待たなくて済んだ説はあります）。\n$ curl https://raw.githubusercontent.com/mercury2269/sqsmover/master/install.sh | sudo sh credentialsへのキーの指定\nこれは~/.aws/credentialsにaccess keyとsecret keyを指定します（知っている方は多いかと思いますが）。\n[default] aws_access_key_id = aws_secret_access_key = コマンドを実行\n次のように送りたいメッセージをもつQueueと送り先のQueueの名前を指定するだけです。\n$ sqsmover --source=\u003c送り元のQueue名\u003e --destination=\u003c送り先のQueue名\u003e 次のような標準出力が確認できるかと思います。\n• Source queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_from • Destination queue URL: https://sqs.ap-northeast-1.amazonaws.com/xxx/queue_to • Approximate number of messages in the source queue: x • Starting to move messages... |████████████████████████████████████████| 100% • Done. Moved x messages とてもお手軽なので同じ状況の人にはおすすめです。\n",
-  "wordCount" : "70",
-  "inLanguage": "ja",
-  "datePublished": "2021-06-05T00:00:00Z",
-  "dateModified": "2021-06-05T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "MatLoverによるMatlab以外のブログ",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
 
-<article class="post-single">
-  <header class="post-header">
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
     
-    <h1 class="post-title entry-hint-parent">
-      AWSのDead Letter QueueのメッセージをもとのQueueに戻す
-    </h1>
-    <div class="post-meta"><span title='2021-06-05 00:00:00 +0000 UTC'>6月 5, 2021</span>
 
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/aws/" >
+                AWS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/">AWSのDead Letter QueueのメッセージをもとのQueueに戻す</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 05, 2021</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
 </div>
-  </header> 
-  <div class="post-content"><p>AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。
 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。</p>
 <p>理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。
-それが<a href="https://github.com/mercury2269/sqsmover">SQS Message Mover</a>です。</p>
+それが<a class="link" href="https://github.com/mercury2269/sqsmover"  target="_blank" rel="noopener"
+    >SQS Message Mover</a>です。</p>
 <p>使い方はとても簡単です。READMEに書いてあることをやれば簡単に動きます。</p>
 <ol>
 <li>
@@ -260,88 +294,345 @@ aws_secret_access_key = &lt;YOUR_SECRET_ACCESS_KEY&gt;
 </ol>
 <p>とてもお手軽なので同じ状況の人にはおすすめです。</p>
 
+</section>
 
-  </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/aws/">AWS</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/sqs/">SQS</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/dlq/">DLQ</a></li>
-    </ul>
-  </footer>
-</article>
-    </main>
+    <footer class="article-footer">
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-tags">
+        
+            <a href="/blog/tags/aws/">AWS</a>
+        
+            <a href="/blog/tags/sqs/">SQS</a>
+        
+            <a href="/blog/tags/dlq/">DLQ</a>
+        
+    </section>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
 </script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.0c1c2c859f28cc469ae9ba38a5d48ced_hu5881553293964946171.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post App Runnerを実戦投入してのメモ"
+                        
+                        data-hash="md5-DBwshZ8ozEaa6bo4pdSM7Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">App Runnerを実戦投入してのメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.718432b5a8bbbcfe516a16f7c85afe67_hu16302300365520880167.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post docker composeでAWS ECSにデプロイするときのtips"
+                        
+                        data-hash="md5-cYQytai7vP5Rahb3yFr&#43;Zw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">docker composeでAWS ECSにデプロイするときのtips</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/fastapi--uvicorn%E3%81%AE%E6%A7%8B%E6%88%90%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E6%99%82%E9%96%93%E7%B5%8C%E9%81%8E%E3%81%A7%E3%83%A1%E3%83%A2%E3%83%AA%E4%BD%BF%E7%94%A8%E9%87%8F%E3%81%8C%E5%A2%97%E3%81%88%E3%82%8B%E3%81%A8%E3%81%8D/memory_usage_ng.94d4a4c293e9367f076af0436a8d2f90_hu2322426863853965422.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき"
+                        
+                        data-hash="md5-lNSkwpPpNn8HavBDao0vkA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FastAPI &#43; uvicornの構成のサーバーで時間経過でメモリ使用量が増えるとき</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/posts/aws%E3%81%AElambda%E3%81%8B%E3%82%89postgres%E3%82%92%E5%88%A9%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AWSのLambdaからPostgresを利用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/flutter%E3%81%A7s3%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B/5156acb6c29b977915456e21c1d96fb8.7f20dfc80fe07ccac93ed095b2685861_hu2521710225216452764.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post FlutterでS3にファイルをアップロードする"
+                        
+                        data-hash="md5-fyDfyA/gfMrJPtCVsmhYYQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FlutterでS3にファイルをアップロードする</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
 <script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    window.disqus_config = function () {
+    
+    
+    
     };
-
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
 <script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
         }
     })
-
 </script>
-</body>
 
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

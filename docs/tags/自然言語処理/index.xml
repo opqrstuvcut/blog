@@ -1,59 +1,237 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>自然言語処理 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/</link>
-    <description>Recent content in 自然言語処理 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CANINEの論文を読んだメモ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
-      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
-      <description>BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？
-論文はこちら：https://arxiv.org/pdf/2103.06874.pdf
-エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。 以下では各々の詳細について述べます。
-入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。
-各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。
-unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。
-文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。
-これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。
-$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \ B, d&amp;rsquo;)$$
-ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&amp;rsquo;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&amp;rsquo;=768/K(=96)$となっています。
-unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。
-ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。
-ダウンサンプリングは以下のようにおこなわれます。
-文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。 これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。 strideのサイズが4のConvolutionを実行する。 1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。
-論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。
-ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。
-アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。
-Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。 出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。 1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。 つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。 結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。 学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。</description>
-    </item>
-    <item>
-      <title>BERTでおこなうポケモンの説明文生成</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
-      <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
-      <description>本記事はQrunchからの転載です。
-概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。
-実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）
-参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model
-使用した事前学習モデル：BERT日本語Pretrainedモデル
-実装したソースコード：https://github.com/opqrstuvcut/BertMouth
-BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。
-ネットワークへの入力となる各トークンはサブワードになります。
-例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、
-何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。
-上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。
-ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。
-長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。
-実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。
-生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！
-結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。
-生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>自然言語処理 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/</link>
+        <description>Recent content in 自然言語処理 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CANINEの論文を読んだメモ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
+        <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png" alt="Featured image of post CANINEの論文を読んだメモ" /&gt;&lt;p&gt;BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。
+CANINEってなんて読むべきなんでしょう？&lt;/p&gt;
+&lt;p&gt;論文はこちら：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2103.06874.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://arxiv.org/pdf/2103.06874.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;エンコーダーのアーキテクチャ&#34;&gt;エンコーダーのアーキテクチャ
+&lt;/h1&gt;&lt;p&gt;CANINEのアーキテクチャは以下のようになっています。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png&#34;
+	width=&#34;1894&#34;
+	height=&#34;870&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu5727611620680059928.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu745097921145227070.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;CANINEのアーキテクチャ（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;217&#34;
+		data-flex-basis=&#34;522px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;以下では各々の詳細について述べます。&lt;/p&gt;
+&lt;h2 id=&#34;入力の作り方&#34;&gt;入力の作り方
+&lt;/h2&gt;&lt;h3 id=&#34;文字列から数値列への変換&#34;&gt;文字列から数値列への変換
+&lt;/h3&gt;&lt;p&gt;エンコーダーへの入力は文字単位でおこないます。&lt;/p&gt;
+&lt;p&gt;各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。&lt;/p&gt;
+&lt;p&gt;unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。&lt;/p&gt;
+&lt;h3 id=&#34;文字のembedding&#34;&gt;文字のembedding
+&lt;/h3&gt;&lt;p&gt;文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。
+BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。
+このため、CANINEではword hash embedding trickというものを利用します。&lt;/p&gt;
+&lt;p&gt;これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。&lt;/p&gt;
+&lt;p&gt;$$\bold{e}_i = \oplus_k^K {\rm LOOKUP}_k(\mathcal{H}_k(x_i)\ \% \  B, d&amp;rsquo;)$$&lt;/p&gt;
+&lt;p&gt;ここで${\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\mathbb{R}^{B \times d&amp;rsquo;}$のサイズの行列の特定行を返すような関数）。また$\oplus$	はベクトルの結合を、$\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&amp;rsquo;=768/K(=96)$となっています。&lt;/p&gt;
+&lt;p&gt;unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \times 32 \times \dots \times 2048 \approx 1.1529215 \times 10^{18}$なので、豊富な表現力をもつこととなります。&lt;/p&gt;
+&lt;h2 id=&#34;ダウンサンプリング&#34;&gt;ダウンサンプリング
+&lt;/h2&gt;&lt;p&gt;BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。
+そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。&lt;/p&gt;
+&lt;p&gt;ダウンサンプリングは以下のようにおこなわれます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。
+&lt;ul&gt;
+&lt;li&gt;これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;strideのサイズが4のConvolutionを実行する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。&lt;br&gt;
+論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。&lt;/p&gt;
+&lt;p&gt;ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。&lt;/p&gt;
+&lt;h2 id=&#34;アップサンプリング&#34;&gt;アップサンプリング
+&lt;/h2&gt;&lt;p&gt;固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。
+このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。
+&lt;ul&gt;
+&lt;li&gt;出力のシーケンスが$(o_1,o_2,\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\dots)$とすることを指しているはず。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。
+&lt;ul&gt;
+&lt;li&gt;つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。&lt;/li&gt;
+&lt;li&gt;最後にTransformerを一度適用する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;学習&#34;&gt;学習
+&lt;/h2&gt;&lt;p&gt;CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。
+各タスクの詳細は以下のとおりです。&lt;/p&gt;
+&lt;h3 id=&#34;文字単位のタスク&#34;&gt;文字単位のタスク
+&lt;/h3&gt;&lt;p&gt;入力されるテキストを単語単位で選択し、その単語を文字単位でmaskし、maskされた文字を予測するタスクです。&lt;br&gt;
+予測するときには文字を左から順に予測するなどのような順番が決まっておらず、maskされているなかからランダムな順番で予測をすることになります。&lt;/p&gt;
+&lt;h3 id=&#34;サブワード単位のタスク&#34;&gt;サブワード単位のタスク
+&lt;/h3&gt;&lt;p&gt;こちらのタスクではsubword単位で選択し、そのsubwordを文字単位でmaskし、maskされたsubwordを予測するタスクです。&lt;br&gt;
+予測するときにはmaskしたsubwordに含まれる文字に対応する出力をランダムに選択し、その出力からsubwordを予測します。&lt;/p&gt;
+&lt;h1 id=&#34;実験&#34;&gt;実験
+&lt;/h1&gt;&lt;p&gt;実験はTYDI QAデータセットを用いておこなわれています。&lt;/p&gt;
+&lt;h2 id=&#34;他手法との比較&#34;&gt;他手法との比較
+&lt;/h2&gt;&lt;p&gt;mBERTとの比較が次のテーブルになります。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png&#34;
+	width=&#34;2064&#34;
+	height=&#34;518&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu3105692230049871730.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu17215373382260427039.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;mBERTとの比較（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;398&#34;
+		data-flex-basis=&#34;956px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;CANINE-Sはサブワード単位のタスクで事前学習したとき、CANINE-Cは文字単位のタスクで事前学習したときをあらわします。一番右の2つの列はタスクの性能で、F1スコアで計算されているため大きいほうが良いです。
+結果を見るとmBERTに大きな差をつけていることがわかります。
+また、Example/secの列をみると、mBERTは文字単位の入力にすると非常に推論が遅いですが、CANINEはそれに比べると非常に速いです。とはいえ、mBERTのsubword単位の入力の場合に比べると当然遅いです。&lt;/p&gt;
+&lt;h2 id=&#34;ablation-study&#34;&gt;ablation study
+&lt;/h2&gt;&lt;p&gt;ablation studyです。
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png&#34;
+	width=&#34;1966&#34;
+	height=&#34;794&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu3547531543262116005.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu14881553281215025394.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ablation study（論文より引用）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;594px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;個人的に気になったところとしては、ダウンサンプリングのときによりstrideをもっと大きくすると計算量が減るのですが、この結果をみるとstrideを大きくすることで結構性能が下がってしまっています。これは残念。
+embeddingの次元も小さくすると性能が結構下がっていますね。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>BERTでおこなうポケモンの説明文生成</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
+        <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
+        <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;概要&#34;&gt;概要
+&lt;/h1&gt;&lt;p&gt;自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。&lt;/p&gt;
+&lt;p&gt;実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）&lt;/p&gt;
+&lt;p&gt;参考にした論文：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1902.04094&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model&lt;/a&gt;&lt;br&gt;
+使用した事前学習モデル：&lt;a class=&#34;link&#34; href=&#34;http://nlp.ist.i.kyoto-u.ac.jp/index.php?BERT%E6%97%A5%E6%9C%AC%E8%AA%9EPretrained%E3%83%A2%E3%83%87%E3%83%AB&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BERT日本語Pretrainedモデル&lt;/a&gt;&lt;br&gt;
+実装したソースコード：&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/BertMouth&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/opqrstuvcut/BertMouth&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;bertでの文生成&#34;&gt;BERTでの文生成
+&lt;/h1&gt;&lt;h2 id=&#34;学習&#34;&gt;学習
+&lt;/h2&gt;&lt;p&gt;学習は以下のようなネットワークを使っておこないます。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hu544397710337244276.png&#34; alt=&#34;&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;ネットワークへの入力となる各トークンはサブワードになります。&lt;br&gt;
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;となります。&lt;/p&gt;
+&lt;p&gt;上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。&lt;/li&gt;
+&lt;li&gt;1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。&lt;/li&gt;
+&lt;li&gt;BERTの出力のうち、[MASK]に対応するトークンの出力O&lt;!-- raw HTML omitted --&gt;[MASK]&lt;!-- raw HTML omitted --&gt;に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。&lt;/li&gt;
+&lt;li&gt;求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;予測&#34;&gt;予測
+&lt;/h2&gt;&lt;p&gt;予測は次のようにギブスサンプリングを使います。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;長さNのトークン列を初期化する。&lt;/li&gt;
+&lt;li&gt;以下を適当な回数繰り返す。
+&lt;ul&gt;
+&lt;li&gt;次を全トークンに対しておこなう。
+&lt;ol&gt;
+&lt;li&gt;i番目(i=1,&amp;hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。&lt;/li&gt;
+&lt;li&gt;出現確率が最大のサブワードで[MASK]のトークンを置換する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。&lt;/p&gt;
+&lt;h1 id=&#34;実験&#34;&gt;実験
+&lt;/h1&gt;&lt;h2 id=&#34;データ&#34;&gt;データ
+&lt;/h2&gt;&lt;p&gt;学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。&lt;/li&gt;
+&lt;li&gt;トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！&lt;/p&gt;
+&lt;h2 id=&#34;結果&#34;&gt;結果
+&lt;/h2&gt;&lt;p&gt;学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;弱い獲物をいたぶっているのか、猟奇的な感じがします。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;生成文2: この姿に変化して連れ去ることでお腹を自在に操るピィができるのだ。&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;お腹を自由に操る…？化して連れ去るあたりは悪いポケモン感が出ていていいですね。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;生成文3: &lt;strong&gt;ボールのように引っ張るため１匹。だが１匹ゆらゆら数は少ない。&lt;/strong&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;ちょっと解釈が難しいです。孤高の存在？&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;生成文4: &lt;strong&gt;化石から復活した科学者を科学力で壊し散らす生命力を持つポケモン。&lt;/strong&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;科学力で科学者に勝利するインテリポケモン。&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;生成文5: &lt;strong&gt;ただ絶対に捕まえないので傷ついた相手には容赦しない。なぜだか。&lt;/strong&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;これは解釈が難しいですが、恐ろしいポケモン感がでてますね。「なぜだか。」がいいアクセントです。&lt;/p&gt;
+&lt;h1 id=&#34;まとめ&#34;&gt;まとめ
+&lt;/h1&gt;&lt;p&gt;それっぽい文はできたけども、意味があまり通らない文が多いかなという印象です。とりあえず学習データが少ないので、文が多い他のデータで実験します。気力のある方はぜひ自分でデータを用意して、学習してみて結果を教えて欲しいです！&lt;/p&gt;
+&lt;h1 id=&#34;おまけ&#34;&gt;おまけ
+&lt;/h1&gt;&lt;p&gt;今回自分が使った京都大学の事前学習モデルを利用して学習する場合は、以下の手順で学習データを用意できます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;文を集めてきて、次のようなフォーマットのテキストファイルに保存する。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;文1
+文2
+︙
+文N
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;juman++、pyknp、mojimojiをインストールする。pyknpとmojimojiはpipでOKです。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;レポジトリにあるpreprocess.pyを次のように実行して、形態素解析と前処理をおこなう。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; python ./preprocess.py \                                                                                                                                                                              
+  --input_file 1で作ったテキストファイルのパス \
+  --output_file 出力先のテキストファイルのパス \
+  --model xxx/jumanpp-2.0.0-rc2/model/jumandic.jppmdl（jumanのモデルのパスが通っている場合は不要）
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;出力されたファイルを訓練データと検証データに適当に分割する。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

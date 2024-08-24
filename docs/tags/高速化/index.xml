@@ -1,44 +1,151 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>高速化 on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/%E9%AB%98%E9%80%9F%E5%8C%96/</link>
-    <description>Recent content in 高速化 on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/tags/%E9%AB%98%E9%80%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
-      <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
-      <description>本記事はQrunchからの転載です。
-最近自然言語処理をよくやっていて、BERTを使うことも多いです。 BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。
-例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。
-BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介するPoor Man’s BERT: Smaller and Faster Transformer ModelsではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。
-実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。
-比較実験 論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。
-次の図がTransformer層の減らし方の一覧です。
-各方法の詳細は以下のとおりです。
-Top-Layer Dropping 先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。 このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。
-Even Alternate Dropping、Odd Alternate Dropping 先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。 このため、1個おきにTransformerを削除します。
-Contribution based Dropping Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。 各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。
-Symmetric Dropping もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。 ということで、前と後ろは残して真ん中付近のTransformerを削除します。
-Bottom-Layer Dropping BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。
-実験 手法間の性能比較 先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。
-これから以下のことが分かります。
-各方法のスコアは12層あるBertには劣る。 4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。 Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。 XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。 タスクごとの性能変化の検証 次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。
-問題によっては6層消してもほとんど変化がなかったりします。
-余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。
-タスクごとの性能劣化がおこる層数の検証 タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。
-ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。
-パラメータ数や計算時間比較 学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。
-6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。
-BERTとXLNetの層数での比較 BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。
-なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。
-上記の話には実験的な根拠があり、それを示したのが以下の図です。
-これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。 BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。 一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>高速化 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E9%AB%98%E9%80%9F%E5%8C%96/</link>
+        <description>Recent content in 高速化 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E9%AB%98%E9%80%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
+        <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
+        <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近自然言語処理をよくやっていて、BERTを使うことも多いです。
+BERTの性能は高く素晴らしいのですが、実際使う上では、私のような計算リソース弱者には辛いところがあります。&lt;/p&gt;
+&lt;p&gt;例えば、BERTは非常にパラメータ数が多いことで有名ですが、パラメータが多いと、fine-tuningでの学習や推論の時間がかかることや大きめのメモリが積んであるGPUがないと学習ができない、といった部分がネックになりえます。&lt;/p&gt;
+&lt;p&gt;BERTのパラメータ数を減らす試みとしてはTinyBERTやDistilBERTによる蒸留を使った手法がありますが、今回紹介する&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2004.03844&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Poor Man’s BERT: Smaller and Faster Transformer Models&lt;/a&gt;ではBERTのTransformerの数を単純に減らすことでパラメータ数を減らしています。&lt;/p&gt;
+&lt;p&gt;実際にTinyBERTやDistilBERTと同じことをするのは難しいですが、今回のように層を減らして学習するのは容易にできますので、とても実用性があるのではないかと思います。&lt;/p&gt;
+&lt;h1 id=&#34;比較実験&#34;&gt;比較実験
+&lt;/h1&gt;&lt;p&gt;論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。&lt;/p&gt;
+&lt;p&gt;次の図がTransformer層の減らし方の一覧です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
+	width=&#34;2482&#34;
+	height=&#34;772&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu9353661176360660377.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu17470877989674389267.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;321&#34;
+		data-flex-basis=&#34;771px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;各方法の詳細は以下のとおりです。&lt;/p&gt;
+&lt;h2 id=&#34;top-layer-dropping&#34;&gt;Top-Layer Dropping
+&lt;/h2&gt;&lt;p&gt;先行研究によると、BERTの後ろの層は目的関数に特化したような重みになっているようです。つまり、BERTで汎用的に使えるように学習されている部分は前の層ということになります。
+このため、後ろの層に関しては減らしても性能がそんなに悪化しないんじゃないかという仮定のもと、BERTの最後から4つあるいは6つのTransformerを削除します。&lt;/p&gt;
+&lt;h2 id=&#34;even-alternate-droppingodd-alternate-dropping&#34;&gt;Even Alternate Dropping、Odd Alternate Dropping
+&lt;/h2&gt;&lt;p&gt;先行研究によると、BERTの各層では冗長性があります。つまり、隣り合った層の出力は似ているということです。
+このため、1個おきにTransformerを削除します。&lt;/p&gt;
+&lt;h2 id=&#34;contribution-based-dropping&#34;&gt;Contribution based Dropping
+&lt;/h2&gt;&lt;p&gt;Alternate Droppingと少し似ていますが、入力と出力があまり変わらないような層を削除するような方法です。
+各Transformer層のなかで[CLS]の入力と出力のcosine類似度が大きい傾向にある層をあらかじめ見つけておき、それを削除します。&lt;/p&gt;
+&lt;h2 id=&#34;symmetric-dropping&#34;&gt;Symmetric Dropping
+&lt;/h2&gt;&lt;p&gt;もしかすると、12層のTransformerのうち、真ん中のあたりはあまり重要じゃないかもしれません。
+ということで、前と後ろは残して真ん中付近のTransformerを削除します。&lt;/p&gt;
+&lt;h2 id=&#34;bottom-layer-dropping&#34;&gt;Bottom-Layer Dropping
+&lt;/h2&gt;&lt;p&gt;BERTの最初のほうの層が文脈の理解に重要といわれており、最初のほうを消す理論的な理由はないですが、年のために最初のほうのTransformerを削除したモデルも試します。&lt;/p&gt;
+&lt;h1 id=&#34;実験&#34;&gt;実験
+&lt;/h1&gt;&lt;h2 id=&#34;手法間の性能比較&#34;&gt;手法間の性能比較
+&lt;/h2&gt;&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
+	width=&#34;2280&#34;
+	height=&#34;832&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu3783776559060909101.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu7276214927444986110.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;274&#34;
+		data-flex-basis=&#34;657px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;これから以下のことが分かります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;各方法のスコアは12層あるBertには劣る。&lt;/li&gt;
+&lt;li&gt;4層減らす分にはBottom-Layer Dropping以外の方法ではそれほど性能に差がでないが、6層減らす場合にはTop-Layer Dropping（最後の6層を消す）が性能劣化が小さい。&lt;/li&gt;
+&lt;li&gt;Top-Layer Droppingの6層を消した場合はDistilBERTと似たような性能になっている。学習の手間はDistilBERTのほうが圧倒的に大きいので、性能が同程度、計算時間も同程度ならば本手法を使うメリットが大きいです。&lt;/li&gt;
+&lt;li&gt;XLNetの場合には最後の4層を消したモデルでも12層あるXLNetとほぼ同じ性能が出せる（＝性能劣化が少ない）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;タスクごとの性能変化の検証&#34;&gt;タスクごとの性能変化の検証
+&lt;/h2&gt;&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
+	width=&#34;1700&#34;
+	height=&#34;784&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu9943319277445887328.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu3971187804395993766.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;520px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;問題によっては6層消してもほとんど変化がなかったりします。&lt;/p&gt;
+&lt;p&gt;余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。&lt;/p&gt;
+&lt;h2 id=&#34;タスクごとの性能劣化がおこる層数の検証&#34;&gt;タスクごとの性能劣化がおこる層数の検証
+&lt;/h2&gt;&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
+	width=&#34;830&#34;
+	height=&#34;786&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu11829641183982462706.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu16823473194884920230.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;105&#34;
+		data-flex-basis=&#34;253px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
+&lt;h2 id=&#34;パラメータ数や計算時間比較&#34;&gt;パラメータ数や計算時間比較
+&lt;/h2&gt;&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
+	width=&#34;1066&#34;
+	height=&#34;1360&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu11473960030723940403.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu5253924919509084133.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;78&#34;
+		data-flex-basis=&#34;188px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;6層削ったモデルでは学習時間・推論時間の両方でだいたい半分くらいになってますね。&lt;/p&gt;
+&lt;h2 id=&#34;bertとxlnetの層数での比較&#34;&gt;BERTとXLNetの層数での比較
+&lt;/h2&gt;&lt;p&gt;BERTとXLNetのTransformerの数を変えると、どう性能が変化するかを示したのが以下の図です。&lt;/p&gt;
+
+
+
+
+&lt;p&gt;なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
+&lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
+	width=&#34;938&#34;
+	height=&#34;776&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu5004463002134619857.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu7755619885363640404.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;120&#34;
+		data-flex-basis=&#34;290px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;これはBERTとXLNetの事前学習モデルとfine-tunedモデル間で同じ層同士の出力のcosine類似度を計算した結果になります。つまり、小さい値になっているほど、fine-tuningで出力が大きく変わるような学習がおこなわれたことになります。
+BERTの場合には後ろの層ほど大きな変化があることがわかります。またfine-tuningしても前の方の層はほとんど変わっていませんね。
+一方でXLNetの場合には前の層の変化がないのはBERTと一緒ですが、後ろの層に関してもあまり変化がありません（もちろん12層目だけは大きく変わります）。つまり、問題を解くときにあまり8層以降は重要じゃないのではと考えられます。&lt;/p&gt;
+&lt;h1 id=&#34;感想&#34;&gt;感想
+&lt;/h1&gt;&lt;p&gt;私のような貧乏人には大変ありがたい論文でした。
+計算リソースがあまりない方は使ってみましょう！&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

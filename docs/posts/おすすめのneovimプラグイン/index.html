@@ -1,239 +1,373 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
+<title>おすすめの(Neo)Vimプラグイン</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>おすすめの(Neo)Vimプラグイン | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="NeoVim, Vim">
-<meta name="description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
-下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
-vim-asterisk https://github.com/haya14busa/vim-asterisk
-アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
-個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
-vim-asteriskを入れるとそういった問題が起きなくなります。
-設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
-C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
-neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
-お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="おすすめの(Neo)Vimプラグイン">
+<meta property='og:description' content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NeoVim' /><meta property='article:tag' content='Vim' /><meta property='article:published_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
+<meta name="twitter:title" content="おすすめの(Neo)Vimプラグイン">
+<meta name="twitter:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="おすすめの(Neo)Vimプラグイン" />
-<meta property="og:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
-下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
-vim-asterisk https://github.com/haya14busa/vim-asterisk
-アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
-個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
-vim-asteriskを入れるとそういった問題が起きなくなります。
-設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
-C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
-neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
-お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/" />
-<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp" />
-<meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-08-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-08-22T00:00:00+00:00" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp" />
-<meta name="twitter:title" content="おすすめの(Neo)Vimプラグイン"/>
-<meta name="twitter:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。
-下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。
-vim-asterisk https://github.com/haya14busa/vim-asterisk
-アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。
-個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。
-vim-asteriskを入れるとそういった問題が起きなくなります。
-設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim
-C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。
-neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。
-お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim."/>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://opqrstuvcut.github.io/blog/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "おすすめの(Neo)Vimプラグイン",
-      "item": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/"
-    }
-  ]
-}
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "おすすめの(Neo)Vimプラグイン",
-  "name": "おすすめの(Neo)Vimプラグイン",
-  "description": "NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。\n下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。\nvim-asterisk https://github.com/haya14busa/vim-asterisk\nアスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。\n個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。\nvim-asteriskを入れるとそういった問題が起きなくなります。\n設定例 { \u0026#34;haya14busa/vim-asterisk\u0026#34;, config = function() vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;*\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-z*)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;#\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-z#)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;g*\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-gz*)\u0026#34;, {}) vim.api.nvim_set_keymap(\u0026#34;\u0026#34;, \u0026#34;g#\u0026#34;, \u0026#34;\u0026lt;Plug\u0026gt;(asterisk-gz#)\u0026#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim\nC-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。\nneoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \u0026#34;karb94/neoscroll.nvim\u0026#34;, config = function() require(\u0026#34;neoscroll\u0026#34;).setup({ mappings = { \u0026#34;\u0026lt;C-u\u0026gt;\u0026#34;, \u0026#34;\u0026lt;C-d\u0026gt;\u0026#34;, \u0026#34;zt\u0026#34;, \u0026#34;zz\u0026#34;, \u0026#34;zb\u0026#34; }, }) local t = {} local time = \u0026#34;85\u0026#34; t[\u0026#34;\u0026lt;C-u\u0026gt;\u0026#34;] = { \u0026#34;scroll\u0026#34;, { \u0026#34;-vim.wo.scroll\u0026#34;, \u0026#34;true\u0026#34;, time } } t[\u0026#34;\u0026lt;C-d\u0026gt;\u0026#34;] = { \u0026#34;scroll\u0026#34;, { \u0026#34;vim.",
-  "keywords": [
-    "NeoVim", "Vim"
-  ],
-  "articleBody": "NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。\n下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。\nvim-asterisk https://github.com/haya14busa/vim-asterisk\nアスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。\n個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。\nvim-asteriskを入れるとそういった問題が起きなくなります。\n設定例 { \"haya14busa/vim-asterisk\", config = function() vim.api.nvim_set_keymap(\"\", \"*\", \"(asterisk-z*)\", {}) vim.api.nvim_set_keymap(\"\", \"#\", \"(asterisk-z#)\", {}) vim.api.nvim_set_keymap(\"\", \"g*\", \"(asterisk-gz*)\", {}) vim.api.nvim_set_keymap(\"\", \"g#\", \"(asterisk-gz#)\", {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim\nC-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。\nneoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"karb94/neoscroll.nvim\", config = function() require(\"neoscroll\").setup({ mappings = { \"\", \"\", \"zt\", \"zz\", \"zb\" }, }) local t = {} local time = \"85\" t[\"\"] = { \"scroll\", { \"-vim.wo.scroll\", \"true\", time } } t[\"\"] = { \"scroll\", { \"vim.wo.scroll\", \"true\", time } } t[\"zt\"] = { \"zt\", { time } } t[\"zz\"] = { \"zz\", { time } } t[\"zb\"] = { \"zb\", { time } } require(\"neoscroll.config\").set_mappings(t) end, } nvim-bqf https://github.com/kevinhwang91/nvim-bqf\nQuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。\nこれがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"kevinhwang91/nvim-bqf\", config = function() require(\"bqf\").setup({}) end, ft = \"qf\", } vim-qfreplace https://github.com/thinca/vim-qfreplace\nQuickFixでの置換を楽にしてくれます。 自分はTelescopeで単語の検索 -\u003e でQuickFixを開く -\u003e :Qfreplace -\u003e 置換を実行 という感じのフローを使います。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 registers.nvim https://github.com/tversteeg/registers.nvim\nレジスタの内容が見やすくなります。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"tversteeg/registers.nvim\", cmd = \"Registers\", config = function() local registers = require(\"registers\") registers.setup({ window = { border = \"rounded\", transparency = 0, }, }) end, keys = { { '\"', mode = { \"n\", \"v\" } }, { \"\", mode = \"i\" }, }, name = \"registers\", } tiny-code-action.nvim https://github.com/rachartier/tiny-code-action.nvim\nCodeActionの変更内容が見やすくなります。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"rachartier/tiny-code-action.nvim\", dependencies = { { \"nvim-lua/plenary.nvim\" }, { \"nvim-telescope/telescope.nvim\" }, }, event = \"LspAttach\", config = function() require(\"tiny-code-action\").setup() vim.keymap.set(\"n\", \"ca\", function() require(\"tiny-code-action\").code_action() end, { noremap = true, silent = true }) end, } tiny-inline-diagnostic.nvim https://github.com/rachartier/tiny-inline-diagnostic.nvim\nDiagnosticが見やすくなります。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"rachartier/tiny-inline-diagnostic.nvim\", event = \"VeryLazy\", config = function() require(\"tiny-inline-diagnostic\").setup() end, } project-cli-commands.nvim https://github.com/dimaportenko/project-cli-commands.nvim\nプロジェクトごとにCLIコマンドを登録しておいて、それを簡単に実行できるようにしてくれます。\n（自分の設定だと）ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。\n登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"dimaportenko/project-cli-commands.nvim\", dependencies = { \"akinsho/toggleterm.nvim\", \"nvim-telescope/telescope.nvim\", }, -- optional keymap config config = function() local OpenActions = require(\"project_cli_commands.open_actions\") local RunActions = require(\"project_cli_commands.actions\") local config = { -- Key mappings bound inside the telescope window running_telescope_mapping = { [\"\"] = RunActions.exit_terminal, [\"\"] = RunActions.open_float, [\"\"] = RunActions.open_vertical, [\"\"] = RunActions.open_horizontal, }, open_telescope_mapping = { { mode = \"i\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"i\", key = \"\", action = OpenActions.execute_script }, { mode = \"n\", key = \"\", action = OpenActions.execute_script }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_with_input }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_with_input }, { mode = \"i\", key = \"\", action = OpenActions.copy_command_clipboard }, { mode = \"n\", key = \"\", action = OpenActions.copy_command_clipboard }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_float }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_float }, { mode = \"i\", key = \"\", action = OpenActions.execute_script_vertical }, { mode = \"n\", key = \"\", action = OpenActions.execute_script_vertical }, }, } require(\"project_cli_commands\").setup(config) end, } markview.nvim https://github.com/OXY2DEV/markview.nvim\nマークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { \"OXY2DEV/markview.nvim\", lazy = false, -- Recommended branch = \"dev\", -- ft = \"markdown\" -- If you decide to lazy-load anyway dependencies = { -- You will not need this if you installed the -- parsers manually -- Or if the parsers are in your $RUNTIMEPATH \"nvim-treesitter/nvim-treesitter\", \"nvim-tree/nvim-web-devicons\", }, config = function() vim.cmd([[highlight MarkviewHeading1 guibg=#E67E80 guifg=white]]) vim.cmd([[highlight MarkviewHeading2 guibg=#EB9C5F guifg=white]]) vim.cmd([[highlight MarkviewHeading3 guibg=#83C092 guifg=white]]) vim.cmd([[highlight MarkviewHeading4 guibg=#7FBBB3 guifg=white]]) vim.cmd([[highlight MarkviewHeading5 guibg=#D3C6AA guifg=white]]) vim.cmd([[highlight MarkviewHeading6 guibg=#384B55 guifg=white]]) vim.cmd([[highlight MarkviewCode guibg=#1e2326]]) end, } nvim-cokeline https://github.com/willothy/nvim-cokeline\nバッファーラインのフレームワークです。\n元々は、bufferline.nvimやbarbar.nvimを使っていたのですが、なにかの挙動が想定通りいかず試しに切り替えてみようくらいのモチベーションでした。\n使ってみると、カスタマイズ性が高いですが、難しいところがあるわけではなく、また気になるような変な動作などもない個人的には理想のバッファーラインのプラグインです。\nここまでのデモ動画で表示されているバッファーラインに適用されています。\n設定例 *色はカラースキームにあわせて設定が必要なはずです。\n{ \"willothy/nvim-cokeline\", dependencies = { \"nvim-lua/plenary.nvim\", \"nvim-tree/nvim-web-devicons\", \"stevearc/resession.nvim\", }, config = function() local is_picking_focus = require(\"cokeline.mappings\").is_picking_focus local is_picking_close = require(\"cokeline.mappings\").is_picking_close local get_hex = require(\"cokeline.hlgroups\").get_hl_attr local red = vim.g.terminal_color_1 local yellow = vim.g.terminal_color_3 require(\"cokeline\").setup({ default_hl = { fg = function(buffer) return buffer.is_focused and get_hex(\"Normal\", \"fg\") or get_hex(\"Comment\", \"fg\") end, bg = function(buffer) return buffer.is_focused and get_hex(\"DiffChange\", \"bg\") or get_hex(\"ColorColumn\", \"bg\") end, }, components = { { text = function(buffer) return (buffer.index ~= 1) and \"▏\" or \"\" end, }, { text = \" \", }, { text = function(buffer) return buffer.is_focused and \" \" or \"\" end, fg = function(buffer) if buffer.is_focused then return \"red\" end end, }, { text = function(buffer) return (is_picking_focus() or is_picking_close()) and buffer.pick_letter .. \" \" or buffer.devicon.icon end, fg = function(buffer) return (is_picking_focus() and yellow) or (is_picking_close() and red) or buffer.devicon.color end, italic = function() return (is_picking_focus() or is_picking_close()) end, bold = function() return (is_picking_focus() or is_picking_close()) end, }, { text = function(buffer) return buffer.index .. \": \" .. buffer.filename end, bold = function(buffer) return buffer.is_focused end, fg = function(buffer) if buffer.is_modified then return \"blue\" else return get_hex(\"Normal\", \"fg\") end end, }, { text = function(buffer) return (buffer.diagnostics.errors \u003e 0) and \"  \" .. buffer.diagnostics.errors or \"\" end, fg = function(buffer) return \"red\" end, }, { text = function(buffer) return (buffer.diagnostics.warnings \u003e 0) and \"  \" .. buffer.diagnostics.warnings or \"\" end, fg = function(buffer) return \"yellow\" end, }, { text = function(buffer) return (buffer.diagnostics.infos \u003e 0) and \"  \" .. buffer.diagnostics.infos or \"\" end, fg = function(buffer) return \"blue\" end, }, { text = function(buffer) return (buffer.diagnostics.hints \u003e 0) and \"  \" .. buffer.diagnostics.hints or \"\" end, fg = function(buffer) return \"blue\" end, }, { text = \" \", }, { text = \"☓\", on_click = function(_, _, _, _, buffer) buffer:delete() end, }, { text = \" \", }, }, tabs = { placement = \"right\", components = { { text = function(tabpage) return \" \" .. tabpage.number .. \" |\" end, fg = function(buffer) return buffer.is_active and get_hex(\"Normal\", \"fg\") or get_hex(\"Comment\", \"fg\") end, bg = function(tabpage) return tabpage.is_active and get_hex(\"StatusLine\", \"bg\") or get_hex(\"ColorColumn\", \"bg\") end, }, }, }, }) local map = vim.api.nvim_set_keymap for i = 1, 9 do map(\"n\", (\"%s\"):format(i), (\"(cokeline-focus-%s)\"):format(i), { silent = true }) end map(\"n\", \"bc\", \"(cokeline-pick-close)\", { silent = true }) map(\"n\", \"bp\", \"(cokeline-pick-focus)\", { silent = true }) end, } chowcho.nvim https://github.com/tkmpypy/chowcho.nvim\n簡単にwindowを移動できるようにするためのプラグインです。これがあるとwindowの移動がかなり楽です。\n具体的には、このプラグインを使うと、例えば2つしかwindowがなければでもう一方のwindowに移動するという設定ができます。 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。\nお使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設置例 { \"tkmpypy/chowcho.nvim\", config = function() require(\"chowcho\").setup({ icon_enabled = true, active_border_color = \"#FF9E3B\", border_style = \"default\", use_exclude_default = false, exclude = function(buf, win) local fname = vim.fn.expand(\"#\" .. buf .. \":t\") return fname == \"\" end, zindex = 10000, }) chowcho = require(\"chowcho\") local win_keymap_set = function(key, callback) vim.keymap.set({ \"n\", \"t\" }, \"\" .. key, callback) vim.keymap.set({ \"n\", \"t\" }, \"",
-  "wordCount" : "1515",
-  "inLanguage": "ja",
-  "image": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.webp","datePublished": "2024-08-22T00:00:00Z",
-  "dateModified": "2024-08-22T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "MatLoverによるMatlab以外のブログ",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
 
-<article class="post-single">
-  <header class="post-header">
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目次</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#vim-asterisk">vim-asterisk</a>
+      <ul>
+        <li><a href="#設定例">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#neoscrollnvim">neoscroll.nvim</a>
+      <ul>
+        <li><a href="#設定例-1">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#nvim-bqf">nvim-bqf</a>
+      <ul>
+        <li><a href="#設定例-2">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#vim-qfreplace">vim-qfreplace</a></li>
+    <li><a href="#registersnvim">registers.nvim</a>
+      <ul>
+        <li><a href="#設定例-3">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#tiny-code-actionnvim">tiny-code-action.nvim</a>
+      <ul>
+        <li><a href="#設定例-4">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#tiny-inline-diagnosticnvim">tiny-inline-diagnostic.nvim</a>
+      <ul>
+        <li><a href="#設定例-5">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-cli-commandsnvim">project-cli-commands.nvim</a>
+      <ul>
+        <li><a href="#設定例-6">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#markviewnvim">markview.nvim</a>
+      <ul>
+        <li><a href="#設定例-7">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#nvim-cokeline">nvim-cokeline</a>
+      <ul>
+        <li><a href="#設定例-8">設定例</a></li>
+      </ul>
+    </li>
+    <li><a href="#chowchonvim">chowcho.nvim</a>
+      <ul>
+        <li><a href="#設置例">設置例</a></li>
+      </ul>
+    </li>
+    <li><a href="#lualine-time">lualine-time</a></li>
+    <li><a href="#vim-arsync">vim-arsync</a></li>
+    <li><a href="#molten-nvim">molten-nvim</a>
+      <ul>
+        <li><a href="#設定例-9">設定例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
+                <img src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png"
+                        srcset="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png 800w, /blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu10824057137708416901.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post おすすめの(Neo)Vimプラグイン" />
+                
+            </a>
+        </div>
     
-    <h1 class="post-title entry-hint-parent">
-      おすすめの(Neo)Vimプラグイン
-    </h1>
-    <div class="post-meta"><span title='2024-08-22 00:00:00 +0000 UTC'>8月 22, 2024</span>
 
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/vim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/" >
+                Vimプラグイン
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">おすすめの(Neo)Vimプラグイン</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 22, 2024</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
 </div>
-  </header> 
-  <div class="post-content"><p>NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。<br>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。<br>
 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。</p>
-<h2 id="vim-asterisk">vim-asterisk<a hidden class="anchor" aria-hidden="true" href="#vim-asterisk">#</a></h2>
-<p><a href="https://github.com/haya14busa/vim-asterisk">https://github.com/haya14busa/vim-asterisk</a></p>
+<h2 id="vim-asterisk">vim-asterisk
+</h2><p><a class="link" href="https://github.com/haya14busa/vim-asterisk"  target="_blank" rel="noopener"
+    >https://github.com/haya14busa/vim-asterisk</a></p>
 <p>アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。<br>
 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。<br>
 vim-asteriskを入れるとそういった問題が起きなくなります。</p>
-<h3 id="設定例">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;haya14busa/vim-asterisk&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-z*)&#34;</span><span class="p">,</span> <span class="p">{})</span>
@@ -242,16 +376,17 @@ vim-asteriskを入れるとそういった問題が起きなくなります。</
 </span></span><span class="line"><span class="cl">        <span class="n">vim.api</span><span class="p">.</span><span class="n">nvim_set_keymap</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;g#&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(asterisk-gz#)&#34;</span><span class="p">,</span> <span class="p">{})</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="neoscrollnvim">neoscroll.nvim<a hidden class="anchor" aria-hidden="true" href="#neoscrollnvim">#</a></h2>
-<p><a href="https://github.com/karb94/neoscroll.nvim">https://github.com/karb94/neoscroll.nvim</a></p>
+</span></span></code></pre></div><h2 id="neoscrollnvim">neoscroll.nvim
+</h2><p><a class="link" href="https://github.com/karb94/neoscroll.nvim"  target="_blank" rel="noopener"
+    >https://github.com/karb94/neoscroll.nvim</a></p>
 <p>C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。<br>
 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-1">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-1">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-1">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;karb94/neoscroll.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;neoscroll&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
@@ -269,39 +404,42 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;neoscroll.config&#34;</span><span class="p">).</span><span class="n">set_mappings</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="nvim-bqf">nvim-bqf<a hidden class="anchor" aria-hidden="true" href="#nvim-bqf">#</a></h2>
-<p><a href="https://github.com/kevinhwang91/nvim-bqf">https://github.com/kevinhwang91/nvim-bqf</a></p>
+</span></span></code></pre></div><h2 id="nvim-bqf">nvim-bqf
+</h2><p><a class="link" href="https://github.com/kevinhwang91/nvim-bqf"  target="_blank" rel="noopener"
+    >https://github.com/kevinhwang91/nvim-bqf</a></p>
 <p>QuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。<br>
 これがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-2">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-2">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-2">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;kevinhwang91/nvim-bqf&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;bqf&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({})</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ft</span> <span class="o">=</span> <span class="s2">&#34;qf&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="vim-qfreplace">vim-qfreplace<a hidden class="anchor" aria-hidden="true" href="#vim-qfreplace">#</a></h2>
-<p><a href="https://github.com/thinca/vim-qfreplace">https://github.com/thinca/vim-qfreplace</a></p>
+</span></span></code></pre></div><h2 id="vim-qfreplace">vim-qfreplace
+</h2><p><a class="link" href="https://github.com/thinca/vim-qfreplace"  target="_blank" rel="noopener"
+    >https://github.com/thinca/vim-qfreplace</a></p>
 <p>QuickFixでの置換を楽にしてくれます。
 自分はTelescopeで単語の検索 -&gt; &lt;C-q&gt;でQuickFixを開く -&gt; :Qfreplace -&gt; 置換を実行 という感じのフローを使います。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h2 id="registersnvim">registers.nvim<a hidden class="anchor" aria-hidden="true" href="#registersnvim">#</a></h2>
-<p><a href="https://github.com/tversteeg/registers.nvim">https://github.com/tversteeg/registers.nvim</a></p>
+<h2 id="registersnvim">registers.nvim
+</h2><p><a class="link" href="https://github.com/tversteeg/registers.nvim"  target="_blank" rel="noopener"
+    >https://github.com/tversteeg/registers.nvim</a></p>
 <p>レジスタの内容が見やすくなります。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-3">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-3">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-3">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;tversteeg/registers.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&#34;Registers&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
@@ -319,15 +457,16 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">    <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;registers&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="tiny-code-actionnvim">tiny-code-action.nvim<a hidden class="anchor" aria-hidden="true" href="#tiny-code-actionnvim">#</a></h2>
-<p><a href="https://github.com/rachartier/tiny-code-action.nvim">https://github.com/rachartier/tiny-code-action.nvim</a></p>
+</span></span></code></pre></div><h2 id="tiny-code-actionnvim">tiny-code-action.nvim
+</h2><p><a class="link" href="https://github.com/rachartier/tiny-code-action.nvim"  target="_blank" rel="noopener"
+    >https://github.com/rachartier/tiny-code-action.nvim</a></p>
 <p>CodeActionの変更内容が見やすくなります。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
-<h3 id="設定例-4">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-4">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-4">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;rachartier/tiny-code-action.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="s2">&#34;nvim-lua/plenary.nvim&#34;</span> <span class="p">},</span>
@@ -341,23 +480,25 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="kr">end</span><span class="p">,</span> <span class="p">{</span> <span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="tiny-inline-diagnosticnvim">tiny-inline-diagnostic.nvim<a hidden class="anchor" aria-hidden="true" href="#tiny-inline-diagnosticnvim">#</a></h2>
-<p><a href="https://github.com/rachartier/tiny-inline-diagnostic.nvim">https://github.com/rachartier/tiny-inline-diagnostic.nvim</a></p>
+</span></span></code></pre></div><h2 id="tiny-inline-diagnosticnvim">tiny-inline-diagnostic.nvim
+</h2><p><a class="link" href="https://github.com/rachartier/tiny-inline-diagnostic.nvim"  target="_blank" rel="noopener"
+    >https://github.com/rachartier/tiny-inline-diagnostic.nvim</a></p>
 <p>Diagnosticが見やすくなります。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
-<h3 id="設定例-5">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-5">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-5">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;rachartier/tiny-inline-diagnostic.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">event</span> <span class="o">=</span> <span class="s2">&#34;VeryLazy&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;tiny-inline-diagnostic&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="project-cli-commandsnvim">project-cli-commands.nvim<a hidden class="anchor" aria-hidden="true" href="#project-cli-commandsnvim">#</a></h2>
-<p><a href="https://github.com/dimaportenko/project-cli-commands.nvim">https://github.com/dimaportenko/project-cli-commands.nvim</a></p>
+</span></span></code></pre></div><h2 id="project-cli-commandsnvim">project-cli-commands.nvim
+</h2><p><a class="link" href="https://github.com/dimaportenko/project-cli-commands.nvim"  target="_blank" rel="noopener"
+    >https://github.com/dimaportenko/project-cli-commands.nvim</a></p>
 <p>プロジェクトごとにCLIコマンドを登録しておいて、それを簡単に実行できるようにしてくれます。<br>
 （自分の設定だと）&lt;leader&gt;ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。<br>
 登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。</p>
@@ -365,8 +506,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-6">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-6">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-6">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;dimaportenko/project-cli-commands.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
@@ -406,15 +547,16 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;project_cli_commands&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="markviewnvim">markview.nvim<a hidden class="anchor" aria-hidden="true" href="#markviewnvim">#</a></h2>
-<p><a href="https://github.com/OXY2DEV/markview.nvim">https://github.com/OXY2DEV/markview.nvim</a></p>
+</span></span></code></pre></div><h2 id="markviewnvim">markview.nvim
+</h2><p><a class="link" href="https://github.com/OXY2DEV/markview.nvim"  target="_blank" rel="noopener"
+    >https://github.com/OXY2DEV/markview.nvim</a></p>
 <p>マークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-7">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-7">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設定例-7">設定例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;OXY2DEV/markview.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">lazy</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">-- Recommended</span>
 </span></span><span class="line"><span class="cl">    <span class="n">branch</span> <span class="o">=</span> <span class="s2">&#34;dev&#34;</span><span class="p">,</span>
@@ -438,14 +580,15 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="n">vim.cmd</span><span class="p">(</span><span class="s">[[highlight MarkviewCode guibg=#1e2326]]</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="nvim-cokeline">nvim-cokeline<a hidden class="anchor" aria-hidden="true" href="#nvim-cokeline">#</a></h2>
-<p><a href="https://github.com/willothy/nvim-cokeline">https://github.com/willothy/nvim-cokeline</a></p>
+</span></span></code></pre></div><h2 id="nvim-cokeline">nvim-cokeline
+</h2><p><a class="link" href="https://github.com/willothy/nvim-cokeline"  target="_blank" rel="noopener"
+    >https://github.com/willothy/nvim-cokeline</a></p>
 <p>バッファーラインのフレームワークです。<br>
 元々は、bufferline.nvimやbarbar.nvimを使っていたのですが、なにかの挙動が想定通りいかず試しに切り替えてみようくらいのモチベーションでした。<br>
 使ってみると、カスタマイズ性が高いですが、難しいところがあるわけではなく、また気になるような変な動作などもない個人的には理想のバッファーラインのプラグインです。</p>
 <p>ここまでのデモ動画で表示されているバッファーラインに適用されています。</p>
-<h3 id="設定例-8">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-8">#</a></h3>
-<p>*色はカラースキームにあわせて設定が必要なはずです。</p>
+<h3 id="設定例-8">設定例
+</h3><p>*色はカラースキームにあわせて設定が必要なはずです。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;willothy/nvim-cokeline&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
@@ -591,8 +734,9 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="p">(</span><span class="s2">&#34;n&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;leader&gt;bp&#34;</span><span class="p">,</span> <span class="s2">&#34;&lt;Plug&gt;(cokeline-pick-focus)&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="chowchonvim">chowcho.nvim<a hidden class="anchor" aria-hidden="true" href="#chowchonvim">#</a></h2>
-<p><a href="https://github.com/tkmpypy/chowcho.nvim">https://github.com/tkmpypy/chowcho.nvim</a></p>
+</span></span></code></pre></div><h2 id="chowchonvim">chowcho.nvim
+</h2><p><a class="link" href="https://github.com/tkmpypy/chowcho.nvim"  target="_blank" rel="noopener"
+    >https://github.com/tkmpypy/chowcho.nvim</a></p>
 <p>簡単にwindowを移動できるようにするためのプラグインです。これがあるとwindowの移動がかなり楽です。<br>
 具体的には、このプラグインを使うと、例えば2つしかwindowがなければ&lt;C-w&gt;&lt;C-w&gt;でもう一方のwindowに移動するという設定ができます。
 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。</p>
@@ -600,8 +744,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設置例">設置例<a hidden class="anchor" aria-hidden="true" href="#設置例">#</a></h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
+<h3 id="設置例">設置例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;tkmpypy/chowcho.nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">config</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="s2">&#34;chowcho&#34;</span><span class="p">).</span><span class="n">setup</span><span class="p">({</span>
@@ -644,27 +788,30 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">        <span class="kr">end</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="lualine-time">lualine-time<a hidden class="anchor" aria-hidden="true" href="#lualine-time">#</a></h2>
-<p><a href="https://github.com/archibate/lualine-time">https://github.com/archibate/lualine-time</a></p>
+</span></span></code></pre></div><h2 id="lualine-time">lualine-time
+</h2><p><a class="link" href="https://github.com/archibate/lualine-time"  target="_blank" rel="noopener"
+    >https://github.com/archibate/lualine-time</a></p>
 <p>lualineに時間が表示されるようになります。地味にかなり便利だと思っていますが、ターミナルで時間を表示させている人などは不要そうです。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
-<h2 id="vim-arsync">vim-arsync<a hidden class="anchor" aria-hidden="true" href="#vim-arsync">#</a></h2>
-<p><a href="https://github.com/KenN7/vim-arsync">https://github.com/KenN7/vim-arsync</a></p>
+<h2 id="vim-arsync">vim-arsync
+</h2><p><a class="link" href="https://github.com/KenN7/vim-arsync"  target="_blank" rel="noopener"
+    >https://github.com/KenN7/vim-arsync</a></p>
 <p>リモートのサーバーへファイルを同期してくれます。<br>
 ファイルを保存したときに自動で同期してくれたり、同期したくないファイルを選べたりと機能は充実しているかと思います。</p>
-<h2 id="molten-nvim">molten-nvim<a hidden class="anchor" aria-hidden="true" href="#molten-nvim">#</a></h2>
-<p><a href="https://github.com/benlubas/molten-nvim">https://github.com/benlubas/molten-nvim</a></p>
+<h2 id="molten-nvim">molten-nvim
+</h2><p><a class="link" href="https://github.com/benlubas/molten-nvim"  target="_blank" rel="noopener"
+    >https://github.com/benlubas/molten-nvim</a></p>
 <p>PythonのJupyter NotebookをNeoVim上から実行するときに使っています。現在はこれがないのは結構苦行と感じるレベルです。<br>
 もともとはmagma.nvimというプラグインがあったのですが、これのforkになっていてそこから色々と機能が足されたりしています。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
     <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm" type="video/webm">
   <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
-<h3 id="設定例-9">設定例<a hidden class="anchor" aria-hidden="true" href="#設定例-9">#</a></h3>
-<p>これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。</p>
+<h3 id="設定例-9">設定例
+</h3><p>これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;benlubas/molten-nvim&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&#34;3rd/image.nvim&#34;</span> <span class="p">},</span>
@@ -796,87 +943,225 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 </span></span><span class="line"><span class="cl">    <span class="kr">end</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+</section>
 
-  </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/neovim/">NeoVim</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/vim/">Vim</a></li>
-    </ul>
-  </footer>
-</article>
-    </main>
+    <footer class="article-footer">
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-tags">
+        
+            <a href="/blog/tags/neovim/">NeoVim</a>
+        
+            <a href="/blog/tags/vim/">Vim</a>
+        
+    </section>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
 </script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
 <script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    window.disqus_config = function () {
+    
+    
+    
     };
-
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
 <script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
         }
     })
-
 </script>
-</body>
 
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

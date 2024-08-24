@@ -1,27 +1,87 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>ECS on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/categories/ecs/</link>
-    <description>Recent content in ECS on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Tue, 13 Dec 2022 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/categories/ecs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>docker composeでAWS ECSにデプロイするときのtips</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
-      <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
-      <description>docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。
-AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。
-service: api: x-aws-policies: - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。
-secrets: sample_secret: name: &amp;#34;シークレットのARN&amp;#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。
-service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。
-GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。
-https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。
-GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。
-LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;) - { ClusterName: SampleCluster } KeyName: .</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ECS on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/ecs/</link>
+        <description>Recent content in ECS on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Tue, 13 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/ecs/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>docker composeでAWS ECSにデプロイするときのtips</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</link>
+        <pubDate>Tue, 13 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png" alt="Featured image of post docker composeでAWS ECSにデプロイするときのtips" /&gt;&lt;p&gt;docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。
+作業したのが半年前なので少し情報が古いかもしれないのです。&lt;/p&gt;
+&lt;h2 id=&#34;awsのサービスへのアクセス権限周り&#34;&gt;AWSのサービスへのアクセス権限周り
+&lt;/h2&gt;&lt;p&gt;ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;service:
+  api: 
+    x-aws-policies:
+      - &amp;#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;awsのsecretの読み込み&#34;&gt;AWSのsecretの読み込み
+&lt;/h2&gt;&lt;p&gt;secretとの連携はdocker-compose.ymlに次のように記述します。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;secrets:
+  sample_secret:
+    name: &amp;#34;シークレットのARN&amp;#34;
+    external: true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;service:
+  api: 
+    secrets:
+      - sample_secret
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。&lt;/p&gt;
+&lt;h2 id=&#34;gpuインスタンス&#34;&gt;GPUインスタンス
+&lt;/h2&gt;&lt;p&gt;特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。
+GPUインスタンスを使いたい場合おそらく2つ選択肢があります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/&lt;/a&gt; を参考にgpuの記述をdocker-compose.ymlに追加&lt;/li&gt;
+&lt;li&gt;docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自分は後者を選択しました。
+というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。
+このため、後者を採用し、かつ次の変更を加えています。&lt;/p&gt;
+&lt;h3 id=&#34;gpuインスタンスのruntimeの設定&#34;&gt;GPUインスタンスのruntimeの設定
+&lt;/h3&gt;&lt;p&gt;1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  LaunchConfiguration:
+    Properties:
+      IamInstanceProfile:
+        Ref: EC2InstanceProfile
+      ImageId: ...
+      InstanceType: g4dn.xlarge
+      SecurityGroups:
+      - Ref: ...
+      AssociatePublicIpAddress: true
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            echo ECS_CLUSTER=${ClusterName} &amp;gt;&amp;gt; /etc/ecs/ecs.config
+            (grep -q ^OPTIONS=\&amp;#34;--default-runtime /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker needs no changes&amp;#39;) || (sed -i &amp;#39;s/^OPTIONS=&amp;#34;/OPTIONS=&amp;#34;--default-runtime nvidia /&amp;#39; /etc/sysconfig/docker &amp;amp;&amp;amp; echo &amp;#39;/etc/sysconfig/docker updated to have nvidia runtime as default&amp;#39; &amp;amp;&amp;amp; systemctl restart docker &amp;amp;&amp;amp; echo &amp;#39;Restarted docker&amp;#39;)
+          - {
+              ClusterName: SampleCluster
+            }
+      KeyName: ...
+    Type: AWS::AutoScaling::LaunchConfiguration
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;この解決方法はどこかで見たものを利用したものですが、リンク先を失ってしまいました。&lt;/p&gt;
+&lt;h2 id=&#34;eni&#34;&gt;ENI
+&lt;/h2&gt;&lt;p&gt;複数のタスクを1インスタンスの上に立ち上げるとネットワークインターフェースの問題が発生してきます。&lt;br&gt;
+docker compose convertで生成したCloudFormationテンプレートでは、awsvpcが設定されており、これだと1タスクが1つのネットワークインターフェースに対応するようです。&lt;br&gt;
+ネットワークインターフェースはインスタンスによるのですが、例えばg4dnは3つですので、3タスクまでしかデプロイできないことになります。&lt;/p&gt;
+&lt;h3 id=&#34;trunking&#34;&gt;Trunking
+&lt;/h3&gt;&lt;p&gt;前述の問題を解決したいときの1つの解決方法はTrunkingです。&lt;br&gt;
+これはネットワークインターフェースをインスタンスに追加できます！&lt;br&gt;
+ただ話はそんなに簡単ではなく、これが適用できるのは一部のインスタンスに限ります…。自分が使いたいg4dnは対象外でした。&lt;/p&gt;
+&lt;h3 id=&#34;awsvpc---bridge&#34;&gt;awsvpc -&amp;gt; bridge
+&lt;/h3&gt;&lt;p&gt;もう1つの解決方法はawsvpcを使うのを諦めてNetworkModeをbridgeにすることです。
+NetworkModeを変更するにあたって、docker compose convertで生成されたCloudFormationテンプレートを色々と変更する必要がありますが、もはや仕方がないのでこれで解決しました。&lt;/p&gt;
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ
+&lt;/h2&gt;&lt;p&gt;docker composeコマンドでのdeployは非常に便利ですが、特殊なことは対応していないので結局CloudFormationテンプレートを修正していく必要がでてきます。
+とはいえ、非常に便利な機能であることは間違いないですね。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

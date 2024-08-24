@@ -1,27 +1,101 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Laplacian on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/laplacian/</link>
-    <description>Recent content in Laplacian on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sat, 18 Jul 2020 13:05:29 +0900</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/tags/laplacian/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Laplacianで画像の2階微分</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
-      <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
-      <description>本記事はQrunchからの転載です。
-今回はLaplacianを扱います。
-そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}. $$
-これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。
-Laplacianのフィルタ Laplacianのフィルタの最も基本的なものは以下で定義されます。
-これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
-$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。
-$$ \frac{\partial f}{\partial x} \approx f(x + 1, y) - f(x,y ).$$ これを利用すると、2階の偏微分は
-$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(x+1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;amp;=&amp;amp; f(x+1, y) - 2f(x, y) + f(x-1,y ).\end{aligned}$$ 同様に $$ \begin{aligned} \frac{\partial^2 f}{\partial y^2} &amp;amp;\approx&amp;amp; f(x,y+1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;amp;=&amp;amp; f(x, y+1) - 2f(x, y) + f(x,y-1 ).</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Laplacian on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/laplacian/</link>
+        <description>Recent content in Laplacian on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sat, 18 Jul 2020 13:05:29 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/laplacian/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Laplacianで画像の2階微分</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</link>
+        <pubDate>Sat, 18 Jul 2020 13:05:29 +0900</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5.png" alt="Featured image of post Laplacianで画像の2階微分" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;今回はLaplacianを扱います。&lt;/p&gt;
+&lt;h1 id=&#34;そもそものlaplacian&#34;&gt;そもそものLaplacian
+&lt;/h1&gt;&lt;p&gt;Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。
+$$ \Delta f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.  $$&lt;/p&gt;
+&lt;p&gt;これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。&lt;/p&gt;
+&lt;h1 id=&#34;laplacianのフィルタ&#34;&gt;Laplacianのフィルタ
+&lt;/h1&gt;&lt;p&gt;Laplacianのフィルタの最も基本的なものは以下で定義されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e.png&#34;
+	width=&#34;182&#34;
+	height=&#34;170&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu15493758052874826584.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/bee0ab3292b4f50ed6d2be23f0c1016e_hu1022391137497654073.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;107&#34;
+		data-flex-basis=&#34;256px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。&lt;/p&gt;
+&lt;p&gt;$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。&lt;/p&gt;
+&lt;p&gt;$$ \frac{\partial f}{\partial x} \approx f(x + 1, y) - f(x,y ).$$
+これを利用すると、2階の偏微分は&lt;/p&gt;
+&lt;p&gt;$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;amp;\approx&amp;amp; f(x+1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;amp;=&amp;amp; f(x+1, y) - 2f(x, y) + f(x-1,y ).\end{aligned}$$
+同様に
+$$  \begin{aligned}
+\frac{\partial^2 f}{\partial y^2} &amp;amp;\approx&amp;amp; f(x,y+1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;amp;=&amp;amp; f(x, y+1) - 2f(x, y) + f(x,y-1 ).
+\end{aligned}$$
+よって、
+$$  \begin{aligned} \Delta f &amp;amp;= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} \\ &amp;amp;= f(x+1,y ) - 2f(x,y ) + f(x-1,y ) + f(x,y+1 ) - 2f(x,y ) + f(x,y -1)\\ &amp;amp;= f(x+1,y ) + f(x-1,y ) + f(x,y+1 ) + f(x,y -1) - 4f(x,y ) . \end{aligned} $$
+以上から先程のようなフィルタになることが理解できたでしょうか？&lt;/p&gt;
+&lt;p&gt;このフィルタを使うと、ノイズにも強く反応することが予想されます。
+そのため、場合によっては平滑化によりノイズを軽減する必要です。&lt;/p&gt;
+&lt;h1 id=&#34;斜めも考慮したlaplacian&#34;&gt;斜めも考慮したLaplacian
+&lt;/h1&gt;&lt;p&gt;また、斜め方向も考慮したlaplacianのフィルタが以下のようになります。（これって導出あるんでしょうか？）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b.png&#34;
+	width=&#34;184&#34;
+	height=&#34;170&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu12153771942641217253.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/12a70508b6cdedb6f1e59454038a683b_hu5468651698787399724.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;108&#34;
+		data-flex-basis=&#34;259px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;opencvでlaplacianを試す&#34;&gt;OpenCVでLaplacianを試す
+&lt;/h1&gt;&lt;p&gt;OpenCVでは以下のように利用できます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;laplacian&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Laplacian&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ddepthに出力されるlaplacianの型を指定します。CV_16Sは符号付きの16ビット整数です。
+ksizeにフィルタ（カーネル）の大きさを指定します。最初に示したフィルタを使うためにはksize=1を指定します。2つ目に示したフィルタはksize=3になります。&lt;/p&gt;
+&lt;p&gt;ksizeを変えて2パターン実行した結果が以下のとおりです。
+描画の都合上、laplacianに絶対値を取ったものを表示しています。&lt;/p&gt;
+&lt;p&gt;ksize=1のとき&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/8fed6795e898f49128a413d3617dd13f.png&#34;
+	width=&#34;247&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/8fed6795e898f49128a413d3617dd13f_hu3972792036536470783.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/8fed6795e898f49128a413d3617dd13f_hu3885534813577998929.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;235px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ksize=3のとき&lt;br&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5.png&#34;
+	width=&#34;247&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5_hu7123329641022231804.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5_hu16817071791634482107.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;235px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

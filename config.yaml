@@ -1,6 +1,6 @@
 baseURL: "https://opqrstuvcut.github.io/blog"
 languageCode : "ja-jp"
-theme: ["hugo-video", "PaperMod"]
+theme: ["hugo-video", "hugo-theme-stack"]
 disqusShortname: https-opqrstuvcut-github-io-blog
 
 paginate: 10
@@ -21,6 +21,8 @@ params:
     featuredImageField: image
     rssFullContent: true
     favicon: 'favicon.ico'
+    assets:
+      favicon: "favicon.ico"
 
     footer:
         since: 2019

@@ -1,431 +1,682 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。">
+<title>Category: 画像処理 - Pager 3 - MatLoverによるMatlab以外のブログ</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>画像処理 | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/index.xml">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Category: 画像処理 - MatLoverによるMatlab以外のブログ">
+<meta property='og:description' content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2024-08-22T00:00:00&#43;00:00 '/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta name="twitter:title" content="Category: 画像処理 - MatLoverによるMatlab以外のブログ">
+<meta name="twitter:description" content="機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' /><link rel="alternate" type="application/rss&#43;xml" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/index.xml">
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="画像処理" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="画像処理"/>
-<meta name="twitter:description" content=""/>
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-</head>
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/blog/search/" class="search-form widget" >
+        <p>
+            <label>検索</label>
+            <input name="keyword" required placeholder="入力..." />
+        
+            <button title="検索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">アーカイブ</h2>
+
+        
+        
+        
+        
+        
+        <div class="widget-archive--list">
+            <div class="archives-year">
+                    <a href="/blog/archives/#2024">
+                        
+                            <span class="year">2024</span>
+                            <span class="count">1</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2023">
+                        
+                            <span class="year">2023</span>
+                            <span class="count">3</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2022">
+                        
+                            <span class="year">2022</span>
+                            <span class="count">6</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2021">
+                        
+                            <span class="year">2021</span>
+                            <span class="count">10</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2020">
+                        
+                            <span class="year">2020</span>
+                            <span class="count">49</span>
+                        
+                    </a> 
+                </div>
+            <div class="archives-year">
+                    <a href="/blog/archives/#2019">
+                        
+                            <span class="year">さらに見る</span>
+                        
+                    </a> 
+                </div>
+            
+        </div>
+    </section>
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">カテゴリ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" class="font_size_36">
+                画像処理
+            </a>
+        
+            <a href="/blog/categories/opencv/" class="font_size_31">
+                OpenCV
+            </a>
+        
+            <a href="/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_9">
+                機械学習
+            </a>
+        
+            <a href="/blog/categories/aws/" class="font_size_7">
+                AWS
+            </a>
+        
+            <a href="/blog/categories/python/" class="font_size_5">
+                Python
+            </a>
+        
+            <a href="/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" class="font_size_4">
+                自然言語処理
+            </a>
+        
+            <a href="/blog/categories/feature-importance/" class="font_size_3">
+                Feature Importance
+            </a>
+        
+            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" class="font_size_3">
+                OpenCV生活
+            </a>
+        
+            <a href="/blog/categories/deep-learning/" class="font_size_2">
+                Deep Learning
+            </a>
+        
+            <a href="/blog/categories/gpu/" class="font_size_2">
+                GPU
+            </a>
+        
+    </div>
+</section>
+
+            
+        
+            
+                <section class="widget tagCloud">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title">タグ</h2>
+
+    <div class="tagCloud-tags">
+        
+            <a href="/blog/tags/opencv/" class="font_size_30">
+                OpenCV
+            </a>
+        
+            <a href="/blog/tags/python/" class="font_size_14">
+                Python
+            </a>
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" class="font_size_9">
+                深層学習
+            </a>
+        
+            <a href="/blog/tags/aws/" class="font_size_7">
+                AWS
+            </a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" class="font_size_6">
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" class="font_size_5">
+                機械学習
+            </a>
+        
+            <a href="/blog/tags/bert/" class="font_size_4">
+                BERT
+            </a>
+        
+            <a href="/blog/tags/pytorch/" class="font_size_4">
+                PyTorch
+            </a>
+        
+            <a href="/blog/tags/deep-learning/" class="font_size_3">
+                Deep Learning
+            </a>
+        
+            <a href="/blog/tags/tensorflow/" class="font_size_3">
+                TensorFlow
+            </a>
+        
+    </div>
+</section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <header>
+        <h3 class="section-title">
+            
+                Categories
+            
+        </h3>
+
+        <div class="section-card">
+            <div class="section-details">
+                <h3 class="section-count">36 ページ目</h3>
+                <h1 class="section-term">画像処理</h1>
+                
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-<header class="page-header">
-  <h1>
-    画像処理
-  </h1>
-</header>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">画像へのアフィン変換
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x’, y’)$へのアフィン変換は次のようにして表現できます。 $$\begin{pmatrix}x’ \\ y’ \\ 1 \end{pmatrix} =\begin{pmatrix} a &amp; b &amp; c\\ e &amp; f &amp; g \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。
-今回はこのアフィン変換をOpenCVを使っておこないます。
-アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。
-transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。
-以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\begin{pmatrix}x’ \\ y’ \\ 1 \end{pmatrix} =\begin{pmatrix} 1 &amp; 0 &amp; c\\ 0 &amp; 1 &amp; g \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix}x \\ y \\ 1 \end{pmatrix}....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-29 11:03:00 +0900 JST'>7月 29, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 画像へのアフィン変換" href="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">動画の書き込み
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。
-fourcc = cv2.VideoWriter_fourcc(&#34;m&#34;, &#34;p&#34;, &#34;4&#34;, &#34;v&#34;) writer = cv2.VideoWriter(&#34;test.mp4&#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&#34;m&#34;, “p”, “4”, “v&#34;を指定します。他にもmpgで保存するときには&#34;D”, “I”, “V”, “X&#34;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。
-実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。
-writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする </p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-28 11:00:00 +0900 JST'>7月 28, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 動画の書き込み" href="https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">動画の読みこみ
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-今日はOpenCVでの動画の読み書きを扱います。
-動画の読み込み 動画の読み込みは簡単です。
-最初に次のように保存されている動画を開きます。
-import cv2 v = cv2.VideoCapture(&#34;./ex.mp4&#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。
-v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。
-ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。
-while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。
-print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-27 22:53:54 +0900 JST'>7月 27, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 動画の読みこみ" href="https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">sepFilter2Dで分離可能フィルタを使って高速化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-OpenCVのfilter2Dを使うのは良いのですが、分離可能フィルタのときにはsepFilter2Dを使うことで、高速化できます。 今回はこのsepFilter2Dを扱います。
-分離可能フィルタ 分離可能フィルタとは2つのベクトルの畳み込みであらわされるフィルタのことを指します。
-分離可能フィルタの具体例1 Sobelフィルタは分離可能フィルタです。 X方向のSobelフィルタは以下であらわされます。
-これは次のような2つのベクトルの畳み込みとしてあらわされます（$\ast$は畳み込みをあらわしています）。 $$ \begin{pmatrix} 1 \\ 2 \\ 1 \end{pmatrix} \ast	\begin{pmatrix} -1 &amp; 0 &amp; 1 \end{pmatrix}. $$
-分離可能フィルタの具体例2 平滑化フィルタは分離可能フィルタです。 3×3のサイズの平滑化フィルタは次のような2つのベクトルの畳み込みとしてあらわされます。 $$ \begin{pmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{pmatrix} \ast	\begin{pmatrix} \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} \end{pmatrix}. $$
-分離可能フィルタで高速化できる理由 行列形式のサイズ$n$のカーネルを使う場合には1回の畳み込み演算に$n^2$のオーダーの計算量が必要です（実際、掛け算は$n^2$回、足し算は$n^2-1$回です）。これを画像のピクセルの数$S$だけおこなうとすると、$n^2S$のオーダーの計算量がかかります。
-次に分離した2つのベクトルであらわされたカーネルを2回適用するケースを考えます。このカーネルの1回の畳み込みには$n$のオーダーの計算量がかかります。これをすべてのピクセルに2回適用すると、計算量のオーダーは$2nS$です。
-以上から$n$が大きくなると、計算量に大きな違いがでることがわかります。
-実際にsepFilter2Dを試す sepFilter2Dは以下のようにして利用できます。
-sep_filter_res = cv2.sepFilter2D(img, ddepth=cv2.CV_16S, kernelY=col_kernel, kernelX=row_kernel) kernelXに行ベクトルのカーネルを指定し、kernelYに列ベクトルのカーネルを指定しています。
-実際にSobelフィルタを適用することを考えます。
-col_kernel = np.array([1, 2, 1]).T row_kernel = np.array([-1, 0, 1]) sep_filter_res = cv2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-26 11:06:00 +0900 JST'>7月 26, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to sepFilter2Dで分離可能フィルタを使って高速化" href="https://opqrstuvcut.github.io/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">filter2Dで任意のカーネルを扱う
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。 そんなときにはfilter2Dが活躍します。
-filter2Dの使い方 filter2Dのシンプルな利用例としては次のようになります。
-res = cv2.filter2D(img, ddepth=cv2.CV_8U, kernel=kernel) ddepthに返り値の型を指定します。ここでは符号なしの8ビット整数を指定しています。 kernelに自分で定義したカーネルを指定します。
-filter2Dを使ってみる 次の画像にfilter2Dを使った平滑化を適用してみます。
-ksize = 11 kernel = np.ones([ksize, ksize]) / (ksize ** 2) res = cv2.filter2D(img, ddepth=cv2.CV_16U, kernel=kernel) plt.imshow(res) plt.gray() plt.show() 一応、cv2.blurと等しいかを調べてみます。 次のようにすると等しい結果になったかが分かります。
-blur = cv2.blur(img, ksize=(ksize, ksize)) print((blur - res).sum()) # output: 0 </p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-25 12:12:06 +0900 JST'>7月 25, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to filter2Dで任意のカーネルを扱う" href="https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">膨張と収縮の組み合わせによるopeningとclosing
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。
-opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。
-np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
-kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。
-ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。
-opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。
-np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。
-kernel = np.ones([2, 2], np.uint8) dilation = cv2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-21 22:31:32 +0900 JST'>7月 21, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 膨張と収縮の組み合わせによるopeningとclosing" href="https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">erodeで猫を収縮させる
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。
-具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。
-erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。
-次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。
-次の局所領域では最小値は2です。
-局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。
-OpenCVでerode OpenCVでのerodeは次のようにおこないます。
-kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。
-先程の例に適用 先程の例の画像でerodeを試してみましょう。
-A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。
-kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。
-array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。
-kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-20 23:14:16 +0900 JST'>7月 20, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to erodeで猫を収縮させる" href="https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">dilateで猫を膨張させる
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。
-dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。
-dilateは次のようにして利用します。
-kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。
-実際に試した結果が以下のとおりです。
-元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-19 20:40:11 +0900 JST'>7月 19, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to dilateで猫を膨張させる" href="https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Laplacianで画像の2階微分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-今回はLaplacianを扱います。
-そもそものLaplacian Laplacianの復習的な話ですが、2階偏微分可能な関数$f(x,y)$に対して以下をLaplacianといいます。 $$ \Delta f = \frac{\partial^2 f}{\partial x^2} &#43; \frac{\partial^2 f}{\partial y^2}. $$
-これを画像に適用することで、ピクセル値の極小値あるいは極大値となるピクセルを見つけることが可能になります。これはエッジ検出に利用可能だということがわかるかと思います。
-Laplacianのフィルタ Laplacianのフィルタの最も基本的なものは以下で定義されます。
-これを使った畳み込み演算によってLaplacianができるという主張ですが、このフィルタの導出は以下のとおりです。
-$(x,y)$の位置にあるピクセルの1階の偏微分の近似は以下のようにあらわされます。
-$$ \frac{\partial f}{\partial x} \approx f(x &#43; 1, y) - f(x,y ).$$ これを利用すると、2階の偏微分は
-$$\begin{aligned} \frac{\partial^2 f}{\partial x^2} &amp;\approx&amp; f(x&#43;1,y ) - f(x, y) - (f(x,y ) - f(x-1,y )) \\ &amp;=&amp; f(x&#43;1, y) - 2f(x, y) &#43; f(x-1,y ).\end{aligned}$$ 同様に $$ \begin{aligned} \frac{\partial^2 f}{\partial y^2} &amp;\approx&amp; f(x,y&#43;1) - f(x, y) - (f(x,y ) - f(x,y-1 )) \\ &amp;=&amp; f(x, y&#43;1) - 2f(x, y) &#43; f(x,y-1 )....</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-18 13:05:29 +0900 JST'>7月 18, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Laplacianで画像の2階微分" href="https://opqrstuvcut.github.io/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Sobelフィルタで微分
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本記事はQrunchからの転載です。
-よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。
-Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。
-x方向の微分用のSobelフィルタ
-y方向の微分用のSobelフィルタ
-これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。
-これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。
-次に平滑化ですが、これは以下のフィルタです。
-ガウス平滑化に似たように中心の重みが大きい平滑化になります。
-ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。
-以上がSobelフィルタが何をしているかの話になります。
-Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。
-soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。
-次の画像にSobelフィルタを適用してみます。
-x方向のSobelフィルタの適用
-soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。
-y方向のSobelフィルタの適用
-sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。
-なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-07-16 14:06:05 +0900 JST'>7月 16, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Sobelフィルタで微分" href="https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/page/2/">
-      «&nbsp;前へ&nbsp;
-    </a>
-    <a class="next" href="https://opqrstuvcut.github.io/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/page/4/">次へ&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
-    </main>
+    </header>
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-list--compact">
+        
+            <article>
+    <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">
+        <div class="article-details">
+            <h2 class="article-title">画像へのアフィン変換</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-29T11:03:00&#43;09:00'>Jul 29, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu13360766827317026452.png" 
+                        width="120"
+                        height="120" 
+                        alt="画像へのアフィン変換"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/">
+        <div class="article-details">
+            <h2 class="article-title">動画の書き込み</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-28T11:00:00&#43;09:00'>Jul 28, 2020</time>
+            </footer>
+        </div>
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/">
+        <div class="article-details">
+            <h2 class="article-title">動画の読みこみ</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-27T22:53:54&#43;09:00'>Jul 27, 2020</time>
+            </footer>
+        </div>
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/">
+        <div class="article-details">
+            <h2 class="article-title">sepFilter2Dで分離可能フィルタを使って高速化</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-26T11:06:00&#43;09:00'>Jul 26, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/sepfilter2d%E3%81%A7%E5%88%86%E9%9B%A2%E5%8F%AF%E8%83%BD%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E9%AB%98%E9%80%9F%E5%8C%96/7f919cf47778b5338c27d63bca691006_hu16678564344024885537.png" 
+                        width="120"
+                        height="120" 
+                        alt="sepFilter2Dで分離可能フィルタを使って高速化"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/">
+        <div class="article-details">
+            <h2 class="article-title">filter2Dで任意のカーネルを扱う</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-25T12:12:06&#43;09:00'>Jul 25, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7_hu7227899787465833633.png" 
+                        width="120"
+                        height="120" 
+                        alt="filter2Dで任意のカーネルを扱う"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/">
+        <div class="article-details">
+            <h2 class="article-title">膨張と収縮の組み合わせによるopeningとclosing</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-21T22:31:32&#43;09:00'>Jul 21, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu2039620048700761625.png" 
+                        width="120"
+                        height="120" 
+                        alt="膨張と収縮の組み合わせによるopeningとclosing"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/">
+        <div class="article-details">
+            <h2 class="article-title">erodeで猫を収縮させる</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-20T23:14:16&#43;09:00'>Jul 20, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a_hu9944977802896465922.png" 
+                        width="120"
+                        height="120" 
+                        alt="erodeで猫を収縮させる"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/">
+        <div class="article-details">
+            <h2 class="article-title">dilateで猫を膨張させる</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-19T20:40:11&#43;09:00'>Jul 19, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc_hu10803822401379514667.png" 
+                        width="120"
+                        height="120" 
+                        alt="dilateで猫を膨張させる"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/">
+        <div class="article-details">
+            <h2 class="article-title">Laplacianで画像の2階微分</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-18T13:05:29&#43;09:00'>Jul 18, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/laplacian%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE2%E9%9A%8E%E5%BE%AE%E5%88%86/87a340899433b8d46b1c936e1a54fad5_hu14114349837287970543.png" 
+                        width="120"
+                        height="120" 
+                        alt="Laplacianで画像の2階微分"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+            <article>
+    <a href="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/">
+        <div class="article-details">
+            <h2 class="article-title">Sobelフィルタで微分</h2>
+            <footer class="article-time">
+                <time datetime='2020-07-16T14:06:05&#43;09:00'>Jul 16, 2020</time>
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu10710122487663047258.png" 
+                        width="120"
+                        height="120" 
+                        alt="Sobelフィルタで微分"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+        
+    </section>
+    <nav class='pagination'>
+        
+        
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
+        
+            
+                    <a class='page-link' href='/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/'>1</a>
+                
+            
+            
+                    <a class='page-link' href='/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/page/2/'>2</a>
+                
+            
+            
+                <span class='page-link current'>3</span>
+                
+            
+            
+                    <a class='page-link' href='/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/page/4/'>4</a>
+                
+            
+    </nav>
+
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
 
+        document.head.appendChild(customFont);
+    }());
 </script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-
+    </body>
 </html>

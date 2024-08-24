@@ -1,309 +1,362 @@
 <!DOCTYPE html>
-<html lang="ja" dir="auto">
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。 参考文献：Learning Important Features Through Propagating Activation Differences 従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。 saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。 discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。 DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。 なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。 DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \\cdots, x_n^0$としておきます。 ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。 Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。 入力（あるいはある隠れ層の出力）$x_1,\\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \\sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \\cdots, x_n^0$でも同様に $$y^0 = \\sum_{i=1}^N w_i x_i^0 + b$$ となります。">
+<title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift | MatLoverによるMatlab以外のブログ</title>
-<meta name="keywords" content="深層学習, ディープラーニング, 寄与, DeepLift, Integrated Gradients, SHAP">
-<meta name="description" content="本記事はQrunchからの転載です。
-ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
-参考文献：Learning Important Features Through Propagating Activation Differences
-従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
-saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
-discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。
-DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。
-なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。
-DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \cdots, x_n^0$としておきます。
-ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。
-Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。
-入力（あるいはある隠れ層の出力）$x_1,\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \sum_{i=1}^N w_i x_i &#43; b$$ 基準点$x_1^0, \cdots, x_n^0$でも同様に $$y^0 = \sum_{i=1}^N w_i x_i^0 &#43; b$$ となります。">
-<meta name="author" content="">
-<link rel="canonical" href="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.fc220c15db4aef0318bbf30adc45d33d4d7c88deff3238b23eb255afdc472ca6.css" integrity="sha256-/CIMFdtK7wMYu/MK3EXTPU18iN7/MjiyPrJVr9xHLKY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://opqrstuvcut.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://opqrstuvcut.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://opqrstuvcut.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://opqrstuvcut.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://opqrstuvcut.github.io/blog/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="ja" href="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/'>
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="ディープラーニングのモデルの特徴量の寄与を求めるDeepLift">
+<meta property='og:description' content="本記事はQrunchからの転載です。 ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。 参考文献：Learning Important Features Through Propagating Activation Differences 従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。 saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。 discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。 DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。 なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。 DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \\cdots, x_n^0$としておきます。 ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。 Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。 入力（あるいはある隠れ層の出力）$x_1,\\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \\sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \\cdots, x_n^0$でも同様に $$y^0 = \\sum_{i=1}^N w_i x_i^0 + b$$ となります。">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='寄与' /><meta property='article:tag' content='DeepLift' /><meta property='article:tag' content='Integrated Gradients' /><meta property='article:tag' content='SHAP' /><meta property='article:published_time' content='2019-12-19T02:03:01&#43;09:00'/><meta property='article:modified_time' content='2019-12-19T02:03:01&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta name="twitter:title" content="ディープラーニングのモデルの特徴量の寄与を求めるDeepLift">
+<meta name="twitter:description" content="本記事はQrunchからの転載です。 ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。 参考文献：Learning Important Features Through Propagating Activation Differences 従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。 saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。 discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。 DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。 なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。 DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \\cdots, x_n^0$としておきます。 ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。 Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。 入力（あるいはある隠れ層の出力）$x_1,\\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \\sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \\cdots, x_n^0$でも同様に $$y^0 = \\sum_{i=1}^N w_i x_i^0 + b$$ となります。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
 
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
   
     
       
     
   
 
-<meta property="og:title" content="ディープラーニングのモデルの特徴量の寄与を求めるDeepLift" />
-<meta property="og:description" content="本記事はQrunchからの転載です。
-ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
-参考文献：Learning Important Features Through Propagating Activation Differences
-従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
-saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
-discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。
-DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。
-なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。
-DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \cdots, x_n^0$としておきます。
-ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。
-Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。
-入力（あるいはある隠れ層の出力）$x_1,\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \sum_{i=1}^N w_i x_i &#43; b$$ 基準点$x_1^0, \cdots, x_n^0$でも同様に $$y^0 = \sum_{i=1}^N w_i x_i^0 &#43; b$$ となります。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/" />
-<meta property="og:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/feature.png" />
-<meta property="article:section" content="post" />
-<meta property="article:published_time" content="2019-12-19T02:03:01+09:00" />
-<meta property="article:modified_time" content="2019-12-19T02:03:01+09:00" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/feature.png" />
-<meta name="twitter:title" content="ディープラーニングのモデルの特徴量の寄与を求めるDeepLift"/>
-<meta name="twitter:description" content="本記事はQrunchからの転載です。
-ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。
-参考文献：Learning Important Features Through Propagating Activation Differences
-従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。
-saturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。
-discontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。
-DeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。
-なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。
-DeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \cdots, x_n^0$としておきます。
-ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。
-Linear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。
-入力（あるいはある隠れ層の出力）$x_1,\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \sum_{i=1}^N w_i x_i &#43; b$$ 基準点$x_1^0, \cdots, x_n^0$でも同様に $$y^0 = \sum_{i=1}^N w_i x_i^0 &#43; b$$ となります。"/>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://opqrstuvcut.github.io/blog/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "ディープラーニングのモデルの特徴量の寄与を求めるDeepLift",
-      "item": "https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/"
-    }
-  ]
-}
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "ディープラーニングのモデルの特徴量の寄与を求めるDeepLift",
-  "name": "ディープラーニングのモデルの特徴量の寄与を求めるDeepLift",
-  "description": "本記事はQrunchからの転載です。\nディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。\n参考文献：Learning Important Features Through Propagating Activation Differences\n従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。\nsaturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x \u0026lt; 1$では勾配が$1$となり、$x\u0026gt;1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。\ndiscontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。\nDeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。\nなお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。\nDeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \\cdots, x_n^0$としておきます。\nディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。\nLinear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。\n入力（あるいはある隠れ層の出力）$x_1,\\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \\sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \\cdots, x_n^0$でも同様に $$y^0 = \\sum_{i=1}^N w_i x_i^0 + b$$ となります。",
-  "keywords": [
-    "深層学習", "ディープラーニング", "寄与", "DeepLift", "Integrated Gradients", "SHAP"
-  ],
-  "articleBody": "本記事はQrunchからの転載です。\nディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。\n参考文献：Learning Important Features Through Propagating Activation Differences\n従来法の問題点 DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。\nsaturation problem saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。 以下の図をご覧ください。 図中の関数は$y = 1 - {\\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。 この関数では$x \u003c 1$では勾配が$1$となり、$x\u003e1$では勾配が$0$になります。 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\\times$入力とする寄与の計算方法の場合、 $x = 0 $では残念ながら寄与が等しく0になってしまいます。 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。\ndiscontinuous gradients 2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。 左から、ネットワークをあらわしている関数$y={\\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\\times $入力です。 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。\nDeepLift 前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、Integrated Gradientsがこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。\nなお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。\nDeepLiftのアイディア DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。 この基準となる点を$x_1^0, \\cdots, x_n^0$としておきます。\nディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。\nLinear Rule まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。\n入力（あるいはある隠れ層の出力）$x_1,\\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。 $$y = \\sum_{i=1}^N w_i x_i + b$$ 基準点$x_1^0, \\cdots, x_n^0$でも同様に $$y^0 = \\sum_{i=1}^N w_i x_i^0 + b$$ となります。\nこのとき、基準点$x_1^0, \\cdots, x_n^0$に対して、$x_1,\\cdots, x_n$における$y$の変化量は $$ \\Delta y =\\sum_{i=1}^N w_i \\Delta x_i $$ となります。ここで$\\Delta y = y - y^0, \\Delta x_i = x_i - x_i^0$です。\nDeepLiftではこの変化量に着目し、各入力$x_i$に対する$y$への寄与度$C_{\\Delta x_i \\Delta y} $を計算していきます。具体的には次のようになります。 $$ C_{\\Delta x_i \\Delta y} = w_i \\Delta x_i .$$\nつまり、入力$x_i$が基準点に比べてどれだけ$y$の変化に影響を及ぼしたかによって寄与が決まります。\nRescale Rule 次に活性化関数で用いられる非線形変換を扱っていきます。 非線形変換のときも線形変換の場合と同様にして考え、基準点に対するニューロンの出力からどれだけ変化を及ぼしたかによって、寄与を決定します。 ただしReLUやtanhなどは1変数$x$を入力としますから、線形変換の場合とは異なり、 $$C_{\\Delta x \\Delta y} = \\Delta y $$です。\nsaturation problemとdiscontinuous gradientsの解決 Linear RuleとRescale Ruleの2つを定義しましたが、このルールに則って寄与を計算することで、前述した2つの問題を解決することができます（どちらもRescale Rule絡みになりますが）。\nsaturation problem 以下の図のように、DeepLiftでは勾配が0になる状況でも寄与は0になりません。 discontinuous gradients 以下の3列目がDeepLiftでの寄与をあらわしたグラフです。DeepLiftでは寄与が不連続になりません。 非常に単純なアイディアですが、問題にあがっていた2つを解決することができました。\n連鎖律 ここまでで扱ってきた内容は、入力を線形変換したときの寄与、あるいは入力を非線形変換したときの寄与の計算になります。 それでは、入力に線形変換と非線形変換を順番に適用するときには、入力の最終的な出力に対する寄与はどのようにして求めると良いでしょうか。またディープラーニングのように層が複数あるようなケースではどうやって計算すれば良いでしょうか。 DeepLiftでは次のmultiplierとそれに対する連鎖律を導入することで、この計算を可能にしています。\nまず、multiplier $m_{\\Delta x \\Delta y}$の定義は以下のようになります。 $$ m_{\\Delta x \\Delta y} = \\frac {C_{\\Delta x \\Delta y}}{\\Delta x}.$$ これは$\\partial y/ \\partial x$と似たような形式になっています。特にRescale ruleのときには$C_{\\Delta x \\Delta y}=\\Delta y$ですから、意味合いは近いものがあります。\n次に連鎖律の定義です。 ネットワークへの入力を$x_1,\\cdots,x_n$、隠れ層のニューロンを$y_1,\\cdots, y_\\ell$、出力層のある1つのニューロンを$z$とします。このとき、multiplierに対して次のように連鎖律を定義します。 $$ m_{\\Delta x_i \\Delta z} = \\sum_{j=1}^\\ell m_{\\Delta x_i \\Delta y_j} m_{\\Delta y_j \\Delta z}.$$\nこれは丁度ディープラーニングでの計算で使われる連鎖律と同じものです。つまり、 $$ \\frac{\\partial z}{\\partial x_i} = \\sum_{j=1}^\\ell \\frac{\\partial z}{\\partial y_j} \\frac{\\partial y_j}{\\partial x_i} $$ と同じ形式です。 ただし、multiplierの連鎖律は導かれるものではなく、定義であることに注意が必要です。\nmultiplierの連鎖律を使うことで、backpropagationのようにして任意の層に対する任意の層へのmultiplierが求まります。こうして求まったmultiplierに対して基準点からの差をかけ合わせれば寄与が求まります。さきほどの連鎖律の話に出てきた変数の定義をそのまま使うと、 $$ C_{\\Delta x_i \\Delta z} = m_{\\Delta x_i \\Delta z} \\Delta x_i $$ が$x_i$が$z$への寄与になります。\nDeepLiftの適用結果 MNISTに適用した結果を示します。 1つの行が1つの手法をあらわしています（DeepLiftはRevealCancelとありますが、これは今回説明を省いたアイディアです）。1列目がオリジナルの画像で、2列目がCNNによって計算された「8」である確率への寄与でをあらわします。明るい部分が正の寄与で、暗いところが負の寄与になります。ちなみに基準点となる入力は全ピクセル値を0とした真っ黒な画像です。3列目は「3」である確率への寄与です。また4列目はオリジナルの画像から「3」である確率への寄与が高いピクセルを抜き出しているものです。 上2つの手法はピクセル間での寄与の差があまり明確ではありません。また4列目をみてみると、勾配と入力の積を寄与とした方法やIntegrated Gradientsよりも、「3」と判定するために必要なピクセルへはっきりと高い寄与を割り当てることができています。\nDeepLiftとIntegrated Gradients DeepLiftとIntegrated Gradientsは論文の中でお互いの問題点を指摘しあっています。\nDeepLiftの提案論文の主張： Integrated Gradientsは直感的でない寄与の割当がおこる。\nIntegrated Gradientsの提案論文の主張： DeepLiftはmultiplierの連鎖律の部分が数学的に問題がある。\nSHAPでも上記2つの手法を利用した計算が可能です。どちらが良いのかは悩ましいですが、結果が直感的になりやすいのはDeepLift、数学的に理論がしっかりしているのがIntegrated Gradientsという感じでしょうか（あとは実装しやすいのはIntegrated Gradientsとか計算量が少ないのはDeepLiftなどの観点もありますね）。\n",
-  "wordCount" : "246",
-  "inLanguage": "ja",
-  "image": "https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/feature.png","datePublished": "2019-12-19T02:03:01+09:00",
-  "dateModified": "2019-12-19T02:03:01+09:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "MatLoverによるMatlab以外のブログ",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://opqrstuvcut.github.io/blog/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://opqrstuvcut.github.io/blog/" accesskey="h" title="MatLoverによるMatlab以外のブログ (Alt + H)">MatLoverによるMatlab以外のブログ</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/" title="Home">
-                    <span>homeHome</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/archives" title="Archives">
-                    <span>archivesArchives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://opqrstuvcut.github.io/blog/search" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>searchSearch</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
 
-<article class="post-single">
-  <header class="post-header">
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='archives' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='search' >
+                
+                
+                    
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>ダークモード</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目次</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#saturation-problem">saturation problem</a></li>
+    <li><a href="#discontinuous-gradients">discontinuous gradients</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#deepliftのアイディア">DeepLiftのアイディア</a>
+      <ul>
+        <li><a href="#linear-rule">Linear Rule</a></li>
+        <li><a href="#rescale-rule">Rescale Rule</a></li>
+      </ul>
+    </li>
+    <li><a href="#saturation-problemとdiscontinuous-gradientsの解決">saturation problemとdiscontinuous gradientsの解決</a></li>
+    <li><a href="#連鎖律">連鎖律</a></li>
+    <li><a href="#deepliftの適用結果">DeepLiftの適用結果</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
     
-    <h1 class="post-title entry-hint-parent">
-      ディープラーニングのモデルの特徴量の寄与を求めるDeepLift
-    </h1>
-    <div class="post-meta"><span title='2019-12-19 02:03:01 +0900 JST'>12月 19, 2019</span>
+    <header class="article-category">
+        
+            <a href="/blog/categories/feature-importance/" >
+                Feature Importance
+            </a>
+        
+    </header>
+    
 
-</div>
-  </header> <div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">目次</span>
-        </summary>
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/">ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</a>
+        </h2>
+    
+        
+    </div>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#%e5%be%93%e6%9d%a5%e6%b3%95%e3%81%ae%e5%95%8f%e9%a1%8c%e7%82%b9" aria-label="従来法の問題点">従来法の問題点</a><ul>
-                        
-                <li>
-                    <a href="#saturation-problem" aria-label="saturation problem">saturation problem</a></li>
-                <li>
-                    <a href="#discontinuous-gradients" aria-label="discontinuous gradients">discontinuous gradients</a></li></ul>
-                </li>
-                <li>
-                    <a href="#deeplift" aria-label="DeepLift">DeepLift</a><ul>
-                        
-                <li>
-                    <a href="#deeplift%e3%81%ae%e3%82%a2%e3%82%a4%e3%83%87%e3%82%a3%e3%82%a2" aria-label="DeepLiftのアイディア">DeepLiftのアイディア</a><ul>
-                        
-                <li>
-                    <a href="#linear-rule" aria-label="Linear Rule">Linear Rule</a></li>
-                <li>
-                    <a href="#rescale-rule" aria-label="Rescale Rule">Rescale Rule</a></li></ul>
-                </li>
-                <li>
-                    <a href="#saturation-problem%e3%81%a8discontinuous-gradients%e3%81%ae%e8%a7%a3%e6%b1%ba" aria-label="saturation problemとdiscontinuous gradientsの解決">saturation problemとdiscontinuous gradientsの解決</a></li>
-                <li>
-                    <a href="#%e9%80%a3%e9%8e%96%e5%be%8b" aria-label="連鎖律">連鎖律</a></li>
-                <li>
-                    <a href="#deeplift%e3%81%ae%e9%81%a9%e7%94%a8%e7%b5%90%e6%9e%9c" aria-label="DeepLiftの適用結果">DeepLiftの適用結果</a></li></ul>
-                </li>
-                <li>
-                    <a href="#deeplift%e3%81%a8integrated-gradients" aria-label="DeepLiftとIntegrated Gradients">DeepLiftとIntegrated Gradients</a>
-                </li>
-            </ul>
-        </div>
-    </details>
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 19, 2019</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
 </div>
 
-  <div class="post-content"><p>本記事はQrunchからの転載です。</p>
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>本記事はQrunchからの転載です。</p>
 <hr>
 <p>ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。</p>
-<p>参考文献：<a href="https://arxiv.org/pdf/1704.02685.pdf">Learning Important Features Through Propagating Activation Differences</a></p>
-<h1 id="従来法の問題点">従来法の問題点<a hidden class="anchor" aria-hidden="true" href="#従来法の問題点">#</a></h1>
-<p>DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。</p>
-<h2 id="saturation-problem">saturation problem<a hidden class="anchor" aria-hidden="true" href="#saturation-problem">#</a></h2>
-<p>saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。
+<p>参考文献：<a class="link" href="https://arxiv.org/pdf/1704.02685.pdf"  target="_blank" rel="noopener"
+    >Learning Important Features Through Propagating Activation Differences</a></p>
+<h1 id="従来法の問題点">従来法の問題点
+</h1><p>DeepLiftを提案している論文では、以下の2つが従来手法の問題点として挙げられています。</p>
+<h2 id="saturation-problem">saturation problem
+</h2><p>saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。
 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。
 以下の図をご覧ください。
-<img loading="lazy" src="a78fcdb1dc3c5d2431c1ab31da893c9d.png" alt=""  />
-</p>
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d.png"
+	width="1689"
+	height="1125"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu12908979449694638319.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu5562535822996353406.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
 <p>図中の関数は$y = 1 - {\rm ReLU(1 - x)}$で、この関数を1つのネットワークとして考えてみます。
 この関数では$x &lt; 1$では勾配が$1$となり、$x&gt;1$では勾配が$0$になります。
 入力が$x=0$の場合に比べれば、$x=2$の場合は出力値が1だけ大きくなるため、寄与は$x=0$の場合よりも大きくなって欲しいです。しかしながら、寄与=勾配$\times$入力とする寄与の計算方法の場合、
 $x = 0 $では残念ながら寄与が等しく0になってしまいます。
 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。</p>
-<h2 id="discontinuous-gradients">discontinuous gradients<a hidden class="anchor" aria-hidden="true" href="#discontinuous-gradients">#</a></h2>
-<p>2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。
-<img loading="lazy" src="b29d1ab9a442911e96451ac4cccdbc63.png" alt=""  />
-
+<h2 id="discontinuous-gradients">discontinuous gradients
+</h2><p>2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63.png"
+	width="2002"
+	height="545"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13833951256203028933.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13394467446217612706.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="367"
+		data-flex-basis="881px"
+	
+>
 左から、ネットワークをあらわしている関数$y={\rm ReLU(x - 10)}$、その勾配、寄与=勾配$\times $入力です。
 このような関数に対しては計算される寄与値が$x=10$で不連続となり、$x=10$までは寄与が全く無いのに、$x=10$を超えると突然寄与の値が$10$を超えるようになります。
 入力値のちょっとした差で寄与が大きく変わるのは良くないですね。</p>
-<h1 id="deeplift">DeepLift<a hidden class="anchor" aria-hidden="true" href="#deeplift">#</a></h1>
-<p>前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、<a href="https://qrunch.net/@opqrstuvcut/entries/FKxqQpXc0lhh3LMn">Integrated Gradients</a>がこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。</p>
+<h1 id="deeplift">DeepLift
+</h1><p>前述した2つの問題を解決するDeepLiftのアイディアと適用結果について述べていきます。DeepLift以外にも、<a class="link" href="https://qrunch.net/@opqrstuvcut/entries/FKxqQpXc0lhh3LMn"  target="_blank" rel="noopener"
+    >Integrated Gradients</a>がこれら2つの問題を解決していますが、求まった寄与が直感的ではない場合があります。このことは適用結果で示します。</p>
 <p>なお、DeepLiftで利用されているアイディアの1つとして、RevealCancel Ruleというものがありますが、書くのが大変になりそうなので省略します。</p>
-<h2 id="deepliftのアイディア">DeepLiftのアイディア<a hidden class="anchor" aria-hidden="true" href="#deepliftのアイディア">#</a></h2>
-<p>DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。
+<h2 id="deepliftのアイディア">DeepLiftのアイディア
+</h2><p>DeepLiftはIntegrated GradientsやSHAPと同様に、基準となる点を決めておき、そこから入力$x$がどれだけ異なるか、また基準点と$x$のネットワークの出力がどれだけ異なるかをもとにして寄与値を計算していきます。
 この基準となる点を$x_1^0, \cdots, x_n^0$としておきます。</p>
 <p>ディープラーニングで使われる計算は線形変換と非線形変換の2つに分けられ、DeepLiftではこれによって次のように寄与の計算方法が変わってきます。</p>
-<h3 id="linear-rule">Linear Rule<a hidden class="anchor" aria-hidden="true" href="#linear-rule">#</a></h3>
-<p>まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。</p>
+<h3 id="linear-rule">Linear Rule
+</h3><p>まず線形変換の方からです。線形変換には全結合層、畳み込み層が該当します。</p>
 <p>入力（あるいはある隠れ層の出力）$x_1,\cdots, x_n$から次の層のあるニューロン$y$が、重み$w_i$とバイバス$b$を用いて次のようにあらわされるとします。
 $$y =  \sum_{i=1}^N w_i x_i + b$$
 基準点$x_1^0, \cdots, x_n^0$でも同様に
@@ -315,24 +368,44 @@ $$ \Delta y =\sum_{i=1}^N w_i  \Delta x_i $$
 <p>DeepLiftではこの変化量に着目し、各入力$x_i$に対する$y$への寄与度$C_{\Delta x_i \Delta y} $を計算していきます。具体的には次のようになります。
 $$ C_{\Delta x_i \Delta y} = w_i \Delta x_i .$$</p>
 <p>つまり、入力$x_i$が基準点に比べてどれだけ$y$の変化に影響を及ぼしたかによって寄与が決まります。</p>
-<h3 id="rescale-rule">Rescale Rule<a hidden class="anchor" aria-hidden="true" href="#rescale-rule">#</a></h3>
-<p>次に活性化関数で用いられる非線形変換を扱っていきます。
+<h3 id="rescale-rule">Rescale Rule
+</h3><p>次に活性化関数で用いられる非線形変換を扱っていきます。
 非線形変換のときも線形変換の場合と同様にして考え、基準点に対するニューロンの出力からどれだけ変化を及ぼしたかによって、寄与を決定します。
 ただしReLUやtanhなどは1変数$x$を入力としますから、線形変換の場合とは異なり、
 $$C_{\Delta x \Delta y} = \Delta y $$です。</p>
-<h2 id="saturation-problemとdiscontinuous-gradientsの解決">saturation problemとdiscontinuous gradientsの解決<a hidden class="anchor" aria-hidden="true" href="#saturation-problemとdiscontinuous-gradientsの解決">#</a></h2>
-<p>Linear RuleとRescale Ruleの2つを定義しましたが、このルールに則って寄与を計算することで、前述した2つの問題を解決することができます（どちらもRescale Rule絡みになりますが）。</p>
+<h2 id="saturation-problemとdiscontinuous-gradientsの解決">saturation problemとdiscontinuous gradientsの解決
+</h2><p>Linear RuleとRescale Ruleの2つを定義しましたが、このルールに則って寄与を計算することで、前述した2つの問題を解決することができます（どちらもRescale Rule絡みになりますが）。</p>
 <p><!-- raw HTML omitted -->saturation problem<!-- raw HTML omitted -->
 以下の図のように、DeepLiftでは勾配が0になる状況でも寄与は0になりません。
-<img loading="lazy" src="7d9d6c0a6fa52841fa18e2cf4cb227a8.png" alt=""  />
-</p>
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8.png"
+	width="1689"
+	height="1125"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu15296595552791101390.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu11322379920257949130.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
 <p><!-- raw HTML omitted -->discontinuous gradients<!-- raw HTML omitted -->
 以下の3列目がDeepLiftでの寄与をあらわしたグラフです。DeepLiftでは寄与が不連続になりません。
-<img loading="lazy" src="f2103e478f29951e3faa9d398d626a56.png" alt=""  />
-</p>
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56.png"
+	width="1724"
+	height="470"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu15324739139615279590.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu5960859445899261866.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="366"
+		data-flex-basis="880px"
+	
+></p>
 <p>非常に単純なアイディアですが、問題にあがっていた2つを解決することができました。</p>
-<h2 id="連鎖律">連鎖律<a hidden class="anchor" aria-hidden="true" href="#連鎖律">#</a></h2>
-<p>ここまでで扱ってきた内容は、入力を線形変換したときの寄与、あるいは入力を非線形変換したときの寄与の計算になります。
+<h2 id="連鎖律">連鎖律
+</h2><p>ここまでで扱ってきた内容は、入力を線形変換したときの寄与、あるいは入力を非線形変換したときの寄与の計算になります。
 それでは、入力に線形変換と非線形変換を順番に適用するときには、入力の最終的な出力に対する寄与はどのようにして求めると良いでしょうか。またディープラーニングのように層が複数あるようなケースではどうやって計算すれば良いでしょうか。
 DeepLiftでは次のmultiplierとそれに対する連鎖律を導入することで、この計算を可能にしています。</p>
 <p>まず、multiplier $m_{\Delta x \Delta y}$の定義は以下のようになります。
@@ -348,14 +421,24 @@ $$ \frac{\partial z}{\partial x_i} = \sum_{j=1}^\ell \frac{\partial z}{\partial 
 <p>multiplierの連鎖律を使うことで、backpropagationのようにして任意の層に対する任意の層へのmultiplierが求まります。こうして求まったmultiplierに対して基準点からの差をかけ合わせれば寄与が求まります。さきほどの連鎖律の話に出てきた変数の定義をそのまま使うと、
 $$ C_{\Delta x_i \Delta z} = m_{\Delta x_i \Delta z}   \Delta x_i $$
 が$x_i$が$z$への寄与になります。</p>
-<h2 id="deepliftの適用結果">DeepLiftの適用結果<a hidden class="anchor" aria-hidden="true" href="#deepliftの適用結果">#</a></h2>
-<p>MNISTに適用した結果を示します。
-<img loading="lazy" src="64a618e3bf36cb2953ac208966e42b90.png" alt=""  />
-
+<h2 id="deepliftの適用結果">DeepLiftの適用結果
+</h2><p>MNISTに適用した結果を示します。
+<img src="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90.png"
+	width="1346"
+	height="1074"
+	srcset="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu2447569265231029651.png 480w, /blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu1380855239694972600.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="300px"
+	
+>
 1つの行が1つの手法をあらわしています（DeepLiftはRevealCancelとありますが、これは今回説明を省いたアイディアです）。1列目がオリジナルの画像で、2列目がCNNによって計算された「8」である確率への寄与でをあらわします。明るい部分が正の寄与で、暗いところが負の寄与になります。ちなみに基準点となる入力は全ピクセル値を0とした真っ黒な画像です。3列目は「3」である確率への寄与です。また4列目はオリジナルの画像から「3」である確率への寄与が高いピクセルを抜き出しているものです。
 上2つの手法はピクセル間での寄与の差があまり明確ではありません。また4列目をみてみると、勾配と入力の積を寄与とした方法やIntegrated Gradientsよりも、「3」と判定するために必要なピクセルへはっきりと高い寄与を割り当てることができています。</p>
-<h1 id="deepliftとintegrated-gradients">DeepLiftとIntegrated Gradients<a hidden class="anchor" aria-hidden="true" href="#deepliftとintegrated-gradients">#</a></h1>
-<p>DeepLiftとIntegrated Gradientsは論文の中でお互いの問題点を指摘しあっています。</p>
+<h1 id="deepliftとintegrated-gradients">DeepLiftとIntegrated Gradients
+</h1><p>DeepLiftとIntegrated Gradientsは論文の中でお互いの問題点を指摘しあっています。</p>
 <blockquote>
 <p>DeepLiftの提案論文の主張：
 Integrated Gradientsは直感的でない寄与の割当がおこる。</p>
@@ -366,91 +449,340 @@ DeepLiftはmultiplierの連鎖律の部分が数学的に問題がある。</p>
 </blockquote>
 <p>SHAPでも上記2つの手法を利用した計算が可能です。どちらが良いのかは悩ましいですが、結果が直感的になりやすいのはDeepLift、数学的に理論がしっかりしているのがIntegrated Gradientsという感じでしょうか（あとは実装しやすいのはIntegrated Gradientsとか計算量が少ないのはDeepLiftなどの観点もありますね）。</p>
 
+</section>
 
-  </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/%E5%AF%84%E4%B8%8E/">寄与</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/deeplift/">DeepLift</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/integrated-gradients/">Integrated Gradients</a></li>
-      <li><a href="https://opqrstuvcut.github.io/blog/tags/shap/">SHAP</a></li>
-    </ul>
-  </footer>
-</article>
-    </main>
+    <footer class="article-footer">
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://opqrstuvcut.github.io/blog/">MatLoverによるMatlab以外のブログ</a></span> · 
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/%E5%AF%84%E4%B8%8E/">寄与</a>
+        
+            <a href="/blog/tags/deeplift/">DeepLift</a>
+        
+            <a href="/blog/tags/integrated-gradients/">Integrated Gradients</a>
+        
+            <a href="/blog/tags/shap/">SHAP</a>
+        
+    </section>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
 </script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604.4dfdff596559bb530109260024c5bcc3_hu17632164067357622721.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post モデルの予測結果を説明するLIMEの理論"
+                        
+                        data-hash="md5-Tf3/WWVZu1MBCSYAJMW8ww==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">モデルの予測結果を説明するLIMEの理論</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.d149d184ffe5b871c636f0280c71ac17_hu12990949942608192100.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post BERTを軽量化したALBERTの概要"
+                        
+                        data-hash="md5-0UnRhP/luHHGNvAoDHGsFw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">BERTを軽量化したALBERTの概要</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.6253e0c8a64907253e80df30dc4bd179_hu16372073307251382691.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv"
+                        
+                        data-hash="md5-YlPgyKZJByU&#43;gN8w3EvReQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CNNで画像中のピクセルの座標情報を考慮できるCoordConv</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">BERTでおこなうポケモンの説明文生成</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
 <script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    window.disqus_config = function () {
+    
+    
+    
     };
-
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
 <script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
         }
     })
-
 </script>
-</body>
 
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2024 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

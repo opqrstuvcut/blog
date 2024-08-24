@@ -1,50 +1,125 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Table on MatLoverによるMatlab以外のブログ</title>
-    <link>https://opqrstuvcut.github.io/blog/tags/table/</link>
-    <description>Recent content in Table on MatLoverによるMatlab以外のブログ</description>
-    <generator>Hugo -- 0.133.0</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://opqrstuvcut.github.io/blog/tags/table/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tabularデータ向けのサーベイ論文を読んだのでメモ</title>
-      <link>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</link>
-      <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
-      <guid>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</guid>
-      <description>Deep Learning(DL)を用いたテーブルデータ向けの手法は色々提案されており、度々、精度面で勾配ブースティング法を超えたとか超えないと話題になる気がします。
-テーブルデータ周りのDL手法に詳しくない身からすると実際のところどうなのかというのは謎だったので、サーベイ論文を読んでみました。
-読んだ論文：Deep Neural Networks and Tabular Data: A Survey
-手法の細かい説明をまとめるのはしんどいので省略して、結果の部分だけのメモになります。
-評価値での比較 下図は各手法のデータセットごとの評価値の比較結果をあらわしています。上部は非DL手法で、下部DL手法になります。
-これをみると、だいたいのデータセットに対してDL手法よりもXGBoostやLightGBM、CatBoostといった勾配ブースティング法が勝っていることがわかります。ただし、HIGGSデータセットではDL手法であるSAINTが他手法に勝っています。
-HIGGSデータセットはシミュレーションによって作成されたデータセットであり、データ数は1100万という巨大なものになります。巨大なデータセットに限ってはDeep Learning手法が有利になるのかもしれません。
-Accuracyと計算時間比較 次にAccuracyと計算時間(訓練と推論)の比較になります。DL手法と勾配ブースティングはGPU利用のようです。
-Adultデータセット 下図はAdultデータセットの場合をあわらしています。図中で左上にある手法ほど良く、右下に近いほど良くない手法という見方になります。
-これをみると、訓練と推論の両方で左上に書かれている決定木はバランスが良いです。 Accuracyを優先するならXGBoostやCatBoostといった選択肢があるという結果になっています（LightGBMはどこにいったのか？）。
-DL手法で比較的良いのはDeepFMといえるでしょうか。
-HIGGSデータセット 下図はHIGGSデータセットの場合をあらわしています。
-訓練はXGBoostやCatBoostが良いのですが、推論に比較的時間がかかるという結果になっています。このデータセットに対しては深い木になっているのかもしれません。
-主観ですが、訓練と推論の両方でバランスが取れているのはMLP、DeepFMでしょうか？
-Accuracyを求めるならSAINTですが、他手法よりも計算時間が多めです。
-Accuracyとモデルサイズ比較 Adultデータセットの場合のDeep LearningモデルのモデルサイズとAccuracyの比較になります。
-結果をみると、MLP、TabNet、DeepFMあたりが良いバランスでしょうか。
-ここでもSAINTはAccuracyが高めですが、同程度のAccuracyのDeepFMと比べるとモデルサイズが2桁近く大きくなっています。実運用上はモデルサイズは非常に大事でクラウドで動かすときには料金に直結しうるため、場合によっては使用するのが難しいかもしれません。
-ディープラーニングモデルの特徴量の分析 Ablation Test 次にディープラーニング手法のAttentionから得られる特徴量の寄与についての分析結果になります。
-下記の上部の図(a)は寄与が大きい特徴量から順に削除・モデルを学習・評価というプロセスを繰り返したときのAccuracyの推移をあらわしています。
-逆に下部の図(b)は寄与が小さい特徴量から順に削除していったケースをあらわします。
-(a)の場合には寄与が大きい特徴量を順に削除していくため、本当に寄与が高ければすぐにAccuracyが落ちるはずです。 実際にはすぐにガクッとAccuracyが落ちていくことはなく、いくつか特徴量を削除してからようやくAccuracyが下がっていきます。
-図中の手法のなかでは比較的TabNetのAccuracyがはやく落ちています。
-(b)の場合には寄与が小さい特徴量を順に削除していくため、あまりAccuracyが落ちていかないことが予想されます。 ここでもTabNetが他手法よりも想定に近い挙動をしています。
-以上から、比較的TabNetの寄与は信頼できるといえそうですが、全体的にはあまり予想通りの挙動ではないという印象です。
-SHAPとの相関 最後にDL手法から求まった特徴量の寄与とSHAP値（SHAPから求まった特徴量の寄与）との相関になります。 SHAPは理論的にきちんとしている数少ない（唯一？）寄与の求め方になります。
-もしDL手法から求まった特徴量の寄与が良いものであれば、SHAP値との相関が高くなることが予想されます。
-2つの値はスケールが異なる都合、相関の計算にはスピアマンの順位相関係数を用いています。これは-1から1の範囲の値を取り、1は特徴量を寄与が高い順に並べた結果が全く同じ、-1は逆順、0は全く似ていないという結果をあらわします。
-上の表をみると、ほとんど値が0ですので、DL手法で求まる寄与とSHAP値にはほぼほぼ相関がないということがわかります。
-SHAP値の計算には時間が結構かかりますので、DL手法から求まる寄与がSHAP値に類似すると大変好都合なのですが、そうはならず残念です。
-個人的な結論 ここまでの話を踏まえた上で、以下の理由からテーブルデータに対しては基本は決定木系の手法を使ってみるでOKという結論です。
-高いAccuracy 訓練、推論の両方が比較的速い GPUが必須ではない SHAP値が厳密に高速に求まる ただし、データが非常に大きかったり、マルチモーダルなデータ、テーブルデータのaugmentation、またコンペでのスタッキングなどのアンサンブル（実運用でやるのは稀かと思いますが）では活用されると思います。</description>
-    </item>
-  </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Table on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/table/</link>
+        <description>Recent content in Table on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/table/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Tabularデータ向けのサーベイ論文を読んだのでメモ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</link>
+        <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3.png" alt="Featured image of post Tabularデータ向けのサーベイ論文を読んだのでメモ" /&gt;&lt;p&gt;Deep Learning(DL)を用いたテーブルデータ向けの手法は色々提案されており、度々、精度面で勾配ブースティング法を超えたとか超えないと話題になる気がします。&lt;br&gt;
+テーブルデータ周りのDL手法に詳しくない身からすると実際のところどうなのかというのは謎だったので、サーベイ論文を読んでみました。&lt;br&gt;
+読んだ論文：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2110.01889&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Deep Neural Networks and Tabular Data: A Survey&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;手法の細かい説明をまとめるのはしんどいので省略して、結果の部分だけのメモになります。&lt;/p&gt;
+&lt;h1 id=&#34;評価値での比較&#34;&gt;評価値での比較
+&lt;/h1&gt;&lt;p&gt;下図は各手法のデータセットごとの評価値の比較結果をあらわしています。上部は非DL手法で、下部DL手法になります。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/table5.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/table5_hu6795369831667253980.png&#34; alt=&#34;評価値での比較&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;これをみると、だいたいのデータセットに対してDL手法よりもXGBoostやLightGBM、CatBoostといった勾配ブースティング法が勝っていることがわかります。ただし、HIGGSデータセットではDL手法であるSAINTが他手法に勝っています。&lt;br&gt;
+HIGGSデータセットはシミュレーションによって作成されたデータセットであり、データ数は1100万という巨大なものになります。巨大なデータセットに限ってはDeep Learning手法が有利になるのかもしれません。&lt;/p&gt;
+&lt;h1 id=&#34;accuracyと計算時間比較&#34;&gt;Accuracyと計算時間比較
+&lt;/h1&gt;&lt;p&gt;次にAccuracyと計算時間(訓練と推論)の比較になります。DL手法と勾配ブースティングはGPU利用のようです。&lt;/p&gt;
+&lt;h2 id=&#34;adultデータセット&#34;&gt;Adultデータセット
+&lt;/h2&gt;&lt;p&gt;下図はAdultデータセットの場合をあわらしています。図中で左上にある手法ほど良く、右下に近いほど良くない手法という見方になります。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3_hu5150737832642494600.png&#34; alt=&#34;Adultデータセットでの計算時間とAccuracy&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;これをみると、訓練と推論の両方で左上に書かれている決定木はバランスが良いです。
+Accuracyを優先するならXGBoostやCatBoostといった選択肢があるという結果になっています（LightGBMはどこにいったのか？）。&lt;br&gt;
+DL手法で比較的良いのはDeepFMといえるでしょうか。&lt;/p&gt;
+&lt;h2 id=&#34;higgsデータセット&#34;&gt;HIGGSデータセット
+&lt;/h2&gt;&lt;p&gt;下図はHIGGSデータセットの場合をあらわしています。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig4.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig4_hu4852854070307040962.png&#34; alt=&#34;HIGGSデータセットでの計算時間とAccuracy&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;訓練はXGBoostやCatBoostが良いのですが、推論に比較的時間がかかるという結果になっています。このデータセットに対しては深い木になっているのかもしれません。&lt;br&gt;
+主観ですが、訓練と推論の両方でバランスが取れているのはMLP、DeepFMでしょうか？&lt;br&gt;
+Accuracyを求めるならSAINTですが、他手法よりも計算時間が多めです。&lt;/p&gt;
+&lt;h1 id=&#34;accuracyとモデルサイズ比較&#34;&gt;Accuracyとモデルサイズ比較
+&lt;/h1&gt;&lt;p&gt;Adultデータセットの場合のDeep LearningモデルのモデルサイズとAccuracyの比較になります。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig5.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig5_hu15157253160100732394.png&#34; alt=&#34;DLモデルのサイズとAccuracy&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;結果をみると、MLP、TabNet、DeepFMあたりが良いバランスでしょうか。&lt;br&gt;
+ここでもSAINTはAccuracyが高めですが、同程度のAccuracyのDeepFMと比べるとモデルサイズが2桁近く大きくなっています。実運用上はモデルサイズは非常に大事でクラウドで動かすときには料金に直結しうるため、場合によっては使用するのが難しいかもしれません。&lt;/p&gt;
+&lt;h1 id=&#34;ディープラーニングモデルの特徴量の分析&#34;&gt;ディープラーニングモデルの特徴量の分析
+&lt;/h1&gt;&lt;h2 id=&#34;ablation-test&#34;&gt;Ablation Test
+&lt;/h2&gt;&lt;p&gt;次にディープラーニング手法のAttentionから得られる特徴量の寄与についての分析結果になります。&lt;br&gt;
+下記の上部の図(a)は寄与が大きい特徴量から順に削除・モデルを学習・評価というプロセスを繰り返したときのAccuracyの推移をあらわしています。&lt;br&gt;
+逆に下部の図(b)は寄与が小さい特徴量から順に削除していったケースをあらわします。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig6.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig6_hu17667502330558147866.png&#34; alt=&#34;特徴量の寄与&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;(a)の場合には寄与が大きい特徴量を順に削除していくため、&lt;strong&gt;本当に寄与が高ければ&lt;/strong&gt;すぐにAccuracyが落ちるはずです。
+実際にはすぐにガクッとAccuracyが落ちていくことはなく、いくつか特徴量を削除してからようやくAccuracyが下がっていきます。&lt;br&gt;
+図中の手法のなかでは比較的TabNetのAccuracyがはやく落ちています。&lt;/p&gt;
+&lt;p&gt;(b)の場合には寄与が小さい特徴量を順に削除していくため、あまりAccuracyが落ちていかないことが予想されます。
+ここでもTabNetが他手法よりも想定に近い挙動をしています。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;以上から、比較的TabNetの寄与は信頼できるといえそうですが、全体的にはあまり予想通りの挙動ではないという印象です。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;shapとの相関&#34;&gt;SHAPとの相関
+&lt;/h2&gt;&lt;p&gt;最後にDL手法から求まった特徴量の寄与とSHAP値（SHAPから求まった特徴量の寄与）との相関になります。
+SHAPは理論的にきちんとしている数少ない（唯一？）寄与の求め方になります。&lt;/p&gt;
+&lt;p&gt;もしDL手法から求まった特徴量の寄与が良いものであれば、SHAP値との相関が高くなることが予想されます。&lt;br&gt;
+2つの値はスケールが異なる都合、相関の計算にはスピアマンの順位相関係数を用いています。これは-1から1の範囲の値を取り、1は特徴量を寄与が高い順に並べた結果が全く同じ、-1は逆順、0は全く似ていないという結果をあらわします。&lt;/p&gt;
+
+
+
+	
+	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/table6.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/table6_hu780692454426465694.png&#34; alt=&#34;SHAP値とDLモデルから算出された寄与の関係性&#34;&gt;
+	&lt;/a&gt;
+
+
+&lt;p&gt;上の表をみると、ほとんど値が0ですので、DL手法で求まる寄与とSHAP値には&lt;strong&gt;ほぼほぼ相関がない&lt;/strong&gt;ということがわかります。&lt;br&gt;
+SHAP値の計算には時間が結構かかりますので、DL手法から求まる寄与がSHAP値に類似すると大変好都合なのですが、そうはならず残念です。&lt;/p&gt;
+&lt;h1 id=&#34;個人的な結論&#34;&gt;個人的な結論
+&lt;/h1&gt;&lt;p&gt;ここまでの話を踏まえた上で、以下の理由からテーブルデータに対しては基本は決定木系の手法を使ってみるでOKという結論です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高いAccuracy&lt;/li&gt;
+&lt;li&gt;訓練、推論の両方が比較的速い&lt;/li&gt;
+&lt;li&gt;GPUが必須ではない&lt;/li&gt;
+&lt;li&gt;SHAP値が厳密に高速に求まる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ただし、データが非常に大きかったり、マルチモーダルなデータ、テーブルデータのaugmentation、またコンペでのスタッキングなどのアンサンブル（実運用でやるのは稀かと思いますが）では活用されると思います。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

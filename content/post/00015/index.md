@@ -4,7 +4,6 @@ tags:  ["flutter", "Dart", "Bubble", "吹き出し"]
 categories:  ["Flutter"]
 date: 2020-01-28 00:29:30 +0900
 showtoc: true
-image: 56ff1ce17d741bc7f6aeb54a9c567e76.png
 ---
 本記事はQrunchからの転載です。
 ___

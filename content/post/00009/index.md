@@ -4,7 +4,6 @@ tags:  ["BERT", "DeepLearning", "自然言語", "蒸留", "高速化", "Transfor
 categories:  ["自然言語処理", "機械学習"]
 date: 2020-06-21T15:22:01+09:00
 showtoc: true
-image: ade970e39b6211acf56131ea9aadba79.png
 ---
 
 本記事はQrunchからの転載です。

@@ -4,7 +4,6 @@ tags:  ["Python", "BERT", "PyTorch", "ディープラーニング", "深層学�
 categories: ["自然言語処理"]
 date: 2019-11-07 11:42:23 +0900
 showtoc: true
-image: 729b98aa8f9032f789244aa4e870b844.png
 ---
 本記事はQrunchからの転載です。
 ___

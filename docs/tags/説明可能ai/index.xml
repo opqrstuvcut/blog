@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>説明可能AI on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/</link>
         <description>Recent content in 説明可能AI on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Individual Conditional Expectation</title>
-        <link>http://localhost:50000/blog/posts/individual-conditional-expectation/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/</link>
         <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/individual-conditional-expectation/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/individual-conditional-expectation/ice_age.png" alt="Featured image of post Individual Conditional Expectation" /&gt;&lt;p&gt;Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。&lt;br&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png" alt="Featured image of post Individual Conditional Expectation" /&gt;&lt;p&gt;Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。&lt;br&gt;
 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。&lt;/p&gt;
 &lt;p&gt;PDPの記事を先に見ると、理解がはやいかと思います。&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -26,10 +26,10 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
 モデルはLightGBMの勾配ブースティング法を利用しています。&lt;/p&gt;
 &lt;h2 id=&#34;年齢に対するindividual-conditional-expectation&#34;&gt;年齢に対するIndividual Conditional Expectation
 &lt;/h2&gt;&lt;p&gt;年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age.png&#34;
 	width=&#34;907&#34;
 	height=&#34;278&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age_hu9390657832697148048.png 480w, http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age_hu13515510827042229278.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age_hu9390657832697148048.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age_hu13515510827042229278.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;年齢に対するIndividual Conditional Expectation&#34;
@@ -45,10 +45,10 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。&lt;/p&gt;
 &lt;p&gt;また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。&lt;br&gt;
 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age_centered.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age_centered.png&#34;
 	width=&#34;920&#34;
 	height=&#34;278&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age_centered_hu7141907973305086535.png 480w, http://localhost:50000/blog/blog/posts/individual-conditional-expectation/ice_age_centered_hu2872371132474607967.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age_centered_hu7141907973305086535.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/individual-conditional-expectation/ice_age_centered_hu2872371132474607967.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;年齢に対するIndividual Conditional Expectation&#34;
@@ -92,11 +92,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
         </item>
         <item>
         <title>Partial Dependence Plot</title>
-        <link>http://localhost:50000/blog/posts/partial-dependence-plot/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</link>
         <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/partial-dependence-plot/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/partial-dependence-plot/ppd_sex.png" alt="Featured image of post Partial Dependence Plot" /&gt;&lt;p&gt;Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。&lt;br&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/ppd_sex.png" alt="Featured image of post Partial Dependence Plot" /&gt;&lt;p&gt;Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。&lt;br&gt;
 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。&lt;/p&gt;
 &lt;h1 id=&#34;partial-dependence-plotの概要&#34;&gt;Partial Dependence Plotの概要
 &lt;/h1&gt;&lt;p&gt;学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。&lt;br&gt;
@@ -113,10 +113,10 @@ $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C .$$
 $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_{j=1}^n f(x_i,X_{jC}) .$$&lt;/p&gt;
 &lt;h2 id=&#34;年齢に対するpartial-dependence-plot&#34;&gt;年齢に対するPartial Dependence Plot
 &lt;/h2&gt;&lt;p&gt;年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_age.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age.png&#34;
 	width=&#34;907&#34;
 	height=&#34;278&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_age_hu337343712515268662.png 480w, http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_age_hu11077960252519028782.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age_hu337343712515268662.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_age_hu11077960252519028782.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;年齢に対するPartial Dependence Plot&#34;
@@ -130,10 +130,10 @@ $$ E_{X_C}[f(x_i, X_C)] = \int p(X_C) f(x_i, X_C) dX_C \approx \frac{1}{n} \sum_
 年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。&lt;/p&gt;
 &lt;h2 id=&#34;性別に対するpartial-dependence-plot&#34;&gt;性別に対するPartial Dependence Plot
 &lt;/h2&gt;&lt;p&gt;性別についても結果を示します。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_sex.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex.png&#34;
 	width=&#34;907&#34;
 	height=&#34;278&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_sex_hu697429830695706603.png 480w, http://localhost:50000/blog/blog/posts/partial-dependence-plot/ppd_sex_hu11100406626365697369.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex_hu697429830695706603.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/partial-dependence-plot/ppd_sex_hu11100406626365697369.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性別に対するPPD&#34;

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。 次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。 先程の例に適用 先程の例の画像でerodeを試してみましょう。 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。 array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。 kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.">
 <title>erodeで猫を収縮させる</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="erodeで猫を収縮させる">
 <meta property='og:description' content="本記事はQrunchからの転載です。 erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。 次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。 先程の例に適用 先程の例の画像でerodeを試してみましょう。 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。 array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。 kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2.">
-<meta property='og:url' content='http://localhost:50000/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='erode' /><meta property='article:tag' content='縮小' /><meta property='article:published_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='article:modified_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='erode' /><meta property='article:tag' content='縮小' /><meta property='article:published_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='article:modified_time' content='2020-07-20T23:14:16&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
 <meta name="twitter:title" content="erodeで猫を収縮させる">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 erodeによる収縮 erodeは指定した局所領域内の最小値を取るような操作になります。 具体的な例で説明していきます。 次のようなピクセル値をもった3×3の画像があったとします。 erodeの処理で2×2の局所領域を指定すると、次のような手順で計算がおこなわれていきます。 オレンジ色の枠が注目している局所領域になります。 まず、次のように最初の局所領域に左上のピクセルしか含まれていないので、この局所領域の最小値は1として扱います。 次に局所領域を右にスライドさせると、今度は1と2が局所領域に含まれますので、この局所領域の最小値は1となります。 次の局所領域では最小値は2です。 局所領域を下の段に下げていき、上記の操作を続けていくと以下のような画像を得られます。 OpenCVでerode OpenCVでのerodeは次のようにおこないます。 kernel = np.ones([5, 5], np.uint8) erosion = cv2.erode(img, kernel, iterations=1) kernelが局所領域をあらわし、iterationsは収縮の操作を何度おこなうかをあらわします。 先程の例に適用 先程の例の画像でerodeを試してみましょう。 A = np.array([[1, 2, 4], [0, 2, 3], [1, 4, 2]], dtype=np.uint8) とし、以下を実行します。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) erosionの値は以下のとおりです。さきほどの計算例と一致するのがわかります。 array([[1, 1, 2], [0, 0, 2], [0, 0, 2]], dtype=uint8) kernelを変わり種にする kernelの値を1つだけ0にして、局所領域に含めないようにしてみます。具体的には以下のようにします。 kernel = np.ones([2, 2], np.uint8) kernel[0, 0] = 0 erosion = cv2."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/erode%E3%81%A7%E7%8C%AB%E3%82%92%E5%8F%8E%E7%B8%AE%E3%81%95%E3%81%9B%E3%82%8B/fa45ab8993211945b777cb332c493e6a.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

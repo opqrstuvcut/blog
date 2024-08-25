@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>WaterShed on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/watershed/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/watershed/</link>
         <description>Recent content in WaterShed on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 08 Aug 2020 11:10:00 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/watershed/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 08 Aug 2020 11:10:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/watershed/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Watershedで領域検出</title>
-        <link>http://localhost:50000/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</link>
         <pubDate>Sat, 08 Aug 2020 11:10:00 +0900</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png" alt="Featured image of post Watershedで領域検出" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png" alt="Featured image of post Watershedで領域検出" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Watershedと呼ばれる方法を使うと、指定したマーカーの情報と画像のエッジから画像中の領域の分割をおこなってくれます。
 マーカーとしては、この位置は領域1、この位置は領域2それ以外は背景だよといった感じの情報を与えます。&lt;/p&gt;
 &lt;p&gt;実際にOpenCVでやってみましょう。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでwatershed&#34;&gt;OpenCVでWatershed
 &lt;/h1&gt;&lt;p&gt;次の画像にWaterShedを適用してみます。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb_hu5098992574313287796.png 480w, http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb_hu11527578091868633780.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb_hu5098992574313287796.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/cdf9a74e4a1e0477d2066efbf86e93cb_hu11527578091868633780.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -40,10 +40,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;marker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;280&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;310&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;290&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;320&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;markerに代入した1~4の値がそれぞれの物体上にくるようにしています。
 マーカーの位置と画像を重ねると次のようになります。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5_hu14171748839463780440.png 480w, http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5_hu16444318411186118514.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5_hu14171748839463780440.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/6fcd43a57464d0169077f97f8b0f6ec5_hu16444318411186118514.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -57,10 +57,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返り値には領域を分割した結果をあらわす行列が格納されています。
 行列のサイズは画像と同じになっていて、各要素の値はその座標がどの領域かを示した値が入っています。
 描画してみると以下のようになります。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef.png&#34;
 	width=&#34;203&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef_hu15469183509747351429.png 480w, http://localhost:50000/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef_hu9531852754598238411.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef_hu15469183509747351429.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/watershed%E3%81%A7%E9%A0%98%E5%9F%9F%E6%A4%9C%E5%87%BA/37b16430461df0454f7771d8d4bbfaef_hu9531852754598238411.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

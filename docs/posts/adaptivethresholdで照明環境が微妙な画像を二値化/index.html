@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！ adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。 引数 意味 1 入力画像 2 ここで説明した方法を使うことをあらわす値 3 threshold typeでこれは前々回説明したものと同じ 4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している 5 しきい値を決めるときに平均値から引かれる定数 局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。 OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() こちらも上手くいっています。 おわりに 問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。">
 <title>AdaptiveThresholdで照明環境が微妙な画像を二値化</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="AdaptiveThresholdで照明環境が微妙な画像を二値化">
 <meta property='og:description' content="本記事はQrunchからの転載です。 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！ adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。 引数 意味 1 入力画像 2 ここで説明した方法を使うことをあらわす値 3 threshold typeでこれは前々回説明したものと同じ 4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している 5 しきい値を決めるときに平均値から引かれる定数 局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。 OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() こちらも上手くいっています。 おわりに 問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。">
-<meta property='og:url' content='http://localhost:50000/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AdaptiveThreshold' /><meta property='article:published_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='article:modified_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AdaptiveThreshold' /><meta property='article:published_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='article:modified_time' content='2020-07-11T09:22:28&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
 <meta name="twitter:title" content="AdaptiveThresholdで照明環境が微妙な画像を二値化">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 画像処理で結構シビアなのが、照明環境です。 例えば次の画像のように、画像の中で明暗が異なると、大津の二値化ではうまくいきません。 入力画像 大津の二値化適用 とはいえ、アプリケーションによっては撮影者に常に気をつけてもらうことも難しかったりします。 そんなときにはAdaptiveThresholdが役に立ちます。 AdaptiveThresholdとは？ OpenCVで使えるAdaptiveThresholdには2パターンあるのですが、まずは簡単な局所領域での平均を利用する方から説明します。 局所領域での平均を用いたAdaptiveThreshold この方法では、ある座標$(x,y)$のピクセルの二値化をおこなうときには、$(x,y)$を中心としたある大きさの局所領域内の各ピクセルのグレースケール値の平均値を計算します。 この平均値から指定した定数を引いた値をしきい値$T(x,y)$とします。 もし$(x,y)$のグレースケール値が$T(x,y)$を超えれば255に置き換え（255以外にもこの値は指定できます）て、$T(x,y)$以下であれば、$0$にします。 ざっくり言えば、$(x,y)$の周辺領域の平均値を二値化のしきい値にするということになります。 こうすると何が良いかといえば、周辺領域が暗ければ、しきい値は暗い方に設定されますし、周辺領域が明るければ、しきい値は明るい方に設定されます。つまり、局所領域内である程度明暗がわかれていれば、きちんと二値化ができるということです。すごいですね。 この方法は、次のようにcv2.adaptiveThresholdによって利用可能です。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() ちゃんとそれっぽく二値化されてます！ adaptiveThresholdの各引数は以下のとおりです。 局所領域は$(x,y)$を中心とした領域になるため、領域の大きさは奇数で指定しなければいけないことに注意してください。 引数 意味 1 入力画像 2 ここで説明した方法を使うことをあらわす値 3 threshold typeでこれは前々回説明したものと同じ 4 周辺領域の大きさで、11ということは11×11の領域で平均値を計算している 5 しきい値を決めるときに平均値から引かれる定数 局所領域でのガウス分布による重み付を用いたAdaptiveThreshold 先程の平均値は局所領域内は平等に扱うような方法でしたが、問題によっては、局所領域の中心$(x,y)$に近いほど重要視して、遠ざかるほど影響を小さくしたいなぁと思うときがあります。 そんなときにはガウス分布による重み付けを利用することができます。 OpenCVで利用するときにはさきほどの第二引数をcv2.ADAPTIVE_THRESH_GAUSSIAN_Cに変えるだけでOKです。 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) bi_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 5) plt.imshow(bi_img) plt.gray() plt.show() こちらも上手くいっています。 おわりに 問題設定によっては平均の方だと上手くいかず、ガウス分布の重み付けのほうは上手くいったりしますので、そのあたりの使い分けは試行錯誤するしかないかなと思います。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/adaptivethreshold%E3%81%A7%E7%85%A7%E6%98%8E%E7%92%B0%E5%A2%83%E3%81%8C%E5%BE%AE%E5%A6%99%E3%81%AA%E7%94%BB%E5%83%8F%E3%82%92%E4%BA%8C%E5%80%A4%E5%8C%96/849c7e82970effeb19b44b3bf511192f.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

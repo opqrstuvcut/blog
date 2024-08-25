@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>大津二値化 on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/%E5%A4%A7%E6%B4%A5%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E5%A4%A7%E6%B4%A5%E4%BA%8C%E5%80%A4%E5%8C%96/</link>
         <description>Recent content in 大津二値化 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Fri, 10 Jul 2020 13:08:19 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/%E5%A4%A7%E6%B4%A5%E4%BA%8C%E5%80%A4%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Jul 2020 13:08:19 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%A4%A7%E6%B4%A5%E4%BA%8C%E5%80%A4%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>大津の二値化で楽をする</title>
-        <link>http://localhost:50000/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</link>
         <pubDate>Fri, 10 Jul 2020 13:08:19 +0900</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a.png" alt="Featured image of post 大津の二値化で楽をする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a.png" alt="Featured image of post 大津の二値化で楽をする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;大津の2値化とは&#34;&gt;大津の2値化とは？
 &lt;/h1&gt;&lt;p&gt;シンプルな二値化では、何かしらのしきい値を決めてあげる必要がありました。&lt;/p&gt;
@@ -21,10 +21,10 @@
 大津の2値化を使うことで、ある意味での最適なしきい値を決定してくれます。&lt;/p&gt;
 &lt;h1 id=&#34;大津の2値化の中身は&#34;&gt;大津の2値化の中身は？
 &lt;/h1&gt;&lt;p&gt;大津の2値化では、グレースケールのヒストグラムを描いたときに、山が2つ存在するケースを想定しています。例えば次のようなヒストグラムです。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea_hu2922054490872244981.png 480w, http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea_hu15134142562013345299.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea_hu2922054490872244981.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/2cddfa11c25f3a6ebe609ba0fa5dc8ea_hu15134142562013345299.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -45,10 +45,10 @@
 &lt;h1 id=&#34;大津の2値化の適用結果&#34;&gt;大津の2値化の適用結果
 &lt;/h1&gt;&lt;p&gt;大津の2値化を実際に適用してみます。
 次のようなグレースケールの画像が与えられたとします。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af.png&#34;
 	width=&#34;257&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hu8495542326400507451.png 480w, http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hu10549599491280847751.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hu8495542326400507451.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/bb8d931f67d1a9957fb65c5605ed86af_hu10549599491280847751.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -58,10 +58,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;この画像のグレースケール値のヒストグラムは以下のとおりです（先程のヒストグラムと同じものです）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a.png&#34;
 	width=&#34;401&#34;
 	height=&#34;262&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu2922054490872244981.png 480w, http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu15134142562013345299.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu2922054490872244981.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/8a267c58a6c9a13ad6abd0ec6677ec8a_hu15134142562013345299.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -79,10 +79,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bin_img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a.png&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a.png&#34;
 	width=&#34;257&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a_hu5184475453763356500.png 480w, http://localhost:50000/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a_hu1696468041955068096.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a_hu5184475453763356500.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%A7%E6%B4%A5%E3%81%AE%E4%BA%8C%E5%80%A4%E5%8C%96%E3%81%A7%E6%A5%BD%E3%82%92%E3%81%99%E3%82%8B/28686c735e0c8f6271a0dd5b95693c1a_hu1696468041955068096.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>ALBERT on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/albert/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/albert/</link>
         <description>Recent content in ALBERT on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 28 Dec 2019 23:36:43 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/albert/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 28 Dec 2019 23:36:43 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/albert/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>BERTを軽量化したALBERTの概要</title>
-        <link>http://localhost:50000/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
         <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png" alt="Featured image of post BERTを軽量化したALBERTの概要" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png" alt="Featured image of post BERTを軽量化したALBERTの概要" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1810.04805&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;BERT&lt;/a&gt;のパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。&lt;/p&gt;
@@ -27,10 +27,10 @@
 &lt;li&gt;計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0.png&#34;
 	width=&#34;1492&#34;
 	height=&#34;280&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu986272114044548789.png 480w, http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu3738426867576925582.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu986272114044548789.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu3738426867576925582.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -55,10 +55,10 @@ NSPの学習のため、実際に連続した文を与えるケースとラン�
 SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。&lt;/p&gt;
 &lt;h1 id=&#34;実験結果&#34;&gt;実験結果
 &lt;/h1&gt;&lt;p&gt;実験で使われているALBERTのモデルは以下のとおりです。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583.png&#34;
 	width=&#34;1730&#34;
 	height=&#34;512&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu18110541302613161949.png 480w, http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu15063879691533820016.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu18110541302613161949.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu15063879691533820016.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -70,10 +70,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 &lt;p&gt;ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。&lt;/p&gt;
 &lt;h2 id=&#34;bertとの比較&#34;&gt;BERTとの比較
 &lt;/h2&gt;&lt;p&gt;BERTとの比較実験です。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png&#34;
 	width=&#34;1866&#34;
 	height=&#34;618&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu16512440878373140693.png 480w, http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu9746871679168693267.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu16512440878373140693.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu9746871679168693267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -86,10 +86,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。&lt;/p&gt;
 &lt;h2 id=&#34;他の手法と比較&#34;&gt;他の手法と比較
 &lt;/h2&gt;&lt;p&gt;XLNetやRoBERTaとの比較です。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152.png&#34;
 	width=&#34;1896&#34;
 	height=&#34;876&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu8033704663042652419.png 480w, http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu10357862772256833906.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu8033704663042652419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu10357862772256833906.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -98,10 +98,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 		data-flex-basis=&#34;519px&#34;
 	
 &gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35.png&#34;
 	width=&#34;1870&#34;
 	height=&#34;864&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu10806705336015840884.png 480w, http://localhost:50000/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu3374179886502755385.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu10806705336015840884.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu3374179886502755385.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

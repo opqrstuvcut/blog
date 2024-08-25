@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>復元 on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/%E5%BE%A9%E5%85%83/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E5%BE%A9%E5%85%83/</link>
         <description>Recent content in 復元 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Fri, 31 Jul 2020 11:04:00 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/%E5%BE%A9%E5%85%83/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 31 Jul 2020 11:04:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E5%BE%A9%E5%85%83/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>inpaintで画像の修復をする</title>
-        <link>http://localhost:50000/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</link>
         <pubDate>Fri, 31 Jul 2020 11:04:00 +0900</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png" alt="Featured image of post inpaintで画像の修復をする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png" alt="Featured image of post inpaintで画像の修復をする" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;画像に汚れがついたり、傷がついているケースの修復には、最近ではディープラーニングを使った手法が色々出ていますが、画像処理の範囲でもできることがあります。
 今回はOpenCVで修復をおこなってみます。&lt;/p&gt;
 &lt;h1 id=&#34;opencvでやってみる&#34;&gt;OpenCVでやってみる
 &lt;/h1&gt;&lt;p&gt;次の画像にノイズをのせていきます。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620_hu7478582748216616389.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620_hu7927824199827877093.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620_hu7478582748216616389.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/6cfb060c01c9e2a5a569b5c14ee05620_hu7927824199827877093.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -53,10 +53,10 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu13218691895873629392.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu5393342234062253012.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu13218691895873629392.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/9b56f97f2e546e2112f37cb52fe29f70_hu5393342234062253012.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -65,10 +65,10 @@
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/td&gt;
-&lt;td&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu17188677267479297105.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu17648248887772836854.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu17188677267479297105.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/b5fb92837ffca156c74b247e0a00b76f_hu17648248887772836854.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -93,10 +93,10 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_hu13207410595735681584.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_hu9763257622114465113.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_hu13207410595735681584.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/a575c7ee0289b3e759d2ad759aad4bb7_hu9763257622114465113.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -105,10 +105,10 @@
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/td&gt;
-&lt;td&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
+&lt;td&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hu5328548177663010498.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hu5353702894888596796.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hu5328548177663010498.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/8dfa48b36ca2cd45a71e1cae46d65918_hu5353702894888596796.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -122,10 +122,10 @@
 &lt;/table&gt;
 &lt;p&gt;どちらも結構いい感じに復元できています。右図のほうが文字の部分などはきれいに復元できている気がします。&lt;/p&gt;
 &lt;p&gt;ちなみにAlexandru Telea法で第三引数を10まで大きくしてみると、以下のようになります。&lt;br&gt;
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f_hu8369005060817196100.png 480w, http://localhost:50000/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f_hu7605747601264853069.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f_hu8369005060817196100.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/inpaint%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%AE%E4%BF%AE%E5%BE%A9%E3%82%92%E3%81%99%E3%82%8B/c2c2a44c41b8f7e20682e1f9b8ddbe6f_hu7605747601264853069.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

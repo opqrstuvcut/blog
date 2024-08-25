@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}.">
 <title>画像へのアフィン変換</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="画像へのアフィン変換">
 <meta property='og:description' content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}.">
-<meta property='og:url' content='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='affine' /><meta property='article:tag' content='アフィン変換' /><meta property='article:published_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='affine' /><meta property='article:tag' content='アフィン変換' /><meta property='article:published_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
 <meta name="twitter:title" content="画像へのアフィン変換">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。 fourcc = cv2.VideoWriter_fourcc(&#34;m&#34;, &#34;p&#34;, &#34;4&#34;, &#34;v&#34;) writer = cv2.VideoWriter(&#34;test.mp4&#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&quot;m&quot;, &ldquo;p&rdquo;, &ldquo;4&rdquo;, &ldquo;v&quot;を指定します。他にもmpgで保存するときには&quot;D&rdquo;, &ldquo;I&rdquo;, &ldquo;V&rdquo;, &ldquo;X&quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。 実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。 writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする ">
 <title>動画の書き込み</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="動画の書き込み">
 <meta property='og:description' content="本記事はQrunchからの転載です。 OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。 fourcc = cv2.VideoWriter_fourcc(&#34;m&#34;, &#34;p&#34;, &#34;4&#34;, &#34;v&#34;) writer = cv2.VideoWriter(&#34;test.mp4&#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&quot;m&quot;, &ldquo;p&rdquo;, &ldquo;4&rdquo;, &ldquo;v&quot;を指定します。他にもmpgで保存するときには&quot;D&rdquo;, &ldquo;I&rdquo;, &ldquo;V&rdquo;, &ldquo;X&quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。 実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。 writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする ">
-<meta property='og:url' content='http://localhost:50000/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='動画' /><meta property='article:published_time' content='2020-07-28T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-28T11:00:00&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='動画' /><meta property='article:published_time' content='2020-07-28T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-28T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
 <meta name="twitter:title" content="動画の書き込み">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 OpenCVでの動画の書き込み方 次のようにしてtest.mp4という名前の動画を作成します。 fourcc = cv2.VideoWriter_fourcc(&#34;m&#34;, &#34;p&#34;, &#34;4&#34;, &#34;v&#34;) writer = cv2.VideoWriter(&#34;test.mp4&#34;, fourcc, 30, (1920, 1080)) print(writer.isOpened()) 第二引数のfourccは動画のコーデックをあらわしており、mp4のときにはcv2.VideoWriter_fourccの引数には&quot;m&quot;, &ldquo;p&rdquo;, &ldquo;4&rdquo;, &ldquo;v&quot;を指定します。他にもmpgで保存するときには&quot;D&rdquo;, &ldquo;I&rdquo;, &ldquo;V&rdquo;, &ldquo;X&quot;を指定したりできます。拡張子に対応してどういうコーデックが指定できるかは、ググっていただくのが良いかと思います。 また、第三引数にFPSを第四引数に動画の横と縦の大きさを指定しています。 isOpenedメソッドにより動画を書き込むための準備ができているかを確認できます。FalseのときにはPCがコーデックに対応していなかったりで上手くいっていません。 実際に書き込みをおこなうときはwriteメソッドを使います。以下では3フレーム分書き込んでいます。 writer.write(frame) writer.write(frame) writer.write(frame) writer.release() # 書き込み後はreleaseする "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

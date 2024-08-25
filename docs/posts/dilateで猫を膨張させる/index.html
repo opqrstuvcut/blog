@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。 dilateは次のようにして利用します。 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。 実際に試した結果が以下のとおりです。 元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。">
 <title>dilateで猫を膨張させる</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="dilateで猫を膨張させる">
 <meta property='og:description' content="本記事はQrunchからの転載です。 OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。 dilateは次のようにして利用します。 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。 実際に試した結果が以下のとおりです。 元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。">
-<meta property='og:url' content='http://localhost:50000/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dilate' /><meta property='article:tag' content='膨張' /><meta property='article:published_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='article:modified_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dilate' /><meta property='article:tag' content='膨張' /><meta property='article:published_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='article:modified_time' content='2020-07-19T20:40:11&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
 <meta name="twitter:title" content="dilateで猫を膨張させる">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 OpenCVで用意されているdilateを使うことで、画像の中の物体などを膨張させることができます。 ただ膨張させるだけだとあまり使いみちがあるのかよく分かりませんが、収縮などと組み合わせることで色々な用途があります。 dilateについて dilateは指定された局所領域の中で最大値のピクセル値に置き換えていくような処理になります。 このため、例えば背景よりも物体のほうがピクセル値が大きければ、その物体の端の部分が膨らんでいくような処理がおこなわれます。 dilateは次のようにして利用します。 kernel = np.ones((5,5),np.uint8) dilation = cv2.dilate(img, kernel, iterations=1) ここでkernelは局所領域をあらわしており、5×5の局所領域がdilateに利用されています。 また、iterationsは何回同様の処理をおこなうかをあらわします。複数回実行することで、より膨張を促すことができます。 実際に試した結果が以下のとおりです。 元画像 iterations=1 iterations=2 猫が太っていっているのがわかるでしょうか？文字のほうがわかりやすいかもしれませんが。 iterations=2のときのほうが1のときよりも膨張していることがわかります。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/dilate%E3%81%A7%E7%8C%AB%E3%82%92%E8%86%A8%E5%BC%B5%E3%81%95%E3%81%9B%E3%82%8B/28690ce14686ae4e18da248ce434c3cc.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

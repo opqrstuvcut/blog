@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。 Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。 このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。 こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。 注意点として、$x_i$と$X_C$は独立でなければいけません。 独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。 Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C \\approx \\frac{1}{n} \\sum_{j=1}^n f(x_i,X_{jC}) .$$ 年齢に対するPartial Dependence Plot 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。 年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。 性別に対するPartial Dependence Plot 性別についても結果を示します。 女性のほうが生存しやすかったという傾向が見て取れます。 実装 実装は次のとおりです。 import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.DataFrame, target:str, candidates:List) -&gt; List[float]: expecteds = [] replaced_x = x.">
 <title>Partial Dependence Plot</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/partial-dependence-plot/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Partial Dependence Plot">
 <meta property='og:description' content="Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。 Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。 このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。 こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。 注意点として、$x_i$と$X_C$は独立でなければいけません。 独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。 Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C \\approx \\frac{1}{n} \\sum_{j=1}^n f(x_i,X_{jC}) .$$ 年齢に対するPartial Dependence Plot 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。 年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。 性別に対するPartial Dependence Plot 性別についても結果を示します。 女性のほうが生存しやすかったという傾向が見て取れます。 実装 実装は次のとおりです。 import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.DataFrame, target:str, candidates:List) -&gt; List[float]: expecteds = [] replaced_x = x.">
-<meta property='og:url' content='http://localhost:50000/blog/posts/partial-dependence-plot/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Partial Dependence Plot' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-14T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/partial-dependence-plot/ppd_sex.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Partial Dependence Plot' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-14T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/ppd_sex.png' />
 <meta name="twitter:title" content="Partial Dependence Plot">
 <meta name="twitter:description" content="Partial Dependence Plotは任意のモデルのある特徴量に対するglobalな挙動を確認できる手法です。 例えば、特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかがわかります。 Partial Dependence Plotの概要 学習済みのモデル$f$へ入力する特徴量$x$のうち、$i$番目の特徴量の変化に対する$f$の出力の挙動の変化を確認したいとします。 このとき、次のようにモデルの出力の期待値を計算します。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C .$$ ここで$X_C$は$x_i$以外の特徴量になっていまして、$x_i$の値だけを固定し、それ以外の特徴量について積分をしています。 こうすることで、$x_i$の値により、おおよそどれくらいの出力の差が出るのかがわかります。 注意点として、$x_i$と$X_C$は独立でなければいけません。 独立でないときには$x_i$は$X_C$の関数としてあらわされるため、期待値の計算において$X_C$の変化にともない、$x_i$が変化することになります。こうなると、$x_i$が固定という前提と一致しなくなります。 Partial Dependence Plotの実験 kaggleのtitanicの問題でPartial Dependence Plotを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 期待値の計算は訓練データの特徴量$X_{C_{j}},j=1,2,\\cdots,n$を用いて以下のように近似値を利用しています。 $$ E_{X_C}[f(x_i, X_C)] = \\int p(X_C) f(x_i, X_C) dX_C \\approx \\frac{1}{n} \\sum_{j=1}^n f(x_i,X_{jC}) .$$ 年齢に対するPartial Dependence Plot 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。 年齢が低いほうが、生存しやすかった傾向が読み取れます。また35歳にピークがありますので、なにか理由がありそうです。例えば、年齢があがるほど客室のクラスが良くなりやすいのかもしれません（そうだとすると年齢と客室のクラスは独立ではないのかという話になりますので、実際にはここの考察が必要になりそうです）。 性別に対するPartial Dependence Plot 性別についても結果を示します。 女性のほうが生存しやすかったという傾向が見て取れます。 実装 実装は次のとおりです。 import pandas as pd from typing import List def get_partial_dependence_func_val(model, x:pd.DataFrame, target:str, candidates:List) -&gt; List[float]: expecteds = [] replaced_x = x."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/partial-dependence-plot/ppd_sex.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/partial-dependence-plot/ppd_sex.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

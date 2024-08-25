@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 今日はOpenCVでの動画の読み書きを扱います。 動画の読み込み 動画の読み込みは簡単です。 最初に次のように保存されている動画を開きます。 import cv2 v = cv2.VideoCapture(&#34;./ex.mp4&#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。 v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。 ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。 while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。 print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html">
 <title>動画の読みこみ</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="動画の読みこみ">
 <meta property='og:description' content="本記事はQrunchからの転載です。 今日はOpenCVでの動画の読み書きを扱います。 動画の読み込み 動画の読み込みは簡単です。 最初に次のように保存されている動画を開きます。 import cv2 v = cv2.VideoCapture(&#34;./ex.mp4&#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。 v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。 ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。 while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。 print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html">
-<meta property='og:url' content='http://localhost:50000/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E5%8B%95%E7%94%BB%E3%81%AE%E8%AA%AD%E3%81%BF%E3%81%93%E3%81%BF/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='動画' /><meta property='article:tag' content='読み込み' /><meta property='article:published_time' content='2020-07-27T22:53:54&#43;09:00'/><meta property='article:modified_time' content='2020-07-27T22:53:54&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='動画' /><meta property='article:tag' content='読み込み' /><meta property='article:published_time' content='2020-07-27T22:53:54&#43;09:00'/><meta property='article:modified_time' content='2020-07-27T22:53:54&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
 <meta name="twitter:title" content="動画の読みこみ">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 今日はOpenCVでの動画の読み書きを扱います。 動画の読み込み 動画の読み込みは簡単です。 最初に次のように保存されている動画を開きます。 import cv2 v = cv2.VideoCapture(&#34;./ex.mp4&#34;) カメラからフレームを取得する場合はデバイスのIDの指定すればよいです。 普通は次のように0を指定すればよいかと思います。 v = cv2.VideoCapture(0) フレームの読み込みは以下のようにします。 ret, frame = v.read() フレームが読み込めれば、retにはTrueが入ってきて、フレームが読み込めない状態になるとFalseが入ります。 これを利用すれば、次のようにしてフレームを次々に読み込めます（保存されているファイルを開いている場合には、動画の終わりまでが読み込まれます）。 while True: ret, frame = v.read() if not ret: break プロパティの取得 動画のフレームの大きさ、FPS、フレーム数は以下のようにして取得できます。 print(v.get(cv2.CAP_PROP_FRAME_WIDTH)) print(v.get(cv2.CAP_PROP_FRAME_HEIGHT)) print(v.get(cv2.CAP_PROP_FPS)) print(v.get(cv2.CAP_PROP_FRAME_COUNT)) 取得できるプロパティは以下に一覧があります。 http://opencv.jp/opencv-2svn/cpp/highgui_reading_and_writing_images_and_video.html"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

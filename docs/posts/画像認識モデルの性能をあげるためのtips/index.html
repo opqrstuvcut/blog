@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。 簡単にできるものから順に紹介しているつもりです。 ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。 でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。 精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。 EfficientNetはNoisy Student版を使う 転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。 TensorFlowであれば、こちらのレポジトリが利用可能です。 https://github.com/qubvel/efficientnet Label Smoothingを使う 1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。 TensorFlowだと、簡単に使えます。 tf.keras.losses.categorical_crossentropy(y, y_hat, label_smoothing=0.1) Learning Rate Schedulerを使う 学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。 例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。 性能が変わらないことも多いので、あまり期待しないほうが良いかも。 RandAugmentを使う RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。 &ldquo;パラメーターがたったの2つでいいの！？&ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。 使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。 import imgaug.augmenters as iaa images = iaa.RandAugment(n=2, m=30)(images=images) 論文によると、AutoAugmentよりも性能が良いという結果が出ています。 PyTorch用の実装もネットで適当に探せばすぐに見つかります。 GridMaskを使う GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。 Cutoutと違い、Grid状のMaskをかける方法になります。 問題によっては結構性能があがりました。 実装はググると色々見つかります。">
 <title>画像認識モデルの性能をあげるためのTips</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="画像認識モデルの性能をあげるためのTips">
 <meta property='og:description' content="画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。 簡単にできるものから順に紹介しているつもりです。 ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。 でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。 精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。 EfficientNetはNoisy Student版を使う 転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。 TensorFlowであれば、こちらのレポジトリが利用可能です。 https://github.com/qubvel/efficientnet Label Smoothingを使う 1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。 TensorFlowだと、簡単に使えます。 tf.keras.losses.categorical_crossentropy(y, y_hat, label_smoothing=0.1) Learning Rate Schedulerを使う 学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。 例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。 性能が変わらないことも多いので、あまり期待しないほうが良いかも。 RandAugmentを使う RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。 &ldquo;パラメーターがたったの2つでいいの！？&ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。 使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。 import imgaug.augmenters as iaa images = iaa.RandAugment(n=2, m=30)(images=images) 論文によると、AutoAugmentよりも性能が良いという結果が出ています。 PyTorch用の実装もネットで適当に探せばすぐに見つかります。 GridMaskを使う GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。 Cutoutと違い、Grid状のMaskをかける方法になります。 問題によっては結構性能があがりました。 実装はググると色々見つかります。">
-<meta property='og:url' content='http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='画像' /><meta property='article:tag' content='EfficientNet' /><meta property='article:tag' content='TensorFlow' /><meta property='article:tag' content='PyTorch' /><meta property='article:published_time' content='2021-03-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-13T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='画像' /><meta property='article:tag' content='EfficientNet' /><meta property='article:tag' content='TensorFlow' /><meta property='article:tag' content='PyTorch' /><meta property='article:published_time' content='2021-03-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
 <meta name="twitter:title" content="画像認識モデルの性能をあげるためのTips">
 <meta name="twitter:description" content="画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。 簡単にできるものから順に紹介しているつもりです。 ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う ネットにある転移学習の例をコピペすると、畳み込み層の出力を1次元にするところでFlattenを使ってたりします。 でも実はGlobal Averaging Poolingを使ったほうが精度が良くなるかもしれません。 精度を改善するのもそうですが、モデルのパラメーターを大きく減らせることも非常に大きい恩恵だったりもします。 EfficientNetはNoisy Student版を使う 転移学習に素のEfficientNetを利用している方は多いと思いますが、Noisy Stundent版の重みを用いて転移学習することでさらに性能があがるかもしれません。 TensorFlowであれば、こちらのレポジトリが利用可能です。 https://github.com/qubvel/efficientnet Label Smoothingを使う 1か0かのハードラベルではなく、ソフトラベルを使って過学習を抑える方法です。 TensorFlowだと、簡単に使えます。 tf.keras.losses.categorical_crossentropy(y, y_hat, label_smoothing=0.1) Learning Rate Schedulerを使う 学習率のスケジューラーを利用してみると、精度が良くなるかもしれません。 例えば、lossが下がりきったタイミングで学習率を0.1倍にしてみると、lossが少し落ちたりします。 性能が変わらないことも多いので、あまり期待しないほうが良いかも。 RandAugmentを使う RandAugmentは各画像に対して、ランダムにAugmentをいくつか利用する方法です。 RandAugmentのパラメーターはいくつのAugmentを利用するかと各Agumentでのパラメーターを制御するための値の2つのみになります。そのため、Augmentに関するパラメーターのグリッドサーチも一応可能です。 &ldquo;パラメーターがたったの2つでいいの！？&ldquo;と普通の人は効果を疑うかと思いますが、実際に試してみるとかなりうまくいきました。 使うときには、imgaugなどのライブラリを利用すると良いかと思います。次のようにしてRandAugmentを利用可能です。 import imgaug.augmenters as iaa images = iaa.RandAugment(n=2, m=30)(images=images) 論文によると、AutoAugmentよりも性能が良いという結果が出ています。 PyTorch用の実装もネットで適当に探せばすぐに見つかります。 GridMaskを使う GridMaskはAugmentの一つで、Cutoutと同じような種類のAugmentになります。 Cutoutと違い、Grid状のMaskをかける方法になります。 問題によっては結構性能があがりました。 実装はググると色々見つかります。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

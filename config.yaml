@@ -88,24 +88,6 @@ params:
         provider: disqus
 
 menu:
-    main:
-        - identifier: home 
-          name: Home 
-          url:  
-          weight: -120
-          pre: home 
-
-        - identifier: archives
-          name: Archives
-          url: archives
-          weight: -70
-          pre: archives
-
-        - identifier: search
-          name: Search
-          url: search
-          weight: -60
-          pre: search
     
     social:
         - identifier: github

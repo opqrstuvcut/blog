@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。 AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。 service: api: x-aws-policies: - &#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。 secrets: sample_secret: name: &#34;シークレットのARN&#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。 service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。 GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。 https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。 GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。 LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &gt;&gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\\&#34;--default-runtime /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&#34;/OPTIONS=&#34;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;&amp; systemctl restart docker &amp;&amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: .">
 <title>docker composeでAWS ECSにデプロイするときのtips</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="docker composeでAWS ECSにデプロイするときのtips">
 <meta property='og:description' content="docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。 AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。 service: api: x-aws-policies: - &#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。 secrets: sample_secret: name: &#34;シークレットのARN&#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。 service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。 GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。 https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。 GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。 LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &gt;&gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\\&#34;--default-runtime /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&#34;/OPTIONS=&#34;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;&amp; systemctl restart docker &amp;&amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: .">
-<meta property='og:url' content='http://localhost:50000/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AWS' /><meta property='article:published_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AWS' /><meta property='article:published_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png' />
 <meta name="twitter:title" content="docker composeでAWS ECSにデプロイするときのtips">
 <meta name="twitter:description" content="docker composeを使ってAWSのECSにアプリをデプロイ可能ですが、もしかすると役立つものがあるかもしれないのでメモを残しておきます。 作業したのが半年前なので少し情報が古いかもしれないのです。 AWSのサービスへのアクセス権限周り ECSのタスクにAWSのサービスへのアクセス権限を与える場合はdocker-compose.ymlに次のように記述すれば良いです（下記はSQSのフルアクセスの例）。 service: api: x-aws-policies: - &#34;arn:aws:iam::aws:policy/AmazonSQSFullAccess&#34; AWSのsecretの読み込み secretとの連携はdocker-compose.ymlに次のように記述します。 secrets: sample_secret: name: &#34;シークレットのARN&#34; external: true また、読み込ませたいコンテナにも設定を追加します。例えば次のようにします。 service: api: secrets: - sample_secret コンテナからは/run/secrets/sample_secretというパスを参照できるようになっており、この中身がsecretの値になります。 GPUインスタンス 特に何も指定しない場合、FARGATE上にECSのタスクが展開されます。 GPUインスタンスを使いたい場合おそらく2つ選択肢があります。 https://www.docker.com/blog/deploy-gpu-accelerated-applications-on-amazon-ecs-with-docker-compose/ を参考にgpuの記述をdocker-compose.ymlに追加 docker compose convertを使ってCloudFormationテンプレートを出力し、それを編集してGPUインスタンスが使えるようにする。 自分は後者を選択しました。 というのも、複数のタスクを1つのGPUインスタンス上で実行したかったのですが、前者の方法だと1インスタンスにつき1タスクという制限がありました。 このため、後者を採用し、かつ次の変更を加えています。 GPUインスタンスのruntimeの設定 1インスタンスに1タスクの問題は次のようにCloudFormationテンプレートのLaunchConfigurationのUserDataに処理を追加することで解決できます。 LaunchConfiguration: Properties: IamInstanceProfile: Ref: EC2InstanceProfile ImageId: ... InstanceType: g4dn.xlarge SecurityGroups: - Ref: ... AssociatePublicIpAddress: true UserData: Fn::Base64: !Sub - | #!/bin/bash echo ECS_CLUSTER=${ClusterName} &gt;&gt; /etc/ecs/ecs.config (grep -q ^OPTIONS=\\&#34;--default-runtime /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker needs no changes&#39;) || (sed -i &#39;s/^OPTIONS=&#34;/OPTIONS=&#34;--default-runtime nvidia /&#39; /etc/sysconfig/docker &amp;&amp; echo &#39;/etc/sysconfig/docker updated to have nvidia runtime as default&#39; &amp;&amp; systemctl restart docker &amp;&amp; echo &#39;Restarted docker&#39;) - { ClusterName: SampleCluster } KeyName: ."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%A7aws-ecs%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEtips/feature.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

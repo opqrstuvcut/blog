@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>スピアマンの順位相関係数 on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/</link>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/</link>
         <description>Recent content in スピアマンの順位相関係数 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>スピアマンの順位相関係数の導出</title>
-        <link>http://localhost:50000/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</link>
         <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png" alt="Featured image of post スピアマンの順位相関係数の導出" /&gt;&lt;p&gt;スピアマンの順位相関係数の導出のメモになります。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.png" alt="Featured image of post スピアマンの順位相関係数の導出" /&gt;&lt;p&gt;スピアマンの順位相関係数の導出のメモになります。&lt;/p&gt;
 &lt;h1 id=&#34;導出&#34;&gt;導出
 &lt;/h1&gt;&lt;p&gt;$n$個のデータに対する2種類の値をそれぞれ$x_1,\cdots,x_n$と$y_1,\cdots,y_n$とします。&lt;br&gt;
 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \mathbb{R} \rightarrow \mathbb{N}$、$y_i$に対しては$S: \mathbb{R} \rightarrow \mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。&lt;br&gt;

@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>深層学習 on MatLoverによるMatlab以外のブログ</title>
-        <link>http://localhost:50000/blog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/</link>
+        <link>https://opqrstuvcut.github.io/blog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/</link>
         <description>Recent content in 深層学習 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:50000/blog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CANINEの論文を読んだメモ</title>
-        <link>http://localhost:50000/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</link>
         <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
-        <description>&lt;img src="http://localhost:50000/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png" alt="Featured image of post CANINEの論文を読んだメモ" /&gt;&lt;p&gt;BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。
+        <guid>https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png" alt="Featured image of post CANINEの論文を読んだメモ" /&gt;&lt;p&gt;BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。
 CANINEってなんて読むべきなんでしょう？&lt;/p&gt;
 &lt;p&gt;論文はこちら：&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2103.06874.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://arxiv.org/pdf/2103.06874.pdf&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;エンコーダーのアーキテクチャ&#34;&gt;エンコーダーのアーキテクチャ
 &lt;/h1&gt;&lt;p&gt;CANINEのアーキテクチャは以下のようになっています。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png&#34;
 	width=&#34;1894&#34;
 	height=&#34;870&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu5727611620680059928.png 480w, http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu745097921145227070.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu5727611620680059928.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu745097921145227070.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;CANINEのアーキテクチャ（論文より引用）&#34;
@@ -91,10 +91,10 @@ BERTなどはsubwordに対応したベクトルを参照すれば良いですが
 &lt;/h1&gt;&lt;p&gt;実験はTYDI QAデータセットを用いておこなわれています。&lt;/p&gt;
 &lt;h2 id=&#34;他手法との比較&#34;&gt;他手法との比較
 &lt;/h2&gt;&lt;p&gt;mBERTとの比較が次のテーブルになります。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png&#34;
 	width=&#34;2064&#34;
 	height=&#34;518&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu3105692230049871730.png 480w, http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu17215373382260427039.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu3105692230049871730.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu17215373382260427039.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;mBERTとの比較（論文より引用）&#34;
@@ -110,10 +110,10 @@ BERTなどはsubwordに対応したベクトルを参照すれば良いですが
 また、Example/secの列をみると、mBERTは文字単位の入力にすると非常に推論が遅いですが、CANINEはそれに比べると非常に速いです。とはいえ、mBERTのsubword単位の入力の場合に比べると当然遅いです。&lt;/p&gt;
 &lt;h2 id=&#34;ablation-study&#34;&gt;ablation study
 &lt;/h2&gt;&lt;p&gt;ablation studyです。
-&lt;img src=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png&#34;
 	width=&#34;1966&#34;
 	height=&#34;794&#34;
-	srcset=&#34;http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu3547531543262116005.png 480w, http://localhost:50000/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu14881553281215025394.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu3547531543262116005.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu14881553281215025394.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ablation study（論文より引用）&#34;
@@ -130,10 +130,10 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
         </item>
         <item>
         <title>画像認識モデルの性能をあげるためのTips</title>
-        <link>http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
         <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:50000/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
         <description>&lt;p&gt;画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。
 簡単にできるものから順に紹介しているつもりです。&lt;/p&gt;
 &lt;h1 id=&#34;convolutionとfc層との橋渡しにはglobal-averaging-poolingを使う&#34;&gt;ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う

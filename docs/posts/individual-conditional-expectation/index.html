@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。">
 <title>Individual Conditional Expectation</title>
 
-<link rel='canonical' href='http://localhost:50000/blog/posts/individual-conditional-expectation/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Individual Conditional Expectation">
 <meta property='og:description' content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。">
-<meta property='og:url' content='http://localhost:50000/blog/posts/individual-conditional-expectation/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/individual-conditional-expectation/ice_age.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
 <meta name="twitter:title" content="Individual Conditional Expectation">
 <meta name="twitter:description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:50000/blog/posts/individual-conditional-expectation/ice_age.png' />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   
@@ -109,10 +109,8 @@
         
         
         <li >
-            <a href='' >
+            <a href='/blog/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -131,10 +129,8 @@
         
         
         <li >
-            <a href='archives' >
+            <a href='/blog/archives/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -153,10 +149,8 @@
         
         
         <li >
-            <a href='search' >
+            <a href='/blog/search/' >
                 
-                
-                    
                 
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

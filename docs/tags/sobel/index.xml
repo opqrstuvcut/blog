@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Sobel on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/sobel/</link>
+        <link>http://localhost:50000/blog/tags/sobel/</link>
         <description>Recent content in Sobel on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Thu, 16 Jul 2020 14:06:05 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/sobel/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Jul 2020 14:06:05 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/sobel/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Sobelフィルタで微分</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
+        <link>http://localhost:50000/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</link>
         <pubDate>Thu, 16 Jul 2020 14:06:05 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png" alt="Featured image of post Sobelフィルタで微分" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>http://localhost:50000/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/</guid>
+        <description>&lt;img src="http://localhost:50000/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png" alt="Featured image of post Sobelフィルタで微分" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;よくある画像処理のオペレーターとして、画像の微分があります。
 いくつかやり方はありますが、今日はSobel微分を取り上げます。&lt;/p&gt;
@@ -20,10 +20,10 @@
 &lt;/h1&gt;&lt;p&gt;Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。
 例えば、3×3のSobelフィルタは以下のようなカーネルになります。&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;x方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png&#34;
 	width=&#34;182&#34;
 	height=&#34;170&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu7639552341792050700.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu3922810614488429228.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu7639552341792050700.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu3922810614488429228.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -33,10 +33,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;y方向の微分用のSobelフィルタ&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png&#34;
 	width=&#34;186&#34;
 	height=&#34;170&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu399924729675659776.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu17614300467138952515.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu399924729675659776.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu17614300467138952515.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -48,10 +48,10 @@
 &lt;p&gt;これらのフィルタは何をあらわしているんでしょうか？
 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。
 ここでいう微分のフィルタとはx方向の場合には以下を指します。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png&#34;
 	width=&#34;184&#34;
 	height=&#34;168&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu11899660011976503760.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu8989960964390702575.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu11899660011976503760.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu8989960964390702575.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -62,10 +62,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。&lt;/p&gt;
 &lt;p&gt;次に平滑化ですが、これは以下のフィルタです。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png&#34;
 	width=&#34;182&#34;
 	height=&#34;168&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu15637756050698567432.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu7961904431040385300.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu15637756050698567432.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu7961904431040385300.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -84,10 +84,10 @@
 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。
 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。&lt;/p&gt;
 &lt;p&gt;次の画像にSobelフィルタを適用してみます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu14654624399587928166.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu13341630644016651259.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu14654624399587928166.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu13341630644016651259.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -98,10 +98,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;x方向のSobelフィルタの適用&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;soblex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Sobel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;noise_img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9.png&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu3310561605629063755.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu15903711711359186640.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu3310561605629063755.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu15903711711359186640.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -113,10 +113,10 @@
 &lt;p&gt;正の勾配は白色、負の勾配は黒色で描画されています。&lt;/p&gt;
 &lt;p&gt;y方向のSobelフィルタの適用&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;sobley&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Sobel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;noise_img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ddepth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cv2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CV_16S&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ksize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82.png&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu2029632357587308193.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu3673244807803254255.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu2029632357587308193.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu3673244807803254255.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -127,10 +127,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;これも同様に正の勾配は白色、負の勾配は黒色で描画されています。&lt;/p&gt;
 &lt;p&gt;なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu6766291328439902245.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu4476679217473800323.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu6766291328439902245.png 480w, http://localhost:50000/blog/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu4476679217473800323.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="ライブストリーミングや動画の配信するためにm3u8とtsファイルを利用するケースがあります。 tsファイルは細切れになった小さい動画になっており、m3u8ファイルはそれらの情報をもっているプレイリストになります。 m3u8ファイルが手元にあるorm3u8のurlを知っている場合には、Pythonのライブラリのm3u8を使えば簡単にtsファイルをdownloadできます。 m3u8のInstall インストールは簡単で、pipを使うだけです。 pip install m3u8 tsファイルのdownload tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。 import urllib.request import m3u8 playlist = m3u8.load(m3u8のパス) for i, segment in enumerate(playlist.segments): # tsファイルのパス uri = segment.absolute_uri urllib.request.urlretrieve(uri, f&#34;{i}.ts&#34;) ">
 <title>m3u8ファイルとtsファイルのdownload</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="m3u8ファイルとtsファイルのdownload">
 <meta property='og:description' content="ライブストリーミングや動画の配信するためにm3u8とtsファイルを利用するケースがあります。 tsファイルは細切れになった小さい動画になっており、m3u8ファイルはそれらの情報をもっているプレイリストになります。 m3u8ファイルが手元にあるorm3u8のurlを知っている場合には、Pythonのライブラリのm3u8を使えば簡単にtsファイルをdownloadできます。 m3u8のInstall インストールは簡単で、pipを使うだけです。 pip install m3u8 tsファイルのdownload tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。 import urllib.request import m3u8 playlist = m3u8.load(m3u8のパス) for i, segment in enumerate(playlist.segments): # tsファイルのパス uri = segment.absolute_uri urllib.request.urlretrieve(uri, f&#34;{i}.ts&#34;) ">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/m3u8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8ts%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AEdownload/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='m3u8' /><meta property='article:published_time' content='2021-01-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-01-31T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='m3u8' /><meta property='article:published_time' content='2021-01-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-01-31T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
 <meta name="twitter:title" content="m3u8ファイルとtsファイルのdownload">
 <meta name="twitter:description" content="ライブストリーミングや動画の配信するためにm3u8とtsファイルを利用するケースがあります。 tsファイルは細切れになった小さい動画になっており、m3u8ファイルはそれらの情報をもっているプレイリストになります。 m3u8ファイルが手元にあるorm3u8のurlを知っている場合には、Pythonのライブラリのm3u8を使えば簡単にtsファイルをdownloadできます。 m3u8のInstall インストールは簡単で、pipを使うだけです。 pip install m3u8 tsファイルのdownload tsファイルのダウンロードはm3u8とurllibを組み合わせておこなえます。 import urllib.request import m3u8 playlist = m3u8.load(m3u8のパス) for i, segment in enumerate(playlist.segments): # tsファイルのパス uri = segment.absolute_uri urllib.request.urlretrieve(uri, f&#34;{i}.ts&#34;) "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

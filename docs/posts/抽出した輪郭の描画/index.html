@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。 引数 意味 contours findContoursで見つかった輪郭 contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画） color 描画する輪郭の色 thickness 描画する輪郭の太さ lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される hierarchy findContoursで見つかった輪郭の階層構造 maxLevel 描画する最大の階層を指定する maxLevelを1にしたときと、2にしたときの違いを次に示します。 maxLevel=1 maxLevel=2 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。">
 <title>抽出した輪郭の描画</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="抽出した輪郭の描画">
 <meta property='og:description' content="本記事はQrunchからの転載です。 OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。 引数 意味 contours findContoursで見つかった輪郭 contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画） color 描画する輪郭の色 thickness 描画する輪郭の太さ lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される hierarchy findContoursで見つかった輪郭の階層構造 maxLevel 描画する最大の階層を指定する maxLevelを1にしたときと、2にしたときの違いを次に示します。 maxLevel=1 maxLevel=2 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='drawContours' /><meta property='article:tag' content='輪郭' /><meta property='article:published_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='drawContours' /><meta property='article:tag' content='輪郭' /><meta property='article:published_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-17T11:03:00&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
 <meta name="twitter:title" content="抽出した輪郭の描画">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 OpenCVのfindContoursで見つけた輪郭はdrawContoursで簡単に描画できます。 次のようにして使えます。 drawed = cv2.drawContours(img, contours=contours, contourIdx=-1, color=(255, 0, 0), thickness=10, lineType=8, hierarchy=hierarcies, maxLevel=1) 引数の意味はそれぞれ次のとおりです。必須なのはcolorまでです。 引数 意味 contours findContoursで見つかった輪郭 contourIdx 描画する輪郭のインデックスを指定する（-1だと全て描画） color 描画する輪郭の色 thickness 描画する輪郭の太さ lineType 4、8、cv2.LINE_AAのどれかを指定し、後のほうがきれいに描画される hierarchy findContoursで見つかった輪郭の階層構造 maxLevel 描画する最大の階層を指定する maxLevelを1にしたときと、2にしたときの違いを次に示します。 maxLevel=1 maxLevel=2 maxLevelが2のときには外側の輪郭の中まで輪郭が描画されていますね。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.png' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

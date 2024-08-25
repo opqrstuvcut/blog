@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。 古いドライバを削除しておく 公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\\* libnvidia-\\* CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク） CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads nvidia-smiコマンドを実行して動けばOK ">
 <title>NVIDIAのGPUのdriverの更新</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="NVIDIAのGPUのdriverの更新">
 <meta property='og:description' content="NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。 古いドライバを削除しておく 公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\\* libnvidia-\\* CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク） CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads nvidia-smiコマンドを実行して動けばOK ">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GPU' /><meta property='article:tag' content='NVIDIA' /><meta property='article:published_time' content='2021-12-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-12-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GPU' /><meta property='article:tag' content='NVIDIA' /><meta property='article:published_time' content='2021-12-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-12-11T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
 <meta name="twitter:title" content="NVIDIAのGPUのdriverの更新">
 <meta name="twitter:description" content="NVIDIAのGPUのdriver更新手順 色々手順はあると思いますが、1つのやり方のメモです。 古いドライバを削除しておく 公式からCUDA Toolkitをダウンロードしてインストールした場合は次で削除できるはず。 $ cd /usr/local/cuda-x/bin $ sudo cuda-uninstaller $ sudo nvidia-uninstall もしapt-getを使って古いドライバを入れていたら次のコマンドで消え去るはず。nvidia containerが入っている場合はそれも消えるので、嫌な人は注意。 sudo apt-get remove --purge nvidia\\* libnvidia-\\* CUDA Toolkitのダウンロードとインストール（Installer Typeはrunfileが一番ラク） CUDA 11.2ならここの手順に従うhttps://developer.nvidia.com/cuda-11.2.1-download-archive 最新版のCUDAはここの手順に従うhttps://developer.nvidia.com/cuda-downloads nvidia-smiコマンドを実行して動けばOK "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

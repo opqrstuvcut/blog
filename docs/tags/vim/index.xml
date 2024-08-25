@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Vim on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/vim/</link>
+        <link>http://localhost:50000/blog/tags/vim/</link>
         <description>Recent content in Vim on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Thu, 22 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/vim/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 22 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/vim/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>おすすめの(Neo)Vimプラグイン</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</link>
+        <link>http://localhost:50000/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</link>
         <pubDate>Thu, 22 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png" alt="Featured image of post おすすめの(Neo)Vimプラグイン" /&gt;&lt;p&gt;NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。&lt;br&gt;
+        <guid>http://localhost:50000/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/</guid>
+        <description>&lt;img src="http://localhost:50000/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png" alt="Featured image of post おすすめの(Neo)Vimプラグイン" /&gt;&lt;p&gt;NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。&lt;br&gt;
 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。&lt;/p&gt;
 &lt;h2 id=&#34;vim-asterisk&#34;&gt;vim-asterisk
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/haya14busa/vim-asterisk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -36,8 +36,8 @@ vim-asteriskを入れるとそういった問題が起きなくなります。&l
 &lt;p&gt;C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。&lt;br&gt;
 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-1&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -64,8 +64,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 &lt;p&gt;QuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。&lt;br&gt;
 これがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-2&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -81,16 +81,16 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 &lt;p&gt;QuickFixでの置換を楽にしてくれます。
 自分はTelescopeで単語の検索 -&amp;gt; &amp;lt;C-q&amp;gt;でQuickFixを開く -&amp;gt; :Qfreplace -&amp;gt; 置換を実行 という感じのフローを使います。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h2 id=&#34;registersnvim&#34;&gt;registers.nvim
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/tversteeg/registers.nvim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/tversteeg/registers.nvim&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;レジスタの内容が見やすくなります。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-3&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -116,8 +116,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     &gt;https://github.com/rachartier/tiny-code-action.nvim&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;CodeActionの変更内容が見やすくなります。
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;&lt;/p&gt;
 &lt;h3 id=&#34;設定例-4&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -139,8 +139,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     &gt;https://github.com/rachartier/tiny-inline-diagnostic.nvim&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Diagnosticが見やすくなります。
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;&lt;/p&gt;
 &lt;h3 id=&#34;設定例-5&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -157,8 +157,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 （自分の設定だと）&amp;lt;leader&amp;gt;ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。&lt;br&gt;
 登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-6&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -206,8 +206,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     &gt;https://github.com/OXY2DEV/markview.nvim&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;マークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-7&#34;&gt;設定例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -395,8 +395,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 具体的には、このプラグインを使うと、例えば2つしかwindowがなければ&amp;lt;C-w&amp;gt;&amp;lt;C-w&amp;gt;でもう一方のwindowに移動するという設定ができます。
 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設置例&#34;&gt;設置例
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -447,8 +447,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     &gt;https://github.com/archibate/lualine-time&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;lualineに時間が表示されるようになります。地味にかなり便利だと思っていますが、ターミナルで時間を表示させている人などは不要そうです。
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;&lt;/p&gt;
 &lt;h2 id=&#34;vim-arsync&#34;&gt;vim-arsync
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/KenN7/vim-arsync&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -461,8 +461,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 &lt;p&gt;PythonのJupyter NotebookをNeoVim上から実行するときに使っています。現在はこれがないのは結構苦行と感じるレベルです。&lt;br&gt;
 もともとはmagma.nvimというプラグインがあったのですが、これのforkになっていてそこから色々と機能が足されたりしています。&lt;/p&gt;
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;
 &lt;h3 id=&#34;設定例-9&#34;&gt;設定例
 &lt;/h3&gt;&lt;p&gt;これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。&lt;/p&gt;
@@ -600,11 +600,11 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
         </item>
         <item>
         <title>magma-nvimで理想に近いVimでのJupyter環境を作る</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+        <link>http://localhost:50000/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
         <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" alt="Featured image of post magma-nvimで理想に近いVimでのJupyter環境を作る" /&gt;&lt;p&gt;vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。&lt;/p&gt;
+        <guid>http://localhost:50000/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+        <description>&lt;img src="http://localhost:50000/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" alt="Featured image of post magma-nvimで理想に近いVimでのJupyter環境を作る" /&gt;&lt;p&gt;vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;開発中にターミナルとブラウザへ移動が面倒&lt;/li&gt;
 &lt;li&gt;vimで使っているformatterとかlinterをそのまま使いたい&lt;/li&gt;
@@ -618,8 +618,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     &gt;magma-nvim&lt;/a&gt;はJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。&lt;br&gt;
 上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;http://localhost:50000/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;http://localhost:50000/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;&lt;/p&gt;
 &lt;p&gt;これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。&lt;/p&gt;
 &lt;p&gt;が、自分の運用上はだいぶ困った点がありました。&lt;/p&gt;

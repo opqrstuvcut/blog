@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。 docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。 Building xxxがずっと表示されて、そこから進まないわけです。 以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。 docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。 なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。 全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。 対処方法 .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか） ">
 <title>docker-composeのbuildがはじまらないとき</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="docker-composeのbuildがはじまらないとき">
 <meta property='og:description' content="最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。 docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。 Building xxxがずっと表示されて、そこから進まないわけです。 以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。 docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。 なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。 全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。 対処方法 .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか） ">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/docker-compose%E3%81%AEbuild%E3%81%8C%E3%81%AF%E3%81%98%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker-compose' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2020-11-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-11-08T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker-compose' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2020-11-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-11-08T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
 <meta name="twitter:title" content="docker-composeのbuildがはじまらないとき">
 <meta name="twitter:description" content="最近では実験用の環境なんかもDockerコンテナ上に用意することも多いです。 docker-composeも使うわけですが、たまにdocker-composeのbuildがいつになってもはじまらないことがあります。 Building xxxがずっと表示されて、そこから進まないわけです。 以前も同じケースに出くわしたのにすぐ思い出せなかったので、備忘録的に残りしておきます（似た記事はネットにたくさんありますが）。 docker-composeのbuildがはじまらない原因 学習に使うデータのように重いファイルを置いてあるディレクトリでdocker-composeをおこなうのが原因です。 なぜこれが原因でbuildがはじまらないかといえば、Docker Imageのbuildをするときに、Dockerfileがあるディレクトリ上のデータはすべてDockerのデーモンに渡されるためです。 全部のファイルをデーモンに渡そうとするので、学習データなんかがDockerfileと同じディレクトリ上にあると、それらの重たいファイルも渡そうとしてしまい、いつになってもbuildが進まないわけですね。 対処方法 .dockerignoreにデーモンに渡してほしくないディレクトリ、ファイルを指定する ファイルパスを工夫する（でもdockerignoreを使うのが一番いいんじゃないでしょうか） "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Boto3 on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/boto3/</link>
+        <link>http://localhost:50000/blog/tags/boto3/</link>
         <description>Recent content in Boto3 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 09 Nov 2019 12:48:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/boto3/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 09 Nov 2019 12:48:01 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/boto3/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>MinIOでローカルにS3みたいなものを作って開発する</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
+        <link>http://localhost:50000/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</link>
         <pubDate>Sat, 09 Nov 2019 12:48:01 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png" alt="Featured image of post MinIOでローカルにS3みたいなものを作って開発する" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>http://localhost:50000/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/</guid>
+        <description>&lt;img src="http://localhost:50000/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png" alt="Featured image of post MinIOでローカルにS3みたいなものを作って開発する" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;AWSのS3を使うようなシステムを開発するときに、S3と連携する部分だけAWSにつなぐより、ローカルにS3が欲しいなぁってふと思いました。でもそんな都合が良い話があるわけないよなぁ、なんて思ったら実はありました！その名も&lt;strong&gt;MinIO&lt;/strong&gt;。
 今回はMinIOの使い方を簡単にご紹介します。とても簡単です。&lt;/p&gt;
@@ -54,10 +54,10 @@ Object API (Amazon S3 compatible):
 &lt;/h2&gt;&lt;h3 id=&#34;アクセス&#34;&gt;アクセス
 &lt;/h3&gt;&lt;p&gt;ブラウザで http://127.0.0.1:9000 にアクセスすると次のような画面が表示されます。&lt;br&gt;
 Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;strong&gt;MINIO_ACCESS_KEY&lt;/strong&gt;と&lt;strong&gt;MINIO_SECRET_KEY&lt;/strong&gt;の値を入れましょう。これでログインできます。&lt;br&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png&#34;
+&lt;img src=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf.png&#34;
 	width=&#34;717&#34;
 	height=&#34;476&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu14764778762107054764.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu16781334479171285341.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu14764778762107054764.png 480w, http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/2d89cc4c8b3b3d34194b32b843ff40bf_hu16781334479171285341.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -67,10 +67,10 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;stro
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;ログインすると以下のような画面になります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3.png&#34;
+&lt;img src=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3.png&#34;
 	width=&#34;1917&#34;
 	height=&#34;939&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu3581942525005770045.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu14659264454896312631.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu3581942525005770045.png 480w, http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/3417aa166eed538583c50395327d69e3_hu14659264454896312631.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -82,10 +82,10 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;stro
 &lt;h3 id=&#34;バケット生成&#34;&gt;バケット生成
 &lt;/h3&gt;&lt;p&gt;ここでAWSのS3のバケット相当のものが作れます。&lt;br&gt;
 右下の+マークを押して、Create bucketを選択後、バケット名を入力すればOKです。この手順で、例えばtestという名前のバケットを作ると以下のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815.png&#34;
+&lt;img src=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815.png&#34;
 	width=&#34;1917&#34;
 	height=&#34;939&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu7042911282238135707.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu3052797522554135940.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu7042911282238135707.png 480w, http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/6ef57990b7aa37c68828ed21e0d68815_hu3052797522554135940.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -97,10 +97,10 @@ Access KeyとSecret Keyはdocker runコマンドのときに指定した&lt;stro
 左側に生成したバケットが表示されていますね。&lt;/p&gt;
 &lt;h3 id=&#34;ファイルを配置&#34;&gt;ファイルを配置
 &lt;/h3&gt;&lt;p&gt;画面の上のほうにファイルをドラッグするとこのバケット内にファイルが置けます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf.png&#34;
+&lt;img src=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf.png&#34;
 	width=&#34;1917&#34;
 	height=&#34;939&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu14059729123044929790.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu7338949595088942478.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu14059729123044929790.png 480w, http://localhost:50000/blog/blog/posts/minio%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%ABs3%E3%81%BF%E3%81%9F%E3%81%84%E3%81%AA%E3%82%82%E3%81%AE%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B/e813fb861ef723fe31beeb162fe1d8cf_hu7338949595088942478.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

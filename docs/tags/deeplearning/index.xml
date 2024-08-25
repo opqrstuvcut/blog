@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>DeepLearning on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/deeplearning/</link>
+        <link>http://localhost:50000/blog/tags/deeplearning/</link>
         <description>Recent content in DeepLearning on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="http://localhost:50000/blog/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
+        <link>http://localhost:50000/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
         <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
+        <guid>http://localhost:50000/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</guid>
         <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;最近自然言語処理をよくやっていて、BERTを使うことも多いです。
@@ -23,10 +23,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;h1 id=&#34;比較実験&#34;&gt;比較実験
 &lt;/h1&gt;&lt;p&gt;論文では12層のTransformerをもつBERTモデルから色々な方法でTransformerを減らし、性能比較をおこなっています。24層をもつ、いわゆるBERT-Largeは、貧乏人にはメモリが足らずにfine-tuningも難しいのです。&lt;/p&gt;
 &lt;p&gt;次の図がTransformer層の減らし方の一覧です。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a.png&#34;
 	width=&#34;2482&#34;
 	height=&#34;772&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu9353661176360660377.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu17470877989674389267.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu9353661176360660377.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/5f4774908272540e27f4ce5fc5750c2a_hu17470877989674389267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -53,10 +53,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;h1 id=&#34;実験&#34;&gt;実験
 &lt;/h1&gt;&lt;h2 id=&#34;手法間の性能比較&#34;&gt;手法間の性能比較
 &lt;/h2&gt;&lt;p&gt;先程示した方法とDistilBERTをGLUEタスクのスコアで比較した結果が以下になります。BERTだけではなくXLNetでも実験してくれています。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79.png&#34;
 	width=&#34;2280&#34;
 	height=&#34;832&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu3783776559060909101.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu7276214927444986110.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu3783776559060909101.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/ade970e39b6211acf56131ea9aadba79_hu7276214927444986110.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -74,10 +74,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;/ul&gt;
 &lt;h2 id=&#34;タスクごとの性能変化の検証&#34;&gt;タスクごとの性能変化の検証
 &lt;/h2&gt;&lt;p&gt;次にタスクごとの性能の変化を見ていきます。前の実験から後ろの層を消していくTop-Layer Droppingが良いとわかっているため、Top-Layer Droppingに限って実験がされています。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1.png&#34;
 	width=&#34;1700&#34;
 	height=&#34;784&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu9943319277445887328.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu3971187804395993766.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu9943319277445887328.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/b57a4ec7197ef20d888886b7a515f4d1_hu3971187804395993766.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -90,10 +90,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;余談ですが、私が自分で試したある問題では6層消して8ポイント分、4層消して4ポイント分の性能劣化、2層消して2ポイント分の性能劣化になりました。&lt;/p&gt;
 &lt;h2 id=&#34;タスクごとの性能劣化がおこる層数の検証&#34;&gt;タスクごとの性能劣化がおこる層数の検証
 &lt;/h2&gt;&lt;p&gt;タスクごとに後ろを何層削ると1%、2%、3%の性能劣化がおこるのかを示した表です。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337.png&#34;
 	width=&#34;830&#34;
 	height=&#34;786&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu11829641183982462706.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu16823473194884920230.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu11829641183982462706.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/43d338f8c5365b5751f603e4304d4337_hu16823473194884920230.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -105,10 +105,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 &lt;p&gt;ビックリしますが、XLNetは結構層を消しても性能劣化が起こりづらいですね。&lt;/p&gt;
 &lt;h2 id=&#34;パラメータ数や計算時間比較&#34;&gt;パラメータ数や計算時間比較
 &lt;/h2&gt;&lt;p&gt;学習時間・推論時間は削った層の割合だけおおよそ減ることが予想されますが、実際に計算時間がどれくらい変わったかを示したのが以下の表です。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6.png&#34;
 	width=&#34;1066&#34;
 	height=&#34;1360&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu11473960030723940403.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu5253924919509084133.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu11473960030723940403.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/75c986295e10731fc36355969fc01cf6_hu5253924919509084133.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -126,10 +126,10 @@ BERTの性能は高く素晴らしいのですが、実際使う上では、私�
 
 &lt;p&gt;なんとXLNetは7層にするあたりまではほどんど性能の変化がありません。BERTは層を減らすと順調に性能が悪化します。&lt;/p&gt;
 &lt;p&gt;上記の話には実験的な根拠があり、それを示したのが以下の図です。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4.png&#34;
 	width=&#34;938&#34;
 	height=&#34;776&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu5004463002134619857.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu7755619885363640404.png 1024w&#34;
+	srcset=&#34;http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu5004463002134619857.png 480w, http://localhost:50000/blog/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/359305f1baab6d13b4da6257fc7fa0f4_hu7755619885363640404.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

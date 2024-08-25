@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。 print(df.to_markdown()) 以下のように表示されます。 | | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。">
 <title>PandasのDataFrameを最高に簡単にMarkdownの表として出力</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="PandasのDataFrameを最高に簡単にMarkdownの表として出力">
 <meta property='og:description' content="本記事はQrunchからの転載です。 Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。 print(df.to_markdown()) 以下のように表示されます。 | | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/pandas%E3%81%AEdataframe%E3%82%92%E6%9C%80%E9%AB%98%E3%81%AB%E7%B0%A1%E5%8D%98%E3%81%ABmarkdown%E3%81%AE%E8%A1%A8%E3%81%A8%E3%81%97%E3%81%A6%E5%87%BA%E5%8A%9B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='Pandas' /><meta property='article:published_time' content='2020-02-13T01:55:35&#43;09:00'/><meta property='article:modified_time' content='2020-02-13T01:55:35&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='Pandas' /><meta property='article:published_time' content='2020-02-13T01:55:35&#43;09:00'/><meta property='article:modified_time' content='2020-02-13T01:55:35&#43;09:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
 <meta name="twitter:title" content="PandasのDataFrameを最高に簡単にMarkdownの表として出力">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 Pandas1.0からは次のようにしてDataFrameをMarkdownの表として出力できます。 print(df.to_markdown()) 以下のように表示されます。 | | 名字 | 年齢 | 出身 | |---:|:-------|-------:|:-------| | 0 | 田中 | 10 | 北海道 | | 1 | 山田 | 20 | 東京 | | 2 | 上田 | 30 | | | 3 | 田中 | 40 | 沖縄 | | 4 | 田中 | 50 | 北海道 | QrunchやQiitaに大体そのままコピーできます。 ちゃんと以下のように表示されます。 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 上手く表として表示されないときは、左上の空白のセルに全角スペース入れたり頑張りましょう。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

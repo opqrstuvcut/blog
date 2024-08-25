@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja-jp" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=50000&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。 Docker Imageは以下のとおり。 FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&#34;tensorboard&#34;, &#34;--logdir&#34;, &#34;/logs&#34;, &#34;--host&#34;, &#34;0.0.0.0&#34;] 次のような感じでdocker buildとdocker runします。 $ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。">
 <title>TensorBoardのDocker Image</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/'>
+<link rel='canonical' href='http://localhost:50000/blog/posts/tensorboard%E3%81%AEdocker-image/'>
 
 <link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="TensorBoardのDocker Image">
 <meta property='og:description' content="たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。 Docker Imageは以下のとおり。 FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&#34;tensorboard&#34;, &#34;--logdir&#34;, &#34;/logs&#34;, &#34;--host&#34;, &#34;0.0.0.0&#34;] 次のような感じでdocker buildとdocker runします。 $ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/'>
+<meta property='og:url' content='http://localhost:50000/blog/posts/tensorboard%E3%81%AEdocker-image/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TensorFlow' /><meta property='article:tag' content='TensorBoard' /><meta property='article:published_time' content='2020-11-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-11-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TensorFlow' /><meta property='article:tag' content='TensorBoard' /><meta property='article:published_time' content='2020-11-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-11-18T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:50000/blog/' />
 <meta name="twitter:title" content="TensorBoardのDocker Image">
 <meta name="twitter:description" content="たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。 Docker Imageは以下のとおり。 FROM python:3.8 RUN pip install tensorflow WORKDIR /logs ENTRYPOINT [&#34;tensorboard&#34;, &#34;--logdir&#34;, &#34;/logs&#34;, &#34;--host&#34;, &#34;0.0.0.0&#34;] 次のような感じでdocker buildとdocker runします。 $ docker build -t tensorboard . $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard -vに指定するhost側のlogのディレクトリのパスと-pに指定するportは適当に変更する。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <meta name="twitter:image" content='http://localhost:50000/blog/' />
     <link rel="shortcut icon" href="/blog/favicon.ico" />
 
   

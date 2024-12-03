@@ -54,8 +54,9 @@ params:
           - type: tag-cloud
             params:
                 limit: 10
-        page:
-            - type: toc
+        # page:
+        #   - type: toc
+        #     params:
 
     opengraph:
         twitter:
@@ -76,7 +77,7 @@ params:
         toggle: true
         
         # Available values: auto, light, dark
-        default: dark
+        default: light
 
     imageProcessing:
         cover:
@@ -110,3 +111,12 @@ related:
 markup:
     highlight:
         noClasses: false
+    goldmark:
+      extensions:
+        passthrough:
+          delimiters:
+            block:
+            - - \[
+              - \]
+            - - $$
+              - $$

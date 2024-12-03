@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？">
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="KL divergenceに与える分布を入れ替えることの意味をまじめに考えたことあります？">
 <meta property='og:description' content="本記事はQrunchからの転載です。 みんながよく使うKL(Kullback–Leibler) divergenceの話題です。 KL divergenceといえば2つの確率分布の違いを計算できるやつですね。 KL divergenceは対称性というものがなく、与えられた2つの分布を入れ替えるとKL divergenceの値が変わります。 今回は、この入れ替えたときの影響を最小化問題を例としてまじめに考えます。 KL divergence KL divergenceは2つの確率分布がどれだけ異なるかを数値としてあらわすものです。 具体的には次のように定義されます。 $$ KL(p||q) = \\int p(\\mathbf{x}) \\log \\left(\\frac{p(\\mathbf{x})}{q(\\mathbf{x})}\\right) {\\rm d\\mathbf{x}}. $$ $p$と$q$はそれぞれ確率分布であり、$KL(p||q)$が大きいほど、2つの分布はより異なることをあらわします。また$KL(p||q)=0$のとき、$p$と$q$は等しい分布です。 なお、$KL(p||q) \\geq 0$が成り立つことに注意してください。 KL divergenceの最小化問題 KL(p||q)のケース 仮に分布$p$が固定されているものだとして、$KL(p||q)$が最小化されるように$q$を決めることを考えます。ただし、$p=q$になることはないとします。 前述したKL divergenceの定義をみてみると、$p(\\mathbf{x})$が0でない値をもつ領域では$q(\\mathbf{x})$も$p(\\mathbf{x})$に近い値かあるいは$p(\\mathbf{x})$より大きい値にならなければ、$KL(p||q)$が大きくなってしまいます。よってこの場合にはKL divergenceを最小化するような$q$は$p$全体をカバーするように広がる分布になると考えられます。 KL(q||p)のケース 次にKL divergenceに与える$p$と$q$の順序をひっくり返し、$KL(q||p)$の最小化問題を考えてみます。$KL(q||p)$は $$ KL(q||p) = \\int q(\\mathbf{x}) \\log \\left(\\frac{q(\\mathbf{x})}{p(\\mathbf{x})}\\right) {\\rm d\\mathbf{x}}$$ ですね。 $KL(q||p)$が小さくなるにはどうすればよいかといえば、$p(\\mathbf{x})$が0に近いような領域で$q(\\mathbf{x})$が小さくなるようにすればよいです。$p(\\mathbf{x})$が小さい領域はいくらでもあり、そういったところに大きい$q(\\mathbf{x})$が割り当てられると、$KL(q||p)$が大きくなってしまいますね。このため、イメージとしては、$KL(q||p)$を最小化するような$q$の密度は$p$の密度が大きいところに集中するような分布になると考えられます。 実験 上記の話が成り立つのかを実験してみます。 実験準備 $p(\\mathbf{x})$は次のようにします。 $$p(\\mathbf{x}|\\mathbf{u},\\Sigma)=\\frac{1}{{2\\pi}|\\Sigma|^{1/2}}\\exp\\biggl[-\\frac{(\\mathbf{x}-\\mathbf{u})^{\\top}\\Sigma^{-1}(\\mathbf{x}-\\mathbf{u})}{2}\\biggr].$$ また$\\mathbf{u}$と$\\Sigma$はそれぞれ $$\\mathbf{u} = \\begin{pmatrix} 0.3 \\\\ -0.2 \\end{pmatrix}, \\Sigma =\\begin{pmatrix} 0.9&amp;-0.7 \\\\ -0.7 &amp; 0.9 \\end{pmatrix}$$ とました。 $p$を確率密度毎に色わけして表示してみると、以下のとおりです。">
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -23,6 +23,29 @@
   
 
 
+<style>
+   
+  :root {
+    --ja-font-family:  "ヒラギノ角ゴ Pro",
+      "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
     </head>
     <body class="
     article-page
@@ -31,7 +54,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "dark");
+                localStorage.setItem(colorSchemeKey, "light");
             }
         })();
     </script><script>
@@ -195,44 +218,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目次</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#klpqのケース">KL(p||q)のケース</a></li>
-    <li><a href="#klqpのケース">KL(q||p)のケース</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#実験準備">実験準備</a></li>
-    <li><a href="#実験結果">実験結果</a></li>
-  </ul>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="has-image main-article">
@@ -285,7 +271,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Mar 02, 2020</time>
+                <time class="article-time--published">3月 02, 2020</time>
             </div>
         
 
@@ -639,23 +625,23 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/">
+    <a href="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3.f14ea33c53998f4220459411a7f0e94d_hu17990717691635510547.png" 
+                <img src="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.88ed4e446988210af393d6748a112e2f_hu12867820038736861670.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post Tabularデータ向けのサーベイ論文を読んだのでメモ"
+                        alt="Featured image of post Were RNNs All We Needed?を読んだのでまとめ"
                         
-                        data-hash="md5-8U6jPFOZj0IgRZQRp/DpTQ==">
+                        data-hash="md5-iO1ORGmIIQrzk9Z0ihEuLw==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Tabularデータ向けのサーベイ論文を読んだのでメモ</h2>
+            <h2 class="article-title">Were RNNs All We Needed?を読んだのでまとめ</h2>
         </div>
     </a>
 </article>
@@ -723,7 +709,7 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -812,7 +798,7 @@ $q$は同心円状に確率密度をもつ分布になりますので、パラ�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

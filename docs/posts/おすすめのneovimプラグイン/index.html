@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="おすすめの(Neo)Vimプラグイン">
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="おすすめの(Neo)Vimプラグイン">
 <meta property='og:description' content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -23,6 +23,29 @@
   
 
 
+<style>
+   
+  :root {
+    --ja-font-family:  "ヒラギノ角ゴ Pro",
+      "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
     </head>
     <body class="
     article-page
@@ -31,7 +54,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "dark");
+                localStorage.setItem(colorSchemeKey, "light");
             }
         })();
     </script><script>
@@ -195,95 +218,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目次</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#vim-asterisk">vim-asterisk</a>
-      <ul>
-        <li><a href="#設定例">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#neoscrollnvim">neoscroll.nvim</a>
-      <ul>
-        <li><a href="#設定例-1">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#nvim-bqf">nvim-bqf</a>
-      <ul>
-        <li><a href="#設定例-2">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#vim-qfreplace">vim-qfreplace</a></li>
-    <li><a href="#registersnvim">registers.nvim</a>
-      <ul>
-        <li><a href="#設定例-3">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#tiny-code-actionnvim">tiny-code-action.nvim</a>
-      <ul>
-        <li><a href="#設定例-4">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#tiny-inline-diagnosticnvim">tiny-inline-diagnostic.nvim</a>
-      <ul>
-        <li><a href="#設定例-5">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#project-cli-commandsnvim">project-cli-commands.nvim</a>
-      <ul>
-        <li><a href="#設定例-6">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#markviewnvim">markview.nvim</a>
-      <ul>
-        <li><a href="#設定例-7">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#nvim-cokeline">nvim-cokeline</a>
-      <ul>
-        <li><a href="#設定例-8">設定例</a></li>
-      </ul>
-    </li>
-    <li><a href="#chowchonvim">chowcho.nvim</a>
-      <ul>
-        <li><a href="#設置例">設置例</a></li>
-      </ul>
-    </li>
-    <li><a href="#lualine-time">lualine-time</a></li>
-    <li><a href="#vim-arsync">vim-arsync</a></li>
-    <li><a href="#molten-nvim">molten-nvim</a>
-      <ul>
-        <li><a href="#設定例-9">設定例</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="has-image main-article">
@@ -336,7 +271,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 22, 2024</time>
+                <time class="article-time--published">8月 22, 2024</time>
             </div>
         
 
@@ -1055,7 +990,7 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -1144,7 +1079,7 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

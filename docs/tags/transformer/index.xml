@@ -6,7 +6,178 @@
         <description>Recent content in Transformer on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sun, 21 Jun 2020 15:22:01 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/transformer/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 01 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/transformer/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Were RNNs All We Needed?を読んだのでまとめ</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</link>
+        <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.png" alt="Featured image of post Were RNNs All We Needed?を読んだのでまとめ" /&gt;&lt;p&gt;Were RNNs All We Needed?を読んだので、その内容をまとめておきます。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2410.01201&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://arxiv.org/abs/2410.01201&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要
+&lt;/h2&gt;&lt;p&gt;Transformerを用いたアーキテクチャの場合、推論に時系列長の二乗に比例した計算量が必要となるため、単純には非常に長い時系列データを扱うことはできません．&lt;br&gt;
+ちょうど一年前くらいにMambaという状態空間モデルベースの手法が提案されており、このMambaならば時系列長に比例した計算量となるため計算量的にはMambaが好ましいです．また学習も効率良くおこなえるうえ、精度的にも良い性能が得られることが分かってきており、有望な手法の1つです．&lt;/p&gt;
+&lt;p&gt;旧来のLSTMやGRUといったRNNベースの手法の場合はMambaとも似ているように思えますが、BPTTをおこなって学習をしていく必要があり、この点が長い時系列の学習においてネックとなります．というのも、BPTTでは時系列を遡って順に計算をおこなっていく必要があり、これは時系列長の分だけ深いネットワークを利用しているようなもので、どうしても計算時間が長くなってしまいます．
+一方でTransformerはBPTTが不要で、必要な計算は並列化して効率よく学習ができます．&lt;br&gt;
+本論文では状態空間モデルベースの手法からインスパイアされた、LSTMやGRUを修正して効率的に学習をおこなえるようにした手法を提案しています．&lt;/p&gt;
+&lt;h2 id=&#34;mamba&#34;&gt;Mamba
+&lt;/h2&gt;&lt;p&gt;Mambaをさらっと説明すると、次のように入力 $x_t \in \mathbb{R}$ と1つ前の時刻の隠れ状態 $h_{t-1} \in \mathbb{R}^n$ を用いて、次の時刻の隠れ状態 $h_t$と出力$ y_t \in \mathbb{R}$ を計算するモデルです．&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+h_t &amp;amp;= A_t h_{t - 1} + B_t x_t \\
+y_t &amp;amp;= C_t h_t
+\end{align*}.
+$$
+ここで、 $A_t \in \mathbb{R}^{n\times n}, B_t \in \mathbb{R}^n, C_t \in \mathbb{R}^{1 \times n} $ です．&lt;/p&gt;
+&lt;p&gt;上記の隠れ状態の更新と出力値の計算方法より、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;時系列長に比例した計算量で推論が可能&lt;/li&gt;
+&lt;li&gt;時系列長に依存しないメモリ使用量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;とわかります．&lt;/p&gt;
+&lt;h3 id=&#34;選択メカニズム&#34;&gt;選択メカニズム
+&lt;/h3&gt;&lt;p&gt;Mambaの大事なポイントとして、係数$A_t \in \mathbb{R}^{n\times n}, B_t \in \mathbb{R}^n, C_t \in \mathbb{R}^{1 \times n} $ は入力$ x_t $に依存する値です．これにより、Selective Copying TaskとInduction Heads Taskを解けるようになっています．これは隠れ状態へ入力に関する情報を取り込むかどうか、あるいは隠れ状態の情報を捨てるかを入力値に依存して動的に変えることでモデルの性能が高まったということを意味します．&lt;br&gt;
+また、これはRNNのゲート機構を内包した形になっていることも論文中で示されています．&lt;br&gt;
+詳しくは&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2312.00752&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Mambaの論文&lt;/a&gt;を参照して下さい．&lt;/p&gt;
+&lt;h3 id=&#34;効率的な実装&#34;&gt;効率的な実装
+&lt;/h3&gt;&lt;p&gt;MambaではGPUを効率的に利用できるようなParallel Scanアルゴリズム（Parallel Scan自体は一般的なアルゴリズムです）を提案しています。これにより、逐次的な更新式であるにも関わらず、学習のときには高速に順伝搬と逆伝播を計算できます．&lt;br&gt;
+こちらも詳しくは&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2312.00752&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Mambaの論文&lt;/a&gt;を参照して下さい．&lt;/p&gt;
+&lt;h2 id=&#34;提案手法&#34;&gt;提案手法
+&lt;/h2&gt;&lt;h3 id=&#34;時系列モデルの学習の効率化の方針&#34;&gt;時系列モデルの学習の効率化の方針
+&lt;/h3&gt;&lt;p&gt;LSTMやGRUといったRNNベースの手法もMambaのように長い時系列長に対しても効率よく学習ができると嬉しいです．&lt;br&gt;
+ここで手がかりになるのが、次のような形の更新式であれば&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2311.06281&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Heinsenの手法&lt;/a&gt;を用いて並列計算により高速化できるというものです．
+$$
+\begin{align}
+v_t = a_t v_{t-1} + b_t,
+\end{align}
+$$
+ここで$v_t, a_t, b_t \in \mathbb{R}$です．
+詳しい説明は省きますが、この方法のキモは、累積和の計算については一般に高速に並列に実行する方法が存在するため、$\log v_t$を累積和を用いる形であらわすように式変形を施していく部分になります．&lt;/p&gt;
+&lt;p&gt;もしLSTMやGRUをうまく上式の形に修正できれば、高速な学習ができるようになります．論文ではそのような形に修正したLSTMをminLSTM、GRUをminGRUと呼んでいます．&lt;/p&gt;
+&lt;h3 id=&#34;mingru&#34;&gt;minGRU
+&lt;/h3&gt;&lt;p&gt;GRUは次のように計算がおこなわれます．
+$$
+\begin{aligned}
+h_t &amp;amp;= (1 − z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t \\
+z_t &amp;amp;= \sigma({\rm Linear} ([x_t, h_{t-1}])) \\
+r_t &amp;amp;= \sigma({\rm Linear} ([x_t, h_{t-1}])) \\
+\tilde{h}_t &amp;amp;= \tanh({\rm Linear} ([x_t, r_t \odot h_{t-1}]))
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;$h_t$の更新式を式(1)の形に修正する必要があるため、大胆に次のようにします．
+$$
+\begin{align*}
+z_t &amp;amp;= \sigma({\rm Linear} (x_t)) \\
+\tilde{h}_t &amp;amp;= {\rm Linear} (x_t) \\
+h_t &amp;amp;= (1 − z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;式(1)の変数との対応は$a_t$が$1-z_t$、$b_t$が$z_t \odot \tilde{h}_t$、$v_t$が$h_t$と考えれば、Heinsenの手法が適用できる形になっています．なお、$z_t$と$\tilde{h}_t$から1つ前の時刻の隠れ状態$h_{t-1}$への依存をなくす形にしてしまったため、リセットゲートの$r_t$が不要になりました．&lt;br&gt;
+また、$\tilde{h}_t$から$\tanh$が消えていますが、これはもともと$h_t$と$\tilde{h}_t$のスケールを合わせて学習を安定させるためのものでした．しかし、$\tilde{h}_t$が$h_{t-1}$に依存しなくなり、一般には$x_t$がすでに正規化が施されていることを考えると、$\tanh$でスケールをわざわざ調整しなくても問題がないという理解です（ちょっと自信がないですが）．&lt;/p&gt;
+&lt;p&gt;このような修正をしてしまって良いのかなと思うのですが、前の時刻の状態$h_{t-1}$と入力に関する情報$\tilde{h}_{t}$の取捨選択を入力のみに依存しておこなっているという解釈ができ、これってMambaとやろうとしていることは似ているのですよね．ということで、実は性能にはそれほど悪い影響はないのかもしれません．&lt;/p&gt;
+&lt;h3 id=&#34;minlstm&#34;&gt;minLSTM
+&lt;/h3&gt;&lt;p&gt;LSTMは次のように計算がおこなわれます．
+$$
+\begin{aligned}
+h_t &amp;amp;= o_t \odot \tanh(c_t) \\
+o_t &amp;amp;= \sigma({\rm Linear}([x_t, h_{t-1}])) \\
+c_t &amp;amp;= f_t \odot c_{t-1} + i_t \odot \tilde{c}_t \\
+f_t &amp;amp;= \sigma({\rm Linear}([x_t, h_{t-1}])) \\
+i_t &amp;amp;= \sigma({\rm Linear}([x_t, h_{t-1}])) \\
+\tilde{c}_t &amp;amp;= \tanh({\rm Linear}([x_t, h_{t-1}]))
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;こちらも式(1)の形に修正する必要があるため、大胆に次のようにします．
+$$
+\begin{aligned}
+h_t &amp;amp;= f_t&amp;rsquo; \odot h_{t-1} + i_t&amp;rsquo; \odot \tilde{h}_t \\
+f_t &amp;amp;= \sigma({\rm Linear}(x_t)) \\
+i_t &amp;amp;= \sigma({\rm Linear}(x_t)) \\
+\tilde{h}_t &amp;amp;= {\rm Linear}(x_t) \\
+f_t&amp;rsquo;&amp;amp;= \frac{f_t}{f_t + i_t} \\
+i_t&amp;rsquo;&amp;amp;= \frac{i_t}{f_t + i_t} \\
+\end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;式(1)の変数との対応は$a_t$が$f_t&amp;rsquo;$、$b_t$が$i_t&amp;rsquo; \odot \tilde{h}_t$、$v_t$が$h_t$と考えれば、Heinsenの手法が適用できる形になっています．
+LSTMにはの出力ゲートの$o_t$がありましたが、$h_t$ のスケールを変化させてしまうため、minLSTMでは削除したうえで$h_t = c_t$としています．&lt;/p&gt;
+&lt;p&gt;結局、minLSTMもminGRUのように現在の状態と入力に関する情報の取捨選択を入力に依存しておこなう形になります．minGRUでは取捨選択の重み付けのために$z_t$を計算していましたが、minLSTMでは$f_t$と$i_t$の2つを別個に計算しているのが異なる点になります．このため、少しだけminGRUのほうが計算量が少なくなります．&lt;/p&gt;
+&lt;h2 id=&#34;実験&#34;&gt;実験
+&lt;/h2&gt;&lt;h3 id=&#34;速度&#34;&gt;速度
+&lt;/h3&gt;&lt;p&gt;以下の図が無事にLSTMやGRUと比べて提案手法が高速に学習ができるようになったことをあらわずものです．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1.png&#34;
+	width=&#34;830&#34;
+	height=&#34;261&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu10658627143843527489.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu17316507408243318142.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;318&#34;
+		data-flex-basis=&#34;763px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;左から順に時系列長毎の訓練時の実行時間、スピードアップの比率、メモリ使用量になります．長い時系列であるほど提案手法の恩恵を受け高速になっていることがわかります．またメモリ使用量については、Parallel Scanのために計算結果を冗長にメモリに保持する必要があることから少し増加しています．Mambaのメモリが少し大きいのは$h_t$の係数が行列であることが理由ですかね？&lt;/p&gt;
+&lt;h3 id=&#34;精度&#34;&gt;精度
+&lt;/h3&gt;&lt;h4 id=&#34;selective-copying-task&#34;&gt;Selective Copying Task
+&lt;/h4&gt;&lt;p&gt;次の表はSelective Copying TaskをMinLSTMとMinGRUで学習したときの精度になります．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1.png&#34;
+	width=&#34;360&#34;
+	height=&#34;267&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu3959210133077671112.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu16149480296123565550.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;323px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;一層だけのときはあまりTaskを解くことができません．これは、一層目については入力$x_t$を線形変換してその結果を重みに従って$h_t$に足し合わせていっているだけなので、contextを加味した処理というのがおこなわれていないためです．
+層を重ねていくことでcontextを加味して複雑な情報を扱うことができるようになっています．&lt;br&gt;
+またminLSTMの精度が少し低く分散も大きいですが、これは$f_t$と$i_t$を別個に学習するために最適化が難しいためです．個人的にはGRUのように$z_t$1つだけを計算して重み付けするほうが自然な気もします．&lt;/p&gt;
+&lt;h4 id=&#34;強化学習&#34;&gt;強化学習
+&lt;/h4&gt;&lt;p&gt;次は強化学習のデータセットに対してDecision Transformerなどの手法との比較になります．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3.png&#34;
+	width=&#34;857&#34;
+	height=&#34;400&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu8789722837576088973.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu7243165734254340393.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;214&#34;
+		data-flex-basis=&#34;514px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;各スコアは大きいほうが良いですが、Decision Transformerを平均的には超えています．Mambaよりもちょっとだけ低いくらいですね．&lt;/p&gt;
+&lt;h4 id=&#34;言語モデル&#34;&gt;言語モデル
+&lt;/h4&gt;&lt;p&gt;最後に言語モデルのタスクについてTransformerとの比較になります．データセットはシェークスピアのデータセットです．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2.png&#34;
+	width=&#34;855&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu6242468510231248892.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu7573654886436498504.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;256&#34;
+		data-flex-basis=&#34;616px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;言語モデルのタスクでも良い結果が得られています．
+特にTransformerと比べると、ステップで比較すれば収束が非常に速くTestのLossは同程度です（図だと分かりづらいですが、TestのLossはminGRUが1.548、minLSTMが1.555、Mambaが1.575、Transformerが1.547とのことです）．
+ただ、学習の実行時間の比較も欲しかったですね…。&lt;/p&gt;
+&lt;h2 id=&#34;感想など&#34;&gt;感想など
+&lt;/h2&gt;&lt;p&gt;Parallel Scanの枠組みのなかで手法を考えればこれほど高速な時系列モデルになるのが驚きました．&lt;br&gt;
+精度面ではなぜこれほど良い結果になるのかイマイチ分かりませんでした．素のLSTMやGRUも学習の困難さがもし取り除けたとすれば、同じような高い精度になるのでしょうか？大規模データセットやScaling Lawが成り立つのかなどは今後に注目だと思います．
+いずれにせよ、一旦はこのタイプの手法の研究が多くなりそうだなと思いました．実務者としては理想的には少ないGPUで学習ができ、小さめのリソースの本番環境で動かせると嬉しいので、この方向で研究が進むと嬉しいです．&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>貧乏人なのでPoor Man’s BERTを読んで解説</title>
         <link>https://opqrstuvcut.github.io/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/</link>
         <pubDate>Sun, 21 Jun 2020 15:22:01 +0900</pubDate>

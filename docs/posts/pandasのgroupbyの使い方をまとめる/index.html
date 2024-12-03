@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Pandasのgroupbyの使い方をまとめる">
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Pandasのgroupbyの使い方をまとめる">
 <meta property='og:description' content="本記事はQrunchからの転載です。 Pandasのgroupbyについては雰囲気でやっていたところがありますので、ちょっと真面目に使い方を調べてみました。使っているPandasのバージョンは1.0.1です。 以下では次のようなDataFrameを使用します。 df = pd.DataFrame({&#34;名字&#34;: [&#34;田中&#34;, &#34;山田&#34;, &#34;上田&#34;, &#34;田中&#34;, &#34;田中&#34;], &#34;年齢&#34;: [10, 20, 30, 40, 50], &#34;出身&#34;: [&#34;北海道&#34;, &#34;東京&#34;, None, &#34;沖縄&#34;, &#34;北海道&#34;]}) 名字 年齢 出身 0 田中 10 北海道 1 山田 20 東京 2 上田 30 3 田中 40 沖縄 4 田中 50 北海道 Pandasのgroupby PandasのgroupbyはSQLにおけるgroupbyと似たような働きになります。つまるところ、主に集計に使われます。 例えば名字という列をキーとしてgroupbyするときには次のようにします。 df.groupby(&#34;名字&#34;) ただしこれだけでは全く意味がありません。 以下ではgroupbyをしたあとにどう利用することができるかを示します。 グループ毎にDataFrameを取り出す forを使う forを使ってグループ毎にDataFrameとしてデータを取り出せます。 for name, grouped_df in df.groupby(&#34;名字&#34;): print(f&#34;名字：{name}&#34;) print(grouped_df) 名字：上田 名字 年齢 出身 2 上田 30 名字：山田 名字 年齢 出身 1 山田 20 東京 名字：田中">
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/pandas%E3%81%AEgroupby%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -23,6 +23,29 @@
   
 
 
+<style>
+   
+  :root {
+    --ja-font-family:  "ヒラギノ角ゴ Pro",
+      "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
     </head>
     <body class="
     article-page
@@ -31,7 +54,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "dark");
+                localStorage.setItem(colorSchemeKey, "light");
             }
         })();
     </script><script>
@@ -195,69 +218,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目次</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#forを使う">forを使う</a></li>
-    <li><a href="#get_groupを使う">get_groupを使う</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#describe">describe</a></li>
-    <li><a href="#グループの個数のカウント">グループの個数のカウント</a></li>
-    <li><a href="#演算">演算</a>
-      <ul>
-        <li><a href="#和">和</a></li>
-        <li><a href="#平均">平均</a></li>
-        <li><a href="#特定のデータ取得">特定のデータ取得</a></li>
-      </ul>
-    </li>
-    <li><a href="#関数を渡して計算">関数を渡して計算</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#例1">例1</a></li>
-    <li><a href="#例2">例2</a></li>
-    <li><a href="#ブロードキャストの例">ブロードキャストの例</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#rolling">rolling</a></li>
-    <li><a href="#cumsum">cumsum</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#例1-1">例1</a></li>
-    <li><a href="#例2-1">例2</a></li>
-    <li><a href="#例3">例3</a></li>
-  </ul>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -302,7 +263,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Feb 14, 2020</time>
+                <time class="article-time--published">2月 14, 2020</time>
             </div>
         
 
@@ -1250,6 +1211,30 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
             
                 
 <article class="has-image">
+    <a href="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.88ed4e446988210af393d6748a112e2f_hu12867820038736861670.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Were RNNs All We Needed?を読んだのでまとめ"
+                        
+                        data-hash="md5-iO1ORGmIIQrzk9Z0ihEuLw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Were RNNs All We Needed?を読んだのでまとめ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/">
         
         
@@ -1280,30 +1265,6 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
 
         <div class="article-details">
             <h2 class="article-title">YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/blog/posts/individual-conditional-expectation/">
-        
-        
-            <div class="article-image">
-                <img src="/blog/posts/individual-conditional-expectation/ice_age.26ff831ff50b624b98609ee2d468b39b_hu8755700613912631342.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Individual Conditional Expectation"
-                        
-                        data-hash="md5-Jv&#43;DH/ULYkuYYJ7i1Gizmw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Individual Conditional Expectation</h2>
         </div>
     </a>
 </article>
@@ -1371,7 +1332,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -1460,7 +1421,7 @@ dfでは名字が&quot;田中&quot;のケースのみが複数行存在します
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

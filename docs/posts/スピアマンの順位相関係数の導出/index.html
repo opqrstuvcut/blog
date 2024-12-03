@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="スピアマンの順位相関係数の導出">
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="スピアマンの順位相関係数の導出">
 <meta property='og:description' content="スピアマンの順位相関係数の導出のメモになります。 導出 $n$個のデータに対する2種類の値をそれぞれ$x_1,\\cdots,x_n$と$y_1,\\cdots,y_n$とします。 そして、それらを何らかの方法で並べたときの順位をあらわす関数を$x_i$に対しては$R: \\mathbb{R} \\rightarrow \\mathbb{N}$、$y_i$に対しては$S: \\mathbb{R} \\rightarrow \\mathbb{N}$と定義します。なお、もしも同じ数が与えられたときは、適当に異なる順位をつけるとしておきます。$R$と$S$は順位をあらわす自然数に写す関数であるため全射です。 また$R(x_1),\\cdots,R(x_n)$の平均を$\\bar{R}$、標準偏差を$\\sigma_R$、$S(y_1),\\cdots,S(y_n)$の平均を$\\bar{S}$、標準偏差を$\\sigma_S$とします。 いまやりたいことは$x_1,\\cdots, x_n$と$y_1,\\cdots, y_n$に対するスピアマンの順位相関係数を求めることです。 スピアマンの順位相関係数$r$は$R(x_1),\\cdots, R(x_n)$と$S(y_1),\\cdots, S(y_n)$に対するピアソンの相関係数になりますので、次のようにあらわされます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i) - \\bar{R})(S(y_i) - \\bar{S}) }{\\sigma_R \\sigma_S}. \\end{align*} $$ 上式は次のように整理できます。 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\sum_{i=1}^n (R(x_i)S(y_i) -\\bar{S}R(x_i) -\\bar{R}S(y_i) + \\bar{R}\\bar{S}) }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{S}\\bar{R} -\\bar{R}\\bar{S} + \\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}(\\sum_{i=1}^n R(x_i)S(y_i)) -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S}. \\end{align*} $$ ここで、$d_i= R(x_i) - S(y_i)$とおくと、 $$ \\begin{align*} r &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 -2 R(x_i)S(x_i) + S(y_i)^2 - d_i^2) + R(x_i)S(y_i)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\\\ &amp;= \\frac{\\frac{1}{n}\\left\\{\\sum_{i=1}^n \\frac{1}{2}(R(x_i)^2 + S(y_i)^2 - d_i^2)\\right\\} -\\bar{R}\\bar{S} }{\\sigma_R \\sigma_S} \\end{align*} $$ となります。">
 <meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
@@ -23,6 +23,29 @@
   
 
 
+<style>
+   
+  :root {
+    --ja-font-family:  "ヒラギノ角ゴ Pro",
+      "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
     </head>
     <body class="
     article-page
@@ -31,7 +54,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "dark");
+                localStorage.setItem(colorSchemeKey, "light");
             }
         })();
     </script><script>
@@ -248,7 +271,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jul 18, 2022</time>
+                <time class="article-time--published">7月 18, 2022</time>
             </div>
         
 
@@ -434,7 +457,7 @@ $$</p>
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
-        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
     </section>
 </footer>
 
@@ -523,7 +546,7 @@ $$</p>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

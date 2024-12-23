@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>物体認識 on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/tags/%E7%89%A9%E4%BD%93%E8%AA%8D%E8%AD%98/</link>
+        <description>Recent content in 物体認識 on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 23 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E7%89%A9%E4%BD%93%E8%AA%8D%E8%AD%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>RT-DERT v2のファインチューニング</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
+        <pubDate>Mon, 23 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/feature.png" alt="Featured image of post RT-DERT v2のファインチューニング" /&gt;&lt;p&gt;RT-DERT v2のファインチューニングをおこなったのでメモ。&lt;br&gt;
+レポジトリは &lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/lyuwenyu/RT-DETR&lt;/a&gt; を参照してください。 また、本記事ではPyTorch版を前提としています。&lt;/p&gt;
+&lt;h2 id=&#34;手順&#34;&gt;手順
+&lt;/h2&gt;&lt;p&gt;PyTorch版の&lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR/tree/main/rtdetrv2_pytorch&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;README&lt;/a&gt;を見てみるとそれほど記載がないですが、結構簡単にファインチューニングが可能になっています。&lt;br&gt;
+おおまかに以下の手順になります。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;学習済みモデルのダウンロード&lt;/li&gt;
+&lt;li&gt;COCO形式のデータセットを準備&lt;/li&gt;
+&lt;li&gt;configを用意&lt;/li&gt;
+&lt;li&gt;学習実行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;学習済みモデルのダウンロード&#34;&gt;学習済みモデルのダウンロード
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR/tree/main/rtdetrv2_pytorch&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;README&lt;/a&gt;の中から目的のサイズのモデルを選んでダウンロードさせていただきましょう。&lt;/p&gt;
+&lt;h3 id=&#34;coco形式のデータセットを準備&#34;&gt;COCO形式のデータセットを準備
+&lt;/h3&gt;&lt;p&gt;データについてはCOCO形式のデータセットを準備すればOKです。実行していないですが、Pascal VOC形式でも大丈夫なはずです。&lt;br&gt;
+また、もし自作のデータセットならば、COCO形式のデータセットを学習と検証用データへ分割をしてjsonとして保存しておくところまではやっておく必要があります。&lt;/p&gt;
+&lt;h3 id=&#34;configを用意&#34;&gt;configを用意
+&lt;/h3&gt;&lt;p&gt;学習時のデータの設定やパラメータなどはすべてyml形式のファイルで管理されています。
+以下を設定すればOKです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;データセットの設定
+&lt;ul&gt;
+&lt;li&gt;configs/dataset/coco_detection.ymlをもとに作成する。&lt;/li&gt;
+&lt;li&gt;COCOデータセットとラベルを同じにしたくないため、remap_mscoco_categoryはFalseにする必要がある。&lt;/li&gt;
+&lt;li&gt;train_dataloaderとval_dataloaderのimg_folderとann_fileに自分が用意したデータセットのパスを記載する。 img_folderに画像が格納されているディレクトリを指定できるため、jsonファイルに記載している画像ファイルのパスはimg_folderを起点にする形でOK（よくある形式のやつですね）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;dataloaderの設定
+&lt;ul&gt;
+&lt;li&gt;configs/rtdetrv2/include/dataloader.yml をもとに作成する。&lt;/li&gt;
+&lt;li&gt;transforms部分にaugmentationを記述するので、不要なものを削除したり、逆に必要なものは追加する。ちなみに、複数の画像を合成するタイプのaugmentationが設定されていないが、著者曰く&lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR/issues/174&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;mosaic augmentationでは良い結果が得られなかったとのこと&lt;/a&gt;。ただし、関数自体は用意されていて、データセットによってはやはり効果がでる。もしmosaic augmentationを試す場合はtransforms.opsのRandomHorizontalFlipのあとに以下を追加すれば動く。
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    - {type: Mosaic, size: [640, 640]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;基本となる設定
+&lt;ul&gt;
+&lt;li&gt;configs/rtdetrv2/以下のymlをもとに作成する。Sサイズのモデルならばrtdetrv2_r18vd_120e_coco.ymlを用いる。&lt;/li&gt;
+&lt;li&gt;__include__に自分で作成したymlを指定する。&lt;/li&gt;
+&lt;li&gt;epochもここで変更する。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ここまでやれば、とりあえずは学習が動くようになります。  細かい設定はコードを見たり挙動を確認しながら修正しましょう。&lt;/p&gt;
+&lt;h3 id=&#34;学習実行&#34;&gt;学習実行
+&lt;/h3&gt;&lt;p&gt;READMEには複数GPUのケースが記載されていますが、もし1GPUならば以下のようにすれば良いです。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;CUDA_VISIBLE_DEVICES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; torchrun tools/train.py -c ./configs/rtdetrv2/rtdetrv2_r18vd_120e_coco_ft.yml -t ./models/rtdetrv2_r18vd_120e_coco_rerun_48.1.pth --use-amp --seed&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; --summary-dir&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;output/rtdetrv2_r18vd_120e_coco/xxx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;学習後は学習済みモデルを用いて推論の実行と結果の保存ができます。用意されているスクリプトだと画像を1枚ずつ処理する必要がありますが、一気に推論できたほうが何かと便利なので、&lt;a class=&#34;link&#34; href=&#34;https://github.com/opqrstuvcut/RT-DETR/blob/main/rtdetrv2_pytorch/references/deploy/rtdetrv2_torch.py&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;こちら&lt;/a&gt;を用いて以下のようにしています。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python -m references.deploy.rtdetrv2_torch -c ./configs/rtdetrv2/rtdetrv2_r18vd_120e_coco_ft.yml -r ./output/rtdetrv2_r18vd_120e_coco/best.pth --im-dir=./dataset/validation_images/ -d cuda
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;onnxへの変換はREADMEに書かれているとおりなのですが、以下で動きます。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python tools/export_onnx.py -c ./configs/rtdetrv2/rtdetrv2_r18vd_120e_coco_ft.yml  -r ./output/rtdetrv2_r18vd_120e_coco/last.pth  --check
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;onnxへ変換したモデルを用いて&lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR/blob/main/rtdetrv2_pytorch/references/deploy/rtdetrv2_onnxruntime.py&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ここ&lt;/a&gt;のように推論が可能です。
+これをみていると、NMSが不要になったおかげでonnxの出力をほぼそのまま使えばよいという形になっており、シンプルかつTorchを入れたくないような場合の本番システムの構築が楽ですね（このコードだとtorchvisionを少し使っていますが、使わない形に置き換え可能ですね）。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

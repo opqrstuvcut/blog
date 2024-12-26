@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
         <lastBuildDate>Mon, 23 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>RT-DERT v2のファインチューニング</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
+        <title>RT-DETR v2のファインチューニング</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
         <pubDate>Mon, 23 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/rt-dert-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/feature.png" alt="Featured image of post RT-DERT v2のファインチューニング" /&gt;&lt;p&gt;RT-DERT v2のファインチューニングをおこなったのでメモ。&lt;br&gt;
+        <guid>https://opqrstuvcut.github.io/blog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/feature.png" alt="Featured image of post RT-DETR v2のファインチューニング" /&gt;&lt;p&gt;RT-DETR v2のファインチューニングをおこなったのでメモ。&lt;br&gt;
 レポジトリは &lt;a class=&#34;link&#34; href=&#34;https://github.com/lyuwenyu/RT-DETR&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/lyuwenyu/RT-DETR&lt;/a&gt; を参照してください。 また、本記事ではPyTorch版を前提としています。&lt;/p&gt;
 &lt;h2 id=&#34;手順&#34;&gt;手順

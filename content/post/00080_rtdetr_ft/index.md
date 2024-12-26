@@ -1,11 +1,11 @@
 ---
-title: RT-DERT v2のファインチューニング
-tags: ["RT-DERT", "物体認識"] 
+title: RT-DETR v2のファインチューニング
+tags: ["RT-DETR", "物体認識"] 
 categories: ["機械学習"] 
 date: 2024-12-23
 image: feature.png
 ---
-RT-DERT v2のファインチューニングをおこなったのでメモ。  
+RT-DETR v2のファインチューニングをおこなったのでメモ。  
 レポジトリは https://github.com/lyuwenyu/RT-DETR を参照してください。 また、本記事ではPyTorch版を前提としています。
 
 

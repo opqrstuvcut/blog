@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．">
+<title>特徴量の次元の柔軟性が高いマトリョーシカ表現学習</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="特徴量の次元の柔軟性が高いマトリョーシカ表現学習">
+<meta property='og:description' content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='表現学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:published_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta name="twitter:title" content="特徴量の次元の柔軟性が高いマトリョーシカ表現学習">
+<meta name="twitter:description" content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/" >
+                表現学習
+            </a>
+        
+            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+                ディープラーニング
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2月 17, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます．
+もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です．
+それを実現するための方法として<a class="link" href="https://arxiv.org/abs/2205.13147"  target="_blank" rel="noopener"
+    >Matryoshka Representation Learning（マトリョーシカ表現学習）</a>があります．<br>
+なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています．</p>
+<h2 id="マトリョーシカ表現学習の概要">マトリョーシカ表現学習の概要
+</h2><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png"
+	width="568"
+	height="475"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w"
+	loading="lazy"
+	
+		alt="マトリョーシカ表現学習の概要"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="119"
+		data-flex-basis="286px"
+	
+></p>
+<h3 id="学習">学習
+</h3><p>一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \in \mathbb{R}^d $を計算し、それに対して重み$W \in \mathbb{R}^{L \times d}$を用いて
+$$
+W z
+$$
+を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません．</p>
+<p>マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\mathcal{M}$を定義しておき（例えば$\mathcal{M}=\{8,16,\cdots,1024, 2048\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます．<br>
+具体的には、データセットを$\mathcal{D} = \{(x_1,y_1),\cdots,(x_N, y_N) \}$、各$\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \in \mathbb{R}^{L \times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます．
+$$
+\begin{align*}
+\min_{\{W^{(m)}\}_{m \in \mathcal{M}}, \theta_F} \frac{1}{N} \sum_{(x_i, y_i) \in \mathcal{D}} \sum_{m \in \mathcal{M}} c_m \cdot \mathcal{L} \left(W^{(m)} \cdot F(x_i;\theta_F)         _{1:m};y_i  \right  )
+\end{align*}
+$$
+ここで、embeddingがモデルのパラメータ$\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \in \mathbb{R}^d$を$F(x_i;\theta_F)$とあらわしています．<br>
+この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています．<br>
+また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです．</p>
+<p>この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです．<br>
+これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．</p>
+<h2 id="実験">実験
+</h2><h3 id="実験条件">実験条件
+</h3><p>モデルとデータ、$d$, $\mathcal{M}$の組み合わせは以下のとおりです．</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>データセット</th>
+<th>モデル</th>
+<th>d</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ImageNet 1K</td>
+<td>ResNet50</td>
+<td>2028</td>
+<td>8,16,32,64,128,256,512,1024,2048</td>
+</tr>
+<tr>
+<td>JFT-300M</td>
+<td>ViT-B/16</td>
+<td>768</td>
+<td>12,24,48,96,192,384,768</td>
+</tr>
+<tr>
+<td>ALIGN</td>
+<td>ViT-B/16 + BERT</td>
+<td>768</td>
+<td>12,24,48,96,192,384,768</td>
+</tr>
+</tbody>
+</table></div>
+<p>また、MRLとの比較のため、各次元ごとにモデルを用意して独立に学習したケース（FF）と学習後に特異値分解（SVD）で次元圧縮したケースなどがあります．ただし、大事なのはFFとの比較になるかと思います．</p>
+<h3 id="分類">分類
+</h3><h4 id="比較">比較
+</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png"
+	width="456"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w"
+	loading="lazy"
+	
+		alt="図2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+>
+<img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png"
+	width="456"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w"
+	loading="lazy"
+	
+		alt="図3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<p>図2はImageNet-1Kでの教師あり学習の分類問題での各embeddingの次元と分類の正解率をあらわしています（SVDは一度学習してから重み行列を低ランク近似することをあらわしているようです）．<br>
+分類精度はMRLの次元が小さくてもあまり劣化していないことがわかります．また、MRL-Eもそれほど大きく変わらないという結果になっています．重み行列を共有していることを考えるとかなりうまくいっているのではないでしょうか．</p>
+<p>図3はデータセットからクエリとなるデータのembeddingを学習済みモデルで取得し、それをもとに1-NNで見つけたデータが同じクラスに属していれば正解とする分類問題です．<br>
+こちらも同じような結果が得られています．</p>
+<p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png"
+	width="456"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w"
+	loading="lazy"
+	
+		alt="図4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<p>Vit-B/16モデルでの1-NNの精度を図4に示しています．<br>
+こちらでも、MRLとMRL-Eは次元の減少に対して、精度の劣化が少ない結果が得られています．</p>
+<h4 id="次元の柔軟性">次元の柔軟性
+</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png"
+	width="456"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w"
+	loading="lazy"
+	
+		alt="図5"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<p>学習したモデルの次元とは異なる次元（図の赤印）でembeddingを切り出し、1-NNの精度をみているのが図5です．
+びっくりする話ですが、学習した次元以外でembeddingを切り出しても、図の精度のcurveに沿ったものになっています．一部に制約をつけて学習させることで、全体としてマトリョーシカ的な表現のembeddingが得られているということのようです．各次元がその前までのembeddingを適切に補う形になっていると考えればよいのでしょうか．</p>
+<h3 id="検索">検索
+</h3><h4 id="比較-1">比較
+</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png"
+	width="456"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w"
+	loading="lazy"
+	
+		alt="図7"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<p>図7はImageNet-1Kで学習したモデルを用いて最近傍検索をおこない、mAP@10で評価した結果です．<br>
+これもMRLでは64次元くらいまでは大きく精度が悪くなることがありません．128次元や256次元のembeddingを用いたとして、2048次元のときに比べたら検索の計算時間が大きく変わり得ますから、おれは非常に良い結果です．</p>
+<h4 id="適応的検索">適応的検索
+</h4><p>最後に適応的検索の設定で評価をおこなう話になります．<br>
+これは、クエリが与えられたらまずは低次元$D_s$のembeddingで検索をおこないデータベースから200件のデータを選択する．そのあとに高次元$D_r$のembeddingを用いて類似度順に順位付けをおこなうというものです．イメージ的には速くおおまかに検索してから、丁寧に類似性が高いもの順に並び替えていくというものになります．<br>
+データベースのデータが非常に多いことが現実では考えられますから、この部分を小さい次元のembeddingでおこなえることは非常に高速化に寄与します．実際、次の図8の(a)のように$D_s$（色が薄いほど低い次元で検索）が小さく、$D_r$（大きいほど順序付けでの次元が大きい）を大きく設定すると、精度の劣化はなく（逆になぜかあがっていますね）、かつ14倍も高速になっています．ただし、(b)はImageNet-4Kを評価用に使っていて問題が難しいため、高速化は6倍に留まっています．</p>
+<p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png"
+	width="938"
+	height="454"
+	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w"
+	loading="lazy"
+	
+		alt="図8"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="495px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">表現学習</a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

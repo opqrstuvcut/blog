@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ディープラーニング on MatLoverによるMatlab以外のブログ</title>
+        <link>https://opqrstuvcut.github.io/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
+        <description>Recent content in ディープラーニング on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 17 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>特徴量の次元の柔軟性が高いマトリョーシカ表現学習</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</link>
+        <pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</guid>
+        <description>&lt;p&gt;一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます．
+もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です．
+それを実現するための方法として&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2205.13147&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Matryoshka Representation Learning（マトリョーシカ表現学習）&lt;/a&gt;があります．&lt;br&gt;
+なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています．&lt;/p&gt;
+&lt;h2 id=&#34;マトリョーシカ表現学習の概要&#34;&gt;マトリョーシカ表現学習の概要
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png&#34;
+	width=&#34;568&#34;
+	height=&#34;475&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;マトリョーシカ表現学習の概要&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;286px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;学習&#34;&gt;学習
+&lt;/h3&gt;&lt;p&gt;一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \in \mathbb{R}^d $を計算し、それに対して重み$W \in \mathbb{R}^{L \times d}$を用いて
+$$
+W z
+$$
+を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません．&lt;/p&gt;
+&lt;p&gt;マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\mathcal{M}$を定義しておき（例えば$\mathcal{M}=\{8,16,\cdots,1024, 2048\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます．&lt;br&gt;
+具体的には、データセットを$\mathcal{D} = \{(x_1,y_1),\cdots,(x_N, y_N) \}$、各$\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \in \mathbb{R}^{L \times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます．
+$$
+\begin{align*}
+\min_{\{W^{(m)}\}_{m \in \mathcal{M}}, \theta_F} \frac{1}{N} \sum_{(x_i, y_i) \in \mathcal{D}} \sum_{m \in \mathcal{M}} c_m \cdot \mathcal{L} \left(W^{(m)} \cdot F(x_i;\theta_F)         _{1:m};y_i  \right  )
+\end{align*}
+$$
+ここで、embeddingがモデルのパラメータ$\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \in \mathbb{R}^d$を$F(x_i;\theta_F)$とあらわしています．&lt;br&gt;
+この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています．&lt;br&gt;
+また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです．&lt;/p&gt;
+&lt;p&gt;この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです．&lt;br&gt;
+これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．&lt;/p&gt;
+&lt;h2 id=&#34;実験&#34;&gt;実験
+&lt;/h2&gt;&lt;h3 id=&#34;実験条件&#34;&gt;実験条件
+&lt;/h3&gt;&lt;p&gt;モデルとデータ、$d$, $\mathcal{M}$の組み合わせは以下のとおりです．&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;データセット&lt;/th&gt;
+&lt;th&gt;モデル&lt;/th&gt;
+&lt;th&gt;d&lt;/th&gt;
+&lt;th&gt;M&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ImageNet 1K&lt;/td&gt;
+&lt;td&gt;ResNet50&lt;/td&gt;
+&lt;td&gt;2028&lt;/td&gt;
+&lt;td&gt;8,16,32,64,128,256,512,1024,2048&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;JFT-300M&lt;/td&gt;
+&lt;td&gt;ViT-B/16&lt;/td&gt;
+&lt;td&gt;768&lt;/td&gt;
+&lt;td&gt;12,24,48,96,192,384,768&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ALIGN&lt;/td&gt;
+&lt;td&gt;ViT-B/16 + BERT&lt;/td&gt;
+&lt;td&gt;768&lt;/td&gt;
+&lt;td&gt;12,24,48,96,192,384,768&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;また、MRLとの比較のため、各次元ごとにモデルを用意して独立に学習したケース（FF）と学習後に特異値分解（SVD）で次元圧縮したケースなどがあります．ただし、大事なのはFFとの比較になるかと思います．&lt;/p&gt;
+&lt;h3 id=&#34;分類&#34;&gt;分類
+&lt;/h3&gt;&lt;h4 id=&#34;比較&#34;&gt;比較
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png&#34;
+	width=&#34;456&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png&#34;
+	width=&#34;456&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;図2はImageNet-1Kでの教師あり学習の分類問題での各embeddingの次元と分類の正解率をあらわしています（SVDは一度学習してから重み行列を低ランク近似することをあらわしているようです）．&lt;br&gt;
+分類精度はMRLの次元が小さくてもあまり劣化していないことがわかります．また、MRL-Eもそれほど大きく変わらないという結果になっています．重み行列を共有していることを考えるとかなりうまくいっているのではないでしょうか．&lt;/p&gt;
+&lt;p&gt;図3はデータセットからクエリとなるデータのembeddingを学習済みモデルで取得し、それをもとに1-NNで見つけたデータが同じクラスに属していれば正解とする分類問題です．&lt;br&gt;
+こちらも同じような結果が得られています．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png&#34;
+	width=&#34;456&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図4&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Vit-B/16モデルでの1-NNの精度を図4に示しています．&lt;br&gt;
+こちらでも、MRLとMRL-Eは次元の減少に対して、精度の劣化が少ない結果が得られています．&lt;/p&gt;
+&lt;h4 id=&#34;次元の柔軟性&#34;&gt;次元の柔軟性
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png&#34;
+	width=&#34;456&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図5&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;学習したモデルの次元とは異なる次元（図の赤印）でembeddingを切り出し、1-NNの精度をみているのが図5です．
+びっくりする話ですが、学習した次元以外でembeddingを切り出しても、図の精度のcurveに沿ったものになっています．一部に制約をつけて学習させることで、全体としてマトリョーシカ的な表現のembeddingが得られているということのようです．各次元がその前までのembeddingを適切に補う形になっていると考えればよいのでしょうか．&lt;/p&gt;
+&lt;h3 id=&#34;検索&#34;&gt;検索
+&lt;/h3&gt;&lt;h4 id=&#34;比較-1&#34;&gt;比較
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png&#34;
+	width=&#34;456&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図7&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;図7はImageNet-1Kで学習したモデルを用いて最近傍検索をおこない、mAP@10で評価した結果です．&lt;br&gt;
+これもMRLでは64次元くらいまでは大きく精度が悪くなることがありません．128次元や256次元のembeddingを用いたとして、2048次元のときに比べたら検索の計算時間が大きく変わり得ますから、おれは非常に良い結果です．&lt;/p&gt;
+&lt;h4 id=&#34;適応的検索&#34;&gt;適応的検索
+&lt;/h4&gt;&lt;p&gt;最後に適応的検索の設定で評価をおこなう話になります．&lt;br&gt;
+これは、クエリが与えられたらまずは低次元$D_s$のembeddingで検索をおこないデータベースから200件のデータを選択する．そのあとに高次元$D_r$のembeddingを用いて類似度順に順位付けをおこなうというものです．イメージ的には速くおおまかに検索してから、丁寧に類似性が高いもの順に並び替えていくというものになります．&lt;br&gt;
+データベースのデータが非常に多いことが現実では考えられますから、この部分を小さい次元のembeddingでおこなえることは非常に高速化に寄与します．実際、次の図8の(a)のように$D_s$（色が薄いほど低い次元で検索）が小さく、$D_r$（大きいほど順序付けでの次元が大きい）を大きく設定すると、精度の劣化はなく（逆になぜかあがっていますね）、かつ14倍も高速になっています．ただし、(b)はImageNet-4Kを評価用に使っていて問題が難しいため、高速化は6倍に留まっています．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png&#34;
+	width=&#34;938&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;図8&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;206&#34;
+		data-flex-basis=&#34;495px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

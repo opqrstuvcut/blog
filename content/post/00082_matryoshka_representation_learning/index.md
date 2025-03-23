@@ -1,6 +1,6 @@
 ---
 title: 特徴量の次元の柔軟性が高いマトリョーシカ表現学習
-tags: ["表現学習", "ディープラーニング"]
+tags: ["表現学習", "ディープラーニング", "特徴量", "適応的検索", "Embedding","RAG", "Azure", "AI Search"]
 categories: ["表現学習", "ディープラーニング"]
 date: 2025-02-17
 image: thm.png

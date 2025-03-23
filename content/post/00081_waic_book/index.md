@@ -1,6 +1,6 @@
 ---
 title: WAIC
-tags: ["WAIC", "AIC", "PyMC", "ベイズ"]
+tags: ["WAIC", "AIC", "PyMC", "ベイズ", "情報量基準", "Python", "渡辺澄夫ベイズ", "TIC"]
 categories: ["統計", "情報量基準", "ベイズ"]
 date: 2025-01-18
 ---

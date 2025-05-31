@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。） 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model 使用した事前学習モデル：BERT日本語Pretrainedモデル 実装したソースコード：https://github.com/opqrstuvcut/BertMouth BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。 例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。 上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。 ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。 実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！ 結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。 生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。">
+<title>BERTでおこなうポケモンの説明文生成</title>
+
+<link rel='canonical' href='http://localhost:1313/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="BERTでおこなうポケモンの説明文生成">
+<meta property='og:description' content="本記事はQrunchからの転載です。 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。） 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model 使用した事前学習モデル：BERT日本語Pretrainedモデル 実装したソースコード：https://github.com/opqrstuvcut/BertMouth BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。 例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。 上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。 ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。 実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！ 結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。 生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。">
+<meta property='og:url' content='http://localhost:1313/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='BERT' /><meta property='article:tag' content='PyTorch' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='自然言語処理' /><meta property='article:published_time' content='2019-11-07T11:42:23&#43;09:00'/><meta property='article:modified_time' content='2019-11-07T11:42:23&#43;09:00'/><meta property='og:image' content='http://localhost:1313/blog/' />
+<meta name="twitter:title" content="BERTでおこなうポケモンの説明文生成">
+<meta name="twitter:description" content="本記事はQrunchからの転載です。 概要 自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。 実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。） 参考にした論文：BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model 使用した事前学習モデル：BERT日本語Pretrainedモデル 実装したソースコード：https://github.com/opqrstuvcut/BertMouth BERTでの文生成 学習 学習は以下のようなネットワークを使っておこないます。 ネットワークへの入力となる各トークンはサブワードになります。 例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、 何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！ となります。 上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。 ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。 1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。 BERTの出力のうち、[MASK]に対応するトークンの出力O[MASK]に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。 求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。 予測 予測は次のようにギブスサンプリングを使います。 長さNのトークン列を初期化する。 以下を適当な回数繰り返す。 次を全トークンに対しておこなう。 i番目(i=1,&hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。 出現確率が最大のサブワードで[MASK]のトークンを置換する。 トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。 実験 データ 学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。 生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。 トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。 こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！ 結果 学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。 生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" >
+                自然言語処理
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">BERTでおこなうポケモンの説明文生成</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">11月 07, 2019</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>本記事はQrunchからの転載です。</p>
+<hr>
+<h1 id="概要">概要
+</h1><p>自然言語界隈では非常によく話題になるBERTですが、BERTを使った文生成を実装してみたので今回はその話をします。BERTの事前学習モデルが文生成のタスクで使えたら、比較的少なめの学習データでもそれっぽく文生成できたりしないかなぁと思ってやってみました。</p>
+<p>実験ではポケモンの説明文を学習させて、生成させてみました。ちなみに自分はポケモンはルビー・サファイアで止まってますので、あんまりポケモンは分からないです。（他に面白そうな題材が見つからず…。遊戯王の通常モンスターの説明文でやりたかったんですが、データ数が700弱と少なすぎて断念。）</p>
+<p>参考にした論文：<a class="link" href="https://arxiv.org/abs/1902.04094"  target="_blank" rel="noopener"
+    >BERT has a Mouth, and It Must Speak: BERT as a Markov Random Field Language Model</a><br>
+使用した事前学習モデル：<a class="link" href="http://nlp.ist.i.kyoto-u.ac.jp/index.php?BERT%E6%97%A5%E6%9C%AC%E8%AA%9EPretrained%E3%83%A2%E3%83%87%E3%83%AB"  target="_blank" rel="noopener"
+    >BERT日本語Pretrainedモデル</a><br>
+実装したソースコード：<a class="link" href="https://github.com/opqrstuvcut/BertMouth"  target="_blank" rel="noopener"
+    >https://github.com/opqrstuvcut/BertMouth</a></p>
+<h1 id="bertでの文生成">BERTでの文生成
+</h1><h2 id="学習">学習
+</h2><p>学習は以下のようなネットワークを使っておこないます。</p>
+
+
+
+	
+	<a href="/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png">
+	<img src="/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hu544397710337244276.png" alt="">
+	</a>
+
+
+<p>ネットワークへの入力となる各トークンはサブワードになります。<br>
+例えば今回のように京都大学の事前学習モデルを利用する場合には、「何日だってなにも食べなくても元気 ！背中のタネ にたくさん栄養があるから元気だ！」という文はJuman++で形態素解析された後、サブワードに分割され、</p>
+<pre tabindex="0"><code>何/日/だって/なに/##も/食べ/なくて/も/元気/！/背中/の/タ/##ネ/に/たくさん/栄養/が/ある/から/元/##気/##だ/！
+</code></pre><p>となります。</p>
+<p>上記のネットワークを使って、ランダムにマスクした部分のサブワードの確率が予測できるように、以下の手順を繰り返して学習をすすめていきます。</p>
+<ol>
+<li>ある文がN個のトークンから構成されているときに、ランダムに1つのトークンを[MASK]に置き換える（上の図の例だと2番目のトークンがこれに該当します）。</li>
+<li>1つのトークンを[MASK]に置き換えたトークン列をBERTに与える。</li>
+<li>BERTの出力のうち、[MASK]に対応するトークンの出力O<!-- raw HTML omitted -->[MASK]<!-- raw HTML omitted -->に対して全結合層とsoftmaxを適用する（softmaxの結果が全サブワードの出現確率になります）。</li>
+<li>求められた[MASK]に対応する出現確率のうち、正解となるサブワードの確率が高くなるように、クロスエントロピーを用いて最適化する。</li>
+</ol>
+<h2 id="予測">予測
+</h2><p>予測は次のようにギブスサンプリングを使います。</p>
+<ol>
+<li>長さNのトークン列を初期化する。</li>
+<li>以下を適当な回数繰り返す。
+<ul>
+<li>次を全トークンに対しておこなう。
+<ol>
+<li>i番目(i=1,&hellip;,N)のトークンを[MASK]で置き換え、学習したネットワークに入力する。</li>
+<li>出現確率が最大のサブワードで[MASK]のトークンを置換する。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<p>トークン列の初期化には全サブワードから一様分布に従ってサンプリングしていますが、人間が適当な文を入れてあげてもいいですし、色々やりようはあるかと思います。</p>
+<h1 id="実験">実験
+</h1><h2 id="データ">データ
+</h2><p>学習には https://wiki.ポケモン.com/wiki/ポケモン一覧 のポケモンの説明文から、漢字が使われている文のみを利用しています。訓練データに使われたのは4730文で、例えば以下のような文が含まれます。</p>
+<ul>
+<li>生まれたときから 背中に 不思議な タネが 植えてあって 体と ともに 育つという。</li>
+<li>トレーナーとの 絆が パワーの 源。 ジェット機を しのぐ 飛行能力を 誇る。</li>
+</ul>
+<p>こんな感じのポケモンの説明文を自動で生成できたら面白いなぁと思ったので、このデータでやってみました。うまく行けば架空のポケモンが作れますね！</p>
+<h2 id="結果">結果
+</h2><p>学習したモデルで予測した結果を示します。ちなみに予測するときにサブワードの数をあらかじめ指定しますが、以下の例ではサブワードの数は20です。</p>
+<p><!-- raw HTML omitted -->生成文1: 弱い獲物を一度捕まえると止まらない。毎日１８時間鳴くチビノーズ。<!-- raw HTML omitted --></p>
+<p>弱い獲物をいたぶっているのか、猟奇的な感じがします。</p>
+<p><!-- raw HTML omitted -->生成文2: この姿に変化して連れ去ることでお腹を自在に操るピィができるのだ。<!-- raw HTML omitted --></p>
+<p>お腹を自由に操る…？化して連れ去るあたりは悪いポケモン感が出ていていいですね。</p>
+<p><!-- raw HTML omitted -->生成文3: <strong>ボールのように引っ張るため１匹。だが１匹ゆらゆら数は少ない。</strong><!-- raw HTML omitted --></p>
+<p>ちょっと解釈が難しいです。孤高の存在？</p>
+<p><!-- raw HTML omitted -->生成文4: <strong>化石から復活した科学者を科学力で壊し散らす生命力を持つポケモン。</strong><!-- raw HTML omitted --></p>
+<p>科学力で科学者に勝利するインテリポケモン。</p>
+<p><!-- raw HTML omitted -->生成文5: <strong>ただ絶対に捕まえないので傷ついた相手には容赦しない。なぜだか。</strong><!-- raw HTML omitted --></p>
+<p>これは解釈が難しいですが、恐ろしいポケモン感がでてますね。「なぜだか。」がいいアクセントです。</p>
+<h1 id="まとめ">まとめ
+</h1><p>それっぽい文はできたけども、意味があまり通らない文が多いかなという印象です。とりあえず学習データが少ないので、文が多い他のデータで実験します。気力のある方はぜひ自分でデータを用意して、学習してみて結果を教えて欲しいです！</p>
+<h1 id="おまけ">おまけ
+</h1><p>今回自分が使った京都大学の事前学習モデルを利用して学習する場合は、以下の手順で学習データを用意できます。</p>
+<ol>
+<li>
+<p>文を集めてきて、次のようなフォーマットのテキストファイルに保存する。</p>
+<pre tabindex="0"><code>文1
+文2
+︙
+文N
+</code></pre></li>
+<li>
+<p>juman++、pyknp、mojimojiをインストールする。pyknpとmojimojiはpipでOKです。</p>
+</li>
+<li>
+<p>レポジトリにあるpreprocess.pyを次のように実行して、形態素解析と前処理をおこなう。</p>
+<pre tabindex="0"><code> python ./preprocess.py \                                                                                                                                                                              
+  --input_file 1で作ったテキストファイルのパス \
+  --output_file 出力先のテキストファイルのパス \
+  --model xxx/jumanpp-2.0.0-rc2/model/jumandic.jppmdl（jumanのモデルのパスが通っている場合は不要）
+</code></pre></li>
+<li>
+<p>出力されたファイルを訓練データと検証データに適当に分割する。</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/python/">Python</a>
+        
+            <a href="/blog/tags/bert/">BERT</a>
+        
+            <a href="/blog/tags/pytorch/">PyTorch</a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a>
+        
+            <a href="/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/">自然言語処理</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/post/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.d149d184ffe5b871c636f0280c71ac17_hu12990949942608192100.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post BERTを軽量化したALBERTの概要"
+                        
+                        data-hash="md5-0UnRhP/luHHGNvAoDHGsFw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">BERTを軽量化したALBERTの概要</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.2ac33f689d0a0f9c00d2d7634cb0d0b7_hu17995586559148019995.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CANINEの論文を読んだメモ"
+                        
+                        data-hash="md5-KsM/aJ0KD5wA0tdjTLDQtw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CANINEの論文を読んだメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/post/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">貧乏人なのでPoor Man’s BERTを読んで解説</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.6253e0c8a64907253e80df30dc4bd179_hu16372073307251382691.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv"
+                        
+                        data-hash="md5-YlPgyKZJByU&#43;gN8w3EvReQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CNNで画像中のピクセルの座標情報を考慮できるCoordConv</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/post/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">画像認識モデルの性能をあげるためのTips</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.6d3b631a0b4bc3ad380c6d87a1ca863b97ea11862c13835a7c16511a72eb3f73.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

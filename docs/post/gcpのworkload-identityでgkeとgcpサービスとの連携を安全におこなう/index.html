@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。 GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。 こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。 手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。 手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。 GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。 $ gcloud container clusters update &lt;クラスタ名&gt; \\ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。 $ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \\ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。 $ kubectl create serviceaccount --namespace default \\ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。 apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。 $ gcloud iam service-accounts add-iam-policy-binding \\ --role roles/iam.workloadIdentityUser \\ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \\ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。 $ kubectl annotate serviceaccount \\ --namespace default \\ &lt;KSAの名称&gt; \\ iam.">
+<title>GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</title>
+
+<link rel='canonical' href='http://localhost:1313/blog/post/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう">
+<meta property='og:description' content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。 GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。 こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。 手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。 手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。 GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。 $ gcloud container clusters update &lt;クラスタ名&gt; \\ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。 $ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \\ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。 $ kubectl create serviceaccount --namespace default \\ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。 apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。 $ gcloud iam service-accounts add-iam-policy-binding \\ --role roles/iam.workloadIdentityUser \\ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \\ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。 $ kubectl annotate serviceaccount \\ --namespace default \\ &lt;KSAの名称&gt; \\ iam.">
+<meta property='og:url' content='http://localhost:1313/blog/post/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GCP' /><meta property='article:tag' content='GKE' /><meta property='article:tag' content='Workload Identity' /><meta property='article:tag' content='Kubernetes' /><meta property='article:published_time' content='2021-01-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-01-16T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/blog/' />
+<meta name="twitter:title" content="GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう">
+<meta name="twitter:description" content="Workload Identityについて Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。 GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。 こういった問題を解決してくれるのがWorkload Identityです。Workload IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。 手順は基本的には公式に従えばいいですが、ここでは簡素化したものを載せておきます。 手順 プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。 GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。 既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。 $ gcloud container clusters update &lt;クラスタ名&gt; \\ --workload-pool=&lt;プロジェクトID&gt;.svc.id.goog terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。 $ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; \\ --zone &lt;asia-northeast1-aなどのzoneの指定&gt; Kubernetes Service Account（KSA）を作成します。 $ kubectl create serviceaccount --namespace default \\ &lt;KSAの名称（適当につける）&gt; 次のようなmanifestを作成し、podを作成しておくでもOKなはずです。 apiVersion: v1 kind: ServiceAccount metadata: name: &lt;KSAの名称&gt; GSAがSAと紐付けできるように権限を付与します。 $ gcloud iam service-accounts add-iam-policy-binding \\ --role roles/iam.workloadIdentityUser \\ --member &#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34; \\ &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com 最後に次を実行。 $ kubectl annotate serviceaccount \\ --namespace default \\ &lt;KSAの名称&gt; \\ iam."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/kubernetes/" >
+                Kubernetes
+            </a>
+        
+            <a href="/blog/categories/gcp/" >
+                GCP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/post/gcp%E3%81%AEworkload-identity%E3%81%A7gke%E3%81%A8gcp%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A8%E3%81%AE%E9%80%A3%E6%90%BA%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">GCPのWorkload IdentityでGKEとGCPサービスとの連携を安全におこなう</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">1月 16, 2021</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="workload-identityについて">Workload Identityについて
+</h1><p>Compute Engineのホストからは何もせずにGCPのサービスにアクセス可能ですが、GKEを利用しているときに、クラスタ内のコンテナからStorageなどのサービスにどうやってアクセスするかという話がでてきます。</p>
+<p>GCPのサービスアカウントのキーをコンテナ内に配置できればよいですが、それを実現すると今度はセキュリティ上の問題があらわれたりします。</p>
+<p>こういった問題を解決してくれるのがWorkload Identityです。Workload  IdentityではKubernetesサービスアカウントというものとGCPのサービスアカウントの紐付けをおこない、KubernetesサービスアカウントでGCPのサービスを利用できるようにします。</p>
+<p>手順は基本的には<a class="link" href="https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity?hl=ja"  target="_blank" rel="noopener"
+    >公式</a>に従えばいいですが、ここでは簡素化したものを載せておきます。</p>
+<h1 id="手順">手順
+</h1><ol>
+<li>
+<p>プロジェクト用のサービスアカウントを作成します。サービスアカウントに適切な権限を設定しておく必要あるので、注意しておこないます。下記で利用される&quot;GSA&quot;はこのサービスアカウントの名称をあらわしています。</p>
+</li>
+<li>
+<p>GCPのコンソールかgcloudコマンドのいずれかでクラスターを作成します。このときworkload identityの有効化を必ずおこないます。
+既存のクラスターに対しては次でWorkload Identityの有効化ができるようです（未確認）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud container clusters update &lt;クラスタ名&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --workload-pool<span class="o">=</span>&lt;プロジェクトID&gt;.svc.id.goog
+</span></span></code></pre></div></li>
+<li>
+<p>terminal上で、作成したクラスターを操作できるようにします。例えば次のようなコマンドを実行します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud container clusters get-credentials &lt;作成したクラスタ名&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --zone &lt;asia-northeast1-aなどのzoneの指定&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>Kubernetes Service Account（KSA）を作成します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl create serviceaccount --namespace default <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;KSAの名称（適当につける）&gt;
+</span></span></code></pre></div><p>次のようなmanifestを作成し、podを作成しておくでもOKなはずです。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;KSAの名称&gt;</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>
+<p>GSAがSAと紐付けできるように権限を付与します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gcloud iam service-accounts add-iam-policy-binding <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --role roles/iam.workloadIdentityUser <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --member <span class="s2">&#34;serviceAccount:&lt;プロジェクトID&gt;.svc.id.goog[default/&lt;KSAの名称&gt;]&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com
+</span></span></code></pre></div></li>
+<li>
+<p>最後に次を実行。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl annotate serviceaccount <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --namespace default <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  &lt;KSAの名称&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  iam.gke.io/gcp-service-account<span class="o">=</span>&lt;GSAの名称&gt;@&lt;プロジェクトID&gt;.iam.gserviceaccount.com
+</span></span></code></pre></div></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/gcp/">GCP</a>
+        
+            <a href="/blog/tags/gke/">GKE</a>
+        
+            <a href="/blog/tags/workload-identity/">Workload Identity</a>
+        
+            <a href="/blog/tags/kubernetes/">Kubernetes</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.6d3b631a0b4bc3ad380c6d87a1ca863b97ea11862c13835a7c16511a72eb3f73.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．">
+<title>回転しているBounding Box向けのIoUのKFIoU</title>
+
+<link rel='canonical' href='http://localhost:1313/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="回転しているBounding Box向けのIoUのKFIoU">
+<meta property='og:description' content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．">
+<meta property='og:url' content='http://localhost:1313/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='IoU' /><meta property='article:tag' content='物体検出' /><meta property='article:tag' content='カルマンフィルター' /><meta property='article:tag' content='Rotated Bounding Box' /><meta property='article:tag' content='CV' /><meta property='article:tag' content='KFIoU' /><meta property='article:tag' content='SkewIoU' /><meta property='article:published_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
+<meta name="twitter:title" content="回転しているBounding Box向けのIoUのKFIoU">
+<meta name="twitter:description" content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+                <img src="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png"
+                        srcset="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png 800w, /blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu7075399228362069107.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/categories/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/" >
+                物体検出
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">回転しているBounding Box向けのIoUのKFIoU</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">3月 22, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="従来手法の問題点">従来手法の問題点
+</h2><p>回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのが<a class="link" href="https://arxiv.org/abs/2201.12558"  target="_blank" rel="noopener"
+    >KFIoU</a>になります．</p>
+<h2 id="kfiou">KFIoU
+</h2><h3 id="bounding-boxの正規分布への変換">Bounding Boxの正規分布への変換
+</h3><p>KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します．<br>
+具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\theta$としたときに次で定義される平均$\mu$、共分散行列$\Sigma$の正規分布に変換します．
+$$
+\Sigma = R \Lambda R^T, \ \mu = \begin{pmatrix}x, y\end{pmatrix}.
+$$</p>
+<p>ここで
+$$
+R = \begin{pmatrix} \cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta  \end{pmatrix}, \Lambda = \begin{pmatrix} \frac{w^2}{4} &amp; 0 \\ 0 &amp; \frac{h^2}{4}  \end{pmatrix}
+$$</p>
+<p>です．  回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています．
+一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\mathcal{V_B}(\Sigma)$を求めることができます．</p>
+<p>$$
+\mathcal{V_B}(\Sigma) = 2^2 |\Sigma|^{1/2}.
+$$</p>
+<p>$R$が回転行列であることを用いれば
+$$
+|\Sigma| = |R \Lambda R^T| = |R| |\Lambda| |R| = |\Lambda| = \frac{w^2h^2}{16}
+$$
+ですので、$\mathcal{V_B}(\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．</p>
+<h3 id="重なった面積の近似">重なった面積の近似
+</h3><h4 id="方針">方針
+</h4><p>さきほどの変換の話ではBounding Boxを正規分布に変換しても、もとのBounding Boxの面積を得ることができるという話でした．<br>
+これを利用すると、順序を逆にしてBounding Boxよりも正規分布が先に得られているときに、そこから対応するBounding Boxの面積を求めるということも考えられます．<br>
+KFIoUでは、2つのBounding BoxのIoUを求めたいときに、それらの正規分布の積の関数（スケールを調整すれば確率分布）を求め、そこから重なった部分の面積を求めるということをします．つまりBounding Boxに対応する2つのガウス分布$\mathcal{N}(x|\mu_1, \Sigma_1), \mathcal{N}(x|\mu_2, \Sigma_2)$に対し、
+$$
+\begin{align}
+\mathcal{N}(x|\mu_1, \Sigma_1) \mathcal{N}(x|\mu_2, \Sigma_2)
+\end{align}
+$$
+もスケールを除けば正規分布の形になりますので、この分布を2つのBounding Boxが重なった部分を表現した正規分布として考えて面積を計算するということをします．ただし、一般には実際に重なった部分は矩形にはならないですが、ここでは矩形で近似していることに注意が必要です．</p>
+<h4 id="カルマンフィルタ">カルマンフィルタ
+</h4><p>次に正規分布の積がどういう形になるのか？という話ですが、論文ではカルマンフィルタを利用した結果を示しています．  とはいえ、よくある計算のようにそのまま平方完成してもOKです．<br>
+ここではカルマンフィルタに沿った話をしていくことにします．カルマンフィルタでいうところの状態変数$x_{k}$と観測値$y_{k}$は
+$$
+\begin{align*}
+x_{k+1} &amp;= x_k + v_k \\
+y_k &amp;= x_k + w_k
+\end{align*}
+$$
+というふうにモデリングしていることになります．ここで$x_0$は平均$\mu_0$、分散$P_0$の正規分布、$v_k$は平均$0$、分散$Q_k$の正規分布、$w_k$は平均$0$、分散$R_k$の正規分布に従っているとしています．<br>
+この定義をもとにして$p(x_0|y_0)$を求めていくと、 $ p(x_0|y_0) = \mathcal{N}_x(\mu, \Sigma)$ となります．
+$\mu$と$\Sigma$の定義は以下のとおりです．
+$$
+\begin{align*}
+\mu &amp;= (I - K) \mu_0 + K y_0 = \mu_0 + K(y_0 - \mu_0), \\
+\Sigma &amp;= (I - K) P_0, \\
+K &amp;= P_0 (R_0 + P_0)^{-1}.
+\end{align*}
+$$
+ここで、$K$はカルマンゲインと呼ばれる値になります．<br>
+ベイズの定理より、$p(x_0|y_0) \propto p(y_0|x_0) p(x_0) = \mathcal{N}(y_0|x_0, R_0) \mathcal{N}(x_0| \mu_0, P_0)= \mathcal{N}(x_0|y_0, R_0) \mathcal{N}(x_0| \mu_0, P_0)$ですから、この形はもともと考えていた式(1)と同じ形式になっています．よって上記の$\mu, \Sigma, K$を対応する変数に置き換えれば2つのBounding Boxの重なっている部分に対応する正規分布が求まります．<br>
+具体的には、
+$$
+\begin{align}
+\alpha \mathcal{N}(x|\mu, \Sigma) = \mathcal{N}(x|\mu_1, \Sigma_1)\mathcal{N}(x|\mu_2, \Sigma_2)
+\end{align}
+$$
+となり、左辺の$\mu$と$\Sigma$はそれぞれ
+$$
+\begin{align*}
+\mu &amp;= \mu_1 + K(\mu_2 - \mu_1), \\
+\Sigma &amp;= (I - K)\Sigma_1,\\
+K &amp;= \Sigma_1(\Sigma_1 + \Sigma_2)^{-1}
+\end{align*}
+$$
+になります．また、$\alpha=\mathcal{N}(\mu_1|\mu_2, \Sigma_1 + \Sigma_2)$となる定数です．このスケールを調整する$\alpha$が存在するため、式(2)を$x$について積分しても1にならないことに注意してください．</p>
+<h3 id="kfiouの定義">KFIoUの定義
+</h3><p>ここまでの話でKFIoUを定義するための道具は出揃いました．<br>
+KFIoUは以下のようにして2つのBounding Boxの重なり具合を推定します．</p>
+<p>$$
+\begin{align*}
+{\rm KFIoU} = \frac{\mathcal{V_B(\Sigma)}}{\mathcal{V_B(\Sigma_1)} + \mathcal{V_B(\Sigma_2)} - \mathcal{V_B(\Sigma)}}.
+\end{align*}
+$$
+式自体は難しいところがないかと思いますが、次の点に注意が必要です．</p>
+<ol>
+<li>KFIoUの定義式自体はスケール$\alpha$が関係しない形（なんなら分散だけで計算できる）になっています．$\alpha$は2つのBounding Boxの中心位置のズレをあらわしている部分になっていますが、このズレをあらわす役割は別途L1 Lossに任せ、KFIoUの計算をおこなうときには2つのBounding Boxの中心が一致しているというふうに考えて計算してしまいます．</li>
+<li>KFIoUの最大値は1/3になります．2つのBounding Boxがピッタリ重なっているとき($\Sigma_1=\Sigma_2$)が最大値になりますが、そのときは$K=\frac{1}{2}I$より、$\Sigma=\frac{1}{2}\Sigma_1$です．このとき、
+$$
+\begin{align*}
+{\rm KFIoU} = \frac{\frac{1}{2} \mathcal{V_B}(\Sigma_1)}{\mathcal{V_B}(\Sigma_1) + \mathcal{V_B}(\Sigma_1) - \frac{1}{2}\mathcal{V_B}(\Sigma_1) } = \frac{1}{3}
+\end{align*}
+$$
+が成り立つとわかります．一応、KFIoUを3倍すると最大値を1にするように調整できますが、Lossに用いるときは3倍しないほうが良いという結果になったようで、特に係数の調整をしないものが利用されています．</li>
+</ol>
+<p>ここまでの話がまとまっているのが次の図2になります．</p>
+<p><img src="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2.png"
+	width="942"
+	height="436"
+	srcset="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu15966808525728126241.png 480w, /blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu16336387281906599733.png 1024w"
+	loading="lazy"
+	
+		alt="図2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="518px"
+	
+></p>
+<h3 id="loss">Loss
+</h3><p>KFIoUを用いた場合のLossはBounding Boxのクラス分類のLoss、KFIoUの分のLoss $L_{kf} = e^{1-{\rm KFIoU}} - 1$、Bounding Boxの中心位置の誤差についてのLoss $L_c$の3つの和を用いることが提案されています．ここで$L_c$は以下の2パターンあります．</p>
+<ol>
+<li>通常どおりのL1 Loss</li>
+<li>既存手法のKLDで提案されているLoss $L_c(\mu_1, \mu_2, \Sigma_1) = {\rm ln}((\mu_2 - \mu_1)^T \Sigma_1^{-1} (\mu_2 - \mu_1) + 1) $</li>
+</ol>
+<h2 id="実験">実験
+</h2><p>論文の中から他の手法との性能比較に関する結果を紹介します．</p>
+<p><img src="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4.png"
+	width="785"
+	height="706"
+	srcset="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17382642109159972160.png 480w, /blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17334943275002565695.png 1024w"
+	loading="lazy"
+	
+		alt="表4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="266px"
+	
+></p>
+<p>Table4はDOTAというデータセットでの精度比較になっています．Box Def.の列によって回転の情報の定義が異なるのですが、一旦無視して話を進めます．<br>
+KFIoUは他手法と比べて高い性能を出すことができています．GWDやKLDではハイパーパラメータのチューニングをしたうえでこの数値になっていますが、KFIoUはそういったチューニングがなく高い性能を出すことができています．また、Bounding Boxの中心位置の回帰をおこなうLossについては、L1 LossよりもKLDで使われているLossを使うと良いと言えそうです（他の実験結果でもおおよそ精度の向上が見られています）．</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/iou/">IoU</a>
+        
+            <a href="/blog/tags/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/">物体検出</a>
+        
+            <a href="/blog/tags/%E3%82%AB%E3%83%AB%E3%83%9E%E3%83%B3%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC/">カルマンフィルター</a>
+        
+            <a href="/blog/tags/rotated-bounding-box/">Rotated Bounding Box</a>
+        
+            <a href="/blog/tags/cv/">CV</a>
+        
+            <a href="/blog/tags/kfiou/">KFIoU</a>
+        
+            <a href="/blog/tags/skewiou/">SkewIoU</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD"
+                        
+                        data-hash="md5-BuV0vMTWKj97Ec2OYez5wA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">外部知識を活用して効率的に性能向上を達成したYOLO-RD</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ"
+                        
+                        data-hash="md5-1ShFTauHDUGCk&#43;2s4Py1ng==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Label StudioのAPIを利用したデータ連携のメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習"
+                        
+                        data-hash="md5-n8cjZYQWXqwY5OSa4VhN3g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.6d3b631a0b4bc3ad380c6d87a1ca863b97ea11862c13835a7c16511a72eb3f73.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

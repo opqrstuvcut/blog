@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です. 今回は、ICLR2025で発表されたYOLO-RD(https://arxiv.org/abs/2410.15346)について解説します. 従来手法の限界と問題意識 現在の画像系のモデルのアプローチは大きくわけて2種類です. CNN: 畳み込みによって得られる局所情報を組み合わせて推論 Transformer: 画像内の広範な相互作用を活用して推論 これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）. もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります. 人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います． YOLO-RDの概要 YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです. これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています. 上図はYOLO-RDの全体像をあらわした図です. バックボーンから得られた特徴量をもとにして、辞書内の特徴量(atomというようです)ごとの重みを決めるというのをRetrieverでおこないます. 得られた重みによる重み付き和を辞書内のatomに対して計算し、Neck層に渡すという流れになっています. 式であらわすと次のようになっています. バックボーンから得られた$(w,h)$の位置のピクセルの特徴量$X_{w,h} \\in \\mathbb{R}^f$を用いて、 $$ Y_{w,h} = \\lambda \\cdot X_{w,h} + (1 - \\lambda) \\cdot \\sum_{i=1}^N c&rsquo;_{i,w,h} \\cdot \\alpha_i. $$ を新たな特徴量とします.ここで $\\alpha_i \\in \\mathbb{R}^f$ は2-ノルムが1のatom $c&rsquo;_{i,w,h} \\in \\mathbb{R}$はatomの取捨選択を表現している係数 $\\lambda \\in [0, 1] $はハイパーパラメータ $N \\in \\mathbb{N}$は辞書サイズ をあらわします. Retriever $(w,h)$上のピクセルの$i$番目のatomの係数$c&rsquo;_{i,w,h}$は以下のようにして計算します. 行列$W^G \\in \\mathbb{R}^{N \\times f}$との内積によってベースとなるatomの重み$Y \\in \\mathbb{R}^{N \\times W \\times H}$を計算 $$Y = G(X) = W^G \\cdot X.">
+<title>外部知識を活用して効率的に性能向上を達成したYOLO-RD</title>
+
+<link rel='canonical' href='http://localhost:1313/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="外部知識を活用して効率的に性能向上を達成したYOLO-RD">
+<meta property='og:description' content="YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です. 今回は、ICLR2025で発表されたYOLO-RD(https://arxiv.org/abs/2410.15346)について解説します. 従来手法の限界と問題意識 現在の画像系のモデルのアプローチは大きくわけて2種類です. CNN: 畳み込みによって得られる局所情報を組み合わせて推論 Transformer: 画像内の広範な相互作用を活用して推論 これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）. もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります. 人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います． YOLO-RDの概要 YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです. これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています. 上図はYOLO-RDの全体像をあらわした図です. バックボーンから得られた特徴量をもとにして、辞書内の特徴量(atomというようです)ごとの重みを決めるというのをRetrieverでおこないます. 得られた重みによる重み付き和を辞書内のatomに対して計算し、Neck層に渡すという流れになっています. 式であらわすと次のようになっています. バックボーンから得られた$(w,h)$の位置のピクセルの特徴量$X_{w,h} \\in \\mathbb{R}^f$を用いて、 $$ Y_{w,h} = \\lambda \\cdot X_{w,h} + (1 - \\lambda) \\cdot \\sum_{i=1}^N c&rsquo;_{i,w,h} \\cdot \\alpha_i. $$ を新たな特徴量とします.ここで $\\alpha_i \\in \\mathbb{R}^f$ は2-ノルムが1のatom $c&rsquo;_{i,w,h} \\in \\mathbb{R}$はatomの取捨選択を表現している係数 $\\lambda \\in [0, 1] $はハイパーパラメータ $N \\in \\mathbb{N}$は辞書サイズ をあらわします. Retriever $(w,h)$上のピクセルの$i$番目のatomの係数$c&rsquo;_{i,w,h}$は以下のようにして計算します. 行列$W^G \\in \\mathbb{R}^{N \\times f}$との内積によってベースとなるatomの重み$Y \\in \\mathbb{R}^{N \\times W \\times H}$を計算 $$Y = G(X) = W^G \\cdot X.">
+<meta property='og:url' content='http://localhost:1313/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='物体検出' /><meta property='article:tag' content='YOLO' /><meta property='article:tag' content='画像' /><meta property='article:tag' content='RAG' /><meta property='article:tag' content='YOLO-RD' /><meta property='article:published_time' content='2025-05-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-31T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png' />
+<meta name="twitter:title" content="外部知識を活用して効率的に性能向上を達成したYOLO-RD">
+<meta name="twitter:description" content="YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です. 今回は、ICLR2025で発表されたYOLO-RD(https://arxiv.org/abs/2410.15346)について解説します. 従来手法の限界と問題意識 現在の画像系のモデルのアプローチは大きくわけて2種類です. CNN: 畳み込みによって得られる局所情報を組み合わせて推論 Transformer: 画像内の広範な相互作用を活用して推論 これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）. もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります. 人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います． YOLO-RDの概要 YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです. これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています. 上図はYOLO-RDの全体像をあらわした図です. バックボーンから得られた特徴量をもとにして、辞書内の特徴量(atomというようです)ごとの重みを決めるというのをRetrieverでおこないます. 得られた重みによる重み付き和を辞書内のatomに対して計算し、Neck層に渡すという流れになっています. 式であらわすと次のようになっています. バックボーンから得られた$(w,h)$の位置のピクセルの特徴量$X_{w,h} \\in \\mathbb{R}^f$を用いて、 $$ Y_{w,h} = \\lambda \\cdot X_{w,h} + (1 - \\lambda) \\cdot \\sum_{i=1}^N c&rsquo;_{i,w,h} \\cdot \\alpha_i. $$ を新たな特徴量とします.ここで $\\alpha_i \\in \\mathbb{R}^f$ は2-ノルムが1のatom $c&rsquo;_{i,w,h} \\in \\mathbb{R}$はatomの取捨選択を表現している係数 $\\lambda \\in [0, 1] $はハイパーパラメータ $N \\in \\mathbb{N}$は辞書サイズ をあらわします. Retriever $(w,h)$上のピクセルの$i$番目のatomの係数$c&rsquo;_{i,w,h}$は以下のようにして計算します. 行列$W^G \\in \\mathbb{R}^{N \\times f}$との内積によってベースとなるatomの重み$Y \\in \\mathbb{R}^{N \\times W \\times H}$を計算 $$Y = G(X) = W^G \\cdot X."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+                <img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm_hu14712991021182527466.png"
+                        srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm_hu14712991021182527466.png 800w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm_hu8824337024918818284.png 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/categories/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/" >
+                物体検出
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">外部知識を活用して効率的に性能向上を達成したYOLO-RD</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">5月 31, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
+今回は、ICLR2025で発表されたYOLO-RD(<a class="link" href="https://arxiv.org/abs/2410.15346"  target="_blank" rel="noopener"
+    >https://arxiv.org/abs/2410.15346</a>)について解説します.</p>
+<h2 id="従来手法の限界と問題意識">従来手法の限界と問題意識
+</h2><p>現在の画像系のモデルのアプローチは大きくわけて2種類です.</p>
+<ol>
+<li>CNN: 畳み込みによって得られる局所情報を組み合わせて推論</li>
+<li>Transformer: 画像内の広範な相互作用を活用して推論</li>
+</ol>
+<p>これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）.<br>
+もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります.<br>
+人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います．</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1.png"
+	width="946"
+	height="329"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu3745882659329699378.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu9918131085593678498.png 1024w"
+	loading="lazy"
+	
+		alt="YOLO-RDの概要"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="690px"
+	
+></p>
+<h2 id="yolo-rdの概要">YOLO-RDの概要
+</h2><p>YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです.<br>
+これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2.png"
+	width="936"
+	height="346"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu2701416847664046125.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu8795489024073455909.png 1024w"
+	loading="lazy"
+	
+		alt="YOLO-RDの全体像"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="270"
+		data-flex-basis="649px"
+	
+></p>
+<p>上図はYOLO-RDの全体像をあらわした図です.
+バックボーンから得られた特徴量をもとにして、辞書内の特徴量(atomというようです)ごとの重みを決めるというのをRetrieverでおこないます.<br>
+得られた重みによる重み付き和を辞書内のatomに対して計算し、Neck層に渡すという流れになっています.</p>
+<p>式であらわすと次のようになっています.<br>
+バックボーンから得られた$(w,h)$の位置のピクセルの特徴量$X_{w,h} \in \mathbb{R}^f$を用いて、</p>
+<p>$$
+Y_{w,h} = \lambda \cdot X_{w,h} + (1 - \lambda) \cdot \sum_{i=1}^N c&rsquo;_{i,w,h} \cdot \alpha_i.
+$$</p>
+<p>を新たな特徴量とします.ここで</p>
+<ul>
+<li>$\alpha_i  \in \mathbb{R}^f$ は2-ノルムが1のatom</li>
+<li>$c&rsquo;_{i,w,h} \in \mathbb{R}$はatomの取捨選択を表現している係数</li>
+<li>$\lambda \in [0, 1] $はハイパーパラメータ</li>
+<li>$N \in \mathbb{N}$は辞書サイズ</li>
+</ul>
+<p>をあらわします.</p>
+<h3 id="retriever">Retriever
+</h3><p>$(w,h)$上のピクセルの$i$番目のatomの係数$c&rsquo;_{i,w,h}$は以下のようにして計算します.</p>
+<ol>
+<li>行列$W^G \in \mathbb{R}^{N \times f}$との内積によってベースとなるatomの重み$Y   \in \mathbb{R}^{N \times W \times H}$を計算
+$$Y = G(X) = W^G \cdot X. $$</li>
+<li>depthwise convolutionをおこない、近傍ピクセルの情報の取り込み($i$はチャネル)
+$$c_i = E(Y^{(i)}) = W^{E^{(i)}} * Y^{(i)}.$$</li>
+<li>学習を適切に進めるためにPositional Normalizationを適用（$\gamma,\beta$は学習するパラメーター）
+$$
+\begin{align*}
+c^{\prime}_{i,w,h} &amp;= \frac{c_{i,w,h} - \mu_{c_{w,h}}}{\sqrt{\sigma_{c_{w,h}} + \varepsilon}} \cdot \gamma + \beta,\\
+\mu_{c_{w,h}} &amp;= \frac{1}{N} \sum_{n=1}^N c_{n,w,h},\\
+\sigma_{c_{w,h}} &amp;= \frac{1}{N}\sum_{n=1}^N (c_{w,h} - \mu_{c_{w,h}})^2.
+\end{align*}
+$$</li>
+</ol>
+<p>1と2は一度のconvolutionにまとめることができますが、計算コストのためにこのようになっています.<br>
+また、3についてはatomの重み付き和が$X$と同じになってしまうことを防ぐためにおこなわれています.バックボーンから得られる特徴量が良い特徴量であるという前提にたつと、そこに学習初期にはノイズに近いような値になっている辞書情報を足すことにメリットがありません.そして、辞書情報側のパラメーターをうまく活用してlossを下げるよりも、バックボーンと同じ特徴量がNeck層に渡るほうが早くlossを下げられるため、結果的に辞書が意味をなさなくなります.Normalizationを入れることで、$X$をそのままコピーするような出力が難しくなるため、適切に学習が進むようになります.</p>
+<h3 id="dictionaryの初期化">Dictionaryの初期化
+</h3><p>atomの初期値には以下の3パターンが提案されています.</p>
+<ol>
+<li>Vision model:
+YOLOv9のバックボーンから得られた学習データの特徴量を辞書の初期値にする.</li>
+<li>Vision language model:
+学習データの画像の各パッチに対するCLIPから得られる特徴量を辞書の初期値にする.</li>
+<li>Large language model:
+MSCOCOデータセット、ImageNet21kのクラス名とMSCOCOのキャプション（説明文）をGPTに与えたときに得られる特徴量を辞書の初期値にする.</li>
+</ol>
+<p>学習データなどから得られる特徴量をそのまま利用すると辞書のサイズが大きすぎるため、k-meansを用いてクラスタリングし、クラスタの中心を辞書内のatomにするようにします.</p>
+<h3 id="dictionaryの圧縮">Dictionaryの圧縮
+</h3><p>モデルが適切に学習されたとしても、実はあまり参照されることがないatomが存在するかもしれません.<br>
+こういったatomを削減するために蒸留をおこなうことを提案しています.<br>
+具体的にはもとの辞書を用いて得られる特徴量 $z^{rm RD}_{i,w,h}$ が小さい辞書を用いて得られる特徴量 $z^{\rm rd}_{i,w,h}$ と近くなるよう、以下のlossを最小化して小さな辞書を学習していきます.</p>
+<p>$$
+\begin{align*}
+\mathcal{L}_{i,w,h} = -\log \frac{\exp ({\rm sim}(z^{\rm rd}_{i,w,h}, z^{\rm RD}_{i,w,h})/\tau) }{\sum_{j=1}^B \sum_{w&rsquo;,h&rsquo;}^{W,H} \exp ({\rm sim} (z^{\rm rd}_{i,w,h}, z^{\rm RD}_{i,w,h})/\tau) }.
+\end{align*}
+$$</p>
+<p>この蒸留により、性能を下げることなく50%のatomを削減できているようです.</p>
+<h2 id="実験">実験
+</h2><h3 id="提案手法の効果">提案手法の効果
+</h3><p>以下は提案手法の効果を示した表です.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1.png"
+	width="967"
+	height="610"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7767481251999724551.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7764096949802347058.png 1024w"
+	loading="lazy"
+	
+		alt="提案手法の効果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
+	
+></p>
+<p>ParamsとLatencyをみると提案手法ではわずかな追加コストで済んでいますが、各スコアが向上し、YOLOv9で1%以上の向上を達成しています.<br>
+<a class="link" href="https://github.com/WongKinYiu/yolov9"  target="_blank" rel="noopener"
+    >YOLOv9のレポジトリ</a>をみてみると、サイズがCからEになると、計算量は102.1GFlopsから189.0GFlopsになり、パラメーター数は25.3Mから57.3Mになり、${\rm mAP}_{.5}^{val}$は2.6%あがっています.一方で、例えばVMのケースだと0.2Mのパラメーターの追加、0.16のLatencyの増加で1.46%向上しています.非常にコスパよく性能があがっていることがわかります.</p>
+<h3 id="他タスクへの利用">他タスクへの利用
+</h3><p>他タスクへも提案手法を適用した結果が次の表になり、きちんと効果があることが示されています.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2.png"
+	width="546"
+	height="315"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu3398812665705737277.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu599008810496615692.png 1024w"
+	loading="lazy"
+	
+		alt="他タスクへの利用"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="416px"
+	
+></p>
+<h3 id="既存手法との比較">既存手法との比較
+</h3><p>以下は既存の他手法との比較になります.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3.png"
+	width="425"
+	height="258"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu2469063103545249303.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu13878300565109423738.png 1024w"
+	loading="lazy"
+	
+		alt="他手法との比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+></p>
+<p>上記のうち、KDはYOLOv9-EからYOLOv9-Cへの蒸留をあらわしています.<br>
+これらの手法と比較してみても、やはり提案手法は効率よく性能を上げられていることがわかります.</p>
+<h3 id="ablation-study">Ablation Study
+</h3><p>以下はRetrieverの計算方法の違いをあらわしており、1行目は1度の畳み込みでatomの重みを計算してしまう方法、2行目は提案手法で使われている方法です.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4.png"
+	width="557"
+	height="174"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu13486331114492203243.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu4579865393690535001.png 1024w"
+	loading="lazy"
+	
+		alt="Retrieverの計算の違い"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="768px"
+	
+></p>
+<p>提案手法に比べ、1度のCNNに置き換えることで性能が0.3%程度あがるものの、パラメーター数は10倍近く増えてしまいます.このため、パラメーターあたりの性能向上の効率は非常に悪いことがわかります.</p>
+<h3 id="可視化">可視化
+</h3><h4 id="atomの係数の可視化">atomの係数の可視化
+</h4><p>以下では入力画像とatom、係数の関係を可視化しています.<br>
+(a)の矩形部分がモデルへの入力、(b)がバックボーンからの特徴とatomとの相関（類似度を計算？）、(c)が各atomの係数となっています.
+<img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4.png"
+	width="917"
+	height="361"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu7900514752653466333.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu6284167473182498972.png 1024w"
+	loading="lazy"
+	
+		alt="atomの係数の可視化"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="254"
+		data-flex-basis="609px"
+	
+></p>
+<p>どちらも高い領域に存在するatomに対応する画像は(c)と(d)の矩形部分になっており、きちんと関係のあるatomを参照することができています.
+一方で、(b)において相関が低く、係数が0に近いatomは(e)と(f)のように入力画像とは関係のないものになっています.</p>
+<h4 id="提案手法の有無によるバックボーンからの特徴量の比較">提案手法の有無によるバックボーンからの特徴量の比較
+</h4><p>以下は左図が入力画像、中央がバックボーンから得られた特徴量、右が提案手法の辞書を用いて得られた特徴量になります.</p>
+<p><img src="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5.png"
+	width="943"
+	height="393"
+	srcset="/blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu8388633634531988210.png 480w, /blog/post/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu12720629858408410038.png 1024w"
+	loading="lazy"
+	
+		alt="特徴量の比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="239"
+		data-flex-basis="575px"
+	
+></p>
+<p>バックボーンからの特徴量はあまり標識の特徴量を捉えられておらず、また背景の情報を大きく失われています.提案手法ではこれらがうまく特徴量として保持されていることがわかります.</p>
+<h2 id="感想">感想
+</h2><p>追加の計算コストが少なく精度をあげられるのはかなり魅力的です.実問題でも、あと一押し精度あげたいなというときにはかなり良いのではと思います. YOLO-RDのように外部知識を利用するという発想は今後色々なところで使われていくかもしれません.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/">物体検出</a>
+        
+            <a href="/blog/tags/yolo/">YOLO</a>
+        
+            <a href="/blog/tags/%E7%94%BB%E5%83%8F/">画像</a>
+        
+            <a href="/blog/tags/rag/">RAG</a>
+        
+            <a href="/blog/tags/yolo-rd/">YOLO-RD</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.1e77495d53e35bf34df6d6f0d1efdb56_hu1011397670205575968.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU"
+                        
+                        data-hash="md5-HndJXVPjW/NN9tbw0e/bVg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">回転しているBounding Box向けのIoUのKFIoU</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ"
+                        
+                        data-hash="md5-1ShFTauHDUGCk&#43;2s4Py1ng==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Label StudioのAPIを利用したデータ連携のメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習"
+                        
+                        data-hash="md5-n8cjZYQWXqwY5OSa4VhN3g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.d81426c36e6ce192b0270dde772a0ab0_hu11956188617242663038.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT"
+                        
+                        data-hash="md5-2BQmw25s4ZKwJw3edyoKsA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">画像と自然言語でのマルチモーダルなImageBERT</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.6d3b631a0b4bc3ad380c6d87a1ca863b97ea11862c13835a7c16511a72eb3f73.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

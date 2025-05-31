@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。 参考論文：Axiomatic Attribution for Deep Networks 先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。 人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。 2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。 Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。 Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。 具体例を次に示します。 Implementation Invarianceの例 例えば勾配${\\partial f}/{\\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\\frac{\\partial f}{\\partial x} = \\frac{\\partial f}{\\partial h}\\frac{\\partial h}{\\partial x}$$ とあらわせます。 勾配を求める際に${\\partial f}/{\\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。 Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \\frac{f(x_1) - f(x_0)}{x_1 - x_0} \\neq \\frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \\frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。">
+<title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
+
+<link rel='canonical' href='http://localhost:1313/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説">
+<meta property='og:description' content="本記事はQrunchからの転載です。 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。 参考論文：Axiomatic Attribution for Deep Networks 先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。 人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。 2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。 Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。 Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。 具体例を次に示します。 Implementation Invarianceの例 例えば勾配${\\partial f}/{\\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\\frac{\\partial f}{\\partial x} = \\frac{\\partial f}{\\partial h}\\frac{\\partial h}{\\partial x}$$ とあらわせます。 勾配を求める際に${\\partial f}/{\\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。 Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \\frac{f(x_1) - f(x_0)}{x_1 - x_0} \\neq \\frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \\frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。">
+<meta property='og:url' content='http://localhost:1313/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='寄与度' /><meta property='article:tag' content='feature importance' /><meta property='article:tag' content='Integrated Gradients' /><meta property='article:published_time' content='2019-12-08T16:17:01&#43;09:00'/><meta property='article:modified_time' content='2019-12-08T16:17:01&#43;09:00'/><meta property='og:image' content='http://localhost:1313/blog/' />
+<meta name="twitter:title" content="ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説">
+<meta name="twitter:description" content="本記事はQrunchからの転載です。 機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。 Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。 今回はそんなIntegrated Gradientsを解説します。 参考論文：Axiomatic Attribution for Deep Networks 先にbaselineのお話 本題に入る前に、大事な考え方であるbaselineを説明しておきます。 人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。 Integrated Gradientsの場合もその考え方を用います。 先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。 2つの公理 特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。 例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。 Sensitivity(a) Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。 Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。 次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。 $f(x) = 1 - {\\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。 Implementation Invariance Implementation Invarianceの定義は以下のとおりです。 Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。 具体例を次に示します。 Implementation Invarianceの例 例えば勾配${\\partial f}/{\\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\\frac{\\partial f}{\\partial x} = \\frac{\\partial f}{\\partial h}\\frac{\\partial h}{\\partial x}$$ とあらわせます。 勾配を求める際に${\\partial f}/{\\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。 このケースはImplementation Invarianceを満たします。 Implementation Invarianceではない例 DeepLiftの場合は離散化した勾配を用いて寄与を計算します。 連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。 つまり、 $$ \\frac{f(x_1) - f(x_0)}{x_1 - x_0} \\neq \\frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \\frac{h(x_1) - h(x_0)}{x_1 -x_0}$$ となります。 このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/blog/' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/feature-importance/" >
+                Feature Importance
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/">ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">12月 08, 2019</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>本記事はQrunchからの転載です。</p>
+<hr>
+<p>機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。
+Integrated Gradientsはディープラーニング向けの手法ですが、他のディープラーニング向けの手法では満たしていない公理（性質）をいくつも満たしているという点で優れています。
+今回はそんなIntegrated Gradientsを解説します。</p>
+<p>参考論文：<a class="link" href="https://arxiv.org/abs/1703.01365"  target="_blank" rel="noopener"
+    >Axiomatic Attribution for Deep Networks</a></p>
+<h1 id="先にbaselineのお話">先にbaselineのお話
+</h1><p>本題に入る前に、大事な考え方であるbaselineを説明しておきます。</p>
+<p>人間が何か起こったことに対して原因を考えるとき、何かの基準となる事がその人の中にはあり、それに比べ、「ここが良くない」とか「ここが良かったから結果としてこういう結果になったんだな」、と考えるんじゃないでしょうか。
+Integrated Gradientsの場合もその考え方を用います。
+先程の例の基準がbaselineと呼ばれ、画像のタスクでは例えば真っ黒の画像が使われたり、自然言語のタスクではすべてを0にしたembeddingが使われたりします（これは手法によって異なります）。つまり、真っ黒の何も写っていない画像に比べて猫の写った画像はこういう風に異なるから、これは猫の画像と判断したんだな、というように考えていくことになります。</p>
+<h1 id="2つの公理">2つの公理
+</h1><p>特徴量の寄与を求める既存手法の中でも勾配を用いた手法というのは多いです。しかしながら、論文中では勾配を用いた既存手法には問題があると指摘しています。
+例えばGuided back-propagationは次のSensitivity(a)を満たしていませんし、DeepLiftはImplementation Invarianceを満たしていません。</p>
+<h2 id="sensitivitya">Sensitivity(a)
+</h2><p>Sensitivity(a)の定義は以下のとおりです（ちなみにaと書いてあるのはbもあるということです。詳しく知りたい方は論文を参照ください）。</p>
+<blockquote>
+<p>Sensitivity(a): 入力値に対する出力がbaselineの出力と異なったとき、baselineと異なる値をもつ入力の特徴量の寄与は非ゼロである。</p>
+</blockquote>
+<p>次のような例を考えると、勾配を用いる手法におけるSensitivity(a)の必要性がわかります。
+$f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。
+baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。
+このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。</p>
+<p><img src="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png"
+	width="1689"
+	height="1125"
+	srcset="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu11229027380320123652.png 480w, /blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu5274726128719126120.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<h2 id="implementation-invariance">Implementation Invariance
+</h2><p>Implementation Invarianceの定義は以下のとおりです。</p>
+<blockquote>
+<p>Implementation Invariance: 実装方法が異なっていても、同じ入力に対しては求まる寄与値は等しい。</p>
+</blockquote>
+<p>具体例を次に示します。</p>
+<p><!-- raw HTML omitted -->Implementation Invarianceの例<!-- raw HTML omitted -->
+例えば勾配${\partial f}/{\partial x}$を計算する手法の場合、この計算は隠れ層の出力$h$を使って、 $$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial h}\frac{\partial h}{\partial x}$$
+とあらわせます。
+勾配を求める際に${\partial f}/{\partial x}$を直接計算しても、連鎖律を使って右辺の計算を用いても結果は一緒になります。
+このケースはImplementation Invarianceを満たします。</p>
+<p><!-- raw HTML omitted -->Implementation Invarianceではない例<!-- raw HTML omitted -->
+DeepLiftの場合は離散化した勾配を用いて寄与を計算します。
+連続値を扱っている限りは連鎖律が成り立ちますが、離散化すると連鎖律が成り立たなくなります。
+つまり、
+$$ \frac{f(x_1) - f(x_0)}{x_1 - x_0} \neq \frac{f(x_1) - f(x_0)}{h(x_1) - h(x_0)} \frac{h(x_1) - h(x_0)}{x_1 -x_0}$$
+となります。
+このように計算方法（実装方法）によって結果が変わる場合はImplementation Invarianceを満たしません。</p>
+<h3 id="implementation-invarianceを満たさないことの問題点">Implementation Invarianceを満たさないことの問題点
+</h3><p>Implementation Invarianceを満たさないことの問題点って何なんでしょうか。論文中で指摘されているのは次のようなケースです。
+あるモデルのパラメータ数が多いなどが理由で、自由度が非常に高いモデルがあるとします。このモデルを学習した結果として、同じ入力に対して出力が同じになるが、パラメータの値が異なる組み合わせであるような学習済みモデル1とモデル2の2つが得られたとします。
+このような状況で2つのモデルに対する離散化された勾配は、モデル1の隠れ層を$h_1$、モデル2の隠れ層を$h_2$としたとき、
+$$ \frac{f(x_1) - f(x_0)}{h_1(x_1) - h_1(x_0)} \frac{h_1(x_1) - h_1(x_0)}{x_1 -x_0} \neq \frac{f(x_1) - f(x_0)}{h_2(x_1) - h_2(x_0)} \frac{h_2(x_1) - h_2(x_0)}{x_1 -x_0}$$
+となりえます。なぜかといえば、Implementation Invarianceではないので、どちらも$ {f(x_1) - f(x_0)}/{x_1 - x_0}$とは異なる何らかの値になるためです。
+入力と出力が同じであるのに、モデルによって寄与が異なるというのは確かに違和感がありますね。たしかにImplementation Invarianceも満たすべきであるといえそうです。</p>
+<h1 id="integrated--gradients">Integrated  Gradients
+</h1><p>Integrated Gradientsは前述した2つの公理を満たす手法になります。</p>
+<h2 id="アルゴリズム">アルゴリズム
+</h2><p>手法は単純で、また実装も簡単です。
+Integrated Gradientsではbaseline $x&rsquo;$から入力$x$までの勾配を積分し、入力とbaselineとの差と積を取るだけです。式であらわすと以下のようになります。
+$$ {\rm Integrated\ Gradients} = (x - x&rsquo;) \int_{0}^{1} \nabla F(x&rsquo; + \alpha(x - x&rsquo;)){\rm d} \alpha .$$</p>
+<p>上記のように勾配の積分を寄与とすることで、baselineから入力$x$までの勾配をすべて考慮することができ、その結果としてSensitivity(a)を満たすことになります。またIntegrated Gradientsは勾配と積分から成りますので、Implementation Invarianceも満たされます。</p>
+<p>コンピュータ上では上記の積分をそのまま実行することはできませんので、実際には数値積分をして、近似値を求めることになります。数値積分を厳密にやろうとするほど、計算量が多く掛かることに注意してください。</p>
+<h1 id="integrated-gradientsの適用結果">Integrated Gradientsの適用結果
+</h1><h2 id="画像の分類問題の例">画像の分類問題の例
+</h2><p>GoogleNetを使って画像の分類問題を学習させ、それにIntegrated Gradientsを適用した結果が以下のとおりです。</p>
+<p><img src="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg"
+	width="938"
+	height="1588"
+	srcset="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu918285005443533211.jpg 480w, /blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu9227064275821860929.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="141px"
+	
+>
+一番左が入力画像で、その隣にラベルとスコアが書いてあり、3列目がIntegrated Gradients×入力画像、4列目が勾配×入力画像です。
+これを見ると、単に勾配を用いる場合に比べて、物体を認識するのに必要そうな箇所が寄与していると判定されていることがわかります。例えば、2行目のfireboatは勾配の場合よりも、Integrated Gradientsのほうがより水しぶきの細かい部分に着目していると判定できています。</p>
+<h2 id="テキストの分類問題の例">テキストの分類問題の例
+</h2><p>次にテキストの分類問題の例です。
+質問の答えがどういった種類の回答かを予測する問題です。例えば答えが数値なのか、日付なのかなどを予測します。</p>
+<p>下が予測モデルにIntegrated Gradientsを適用した結果です。
+<img src="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png"
+	width="1556"
+	height="480"
+	srcset="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu1417952466149686468.png 480w, /blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu2440693140937833247.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="324"
+		data-flex-basis="778px"
+	
+></p>
+<p>赤いほど予測への寄与が大きい単語となっています。
+結果を見てみると、疑問詞やyearなどに着目していることがわかります。それらしい結果になっていますね。</p>
+<h1 id="おわりに">おわりに
+</h1><p>Integrated GradientsではDeepLiftのココがダメと言及している一方で、DeepLiftはIntegrated Gradientsの性能が低いと指摘しています。使う側は難しいですね。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a>
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/%E5%AF%84%E4%B8%8E%E5%BA%A6/">寄与度</a>
+        
+            <a href="/blog/tags/feature-importance/">Feature Importance</a>
+        
+            <a href="/blog/tags/integrated-gradients/">Integrated Gradients</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/blog/post/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BA%88%E6%B8%AC%E7%B5%90%E6%9E%9C%E3%82%92%E8%AA%AC%E6%98%8E%E3%81%99%E3%82%8Blime%E3%81%AE%E7%90%86%E8%AB%96/1341b73a17da593ffc43cebc86969604.4dfdff596559bb530109260024c5bcc3_hu17632164067357622721.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post モデルの予測結果を説明するLIMEの理論"
+                        
+                        data-hash="md5-Tf3/WWVZu1MBCSYAJMW8ww==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">モデルの予測結果を説明するLIMEの理論</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.d149d184ffe5b871c636f0280c71ac17_hu12990949942608192100.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post BERTを軽量化したALBERTの概要"
+                        
+                        data-hash="md5-0UnRhP/luHHGNvAoDHGsFw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">BERTを軽量化したALBERTの概要</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/post/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/post/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.6253e0c8a64907253e80df30dc4bd179_hu16372073307251382691.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv"
+                        
+                        data-hash="md5-YlPgyKZJByU&#43;gN8w3EvReQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CNNで画像中のピクセルの座標情報を考慮できるCoordConv</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/post/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">BERTでおこなうポケモンの説明文生成</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.6d3b631a0b4bc3ad380c6d87a1ca863b97ea11862c13835a7c16511a72eb3f73.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

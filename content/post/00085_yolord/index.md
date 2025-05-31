@@ -1,6 +1,6 @@
 ---
-title: 外部知識を活用して効率的に性能向上を達成したYOLORD
-tags: ["ディープラーニング", "物体検出", "YOLO", "画像", "RAG"]
+title: 外部知識を活用して効率的に性能向上を達成したYOLO-RD
+tags: ["ディープラーニング", "物体検出", "YOLO", "画像", "RAG", "YOLO-RD"]
 categories: ["ディープラーニング", "物体検出"]
 date: 2025-05-31
 image: thm.png

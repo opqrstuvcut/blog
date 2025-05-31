@@ -6,7 +6,223 @@
         <description>Recent content on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Thu, 24 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>外部知識を活用して効率的に性能向上を達成したYOLORD</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/</link>
+        <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/thm.png" alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLORD" /&gt;&lt;p&gt;YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
+今回は、ICLR2025で発表されたYOLO-RD(&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2410.15346&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://arxiv.org/abs/2410.15346&lt;/a&gt;)について解説します.&lt;/p&gt;
+&lt;h2 id=&#34;従来手法の限界と問題意識&#34;&gt;従来手法の限界と問題意識
+&lt;/h2&gt;&lt;p&gt;現在の画像系のモデルのアプローチは大きくわけて2種類です.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;CNN: 畳み込みによって得られる局所情報を組み合わせて推論&lt;/li&gt;
+&lt;li&gt;Transformer: 画像内の広範な相互作用を活用して推論&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）.&lt;br&gt;
+もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります.&lt;br&gt;
+人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います．&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig1.png&#34;
+	width=&#34;946&#34;
+	height=&#34;329&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig1_hu3745882659329699378.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig1_hu9918131085593678498.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;YOLO-RDの概要&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;287&#34;
+		data-flex-basis=&#34;690px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;yolo-rdの概要&#34;&gt;YOLO-RDの概要
+&lt;/h2&gt;&lt;p&gt;YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです.&lt;br&gt;
+これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig2.png&#34;
+	width=&#34;936&#34;
+	height=&#34;346&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig2_hu2701416847664046125.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig2_hu8795489024073455909.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;YOLO-RDの全体像&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;270&#34;
+		data-flex-basis=&#34;649px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;上図はYOLO-RDの全体像をあらわした図です.
+バックボーンから得られた特徴量をもとにして、辞書内の特徴量(atomというようです)ごとの重みを決めるというのをRetrieverでおこないます.&lt;br&gt;
+得られた重みによる重み付き和を辞書内のatomに対して計算し、Neck層に渡すという流れになっています.&lt;/p&gt;
+&lt;p&gt;式であらわすと次のようになっています.&lt;br&gt;
+バックボーンから得られた$(w,h)$の位置のピクセルの特徴量$X_{w,h} \in \mathbb{R}^f$を用いて、&lt;/p&gt;
+&lt;p&gt;$$
+Y_{w,h} = \lambda \cdot X_{w,h} + (1 - \lambda) \cdot \sum_{i=1}^N c&amp;rsquo;_{i,w,h} \cdot \alpha_i.
+$$&lt;/p&gt;
+&lt;p&gt;を新たな特徴量とします.ここで&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\alpha_i  \in \mathbb{R}^f$ は2-ノルムが1のatom&lt;/li&gt;
+&lt;li&gt;$c&amp;rsquo;_{i,w,h} \in \mathbb{R}$はatomの取捨選択を表現している係数&lt;/li&gt;
+&lt;li&gt;$\lambda \in [0, 1] $はハイパーパラメータ&lt;/li&gt;
+&lt;li&gt;$N \in \mathbb{N}$は辞書サイズ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;をあらわします.&lt;/p&gt;
+&lt;h3 id=&#34;retriever&#34;&gt;Retriever
+&lt;/h3&gt;&lt;p&gt;$(w,h)$上のピクセルの$i$番目のatomの係数$c&amp;rsquo;_{i,w,h}$は以下のようにして計算します.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;行列$W^G \in \mathbb{R}^{N \times f}$との内積によってベースとなるatomの重み$Y   \in \mathbb{R}^{N \times W \times H}$を計算
+$$Y = G(X) = W^G \cdot X. $$&lt;/li&gt;
+&lt;li&gt;depthwise convolutionをおこない、近傍ピクセルの情報の取り込み($i$はチャネル)
+$$c_i = E(Y^{(i)}) = W^{E^{(i)}} * Y^{(i)}.$$&lt;/li&gt;
+&lt;li&gt;学習を適切に進めるためにPositional Normalizationを適用（$\gamma,\beta$は学習するパラメーター）
+$$
+\begin{align*}
+c^{\prime}_{i,w,h} &amp;amp;= \frac{c_{i,w,h} - \mu_{c_{w,h}}}{\sqrt{\sigma_{c_{w,h}} + \varepsilon}} \cdot \gamma + \beta,\\
+\mu_{c_{w,h}} &amp;amp;= \frac{1}{N} \sum_{n=1}^N c_{n,w,h},\\
+\sigma_{c_{w,h}} &amp;amp;= \frac{1}{N}\sum_{n=1}^N (c_{w,h} - \mu_{c_{w,h}})^2.
+\end{align*}
+$$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1と2は一度のconvolutionにまとめることができますが、計算コストのためにこのようになっています.&lt;br&gt;
+また、3についてはatomの重み付き和が$X$と同じになってしまうことを防ぐためにおこなわれています.バックボーンから得られる特徴量が良い特徴量であるという前提にたつと、そこに学習初期にはノイズに近いような値になっている辞書情報を足すことにメリットがありません.そして、辞書情報側のパラメーターをうまく活用してlossを下げるよりも、バックボーンと同じ特徴量がNeck層に渡るほうが早くlossを下げられるため、結果的に辞書が意味をなさなくなります.Normalizationを入れることで、$X$をそのままコピーするような出力が難しくなるため、適切に学習が進むようになります.&lt;/p&gt;
+&lt;h3 id=&#34;dictionaryの初期化&#34;&gt;Dictionaryの初期化
+&lt;/h3&gt;&lt;p&gt;atomの初期値には以下の3パターンが提案されています.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Vision model:
+YOLOv9のバックボーンから得られた学習データの特徴量を辞書の初期値にする.&lt;/li&gt;
+&lt;li&gt;Vision language model:
+学習データの画像の各パッチに対するCLIPから得られる特徴量を辞書の初期値にする.&lt;/li&gt;
+&lt;li&gt;Large language model:
+MSCOCOデータセット、ImageNet21kのクラス名とMSCOCOのキャプション（説明文）をGPTに与えたときに得られる特徴量を辞書の初期値にする.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;学習データなどから得られる特徴量をそのまま利用すると辞書のサイズが大きすぎるため、k-meansを用いてクラスタリングし、クラスタの中心を辞書内のatomにするようにします.&lt;/p&gt;
+&lt;h3 id=&#34;dictionaryの圧縮&#34;&gt;Dictionaryの圧縮
+&lt;/h3&gt;&lt;p&gt;モデルが適切に学習されたとしても、実はあまり参照されることがないatomが存在するかもしれません.&lt;br&gt;
+こういったatomを削減するために蒸留をおこなうことを提案しています.&lt;br&gt;
+具体的にはもとの辞書を用いて得られる特徴量 $z^{rm RD}_{i,w,h}$ が小さい辞書を用いて得られる特徴量 $z^{\rm rd}_{i,w,h}$ と近くなるよう、以下のlossを最小化して小さな辞書を学習していきます.&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align*}
+\mathcal{L}_{i,w,h} = -\log \frac{\exp ({\rm sim}(z^{\rm rd}_{i,w,h}, z^{\rm RD}_{i,w,h})/\tau) }{\sum_{j=1}^B \sum_{w&amp;rsquo;,h&amp;rsquo;}^{W,H} \exp ({\rm sim} (z^{\rm rd}_{i,w,h}, z^{\rm RD}_{i,w,h})/\tau) }.
+\end{align*}
+$$&lt;/p&gt;
+&lt;p&gt;この蒸留により、性能を下げることなく50%のatomを削減できているようです.&lt;/p&gt;
+&lt;h2 id=&#34;実験&#34;&gt;実験
+&lt;/h2&gt;&lt;h3 id=&#34;提案手法の効果&#34;&gt;提案手法の効果
+&lt;/h3&gt;&lt;p&gt;以下は提案手法の効果を示した表です.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab1.png&#34;
+	width=&#34;967&#34;
+	height=&#34;610&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab1_hu7767481251999724551.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab1_hu7764096949802347058.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;提案手法の効果&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;380px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ParamsとLatencyをみると提案手法ではわずかな追加コストで済んでいますが、各スコアが向上し、YOLOv9で1%以上の向上を達成しています.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/WongKinYiu/yolov9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;YOLOv9のレポジトリ&lt;/a&gt;をみてみると、サイズがCからEになると、計算量は102.1GFlopsから189.0GFlopsになり、パラメーター数は25.3Mから57.3Mになり、${\rm mAP}_{.5}^{val}$は2.6%あがっています.一方で、例えばVMのケースだと0.2Mのパラメーターの追加、0.16のLatencyの増加で1.46%向上しています.非常にコスパよく性能があがっていることがわかります.&lt;/p&gt;
+&lt;h3 id=&#34;他タスクへの利用&#34;&gt;他タスクへの利用
+&lt;/h3&gt;&lt;p&gt;他タスクへも提案手法を適用した結果が次の表になり、きちんと効果があることが示されています.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab2.png&#34;
+	width=&#34;546&#34;
+	height=&#34;315&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab2_hu3398812665705737277.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab2_hu599008810496615692.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;他タスクへの利用&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;173&#34;
+		data-flex-basis=&#34;416px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;既存手法との比較&#34;&gt;既存手法との比較
+&lt;/h3&gt;&lt;p&gt;以下は既存の他手法との比較になります.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab3.png&#34;
+	width=&#34;425&#34;
+	height=&#34;258&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab3_hu2469063103545249303.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab3_hu13878300565109423738.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;他手法との比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;164&#34;
+		data-flex-basis=&#34;395px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;上記のうち、KDはYOLOv9-EからYOLOv9-Cへの蒸留をあらわしています.&lt;br&gt;
+これらの手法と比較してみても、やはり提案手法は効率よく性能を上げられていることがわかります.&lt;/p&gt;
+&lt;h3 id=&#34;ablation-study&#34;&gt;Ablation Study
+&lt;/h3&gt;&lt;p&gt;以下はRetrieverの計算方法の違いをあらわしており、1行目は1度の畳み込みでatomの重みを計算してしまう方法、2行目は提案手法で使われている方法です.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab4.png&#34;
+	width=&#34;557&#34;
+	height=&#34;174&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab4_hu13486331114492203243.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/tab4_hu4579865393690535001.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Retrieverの計算の違い&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;320&#34;
+		data-flex-basis=&#34;768px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;提案手法に比べ、1度のCNNに置き換えることで性能が0.3%程度あがるものの、パラメーター数は10倍近く増えてしまいます.このため、パラメーターあたりの性能向上の効率は非常に悪いことがわかります.&lt;/p&gt;
+&lt;h3 id=&#34;可視化&#34;&gt;可視化
+&lt;/h3&gt;&lt;h4 id=&#34;atomの係数の可視化&#34;&gt;atomの係数の可視化
+&lt;/h4&gt;&lt;p&gt;以下では入力画像とatom、係数の関係を可視化しています.&lt;br&gt;
+(a)の矩形部分がモデルへの入力、(b)がバックボーンからの特徴とatomとの相関（類似度を計算？）、(c)が各atomの係数となっています.
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig4.png&#34;
+	width=&#34;917&#34;
+	height=&#34;361&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig4_hu7900514752653466333.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig4_hu6284167473182498972.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;atomの係数の可視化&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;254&#34;
+		data-flex-basis=&#34;609px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;どちらも高い領域に存在するatomに対応する画像は(c)と(d)の矩形部分になっており、きちんと関係のあるatomを参照することができています.
+一方で、(b)において相関が低く、係数が0に近いatomは(e)と(f)のように入力画像とは関係のないものになっています.&lt;/p&gt;
+&lt;h4 id=&#34;提案手法の有無によるバックボーンからの特徴量の比較&#34;&gt;提案手法の有無によるバックボーンからの特徴量の比較
+&lt;/h4&gt;&lt;p&gt;以下は左図が入力画像、中央がバックボーンから得られた特徴量、右が提案手法の辞書を用いて得られた特徴量になります.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig5.png&#34;
+	width=&#34;943&#34;
+	height=&#34;393&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig5_hu8388633634531988210.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolord/fig5_hu12720629858408410038.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;特徴量の比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;239&#34;
+		data-flex-basis=&#34;575px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;バックボーンからの特徴量はあまり標識の特徴量を捉えられておらず、また背景の情報を大きく失われています.提案手法ではこれらがうまく特徴量として保持されていることがわかります.&lt;/p&gt;
+&lt;h2 id=&#34;感想&#34;&gt;感想
+&lt;/h2&gt;&lt;p&gt;追加の計算コストが少なく精度をあげられるのはかなり魅力的です.実問題でも、あと一押し精度あげたいなというときにはかなり良いのではと思います. YOLO-RDのように外部知識を利用するという発想は今後色々なところで使われていくかもしれません.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Label StudioのAPIを利用したデータ連携のメモ</title>
         <link>https://opqrstuvcut.github.io/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/</link>
         <pubDate>Thu, 24 Apr 2025 00:00:00 +0000</pubDate>

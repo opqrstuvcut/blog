@@ -15,6 +15,9 @@ permalinks:
     post: /posts/:slug/
     page: /:slug/
 
+sitemap:
+  filename: sitemap_.xml
+
 params:
     mainSections:
         - post

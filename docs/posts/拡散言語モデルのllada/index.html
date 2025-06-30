@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性 2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります. 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています. 本記事では、拡散モデルベースのLLMであるLLaDAについて、その背景、構造、実験結果などを解説します. 自己回帰型モデルの限界 従来のLLM（例：GPT系）は自己回帰型モデルに分類され、トークンを一つずつ順番に生成していきます.しかし、この方式には次のような課題があります： 逐次処理のため推論効率が悪い 「Reversal Curse」に弱い（参考：THE REVERSAL CURSE: LLMS TRAINED ON “A IS B” FAIL TO LEARN “B IS A” Reversal Curseは次の例のようにトム・クルーズの親については回答できても、メアリー・リー・ファイファーの子どもは誰かを答えることができないという問題です.学習データにはそういったデータがないため、このようなことが起こるようです. 従来のLLMのアプローチ LLMでは一般に次の左式か右式の問題を解けるようにモデルのパラメーター$\\theta$を学習していきます. $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) \\Leftrightarrow \\min_\\theta {\\rm KL}(p_{data}(x)||p_\\theta(x)). $$ 特に自己回帰モデルの場合は、過去のトークンをもとにして次のトークンを予測する問題を解く形になっています. $$ p_\\theta(x) = p_\\theta(x^1) \\prod_{i=2}^L p_\\theta(x^i|x^1,\\dots,x^{i-1}). $$ LLaDAのアプローチ：拡散モデル型のLLM LLaDAは、自己回帰ではなく拡散モデルのアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です. 事前学習（Pretraining） 事前学習ではBERTのようにマスクされた単語を当てるタスクを解きます. ただし、BERTは15%をマスクするようにしていましたが、提案手法では0~100%のランダムな割合だけマスクするようになっています. 損失関数は次の通りです： $$ \\mathcal{L}(\\theta) := -\\mathbb{E}_{t,x_0,x_t} \\left[\\frac{1}{t} \\sum_{i=1}^L \\textbf{1}[x_t^i =M]\\log p_\\theta(x_0^i|x_t) \\right]. $$ この損失関数を小さくできるモデルはたしかに言語を学んでいると言えそうですし、実際BERTは分類問題や固有表現抽出などで高い性能を出すことができます. しかし、言語モデルとしてもともと解きたかった問題 $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) $$">
+<title>拡散言語モデルのLLaDA</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="拡散言語モデルのLLaDA">
+<meta property='og:description' content="BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性 2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります. 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています. 本記事では、拡散モデルベースのLLMであるLLaDAについて、その背景、構造、実験結果などを解説します. 自己回帰型モデルの限界 従来のLLM（例：GPT系）は自己回帰型モデルに分類され、トークンを一つずつ順番に生成していきます.しかし、この方式には次のような課題があります： 逐次処理のため推論効率が悪い 「Reversal Curse」に弱い（参考：THE REVERSAL CURSE: LLMS TRAINED ON “A IS B” FAIL TO LEARN “B IS A” Reversal Curseは次の例のようにトム・クルーズの親については回答できても、メアリー・リー・ファイファーの子どもは誰かを答えることができないという問題です.学習データにはそういったデータがないため、このようなことが起こるようです. 従来のLLMのアプローチ LLMでは一般に次の左式か右式の問題を解けるようにモデルのパラメーター$\\theta$を学習していきます. $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) \\Leftrightarrow \\min_\\theta {\\rm KL}(p_{data}(x)||p_\\theta(x)). $$ 特に自己回帰モデルの場合は、過去のトークンをもとにして次のトークンを予測する問題を解く形になっています. $$ p_\\theta(x) = p_\\theta(x^1) \\prod_{i=2}^L p_\\theta(x^i|x^1,\\dots,x^{i-1}). $$ LLaDAのアプローチ：拡散モデル型のLLM LLaDAは、自己回帰ではなく拡散モデルのアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です. 事前学習（Pretraining） 事前学習ではBERTのようにマスクされた単語を当てるタスクを解きます. ただし、BERTは15%をマスクするようにしていましたが、提案手法では0~100%のランダムな割合だけマスクするようになっています. 損失関数は次の通りです： $$ \\mathcal{L}(\\theta) := -\\mathbb{E}_{t,x_0,x_t} \\left[\\frac{1}{t} \\sum_{i=1}^L \\textbf{1}[x_t^i =M]\\log p_\\theta(x_0^i|x_t) \\right]. $$ この損失関数を小さくできるモデルはたしかに言語を学んでいると言えそうですし、実際BERTは分類問題や固有表現抽出などで高い性能を出すことができます. しかし、言語モデルとしてもともと解きたかった問題 $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) $$">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='NLP' /><meta property='article:tag' content='拡散モデル' /><meta property='article:tag' content='LLM' /><meta property='article:tag' content='LLaMA' /><meta property='article:tag' content='LLaDA' /><meta property='article:tag' content='BERT' /><meta property='article:tag' content='大規模言語モデル' /><meta property='article:tag' content='MLM' /><meta property='article:published_time' content='2025-06-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-06-30T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png' />
+<meta name="twitter:title" content="拡散言語モデルのLLaDA">
+<meta name="twitter:description" content="BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性 2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります. 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています. 本記事では、拡散モデルベースのLLMであるLLaDAについて、その背景、構造、実験結果などを解説します. 自己回帰型モデルの限界 従来のLLM（例：GPT系）は自己回帰型モデルに分類され、トークンを一つずつ順番に生成していきます.しかし、この方式には次のような課題があります： 逐次処理のため推論効率が悪い 「Reversal Curse」に弱い（参考：THE REVERSAL CURSE: LLMS TRAINED ON “A IS B” FAIL TO LEARN “B IS A” Reversal Curseは次の例のようにトム・クルーズの親については回答できても、メアリー・リー・ファイファーの子どもは誰かを答えることができないという問題です.学習データにはそういったデータがないため、このようなことが起こるようです. 従来のLLMのアプローチ LLMでは一般に次の左式か右式の問題を解けるようにモデルのパラメーター$\\theta$を学習していきます. $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) \\Leftrightarrow \\min_\\theta {\\rm KL}(p_{data}(x)||p_\\theta(x)). $$ 特に自己回帰モデルの場合は、過去のトークンをもとにして次のトークンを予測する問題を解く形になっています. $$ p_\\theta(x) = p_\\theta(x^1) \\prod_{i=2}^L p_\\theta(x^i|x^1,\\dots,x^{i-1}). $$ LLaDAのアプローチ：拡散モデル型のLLM LLaDAは、自己回帰ではなく拡散モデルのアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です. 事前学習（Pretraining） 事前学習ではBERTのようにマスクされた単語を当てるタスクを解きます. ただし、BERTは15%をマスクするようにしていましたが、提案手法では0~100%のランダムな割合だけマスクするようになっています. 損失関数は次の通りです： $$ \\mathcal{L}(\\theta) := -\\mathbb{E}_{t,x_0,x_t} \\left[\\frac{1}{t} \\sum_{i=1}^L \\textbf{1}[x_t^i =M]\\log p_\\theta(x_0^i|x_t) \\right]. $$ この損失関数を小さくできるモデルはたしかに言語を学んでいると言えそうですし、実際BERTは分類問題や固有表現抽出などで高い性能を出すことができます. しかし、言語モデルとしてもともと解きたかった問題 $$ \\max_{\\theta} \\mathbb{E}_{p_{data}(x)} \\log p_\\theta(x) $$"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
+                <img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm_hu9356875403352240448.png"
+                        srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm_hu9356875403352240448.png 800w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm_hu129994668873841798.png 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 拡散言語モデルのLLaDA" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/categories/llm/" >
+                LLM
+            </a>
+        
+            <a href="/blog/categories/nlp/" >
+                NLP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">拡散言語モデルのLLaDA</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">6月 30, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="bertを拡張した生成モデル拡散型llmlladaの概要と可能性">BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
+</h1><p>2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります.
+提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png"
+	width="568"
+	height="558"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w"
+	loading="lazy"
+	
+		alt="性能比較top"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="244px"
+	
+></p>
+<p>本記事では、拡散モデルベースのLLMであるLLaDAについて、その背景、構造、実験結果などを解説します.</p>
+<hr>
+<h2 id="自己回帰型モデルの限界">自己回帰型モデルの限界
+</h2><p>従来のLLM（例：GPT系）は自己回帰型モデルに分類され、トークンを一つずつ順番に生成していきます.しかし、この方式には次のような課題があります：</p>
+<ul>
+<li>逐次処理のため推論効率が悪い</li>
+<li>「Reversal Curse」に弱い（参考：<a class="link" href="https://arxiv.org/pdf/2309.12288%ef%bc%89"  target="_blank" rel="noopener"
+    >THE REVERSAL CURSE: LLMS TRAINED ON “A IS B” FAIL TO LEARN “B IS A”</a>
+<ul>
+<li>Reversal Curseは次の例のようにトム・クルーズの親については回答できても、メアリー・リー・ファイファーの子どもは誰かを答えることができないという問題です.学習データにはそういったデータがないため、このようなことが起こるようです.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png"
+	width="957"
+	height="327"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w"
+	loading="lazy"
+	
+		alt="Reversal Curse"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="292"
+		data-flex-basis="702px"
+	
+></p>
+<h2 id="従来のllmのアプローチ">従来のLLMのアプローチ
+</h2><p>LLMでは一般に次の左式か右式の問題を解けるようにモデルのパラメーター$\theta$を学習していきます.</p>
+<p>$$
+\max_{\theta} \mathbb{E}_{p_{data}(x)} \log p_\theta(x) \Leftrightarrow \min_\theta {\rm KL}(p_{data}(x)||p_\theta(x)).
+$$</p>
+<p>特に自己回帰モデルの場合は、過去のトークンをもとにして次のトークンを予測する問題を解く形になっています.</p>
+<p>$$
+p_\theta(x) = p_\theta(x^1) \prod_{i=2}^L p_\theta(x^i|x^1,\dots,x^{i-1}).
+$$</p>
+<h2 id="lladaのアプローチ拡散モデル型のllm">LLaDAのアプローチ：拡散モデル型のLLM
+</h2><p>LLaDAは、自己回帰ではなく<strong>拡散モデル</strong>のアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です.</p>
+<h3 id="事前学習pretraining">事前学習（Pretraining）
+</h3><p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png"
+	width="344"
+	height="310"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w"
+	loading="lazy"
+	
+		alt="事前学習の概要"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="266px"
+	
+></p>
+<p>事前学習ではBERTのようにマスクされた単語を当てるタスクを解きます. ただし、BERTは15%をマスクするようにしていましたが、提案手法では0~100%のランダムな割合だけマスクするようになっています.</p>
+<p>損失関数は次の通りです：</p>
+<p>$$
+\mathcal{L}(\theta) := -\mathbb{E}_{t,x_0,x_t} \left[\frac{1}{t} \sum_{i=1}^L \textbf{1}[x_t^i =M]\log p_\theta(x_0^i|x_t) \right].
+$$</p>
+<p>この損失関数を小さくできるモデルはたしかに言語を学んでいると言えそうですし、実際BERTは分類問題や固有表現抽出などで高い性能を出すことができます.<br>
+しかし、言語モデルとしてもともと解きたかった問題</p>
+<p>$$
+\max_{\theta} \mathbb{E}_{p_{data}(x)} \log p_\theta(x)
+$$</p>
+<p>についてもうまくいくモデルなのかは謎です.<br>
+これについては、<a class="link" href="https://arxiv.org/abs/2408.08252"  target="_blank" rel="noopener"
+    >既存研究</a>で以下が成り立つことがわかっています.</p>
+<p>$$
+\mathbb{E}_{p_{data}(x_0)}[\log p_\theta(x_0)] \geq -\mathcal{L}(\theta).
+$$</p>
+<p>マスクされた問題に関する損失関数にマイナスを付けた式により下から最大化したい式を抑えられることをあらわしているので、損失関数を小さくできるほど言語モデルの意味で良いモデルで良いモデルと言えます.</p>
+<h3 id="fine-tuning">Fine Tuning
+</h3><p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png"
+	width="337"
+	height="232"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w"
+	loading="lazy"
+	
+		alt="Fine Tuningの概要"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+></p>
+<p>事前学習後はFine Tuningをして命令に従えるように学習をしていきます.<br>
+データセットとしてプロンプト（指令）と期待される出力のペアが用意されていて、モデルには出力部分の一部をマスクして入力をし、マスクされた部分を予測するように学習させます.</p>
+<p>論文で用いているデータセットには以下の問題が含まれているようです.</p>
+<ul>
+<li>コード生成</li>
+<li>数学問題の解答</li>
+<li>会話応答</li>
+</ul>
+<p>この学習により、LLaDAもGPTのような指令に従うような機能を獲得できます.</p>
+<h3 id="推論inference">推論（Inference）
+</h3><p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png"
+	width="358"
+	height="315"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w"
+	loading="lazy"
+	
+		alt="推論の概要"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="113"
+		data-flex-basis="272px"
+	
+></p>
+<p>ここまで学習しても、困るのが推論です（ちなみに昔紹介したBERTで文を生成する方法の<a class="link" href="https://arxiv.org/abs/1902.04094"  target="_blank" rel="noopener"
+    >論文</a>ではトークンを順番にマスクして生成というのを繰り返すギブスサンプリングの形を取っていました）.</p>
+<p>LLaDAの推論は以下のようにして徐々にキレイな文章を生成していきます.</p>
+<ol>
+<li>出力部分をすべてマスク</li>
+<li>マスクされたトークンを推論</li>
+<li>ランダムなトークンを一部 or 確信度が低いトークンを選択して再度マスク</li>
+<li>所定回数まで2～3を繰り返す</li>
+</ol>
+<p>一部のトークンを固定してそれ以外を再生成といったプロセスを繰り返しますので、ノイズを徐々に取り除いていく拡散モデルのようなことをしているイメージにはなっています.
+このように推論することで、文全体を一気に生成するよりも安定した品質が得られているのだと思います.</p>
+<p>なお、推論したい部分全体に対して上記の処理をしていく方法の他、semi-autoregressiveという推論したい部分をいくつかのBlockに分けて、左のBlockから上記の処理をおこなっていく方法も提案されています. Blockを小さくしていくと、より自己回帰モデルに近いものになっていきます.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png"
+	width="994"
+	height="414"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w"
+	loading="lazy"
+	
+		alt="semi-autoregressive"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="576px"
+	
+></p>
+<h2 id="実験">実験
+</h2><h3 id="スケーラビリティ">スケーラビリティ
+</h3><p>まず投下計算量（モデルのサイズ、学習トークン数）に対して順当に性能が向上するかを確認した結果が以下になります（ちなみにFLOPsはモデルのパラメーター数を$N$、学習データのトークン数を$D$としたときに$6ND$で計算されています）.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png"
+	width="1087"
+	height="512"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w"
+	loading="lazy"
+	
+		alt="スケーラビリティ"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="509px"
+	
+></p>
+<p>オレンジの提案手法でもスケーラビリティが成り立っており、MMLU（一般知識を問う問題）やGSM8K（算数の文章問題）では自己回帰型モデルよりも優位な結果が得られています.</p>
+<h3 id="他モデルとの比較">他モデルとの比較
+</h3><h4 id="事前学習モデル">事前学習モデル
+</h4><p>以下は事前学習モデルでの各タスクの推論性能をあらわしています.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png"
+	width="1166"
+	height="688"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w"
+	loading="lazy"
+	
+		alt="性能比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="406px"
+	
+></p>
+<p>学習データが異なるのですが、LLaDAはLLaMA2と比較するとほとんどのタスクで上回っています.LLaMA3とはほぼ互角かやや劣る感じですね.とはいえ、拡散言語モデルの可能性を十分に感じさせる結果です.<br>
+論文では特に言及がなかったと思うのですが、こうやって比較するとQwenは性能高いですね. 全然勝てていません.</p>
+<h4 id="ファインチューニング済モデル">ファインチューニング済モデル
+</h4><p>ファインチューニングした場合の性能比較した結果は以下のとおりです.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png"
+	width="1157"
+	height="555"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w"
+	loading="lazy"
+	
+		alt="性能比較FT"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="208"
+		data-flex-basis="500px"
+	
+></p>
+<p>ファインチューニングしたもの同士で比較するとLLaMA3には劣っているかなという印象ですが、一部のタスクでは上回ることができています. MMLUでは性能が下がっているのですが、Fine Tuning用のデータセットと合っていない可能性が指摘されています.</p>
+<h3 id="reversal-curseへの耐性">Reversal Curseへの耐性
+</h3><p>中国語の詩のデータセットを作り、与えられた詩の前後の句を当てる問題を解かせた結果が以下になります.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png"
+	width="479"
+	height="188"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w"
+	loading="lazy"
+	
+		alt="ReversalCurseの結果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="254"
+		data-flex-basis="611px"
+	
+></p>
+<p>入力された詩の後の句を当てる問題（Forward）はGPTとQwenは高い精度で当てることができていますが、前の句を当てる問題（Reversal）は半分以下しか当たらなくなります. 一方で、提案手法はあまり性能を落とさずに推論できています（とはいえ少し精度が低くはなっていますので解決とは言いづらいですね）.</p>
+<p>論文にはあまり考察がなかったと記憶しているのですが、提案手法はBidirectionalな処理をおこなうため、前後問わずに詩の周辺にはあるトークンの並びが出やすいという傾向を得ることができているのかもしれません.</p>
+<h3 id="サンプリング戦略とその影響">サンプリング戦略とその影響
+</h3><p>LLaDAでは以下のようなトークン再マスク戦略が検討されました：</p>
+<ul>
+<li>ランダム</li>
+<li>確信度ベース</li>
+<li>Block単位の逐次生成（semi-autoregressive remasking）</li>
+</ul>
+<p>それらを比較した結果が以下のとおりです.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png"
+	width="1161"
+	height="231"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w"
+	loading="lazy"
+	
+		alt="サンプリング戦略"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="502"
+		data-flex-basis="1206px"
+	
+></p>
+<p>Fine Tuningまで考えると、低い確信度を再度マスク &amp; semi-autoregressiveが良いという結果になっています.<br>
+semi-autoregressiveを使わずに低い確信度を再度マスクする方法を採用した場合に、ファインチューニング済モデルでは非常に低い性能になっています. ファインチューニングのときに|EOS|トークンでトークン列にパディングをしており、そこの確信度が低いため|EOS|以外の部分のトークンが再マスクされず文の改善がおこなわれないのが理由のようです.
+これに対して、semi-autoregressiveを用いて左のBlockから順に生成していくことでパディング部分の悪さを回避できています.</p>
+<h3 id="推論のサンプリングのステップ数">推論のサンプリングのステップ数
+</h3><p>提案手法はサンプリング回数を増やせばより性能が良くなりそうですが、実際どうなのでしょうか？それをあらわしたのが次の図です.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png"
+	width="1042"
+	height="388"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w"
+	loading="lazy"
+	
+		alt="サンプリングステップ数"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="644px"
+	
+></p>
+<p>横軸が対数スケールなのですが、ステップ数（NFEs）を増やすごとに性能が上がっていくのが分かります. とはいえ1024回もモデルの推論を実行するのは計算コストが大きすぎますね.</p>
+<h3 id="推論の過程">推論の過程
+</h3><p>推論の過程をあらわしたのが次の図で、色が薄いほど推論のステップのなかで先にトークンが固定され、濃いほどあとの方にトークンが固定されたことをあらわします.</p>
+<p><img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png"
+	width="1071"
+	height="271"
+	srcset="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, /blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w"
+	loading="lazy"
+	
+		alt="推論過程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="395"
+		data-flex-basis="948px"
+	
+></p>
+<p>少しおもしろいのが答えの72よりも後に埋まっている部分があることです（同じように計算式の答えよりも後に式が埋まっていたりしますね）.<br>
+人間の思考とは異なる結果にはなっているのですが、再度サンプリングしても同じトークンが得られている（=実はステップによってあまり改善が必要でない例）ということもあるかと思うので、これだけだとちょっと考察しづらいですね.<br>
+ただ、ぼやっとした考えみたいなものを明確にしていっていると捉えると人間に近いとも言えるのかもしれません.</p>
+<h2 id="感想">感想
+</h2><p>LLaDAのアイデア自体はBERTに近く、マスク予測の延長線上にあります.<br>
+BERTでも文章が作れるのでは？と思っていましたが、世の中的にはなかなか芽が出ていなかったところにこういった手法が出たことは嬉しく思います.<br>
+最近になってようやくこの種の手法がうまくいったのは計算量やデータ量の違いなんでしょうか. 自己回帰モデル型で培われたノウハウのおかげなのかもしれませんね.</p>
+<p>Gemini Diffusionは非常に高速で話題になりましたが、今回の提案手法だとサンプリングが多く速度は速くないはずなので、Gemini Diffusionがどうやっているのか気になるところです（実際、論文では推論速度については言及が特にないはずです）.素のモデルの性能が非常に高くてサンプリングステップが少ないのかもしれませんね.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/nlp/">NLP</a>
+        
+            <a href="/blog/tags/%E6%8B%A1%E6%95%A3%E3%83%A2%E3%83%87%E3%83%AB/">拡散モデル</a>
+        
+            <a href="/blog/tags/llm/">LLM</a>
+        
+            <a href="/blog/tags/llama/">LLaMA</a>
+        
+            <a href="/blog/tags/llada/">LLaDA</a>
+        
+            <a href="/blog/tags/bert/">BERT</a>
+        
+            <a href="/blog/tags/%E5%A4%A7%E8%A6%8F%E6%A8%A1%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB/">大規模言語モデル</a>
+        
+            <a href="/blog/tags/mlm/">MLM</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD"
+                        
+                        data-hash="md5-BuV0vMTWKj97Ec2OYez5wA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">外部知識を活用して効率的に性能向上を達成したYOLO-RD</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ"
+                        
+                        data-hash="md5-1ShFTauHDUGCk&#43;2s4Py1ng==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Label StudioのAPIを利用したデータ連携のメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.1e77495d53e35bf34df6d6f0d1efdb56_hu1011397670205575968.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU"
+                        
+                        data-hash="md5-HndJXVPjW/NN9tbw0e/bVg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">回転しているBounding Box向けのIoUのKFIoU</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習"
+                        
+                        data-hash="md5-n8cjZYQWXqwY5OSa4VhN3g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.d81426c36e6ce192b0270dde772a0ab0_hu11956188617242663038.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT"
+                        
+                        data-hash="md5-2BQmw25s4ZKwJw3edyoKsA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">画像と自然言語でのマルチモーダルなImageBERT</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

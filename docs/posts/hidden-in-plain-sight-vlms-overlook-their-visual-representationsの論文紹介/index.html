@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今回紹介するのは Hidden in plain sight: VLMs overlook their visual representations です. テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています. DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が大きく下がることを示しています. 例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます. DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます. LLaVAによるVLMの実現 まず、VLMはどのように実現されているかの話になります. 本論文で扱われているLLaVAではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています. LLaVAでのファインチューニングは次の2段階の処理から構成されるようです. Projector層単体ののファインチューニング EndToEndのファインチューニング 比較実験の方法 LLaVAはEndToEndでファインチューニングしていますが、本論文ではProjector層のファインチューニングした場合のVLMとVisualモデルの比較を中心におこなっています.これは、VLMのVisualモデルの重みを固定しておくことで、VLMとVisualモデル単体との正確な比較をおこなうようにするためです. ただし、VLM用にEndToEndでファインチューニングされた既存のオープンソースのVisualモデルでさえも性能悪化の傾向があることを示すため、 QwenやPhi-3などでも一部の実験をおこなっています. タスク 以下では扱っているタスクの一覧を示します. タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています. カメラ距離を推定するタスク どちらのBounding Boxのほうがカメラに近いかを判定するタスク. LLMにはPromptとBounding Box付きの画像を入力し、どちらのBounding Boxがカメラに近いかを出力させる. Visualモデルはそのままだと解くことができないため、NYUv2という深度を推定するタスクのデータセットを用いてVisualモデルにDPT Headを追加して訓練する. DPT Headは奥行きの推定の出力部分 視覚的な類似箇所を推定するタスク 2枚の画像から視覚的に似ている箇所を見つけるタスク. Reference画像に1つの点があり、もう一枚の画像にはA,B,C,Dの4つの点を用意する. VLMにはどの点が対応するかを出力させる. Visualモデルではそのまま解くことはできないため、Reference画像の点の特徴量と一番類似度が高くなる特徴量に対応する点をA~Dから選ぶ. 機能的な類似箇所を推定するタスク 2枚の画像から機能的に似ている箇所を見つけるタスク. 問題の解き方は1つ前のタスクと同じです. 同じ位置を推定するタスク 2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク 問題の解き方は1つ前のタスクと同じです. 最も似ていない3Dオブジェクトを推定するタスク 4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク. VLMは4つのなかで一番似ていない画像を出力させる. VisualモデルはVisualモデルの[CLS]トークン部分の特徴量同士の類似度をもとに選択する. 似ている画風の絵画を選択するタスク 与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク. VLMは3つの画像を与えて、似ている画風の画像を出力させる. Visualモデルの場合、画像のパッチの各特徴量からグラム行列を作ると画像のstyleを表現できることを利用し、Reference画像と比較対象画像のグラム行列の二乗誤差が小さいものを似ている画風であると選択する. 実験結果 Visualモデルとprojector層をFTしたVLMの性能比較 Visualモデル単体に比べてVLMは性能が悪化し、チャンスレートよりも低くなりうる. オープンソースのVLMとVisualモデル部分の性能比較 他のVLMでのVisualモデルとの性能比較. この結果でも、基本的にはVisualモデル単体のほうが性能が高い. InternVLの3D Objectの問題のように、そもそもVisualモデルの性能が低い場合には改善することもある. 以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&hellip; 目隠ししたケースでの性能 VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.">
+<title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
+
+<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/'>
+
+<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介">
+<meta property='og:description' content="今回紹介するのは Hidden in plain sight: VLMs overlook their visual representations です. テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています. DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が大きく下がることを示しています. 例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます. DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます. LLaVAによるVLMの実現 まず、VLMはどのように実現されているかの話になります. 本論文で扱われているLLaVAではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています. LLaVAでのファインチューニングは次の2段階の処理から構成されるようです. Projector層単体ののファインチューニング EndToEndのファインチューニング 比較実験の方法 LLaVAはEndToEndでファインチューニングしていますが、本論文ではProjector層のファインチューニングした場合のVLMとVisualモデルの比較を中心におこなっています.これは、VLMのVisualモデルの重みを固定しておくことで、VLMとVisualモデル単体との正確な比較をおこなうようにするためです. ただし、VLM用にEndToEndでファインチューニングされた既存のオープンソースのVisualモデルでさえも性能悪化の傾向があることを示すため、 QwenやPhi-3などでも一部の実験をおこなっています. タスク 以下では扱っているタスクの一覧を示します. タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています. カメラ距離を推定するタスク どちらのBounding Boxのほうがカメラに近いかを判定するタスク. LLMにはPromptとBounding Box付きの画像を入力し、どちらのBounding Boxがカメラに近いかを出力させる. Visualモデルはそのままだと解くことができないため、NYUv2という深度を推定するタスクのデータセットを用いてVisualモデルにDPT Headを追加して訓練する. DPT Headは奥行きの推定の出力部分 視覚的な類似箇所を推定するタスク 2枚の画像から視覚的に似ている箇所を見つけるタスク. Reference画像に1つの点があり、もう一枚の画像にはA,B,C,Dの4つの点を用意する. VLMにはどの点が対応するかを出力させる. Visualモデルではそのまま解くことはできないため、Reference画像の点の特徴量と一番類似度が高くなる特徴量に対応する点をA~Dから選ぶ. 機能的な類似箇所を推定するタスク 2枚の画像から機能的に似ている箇所を見つけるタスク. 問題の解き方は1つ前のタスクと同じです. 同じ位置を推定するタスク 2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク 問題の解き方は1つ前のタスクと同じです. 最も似ていない3Dオブジェクトを推定するタスク 4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク. VLMは4つのなかで一番似ていない画像を出力させる. VisualモデルはVisualモデルの[CLS]トークン部分の特徴量同士の類似度をもとに選択する. 似ている画風の絵画を選択するタスク 与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク. VLMは3つの画像を与えて、似ている画風の画像を出力させる. Visualモデルの場合、画像のパッチの各特徴量からグラム行列を作ると画像のstyleを表現できることを利用し、Reference画像と比較対象画像のグラム行列の二乗誤差が小さいものを似ている画風であると選択する. 実験結果 Visualモデルとprojector層をFTしたVLMの性能比較 Visualモデル単体に比べてVLMは性能が悪化し、チャンスレートよりも低くなりうる. オープンソースのVLMとVisualモデル部分の性能比較 他のVLMでのVisualモデルとの性能比較. この結果でも、基本的にはVisualモデル単体のほうが性能が高い. InternVLの3D Objectの問題のように、そもそもVisualモデルの性能が低い場合には改善することもある. 以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&hellip; 目隠ししたケースでの性能 VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.">
+<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/'>
+<meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='NLP' /><meta property='article:tag' content='LLM' /><meta property='article:tag' content='大規模言語モデル' /><meta property='article:tag' content='VLM' /><meta property='article:tag' content='CLIP' /><meta property='article:tag' content='画像' /><meta property='article:published_time' content='2025-07-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png' />
+<meta name="twitter:title" content="「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介">
+<meta name="twitter:description" content="今回紹介するのは Hidden in plain sight: VLMs overlook their visual representations です. テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています. DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が大きく下がることを示しています. 例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます. DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます. LLaVAによるVLMの実現 まず、VLMはどのように実現されているかの話になります. 本論文で扱われているLLaVAではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています. LLaVAでのファインチューニングは次の2段階の処理から構成されるようです. Projector層単体ののファインチューニング EndToEndのファインチューニング 比較実験の方法 LLaVAはEndToEndでファインチューニングしていますが、本論文ではProjector層のファインチューニングした場合のVLMとVisualモデルの比較を中心におこなっています.これは、VLMのVisualモデルの重みを固定しておくことで、VLMとVisualモデル単体との正確な比較をおこなうようにするためです. ただし、VLM用にEndToEndでファインチューニングされた既存のオープンソースのVisualモデルでさえも性能悪化の傾向があることを示すため、 QwenやPhi-3などでも一部の実験をおこなっています. タスク 以下では扱っているタスクの一覧を示します. タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています. カメラ距離を推定するタスク どちらのBounding Boxのほうがカメラに近いかを判定するタスク. LLMにはPromptとBounding Box付きの画像を入力し、どちらのBounding Boxがカメラに近いかを出力させる. Visualモデルはそのままだと解くことができないため、NYUv2という深度を推定するタスクのデータセットを用いてVisualモデルにDPT Headを追加して訓練する. DPT Headは奥行きの推定の出力部分 視覚的な類似箇所を推定するタスク 2枚の画像から視覚的に似ている箇所を見つけるタスク. Reference画像に1つの点があり、もう一枚の画像にはA,B,C,Dの4つの点を用意する. VLMにはどの点が対応するかを出力させる. Visualモデルではそのまま解くことはできないため、Reference画像の点の特徴量と一番類似度が高くなる特徴量に対応する点をA~Dから選ぶ. 機能的な類似箇所を推定するタスク 2枚の画像から機能的に似ている箇所を見つけるタスク. 問題の解き方は1つ前のタスクと同じです. 同じ位置を推定するタスク 2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク 問題の解き方は1つ前のタスクと同じです. 最も似ていない3Dオブジェクトを推定するタスク 4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク. VLMは4つのなかで一番似ていない画像を出力させる. VisualモデルはVisualモデルの[CLS]トークン部分の特徴量同士の類似度をもとに選択する. 似ている画風の絵画を選択するタスク 与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク. VLMは3つの画像を与えて、似ている画風の画像を出力させる. Visualモデルの場合、画像のパッチの各特徴量からグラム行列を作ると画像のstyleを表現できることを利用し、Reference画像と比較対象画像のグラム行列の二乗誤差が小さいものを似ている画風であると選択する. 実験結果 Visualモデルとprojector層をFTしたVLMの性能比較 Visualモデル単体に比べてVLMは性能が悪化し、チャンスレートよりも低くなりうる. オープンソースのVLMとVisualモデル部分の性能比較 他のVLMでのVisualモデルとの性能比較. この結果でも、基本的にはVisualモデル単体のほうが性能が高い. InternVLの3D Objectの問題のように、そもそもVisualモデルの性能が低い場合には改善することもある. 以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&hellip; 目隠ししたケースでの性能 VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png' />
+    <link rel="shortcut icon" href="/blog/favicon.ico" />
+
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFC5W8DKV1"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-LFC5W8DKV1');
+        }
+      </script>
+    
+  
+
+<style>
+  section.article-content h2 {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+  }
+
+  :root {
+    --ja-font-family: "メイリオ", "Meiryo";
+    --base-font-family: "Lato", var(--sys-font-family), var(--ja-font-family),
+      sans-serif;
+    --body-background: #ffffe0;
+  }
+
+
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="メニューを開く・閉じる">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐾</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/opqrstuvcut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">
+                <img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm_hu5278883635697723372.png"
+                        srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm_hu5278883635697723372.png 800w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm_hu3223061980423756862.png 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+                ディープラーニング
+            </a>
+        
+            <a href="/blog/categories/llm/" >
+                LLM
+            </a>
+        
+            <a href="/blog/categories/nlp/" >
+                NLP
+            </a>
+        
+            <a href="/blog/categories/vlm/" >
+                VLM
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">7月 28, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>今回紹介するのは
+<a class="link" href="https://arxiv.org/pdf/2506.08008"  target="_blank" rel="noopener"
+    >Hidden in plain sight: VLMs overlook their visual representations</a>
+です.</p>
+<p>テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています.
+DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が<strong>大きく下がる</strong>ことを示しています.</p>
+<p>例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.<br>
+DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png"
+	width="1337"
+	height="824"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w"
+	loading="lazy"
+	
+		alt="性能比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="389px"
+	
+></p>
+<h2 id="llavaによるvlmの実現">LLaVAによるVLMの実現
+</h2><p>まず、VLMはどのように実現されているかの話になります.<br>
+本論文で扱われている<a class="link" href="https://github.com/TRI-ML/prismatic-vlms"  target="_blank" rel="noopener"
+    >LLaVA</a>ではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png"
+	width="1607"
+	height="542"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w"
+	loading="lazy"
+	
+		alt="LLaVAの構成"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="296"
+		data-flex-basis="711px"
+	
+></p>
+<p>LLaVAでのファインチューニングは次の2段階の処理から構成されるようです.</p>
+<ol>
+<li>Projector層単体ののファインチューニング</li>
+<li>EndToEndのファインチューニング</li>
+</ol>
+<h2 id="比較実験の方法">比較実験の方法
+</h2><p>LLaVAはEndToEndでファインチューニングしていますが、本論文ではProjector層のファインチューニングした場合のVLMとVisualモデルの比較を中心におこなっています.これは、VLMのVisualモデルの重みを固定しておくことで、VLMとVisualモデル単体との正確な比較をおこなうようにするためです.<br>
+ただし、VLM用にEndToEndでファインチューニングされた既存のオープンソースのVisualモデルでさえも性能悪化の傾向があることを示すため、 QwenやPhi-3などでも一部の実験をおこなっています.</p>
+<hr>
+<h2 id="タスク">タスク
+</h2><p>以下では扱っているタスクの一覧を示します.<br>
+タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています.</p>
+<h3 id="カメラ距離を推定するタスク">カメラ距離を推定するタスク
+</h3><p>どちらのBounding Boxのほうがカメラに近いかを判定するタスク.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png"
+	width="1320"
+	height="264"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w"
+	loading="lazy"
+	
+		alt="カメラ距離"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="500"
+		data-flex-basis="1200px"
+	
+></p>
+<ul>
+<li>LLMにはPromptとBounding Box付きの画像を入力し、どちらのBounding Boxがカメラに近いかを出力させる.</li>
+<li>Visualモデルはそのままだと解くことができないため、NYUv2という深度を推定するタスクのデータセットを用いてVisualモデルにDPT Headを追加して訓練する.
+<ul>
+<li>DPT Headは奥行きの推定の出力部分</li>
+</ul>
+</li>
+</ul>
+<h3 id="視覚的な類似箇所を推定するタスク">視覚的な類似箇所を推定するタスク
+</h3><p>2枚の画像から視覚的に似ている箇所を見つけるタスク.
+<img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png"
+	width="1320"
+	height="264"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w"
+	loading="lazy"
+	
+		alt="類似箇所"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="500"
+		data-flex-basis="1200px"
+	
+></p>
+<ul>
+<li>Reference画像に1つの点があり、もう一枚の画像にはA,B,C,Dの4つの点を用意する.</li>
+<li>VLMにはどの点が対応するかを出力させる.</li>
+<li>Visualモデルではそのまま解くことはできないため、Reference画像の点の特徴量と一番類似度が高くなる特徴量に対応する点をA~Dから選ぶ.</li>
+</ul>
+<h3 id="機能的な類似箇所を推定するタスク">機能的な類似箇所を推定するタスク
+</h3><p>2枚の画像から機能的に似ている箇所を見つけるタスク.
+<img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png"
+	width="1328"
+	height="258"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w"
+	loading="lazy"
+	
+		alt="機能的類似箇所"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="514"
+		data-flex-basis="1235px"
+	
+></p>
+<p>問題の解き方は1つ前のタスクと同じです.</p>
+<h3 id="同じ位置を推定するタスク">同じ位置を推定するタスク
+</h3><p>2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク
+<img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png"
+	width="1317"
+	height="264"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w"
+	loading="lazy"
+	
+		alt="同定"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="498"
+		data-flex-basis="1197px"
+	
+></p>
+<p>問題の解き方は1つ前のタスクと同じです.</p>
+<h3 id="最も似ていない3dオブジェクトを推定するタスク">最も似ていない3Dオブジェクトを推定するタスク
+</h3><p>4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク.
+<img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png"
+	width="1328"
+	height="309"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w"
+	loading="lazy"
+	
+		alt="3D"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="429"
+		data-flex-basis="1031px"
+	
+></p>
+<ul>
+<li>VLMは4つのなかで一番似ていない画像を出力させる.</li>
+<li>VisualモデルはVisualモデルの[CLS]トークン部分の特徴量同士の類似度をもとに選択する.</li>
+</ul>
+<h3 id="似ている画風の絵画を選択するタスク">似ている画風の絵画を選択するタスク
+</h3><p>与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク.
+<img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png"
+	width="1317"
+	height="259"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w"
+	loading="lazy"
+	
+		alt="art"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="508"
+		data-flex-basis="1220px"
+	
+></p>
+<ul>
+<li>VLMは3つの画像を与えて、似ている画風の画像を出力させる.</li>
+<li>Visualモデルの場合、画像のパッチの各特徴量からグラム行列を作ると画像のstyleを表現できることを利用し、Reference画像と比較対象画像のグラム行列の二乗誤差が小さいものを似ている画風であると選択する.</li>
+</ul>
+<h2 id="実験結果">実験結果
+</h2><h3 id="visualモデルとprojector層をftしたvlmの性能比較">Visualモデルとprojector層をFTしたVLMの性能比較
+</h3><p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png"
+	width="1327"
+	height="450"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w"
+	loading="lazy"
+	
+		alt="VisualモデルとVLMの比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="294"
+		data-flex-basis="707px"
+	
+></p>
+<ul>
+<li>Visualモデル単体に比べてVLMは性能が悪化し、チャンスレートよりも低くなりうる.</li>
+</ul>
+<h3 id="オープンソースのvlmとvisualモデル部分の性能比較">オープンソースのVLMとVisualモデル部分の性能比較
+</h3><p>他のVLMでのVisualモデルとの性能比較.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png"
+	width="1330"
+	height="429"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w"
+	loading="lazy"
+	
+		alt="オープンソースモデルとの比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="310"
+		data-flex-basis="744px"
+	
+></p>
+<ul>
+<li>この結果でも、基本的にはVisualモデル単体のほうが性能が高い.
+<ul>
+<li>InternVLの3D Objectの問題のように、そもそもVisualモデルの性能が低い場合には改善することもある.</li>
+</ul>
+</li>
+</ul>
+<p><strong>以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&hellip;</strong></p>
+<h3 id="目隠ししたケースでの性能">目隠ししたケースでの性能
+</h3><p>VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png"
+	width="1330"
+	height="385"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w"
+	loading="lazy"
+	
+		alt="目隠ししたケースでの出力分布"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="345"
+		data-flex-basis="829px"
+	
+></p>
+<ul>
+<li>入力画像のある場合（青）と目隠ししたケース（オレンジ）で出力の分布に大きな違いがない.</li>
+<li>もし、入力画像が真っ白である場合には出力がランダムになりそうだが、実際には大きな偏りがある.
+<ul>
+<li>LLMにバイアスがあり、それがどちらの分布にもあらわれているを思われる.</li>
+</ul>
+</li>
+</ul>
+<p><strong>以上の結果から、モデルは画像を適切に参照して出力ができておらず、もしかするとVisualモデルの情報が途中で失われている？</strong></p>
+<h3 id="中間層の特徴量の比較">中間層の特徴量の比較
+</h3><p>VLMの層の途中でVisualモデルの情報が失われていないかを確認するための実験.
+各層の特徴量ををもとにして類似箇所を見つけるタスクや位置の推定タスクを解く. もしうまく解けるようであれば、特徴量にVisualモデルからの情報が伝搬できている.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png"
+	width="787"
+	height="625"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w"
+	loading="lazy"
+	
+		alt="特徴量比較"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="302px"
+	
+></p>
+<ul>
+<li>グラフの領域内の左部分（白い領域）はVisualモデルの情報をそのまま利用している部分だが、そこから性能が落ち込んでいる様子はない.
+<ul>
+<li>つまりVisualモデルの情報が失われているわけではない.</li>
+</ul>
+</li>
+<li>問題・モデルによっては最終層に近いところで大きな性能悪化が見られる.
+<ul>
+<li>自然言語の回答の生成の優先度が高くなり 画像の情報が失われる？</li>
+</ul>
+</li>
+<li>Art StyleのIN-1kでは徐々に性能があがっているため、モデルによっては層を経ることで質の高い特徴量を作り出せている.
+<ul>
+<li>それにも関わらず先程のFigure3によると、モデルにテキストを生成させて回答させると高くても55%程度のAccuracyになる.</li>
+</ul>
+</li>
+</ul>
+<h3 id="プロンプトチューニング">プロンプトチューニング
+</h3><p>プロンプトによって性能を改善できるのかを実験.
+テキストのプロンプトの前に学習可能なembeddingを1、5、10トークン追加する.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png"
+	width="1347"
+	height="323"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w"
+	loading="lazy"
+	
+		alt="プロンプトチューニング"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="417"
+		data-flex-basis="1000px"
+	
+></p>
+<ul>
+<li>プロンプトにembeddingを1つ追加したときは性能が少し改善</li>
+<li>1つより増やしても良い効果は得られていない</li>
+</ul>
+<h3 id="llm側のファインチューニング">LLM側のファインチューニング
+</h3><p>LoRAによるLLM部分のFTによって性能を改善できるのかを実験.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png"
+	width="1347"
+	height="400"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w"
+	loading="lazy"
+	
+		alt="LLMファインチューニング"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="336"
+		data-flex-basis="808px"
+	
+></p>
+<ul>
+<li>LLMのFT後は精度が向上（3Dの問題はあまり精度があがらないが、LoRAのパラメーター追加が少なすぎた？）.</li>
+<li>ViT部分やprojector層のFTはあまり効果がない.</li>
+</ul>
+<p>また、FT前後でのAttentin Mapの差を可視化したのが以下の図.</p>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png"
+	width="716"
+	height="609"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w"
+	loading="lazy"
+	
+		alt="Attention Mapの差"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="282px"
+	
+></p>
+<ul>
+<li>FT後は参照すべき箇所のAttentionが大きくなる.</li>
+</ul>
+<h3 id="出力の分布">出力の分布
+</h3><p>以下で定義されるTotal Variation距離を正解ラベルの分布とモデルの出力分布から計算.</p>
+<p>$$
+{\rm TV} := \frac{1}{2} \sum_{i=1}^n |P(x_i) - Q(x_i)|.
+$$</p>
+<ul>
+<li>各ラベルの頻度の差を取っており、2つの分布が近いほど0に近づく.</li>
+</ul>
+<p><img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png"
+	width="1342"
+	height="399"
+	srcset="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, /blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w"
+	loading="lazy"
+	
+		alt="出力の分布"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="336"
+		data-flex-basis="807px"
+	
+></p>
+<ul>
+<li>全体の傾向として、Original（元のVLM）はTV距離が大きいが、LLMのFTによってTV距離が0に近づいており、モデルの出力分布が正解ラベルの分布に近づくことができている.</li>
+<li>ViTではほとんど改善されないが、projectorのFTでは改善されている.</li>
+</ul>
+<h2 id="感想">感想
+</h2><p>本論文ではVLLMが明確に苦手とするタスクがあり、なかなか改善が難しいという結果でした.
+近年のAI活用ブームを考えると、従来のモデルをVLMで気軽に置き換えるというようにはいかないことが示されたのは有意義な内容かと思います.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+        
+            <a href="/blog/tags/nlp/">NLP</a>
+        
+            <a href="/blog/tags/llm/">LLM</a>
+        
+            <a href="/blog/tags/%E5%A4%A7%E8%A6%8F%E6%A8%A1%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB/">大規模言語モデル</a>
+        
+            <a href="/blog/tags/vlm/">VLM</a>
+        
+            <a href="/blog/tags/clip/">CLIP</a>
+        
+            <a href="/blog/tags/%E7%94%BB%E5%83%8F/">画像</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">関連するコンテンツ</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.67f8b16277336689ee2c72556430c841_hu13887809263919742814.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 拡散言語モデルのLLaDA"
+                        
+                        data-hash="md5-Z/ixYnczZonuLHJVZDDIQQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">拡散言語モデルのLLaDA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD"
+                        
+                        data-hash="md5-BuV0vMTWKj97Ec2OYez5wA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">外部知識を活用して効率的に性能向上を達成したYOLO-RD</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ"
+                        
+                        data-hash="md5-1ShFTauHDUGCk&#43;2s4Py1ng==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Label StudioのAPIを利用したデータ連携のメモ</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.1e77495d53e35bf34df6d6f0d1efdb56_hu1011397670205575968.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU"
+                        
+                        data-hash="md5-HndJXVPjW/NN9tbw0e/bVg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">回転しているBounding Box向けのIoUのKFIoU</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+        
+        
+            <div class="article-image">
+                <img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習"
+                        
+                        data-hash="md5-n8cjZYQWXqwY5OSa4VhN3g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-opqrstuvcut-github-io-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2025 MatLoverによるMatlab以外のブログ
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> で構築されています。 <br />
+        テーマ <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> は <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> によって設計されています。
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

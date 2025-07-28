@@ -6,7 +6,376 @@
         <description>Recent content on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 30 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
+        <link>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
+        <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
+&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2506.08008&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hidden in plain sight: VLMs overlook their visual representations&lt;/a&gt;
+です.&lt;/p&gt;
+&lt;p&gt;テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています.
+DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が&lt;strong&gt;大きく下がる&lt;/strong&gt;ことを示しています.&lt;/p&gt;
+&lt;p&gt;例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.&lt;br&gt;
+DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
+	width=&#34;1337&#34;
+	height=&#34;824&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;性能比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;389px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;llavaによるvlmの実現&#34;&gt;LLaVAによるVLMの実現
+&lt;/h2&gt;&lt;p&gt;まず、VLMはどのように実現されているかの話になります.&lt;br&gt;
+本論文で扱われている&lt;a class=&#34;link&#34; href=&#34;https://github.com/TRI-ML/prismatic-vlms&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LLaVA&lt;/a&gt;ではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
+	width=&#34;1607&#34;
+	height=&#34;542&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;LLaVAの構成&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;296&#34;
+		data-flex-basis=&#34;711px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;LLaVAでのファインチューニングは次の2段階の処理から構成されるようです.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Projector層単体ののファインチューニング&lt;/li&gt;
+&lt;li&gt;EndToEndのファインチューニング&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;比較実験の方法&#34;&gt;比較実験の方法
+&lt;/h2&gt;&lt;p&gt;LLaVAはEndToEndでファインチューニングしていますが、本論文ではProjector層のファインチューニングした場合のVLMとVisualモデルの比較を中心におこなっています.これは、VLMのVisualモデルの重みを固定しておくことで、VLMとVisualモデル単体との正確な比較をおこなうようにするためです.&lt;br&gt;
+ただし、VLM用にEndToEndでファインチューニングされた既存のオープンソースのVisualモデルでさえも性能悪化の傾向があることを示すため、 QwenやPhi-3などでも一部の実験をおこなっています.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;タスク&#34;&gt;タスク
+&lt;/h2&gt;&lt;p&gt;以下では扱っているタスクの一覧を示します.&lt;br&gt;
+タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています.&lt;/p&gt;
+&lt;h3 id=&#34;カメラ距離を推定するタスク&#34;&gt;カメラ距離を推定するタスク
+&lt;/h3&gt;&lt;p&gt;どちらのBounding Boxのほうがカメラに近いかを判定するタスク.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
+	width=&#34;1320&#34;
+	height=&#34;264&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;カメラ距離&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;500&#34;
+		data-flex-basis=&#34;1200px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LLMにはPromptとBounding Box付きの画像を入力し、どちらのBounding Boxがカメラに近いかを出力させる.&lt;/li&gt;
+&lt;li&gt;Visualモデルはそのままだと解くことができないため、NYUv2という深度を推定するタスクのデータセットを用いてVisualモデルにDPT Headを追加して訓練する.
+&lt;ul&gt;
+&lt;li&gt;DPT Headは奥行きの推定の出力部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;視覚的な類似箇所を推定するタスク&#34;&gt;視覚的な類似箇所を推定するタスク
+&lt;/h3&gt;&lt;p&gt;2枚の画像から視覚的に似ている箇所を見つけるタスク.
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
+	width=&#34;1320&#34;
+	height=&#34;264&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;類似箇所&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;500&#34;
+		data-flex-basis=&#34;1200px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reference画像に1つの点があり、もう一枚の画像にはA,B,C,Dの4つの点を用意する.&lt;/li&gt;
+&lt;li&gt;VLMにはどの点が対応するかを出力させる.&lt;/li&gt;
+&lt;li&gt;Visualモデルではそのまま解くことはできないため、Reference画像の点の特徴量と一番類似度が高くなる特徴量に対応する点をA~Dから選ぶ.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;機能的な類似箇所を推定するタスク&#34;&gt;機能的な類似箇所を推定するタスク
+&lt;/h3&gt;&lt;p&gt;2枚の画像から機能的に似ている箇所を見つけるタスク.
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
+	width=&#34;1328&#34;
+	height=&#34;258&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;機能的類似箇所&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;514&#34;
+		data-flex-basis=&#34;1235px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
+&lt;h3 id=&#34;同じ位置を推定するタスク&#34;&gt;同じ位置を推定するタスク
+&lt;/h3&gt;&lt;p&gt;2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;264&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;同定&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;498&#34;
+		data-flex-basis=&#34;1197px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
+&lt;h3 id=&#34;最も似ていない3dオブジェクトを推定するタスク&#34;&gt;最も似ていない3Dオブジェクトを推定するタスク
+&lt;/h3&gt;&lt;p&gt;4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク.
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
+	width=&#34;1328&#34;
+	height=&#34;309&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;3D&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;429&#34;
+		data-flex-basis=&#34;1031px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VLMは4つのなかで一番似ていない画像を出力させる.&lt;/li&gt;
+&lt;li&gt;VisualモデルはVisualモデルの[CLS]トークン部分の特徴量同士の類似度をもとに選択する.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;似ている画風の絵画を選択するタスク&#34;&gt;似ている画風の絵画を選択するタスク
+&lt;/h3&gt;&lt;p&gt;与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク.
+&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;259&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;art&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;508&#34;
+		data-flex-basis=&#34;1220px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VLMは3つの画像を与えて、似ている画風の画像を出力させる.&lt;/li&gt;
+&lt;li&gt;Visualモデルの場合、画像のパッチの各特徴量からグラム行列を作ると画像のstyleを表現できることを利用し、Reference画像と比較対象画像のグラム行列の二乗誤差が小さいものを似ている画風であると選択する.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;実験結果&#34;&gt;実験結果
+&lt;/h2&gt;&lt;h3 id=&#34;visualモデルとprojector層をftしたvlmの性能比較&#34;&gt;Visualモデルとprojector層をFTしたVLMの性能比較
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
+	width=&#34;1327&#34;
+	height=&#34;450&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;VisualモデルとVLMの比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;294&#34;
+		data-flex-basis=&#34;707px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Visualモデル単体に比べてVLMは性能が悪化し、チャンスレートよりも低くなりうる.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;オープンソースのvlmとvisualモデル部分の性能比較&#34;&gt;オープンソースのVLMとVisualモデル部分の性能比較
+&lt;/h3&gt;&lt;p&gt;他のVLMでのVisualモデルとの性能比較.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
+	width=&#34;1330&#34;
+	height=&#34;429&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;オープンソースモデルとの比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;310&#34;
+		data-flex-basis=&#34;744px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;この結果でも、基本的にはVisualモデル単体のほうが性能が高い.
+&lt;ul&gt;
+&lt;li&gt;InternVLの3D Objectの問題のように、そもそもVisualモデルの性能が低い場合には改善することもある.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;目隠ししたケースでの性能&#34;&gt;目隠ししたケースでの性能
+&lt;/h3&gt;&lt;p&gt;VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
+	width=&#34;1330&#34;
+	height=&#34;385&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;目隠ししたケースでの出力分布&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;345&#34;
+		data-flex-basis=&#34;829px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;入力画像のある場合（青）と目隠ししたケース（オレンジ）で出力の分布に大きな違いがない.&lt;/li&gt;
+&lt;li&gt;もし、入力画像が真っ白である場合には出力がランダムになりそうだが、実際には大きな偏りがある.
+&lt;ul&gt;
+&lt;li&gt;LLMにバイアスがあり、それがどちらの分布にもあらわれているを思われる.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;以上の結果から、モデルは画像を適切に参照して出力ができておらず、もしかするとVisualモデルの情報が途中で失われている？&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;中間層の特徴量の比較&#34;&gt;中間層の特徴量の比較
+&lt;/h3&gt;&lt;p&gt;VLMの層の途中でVisualモデルの情報が失われていないかを確認するための実験.
+各層の特徴量ををもとにして類似箇所を見つけるタスクや位置の推定タスクを解く. もしうまく解けるようであれば、特徴量にVisualモデルからの情報が伝搬できている.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
+	width=&#34;787&#34;
+	height=&#34;625&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;特徴量比較&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;125&#34;
+		data-flex-basis=&#34;302px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;グラフの領域内の左部分（白い領域）はVisualモデルの情報をそのまま利用している部分だが、そこから性能が落ち込んでいる様子はない.
+&lt;ul&gt;
+&lt;li&gt;つまりVisualモデルの情報が失われているわけではない.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;問題・モデルによっては最終層に近いところで大きな性能悪化が見られる.
+&lt;ul&gt;
+&lt;li&gt;自然言語の回答の生成の優先度が高くなり 画像の情報が失われる？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Art StyleのIN-1kでは徐々に性能があがっているため、モデルによっては層を経ることで質の高い特徴量を作り出せている.
+&lt;ul&gt;
+&lt;li&gt;それにも関わらず先程のFigure3によると、モデルにテキストを生成させて回答させると高くても55%程度のAccuracyになる.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;プロンプトチューニング&#34;&gt;プロンプトチューニング
+&lt;/h3&gt;&lt;p&gt;プロンプトによって性能を改善できるのかを実験.
+テキストのプロンプトの前に学習可能なembeddingを1、5、10トークン追加する.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
+	width=&#34;1347&#34;
+	height=&#34;323&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;プロンプトチューニング&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;417&#34;
+		data-flex-basis=&#34;1000px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;プロンプトにembeddingを1つ追加したときは性能が少し改善&lt;/li&gt;
+&lt;li&gt;1つより増やしても良い効果は得られていない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;llm側のファインチューニング&#34;&gt;LLM側のファインチューニング
+&lt;/h3&gt;&lt;p&gt;LoRAによるLLM部分のFTによって性能を改善できるのかを実験.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
+	width=&#34;1347&#34;
+	height=&#34;400&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;LLMファインチューニング&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;336&#34;
+		data-flex-basis=&#34;808px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LLMのFT後は精度が向上（3Dの問題はあまり精度があがらないが、LoRAのパラメーター追加が少なすぎた？）.&lt;/li&gt;
+&lt;li&gt;ViT部分やprojector層のFTはあまり効果がない.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;また、FT前後でのAttentin Mapの差を可視化したのが以下の図.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
+	width=&#34;716&#34;
+	height=&#34;609&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Attention Mapの差&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;117&#34;
+		data-flex-basis=&#34;282px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FT後は参照すべき箇所のAttentionが大きくなる.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;出力の分布&#34;&gt;出力の分布
+&lt;/h3&gt;&lt;p&gt;以下で定義されるTotal Variation距離を正解ラベルの分布とモデルの出力分布から計算.&lt;/p&gt;
+&lt;p&gt;$$
+{\rm TV} := \frac{1}{2} \sum_{i=1}^n |P(x_i) - Q(x_i)|.
+$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;各ラベルの頻度の差を取っており、2つの分布が近いほど0に近づく.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
+	width=&#34;1342&#34;
+	height=&#34;399&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;出力の分布&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;336&#34;
+		data-flex-basis=&#34;807px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全体の傾向として、Original（元のVLM）はTV距離が大きいが、LLMのFTによってTV距離が0に近づいており、モデルの出力分布が正解ラベルの分布に近づくことができている.&lt;/li&gt;
+&lt;li&gt;ViTではほとんど改善されないが、projectorのFTでは改善されている.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;感想&#34;&gt;感想
+&lt;/h2&gt;&lt;p&gt;本論文ではVLLMが明確に苦手とするタスクがあり、なかなか改善が難しいという結果でした.
+近年のAI活用ブームを考えると、従来のモデルをVLMで気軽に置き換えるというようにはいかないことが示されたのは有意義な内容かと思います.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>拡散言語モデルのLLaDA</title>
         <link>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
         <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>

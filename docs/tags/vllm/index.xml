@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>VLLM on MatLoverによるMatlab以外のブログ</title>
+        <link>http://localhost:1313/blog/tags/vllm/</link>
+        <description>Recent content in VLLM on MatLoverによるMatlab以外のブログ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ja-jp</language>
+        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/blog/tags/vllm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
+        <link>http://localhost:1313/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
+        <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
+        <description>&lt;img src="http://localhost:1313/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
+&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2506.08008&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hidden in plain sight: VLMs overlook their visual representations&lt;/a&gt;
+です.&lt;/p&gt;
+&lt;p&gt;テキストの生成というよりも画像が中心となるタスクに対し、オープンソースのVisual Language Modelの性能について調査した論文になっています.
+DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が&lt;strong&gt;大きく下がる&lt;/strong&gt;ことを示しています.&lt;/p&gt;
+&lt;p&gt;例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.&lt;br&gt;
+DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

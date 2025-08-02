@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
 <title>おすすめの(Neo)Vimプラグイン</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="おすすめの(Neo)Vimプラグイン">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="おすすめの(Neo)Vimプラグイン">
 <meta property='og:description' content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim.">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NeoVim' /><meta property='article:tag' content='Vim' /><meta property='article:published_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='NeoVim' /><meta property='article:tag' content='Vim' /><meta property='article:published_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
 <meta name="twitter:title" content="おすすめの(Neo)Vimプラグイン">
 <meta name="twitter:description" content="NeoVimで利用しているプラグインはたくさんあるのですが、個人的に激推なプラグインを紹介します。 下記の設定例の記載が特にないプラグインはLazyでプラグインを読み込んでいるだけのものになります。 vim-asterisk https://github.com/haya14busa/vim-asterisk アスタリスクを押すと、バッファ内のカーソル下の単語が検索できると思うのですが、通常だとヒットした単語にすぐに移動してしまいます。 個人的には、カーソル下の単語と同じ単語あるんだっけ？と思ったときにもアスタリスクを利用するので、移動してほしくありませんでした。 vim-asteriskを入れるとそういった問題が起きなくなります。 設定例 { &#34;haya14busa/vim-asterisk&#34;, config = function() vim.api.nvim_set_keymap(&#34;&#34;, &#34;*&#34;, &#34;&lt;Plug&gt;(asterisk-z*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;#&#34;, &#34;&lt;Plug&gt;(asterisk-z#)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g*&#34;, &#34;&lt;Plug&gt;(asterisk-gz*)&#34;, {}) vim.api.nvim_set_keymap(&#34;&#34;, &#34;g#&#34;, &#34;&lt;Plug&gt;(asterisk-gz#)&#34;, {}) end, } neoscroll.nvim https://github.com/karb94/neoscroll.nvim C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。 お使いのブラウザは埋め込み動画をサポートしていませんが、ダウンロード して、お好きなメディアプレーヤーで再生できます。 設定例 { &#34;karb94/neoscroll.nvim&#34;, config = function() require(&#34;neoscroll&#34;).setup({ mappings = { &#34;&lt;C-u&gt;&#34;, &#34;&lt;C-d&gt;&#34;, &#34;zt&#34;, &#34;zz&#34;, &#34;zb&#34; }, }) local t = {} local time = &#34;85&#34; t[&#34;&lt;C-u&gt;&#34;] = { &#34;scroll&#34;, { &#34;-vim.wo.scroll&#34;, &#34;true&#34;, time } } t[&#34;&lt;C-d&gt;&#34;] = { &#34;scroll&#34;, { &#34;vim."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
-                <img src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png"
-                        srcset="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png 800w, /blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu10824057137708416901.png 1600w"
+            <a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">
+                <img src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png"
+                        srcset="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu9534750175669780764.png 800w, /mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/feature_hu10824057137708416901.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -223,7 +223,7 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/vim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/" >
+            <a href="/mblog/categories/vim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/" >
                 Vimプラグイン
             </a>
         
@@ -232,7 +232,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">おすすめの(Neo)Vimプラグイン</a>
+            <a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/">おすすめの(Neo)Vimプラグイン</a>
         </h2>
     
         
@@ -294,8 +294,8 @@ vim-asteriskを入れるとそういった問題が起きなくなります。</
 <p>C-uやC-dでカーソルを上下したときに、通常は一瞬でカーソルが移動後の表示に切り替わりますが、そうするとさっきまで見ていた行ってどこだっけ？となることがあります。<br>
 neoscrollを使うと、カーソル移動したときにスクロールするような表示になるため、どれくらい移動したのかが視覚的にわかるので、この問題が解決されます。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/neoscroll.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-1">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -322,8 +322,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 <p>QuickFixを利用しているときに、該当箇所周辺のプレビューウィンドウを表示できるようになります。<br>
 これがないと、いちいちファイルを開いて中身を確認するという必要がでてくるため面倒です。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/nvim-bqf.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-2">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -339,16 +339,16 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 <p>QuickFixでの置換を楽にしてくれます。
 自分はTelescopeで単語の検索 -&gt; &lt;C-q&gt;でQuickFixを開く -&gt; :Qfreplace -&gt; 置換を実行 という感じのフローを使います。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/qfreplace.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h2 id="registersnvim">registers.nvim
 </h2><p><a class="link" href="https://github.com/tversteeg/registers.nvim"  target="_blank" rel="noopener"
     >https://github.com/tversteeg/registers.nvim</a></p>
 <p>レジスタの内容が見やすくなります。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/registers.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-3">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -374,8 +374,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     >https://github.com/rachartier/tiny-code-action.nvim</a></p>
 <p>CodeActionの変更内容が見やすくなります。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-code-action.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
 <h3 id="設定例-4">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -397,8 +397,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     >https://github.com/rachartier/tiny-inline-diagnostic.nvim</a></p>
 <p>Diagnosticが見やすくなります。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/tiny-inline-diagnostic.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
 <h3 id="設定例-5">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -415,8 +415,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 （自分の設定だと）&lt;leader&gt;ccで登録しているコマンド一覧を選択するwindowが表示され、選ぶとそれが実行されます。<br>
 登録しているコマンドは.nvim/config.jsonに保存する必要があるのですが、初回実行時はそのファイルを作成するか聞いてくれます。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/cliproject.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-6">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -464,8 +464,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     >https://github.com/OXY2DEV/markview.nvim</a></p>
 <p>マークダウンの表示がNeoVim上で良い感じになるプラグインです。最高です。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/markview.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-7">設定例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -653,8 +653,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 具体的には、このプラグインを使うと、例えば2つしかwindowがなければ&lt;C-w&gt;&lt;C-w&gt;でもう一方のwindowに移動するという設定ができます。
 またwindowが多い場合でも、動的にwindowにキーが割り振られて移動しやすくなっています。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/chowcho.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設置例">設置例
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="p">{</span>
@@ -705,8 +705,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     >https://github.com/archibate/lualine-time</a></p>
 <p>lualineに時間が表示されるようになります。地味にかなり便利だと思っていますが、ターミナルで時間を表示させている人などは不要そうです。
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/lualine-time.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video></p>
 <h2 id="vim-arsync">vim-arsync
 </h2><p><a class="link" href="https://github.com/KenN7/vim-arsync"  target="_blank" rel="noopener"
@@ -719,8 +719,8 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
 <p>PythonのJupyter NotebookをNeoVim上から実行するときに使っています。現在はこれがないのは結構苦行と感じるレベルです。<br>
 もともとはmagma.nvimというプラグインがあったのですが、これのforkになっていてそこから色々と機能が足されたりしています。</p>
 <video controls preload="auto" width="100%"  playsinline class="html-video">
-    <source src="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm" type="video/webm">
-  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/blog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
+    <source src="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm" type="video/webm">
+  <span>お使いのブラウザは埋め込み動画をサポートしていませんが、<a href="/mblog/posts/%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%AEneovim%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3/molten.webm">ダウンロード</a> して、お好きなメディアプレーヤーで再生できます。</span>
 </video>
 <h3 id="設定例-9">設定例
 </h3><p>これ用に色々とキーマップを設定しており、maでcellの追加、mdで削除、mcでセルを実行ができるようにしています。</p>
@@ -862,9 +862,9 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/neovim/">NeoVim</a>
+            <a href="/mblog/tags/neovim/">NeoVim</a>
         
-            <a href="/blog/tags/vim/">Vim</a>
+            <a href="/mblog/tags/vim/">Vim</a>
         
     </section>
 
@@ -1064,7 +1064,7 @@ neoscrollを使うと、カーソル移動したときにスクロールする�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

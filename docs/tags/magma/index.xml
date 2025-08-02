@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Magma on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/magma/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/magma/</link>
         <description>Recent content in Magma on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/magma/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/magma/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>magma-nvimで理想に近いVimでのJupyter環境を作る</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</link>
         <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" alt="Featured image of post magma-nvimで理想に近いVimでのJupyter環境を作る" /&gt;&lt;p&gt;vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/feature.png" alt="Featured image of post magma-nvimで理想に近いVimでのJupyter環境を作る" /&gt;&lt;p&gt;vimで開発しているとブラウザからJupyterを触るのが嫌になってきます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;開発中にターミナルとブラウザへ移動が面倒&lt;/li&gt;
 &lt;li&gt;vimで使っているformatterとかlinterをそのまま使いたい&lt;/li&gt;
@@ -26,8 +26,8 @@
     &gt;magma-nvim&lt;/a&gt;はJupyterカーネルに選択したコードの実行をさせて、結果をvim上に表示するためのプラグインです。&lt;br&gt;
 上記のリンク先にデモ動画が載っていますが、自分が用意したものを載せておきます。
 &lt;video controls preload=&#34;auto&#34; width=&#34;100%&#34;  playsinline class=&#34;html-video&#34;&gt;
-    &lt;source src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34; type=&#34;video/webm&#34;&gt;
-  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
+    &lt;source src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34; type=&#34;video/webm&#34;&gt;
+  &lt;span&gt;お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/magma-nvim%E3%81%A7%E7%90%86%E6%83%B3%E3%81%AB%E8%BF%91%E3%81%84vim%E3%81%A7%E3%81%AEjupyter%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B/magma-sample.webm&#34;&gt;ダウンロード&lt;/a&gt; して、お好きなメディアプレーヤーで再生できます。&lt;/span&gt;
 &lt;/video&gt;&lt;/p&gt;
 &lt;p&gt;これが本当に素晴らしくよくできています。magma-nvimの存在を知ったときはテンション爆あがりでした。&lt;/p&gt;
 &lt;p&gt;が、自分の運用上はだいぶ困った点がありました。&lt;/p&gt;

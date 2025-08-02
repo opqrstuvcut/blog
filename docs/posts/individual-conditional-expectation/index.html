@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。">
 <title>Individual Conditional Expectation</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/individual-conditional-expectation/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Individual Conditional Expectation">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Individual Conditional Expectation">
 <meta property='og:description' content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/individual-conditional-expectation/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Individual Conditional Expectation' /><meta property='article:tag' content='機械学習' /><meta property='article:tag' content='説明可能AI' /><meta property='article:published_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-10-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/individual-conditional-expectation/ice_age.png' />
 <meta name="twitter:title" content="Individual Conditional Expectation">
 <meta name="twitter:description" content="Individual Conditional Expectation(ICE)は任意のモデルのある特徴量に対するデータごとの挙動を確認する手法です。 例えば、ある特定のデータのある特徴量が大きくなるにつれ、モデルの出力がどういった変化をするかを見ます。 PDPの記事を先に見ると、理解がはやいかと思います。 Partial Dependence Plotの解説記事 Individual Conditional Expectationの概要 ICEは冒頭に述べたとおりなので、あまり細かい話をする必要がないのですが、Partial Dependence Plot(PDP)との違いを述べておきます。 PDPはデータの集合の全体に対して、ある特徴量の値を順に変化させていき、そのときのモデルの出力の平均値をみる方法でした。 一方で、ICEはモデルの出力の平均値を取らず、データごとに変化をみます。そのため、PDPだと一本の曲線がプロットできますが、ICEではデータの数だけ曲線がプロットできます。 Individual Conditional Expectationはの実験 kaggleのtitanicの問題でIndividual Conditional Expectationを試してみます。 モデルはLightGBMの勾配ブースティング法を利用しています。 年齢に対するIndividual Conditional Expectation 年齢を$0,5,10,\\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。 これを見ると、傾向として年齢が大人になるくらいまでは、年齢とともに生存確率が下がっていきます。これは直感に合った結果です。 変わったところでいくと、生存確率が年齢の変化とともに変わらない人がいます。 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。 また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。 データの変化の比較がしやすくなりましたね。 実装 実装は次のとおりです。 import pandas as pd from typing import List def individual_conditional_expectation(model, x:pd.DataFrame, target:str, candidates:List) -&gt; np.ndarray: replaced_x = x.copy() ice_vals = np.empty((len(x), len(candidates)), dtype=float) for i, replaced_val in enumerate(candidates): replaced_x[target] = replaced_val preds = model.predict(replaced_x) ice_vals[:, i] = preds return ice_vals candidates = range(0, 70, 5) target = &#34;Age&#34; ice = individual_conditional_expectation(model, train_x, target=target, candidates=candidates) まとめ PDPのようにICEも実装が簡単で、わかりやすい結果が得られます。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/individual-conditional-expectation/ice_age.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/individual-conditional-expectation/ice_age.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/individual-conditional-expectation/">
-                <img src="/blog/posts/individual-conditional-expectation/ice_age_hu2355378837006748761.png"
-                        srcset="/blog/posts/individual-conditional-expectation/ice_age_hu2355378837006748761.png 800w, /blog/posts/individual-conditional-expectation/ice_age_hu1413442418835491594.png 1600w"
+            <a href="/mblog/posts/individual-conditional-expectation/">
+                <img src="/mblog/posts/individual-conditional-expectation/ice_age_hu2355378837006748761.png"
+                        srcset="/mblog/posts/individual-conditional-expectation/ice_age_hu2355378837006748761.png 800w, /mblog/posts/individual-conditional-expectation/ice_age_hu1413442418835491594.png 1600w"
                         width="800" 
                         height="245" 
                         loading="lazy"
@@ -223,7 +223,7 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" >
+            <a href="/mblog/categories/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/" >
                 機械学習
             </a>
         
@@ -232,7 +232,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/individual-conditional-expectation/">Individual Conditional Expectation</a>
+            <a href="/mblog/posts/individual-conditional-expectation/">Individual Conditional Expectation</a>
         </h2>
     
         
@@ -284,10 +284,10 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
 モデルはLightGBMの勾配ブースティング法を利用しています。</p>
 <h2 id="年齢に対するindividual-conditional-expectation">年齢に対するIndividual Conditional Expectation
 </h2><p>年齢を$0,5,10,\cdots,65$と変化させてみた結果が以下のとおりです。縦軸はタイタニックに乗った乗客の生存確率の予測値です。1つ1つの曲線が1つの乗客に対応します。<br>
-<img src="/blog/posts/individual-conditional-expectation/ice_age.png"
+<img src="/mblog/posts/individual-conditional-expectation/ice_age.png"
 	width="907"
 	height="278"
-	srcset="/blog/posts/individual-conditional-expectation/ice_age_hu9390657832697148048.png 480w, /blog/posts/individual-conditional-expectation/ice_age_hu13515510827042229278.png 1024w"
+	srcset="/mblog/posts/individual-conditional-expectation/ice_age_hu9390657832697148048.png 480w, /mblog/posts/individual-conditional-expectation/ice_age_hu13515510827042229278.png 1024w"
 	loading="lazy"
 	
 		alt="年齢に対するIndividual Conditional Expectation"
@@ -303,10 +303,10 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
 生存確率が0.7以上であり続けた人のデータを軽く確認したところ、性別は全員女性でした。PDPのときもそうでしたが、女性の生存確率が高いモデルになっているのがここからもわかります。</p>
 <p>また、ICEでは左端の値をすべてのデータで揃えることで見やすくすることがあります。<br>
 各データごとに、0歳のときの予測値でそれぞれの予測値を引いてみた結果が以下のとおりです。
-<img src="/blog/posts/individual-conditional-expectation/ice_age_centered.png"
+<img src="/mblog/posts/individual-conditional-expectation/ice_age_centered.png"
 	width="920"
 	height="278"
-	srcset="/blog/posts/individual-conditional-expectation/ice_age_centered_hu7141907973305086535.png 480w, /blog/posts/individual-conditional-expectation/ice_age_centered_hu2872371132474607967.png 1024w"
+	srcset="/mblog/posts/individual-conditional-expectation/ice_age_centered_hu7141907973305086535.png 480w, /mblog/posts/individual-conditional-expectation/ice_age_centered_hu2872371132474607967.png 1024w"
 	loading="lazy"
 	
 		alt="年齢に対するIndividual Conditional Expectation"
@@ -354,11 +354,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/individual-conditional-expectation/">Individual Conditional Expectation</a>
+            <a href="/mblog/tags/individual-conditional-expectation/">Individual Conditional Expectation</a>
         
-            <a href="/blog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">機械学習</a>
+            <a href="/mblog/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/">機械学習</a>
         
-            <a href="/blog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/">説明可能AI</a>
+            <a href="/mblog/tags/%E8%AA%AC%E6%98%8E%E5%8F%AF%E8%83%BDai/">説明可能AI</a>
         
     </section>
 
@@ -418,11 +418,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/partial-dependence-plot/">
+    <a href="/mblog/posts/partial-dependence-plot/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/partial-dependence-plot/ppd_sex.49c9c0277e3b4b6943b7fa54e0526084_hu14698450521249734743.png" 
+                <img src="/mblog/posts/partial-dependence-plot/ppd_sex.49c9c0277e3b4b6943b7fa54e0526084_hu14698450521249734743.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -442,11 +442,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/">
+    <a href="/mblog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.5fd68928c059f3729a21e2a0196af853_hu12198422181045893918.png" 
+                <img src="/mblog/posts/kl-divergence%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8B%E5%88%86%E5%B8%83%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AE%E6%84%8F%E5%91%B3%E3%82%92%E3%81%BE%E3%81%98%E3%82%81%E3%81%AB%E8%80%83%E3%81%88%E3%81%9F%E3%81%93%E3%81%A8%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/983be7a190c4aaf3488cd6c3d4471158.5fd68928c059f3729a21e2a0196af853_hu12198422181045893918.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -466,11 +466,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/">
+    <a href="/mblog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/2f11d99ea2c3cf569c040d9555f5ab2c.3ced59648d77241e574d30c9c71b03b6_hu14209463730683945577.png" 
+                <img src="/mblog/posts/uber%E8%A3%BD%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%83%84%E3%83%BC%E3%83%ABmanifold/2f11d99ea2c3cf569c040d9555f5ab2c.3ced59648d77241e574d30c9c71b03b6_hu14209463730683945577.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -490,11 +490,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">
+    <a href="/mblog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/feature.8985c97388772c490dbf73e2b3715015_hu11971730977879425794.png" 
+                <img src="/mblog/posts/rt-detr-v2%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%B3%E3%83%81%E3%83%A5%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/feature.8985c97388772c490dbf73e2b3715015_hu11971730977879425794.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -514,11 +514,11 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/">
+    <a href="/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.88ed4e446988210af393d6748a112e2f_hu12867820038736861670.png" 
+                <img src="/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.88ed4e446988210af393d6748a112e2f_hu12867820038736861670.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -687,7 +687,7 @@ PDPはデータの集合の全体に対して、ある特徴量の値を順に�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

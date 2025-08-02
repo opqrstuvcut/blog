@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。 Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。 x方向の微分用のSobelフィルタ y方向の微分用のSobelフィルタ これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。 これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。 次に平滑化ですが、これは以下のフィルタです。 ガウス平滑化に似たように中心の重みが大きい平滑化になります。 ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。 以上がSobelフィルタが何をしているかの話になります。 Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。 soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。 次の画像にSobelフィルタを適用してみます。 x方向のSobelフィルタの適用 soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。 y方向のSobelフィルタの適用 sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。 なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。">
 <title>Sobelフィルタで微分</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Sobelフィルタで微分">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Sobelフィルタで微分">
 <meta property='og:description' content="本記事はQrunchからの転載です。 よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。 Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。 x方向の微分用のSobelフィルタ y方向の微分用のSobelフィルタ これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。 これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。 次に平滑化ですが、これは以下のフィルタです。 ガウス平滑化に似たように中心の重みが大きい平滑化になります。 ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。 以上がSobelフィルタが何をしているかの話になります。 Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。 soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。 次の画像にSobelフィルタを適用してみます。 x方向のSobelフィルタの適用 soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。 y方向のSobelフィルタの適用 sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。 なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Sobel' /><meta property='article:published_time' content='2020-07-16T14:06:05&#43;09:00'/><meta property='article:modified_time' content='2020-07-16T14:06:05&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Sobel' /><meta property='article:published_time' content='2020-07-16T14:06:05&#43;09:00'/><meta property='article:modified_time' content='2020-07-16T14:06:05&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png' />
 <meta name="twitter:title" content="Sobelフィルタで微分">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 よくある画像処理のオペレーターとして、画像の微分があります。 いくつかやり方はありますが、今日はSobel微分を取り上げます。 Sobelフィルタ Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。 例えば、3×3のSobelフィルタは以下のようなカーネルになります。 x方向の微分用のSobelフィルタ y方向の微分用のSobelフィルタ これらのフィルタは何をあらわしているんでしょうか？ 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。 ここでいう微分のフィルタとはx方向の場合には以下を指します。 これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。 次に平滑化ですが、これは以下のフィルタです。 ガウス平滑化に似たように中心の重みが大きい平滑化になります。 ここまでで定義した微分のフィルタに対して平滑化のフィルタによる畳込みを計算すると、実はSobelフィルタと同じものがあらわれます。つまり、画像に対して微分のフィルタを適用した後に平滑化のフィルタを適用することとと、画像に対してSobelフィルタを適用することは等しいです。 以上がSobelフィルタが何をしているかの話になります。 Sobelフィルタを適用 OpenCVでは以下のようにすることで、Sobelフィルタを適用できます。 soblex = cv2.Sobel(img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3) 第二引数のddepthにSobelによる返り値を格納する型を指定します。CV_16Sは符号付きの16ビット整数です。 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。 次の画像にSobelフィルタを適用してみます。 x方向のSobelフィルタの適用 soblex = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=1, dy=0, ksize=3, ) 正の勾配は白色、負の勾配は黒色で描画されています。 y方向のSobelフィルタの適用 sobley = cv2.Sobel(noise_img, ddepth=cv2.CV_16S, dx=0, dy=1, ksize=3, ) これも同様に正の勾配は白色、負の勾配は黒色で描画されています。 なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/">
-                <img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu3813476148132964335.png"
-                        srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu3813476148132964335.png 800w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu1354969792922737458.png 1600w"
+            <a href="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/">
+                <img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu3813476148132964335.png"
+                        srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu3813476148132964335.png 800w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu1354969792922737458.png 1600w"
                         width="800" 
                         height="816" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/">Sobelフィルタで微分</a>
+            <a href="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/">Sobelフィルタで微分</a>
         </h2>
     
         
@@ -282,10 +282,10 @@
 </h1><p>Sobel微分はSobelフィルタを使った畳み込みをすることで実現できます。
 例えば、3×3のSobelフィルタは以下のようなカーネルになります。</p>
 <p><!-- raw HTML omitted -->x方向の微分用のSobelフィルタ<!-- raw HTML omitted --></p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6.png"
 	width="182"
 	height="170"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu7639552341792050700.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu3922810614488429228.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu7639552341792050700.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/06f36d9912cf22cbb6024e116ac375c6_hu3922810614488429228.png 1024w"
 	loading="lazy"
 	
 	
@@ -295,10 +295,10 @@
 	
 ></p>
 <p><!-- raw HTML omitted -->y方向の微分用のSobelフィルタ<!-- raw HTML omitted --></p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72.png"
 	width="186"
 	height="170"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu399924729675659776.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu17614300467138952515.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu399924729675659776.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/438e89f42f3662532c9b539e8b339e72_hu17614300467138952515.png 1024w"
 	loading="lazy"
 	
 	
@@ -310,10 +310,10 @@
 <p>これらのフィルタは何をあらわしているんでしょうか？
 実はSobelフィルタは微分と平滑化をあわせもったフィルタになっています。
 ここでいう微分のフィルタとはx方向の場合には以下を指します。</p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89.png"
 	width="184"
 	height="168"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu11899660011976503760.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu8989960964390702575.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu11899660011976503760.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/4de0963d506ce8ba6ff7cd4dc964ec89_hu8989960964390702575.png 1024w"
 	loading="lazy"
 	
 	
@@ -324,10 +324,10 @@
 ></p>
 <p>これは$(x,y)$座標のピクセルに注目しているときに、その左右にあるピクセルの差を取る演算を示しています。いわゆる中心差分と呼ばれる微分の計算方法になります。</p>
 <p>次に平滑化ですが、これは以下のフィルタです。</p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6.png"
 	width="182"
 	height="168"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu15637756050698567432.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu7961904431040385300.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu15637756050698567432.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/b565807c31fbb9a5b556d107afb56dd6_hu7961904431040385300.png 1024w"
 	loading="lazy"
 	
 	
@@ -346,10 +346,10 @@
 第三、第四引数のところは微分する次数を指定します。dx=1、dy=0とすると、x方向のSobelフィルタを使うことになりますし、dx=0、dy=1とするとy方向のSobelフィルタです。
 最後のksizeはカーネルサイズになります。一応31まで指定が可能なようです。</p>
 <p>次の画像にSobelフィルタを適用してみます。</p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu14654624399587928166.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu13341630644016651259.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu14654624399587928166.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/1bd07117287ac2fc9f1b1281b6832c55_hu13341630644016651259.png 1024w"
 	loading="lazy"
 	
 	
@@ -360,10 +360,10 @@
 ></p>
 <p>x方向のSobelフィルタの適用</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">soblex</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">noise_img</span><span class="p">,</span> <span class="n">ddepth</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CV_16S</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="p">)</span>
-</span></span></code></pre></div><p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu3310561605629063755.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu15903711711359186640.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu3310561605629063755.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/c1bfd5c5980138180846871b0e6266e9_hu15903711711359186640.png 1024w"
 	loading="lazy"
 	
 	
@@ -375,10 +375,10 @@
 <p>正の勾配は白色、負の勾配は黒色で描画されています。</p>
 <p>y方向のSobelフィルタの適用</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">sobley</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">noise_img</span><span class="p">,</span> <span class="n">ddepth</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CV_16S</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="p">)</span>
-</span></span></code></pre></div><p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu2029632357587308193.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu3673244807803254255.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu2029632357587308193.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/211fe0b45188b2279f21d34fa4991f82_hu3673244807803254255.png 1024w"
 	loading="lazy"
 	
 	
@@ -389,10 +389,10 @@
 ></p>
 <p>これも同様に正の勾配は白色、負の勾配は黒色で描画されています。</p>
 <p>なお、それぞれのSobelフィルタの適用結果を足し合わせると次のようになります。</p>
-<p><img src="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png"
+<p><img src="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu6766291328439902245.png 480w, /blog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu4476679217473800323.png 1024w"
+	srcset="/mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu6766291328439902245.png 480w, /mblog/posts/sobel%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%81%A7%E5%BE%AE%E5%88%86/d0092a9ae18af82d66d3a2d25fd7b5b8_hu4476679217473800323.png 1024w"
 	loading="lazy"
 	
 	
@@ -409,9 +409,9 @@
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/sobel/">Sobel</a>
+            <a href="/mblog/tags/sobel/">Sobel</a>
         
     </section>
 
@@ -471,11 +471,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -495,11 +495,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -519,11 +519,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -543,11 +543,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -567,7 +567,7 @@
             
                 
 <article class="">
-    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
         
 
@@ -729,7 +729,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

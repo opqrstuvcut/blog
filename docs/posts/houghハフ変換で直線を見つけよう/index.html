@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 Hough変換は画像から直線をみつける方法です。 簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。 なお、OpenCVでは直線の候補は以下のように$(\\rho, \\theta)$による極座標系であらわされています。 $$ \\rho = x \\cos \\theta + y \\sin \\theta .$$ $\\rho$は原点からの直線の距離、$\\theta$は直線の角度をあらわします。 $\\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \\frac{\\rho}{\\sin\\theta} - x \\frac{\\cos \\theta}{\\sin \\theta}. $$ わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。 OpenCVで試してみる 次の画像に対してHough変換を適用します。 Hough変換にかける前に、Canny法でエッジを抽出しておきます。 canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True) Canny法の結果に対して、次のようにHough変換を適用できます。 hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。 検出された直線のパラメータ$(\\rho, \\theta)$は以下のようにして変換して、画像に直線として書き込んでいます。 t = 3000 for params in hough_lines: rho, theta = params[0] a = np.cos(theta) b = np.">
 <title>Hough（ハフ）変換で直線を見つけよう</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Hough（ハフ）変換で直線を見つけよう">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Hough（ハフ）変換で直線を見つけよう">
 <meta property='og:description' content="本記事はQrunchからの転載です。 Hough変換は画像から直線をみつける方法です。 簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。 なお、OpenCVでは直線の候補は以下のように$(\\rho, \\theta)$による極座標系であらわされています。 $$ \\rho = x \\cos \\theta + y \\sin \\theta .$$ $\\rho$は原点からの直線の距離、$\\theta$は直線の角度をあらわします。 $\\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \\frac{\\rho}{\\sin\\theta} - x \\frac{\\cos \\theta}{\\sin \\theta}. $$ わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。 OpenCVで試してみる 次の画像に対してHough変換を適用します。 Hough変換にかける前に、Canny法でエッジを抽出しておきます。 canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True) Canny法の結果に対して、次のようにHough変換を適用できます。 hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。 検出された直線のパラメータ$(\\rho, \\theta)$は以下のようにして変換して、画像に直線として書き込んでいます。 t = 3000 for params in hough_lines: rho, theta = params[0] a = np.cos(theta) b = np.">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Hough変換' /><meta property='article:published_time' content='2020-08-04T19:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-04T19:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Hough変換' /><meta property='article:published_time' content='2020-08-04T19:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-08-04T19:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png' />
 <meta name="twitter:title" content="Hough（ハフ）変換で直線を見つけよう">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 Hough変換は画像から直線をみつける方法です。 簡単な原理 入力として2値画像を考えます。 Hough変換では候補となる直線を用意し、直線上にいくつ0でないピクセルがあるかを数えます。 このピクセルの個数が指定したしきい値以上であった場合、その候補の直線は正しい直線として扱います。 なお、OpenCVでは直線の候補は以下のように$(\\rho, \\theta)$による極座標系であらわされています。 $$ \\rho = x \\cos \\theta + y \\sin \\theta .$$ $\\rho$は原点からの直線の距離、$\\theta$は直線の角度をあらわします。 $\\theta$が0でないとしたとき、上式をちょっと変形することで見慣れた形の方程式になるかと思います。 $$ y = \\frac{\\rho}{\\sin\\theta} - x \\frac{\\cos \\theta}{\\sin \\theta}. $$ わざわざ極座標系であらわす理由はなにかというと、$y=ax+b$ような直線に対してy軸に平行な直線を考えるときに、傾きが$\\infty$の直線となり扱いづらくなることを防ぐためです。 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。 OpenCVで試してみる 次の画像に対してHough変換を適用します。 Hough変換にかける前に、Canny法でエッジを抽出しておきます。 canny = cv2.Canny(img, threshold1=50, threshold2=100, apertureSize=3, L2gradient=True) Canny法の結果に対して、次のようにHough変換を適用できます。 hough_lines = cv2.HoughLines(canny, rho=5, theta=0.01, threshold=300) rhoとthetaはそれぞれの軸方向の直線の候補の分解能になります。小さいほどたくさんの直線が見つかるかと思います。thresholdに直線の候補を採用するかを決めるしきい値を指定します。 また、min_thetaとmax_thetaで見つかる直線のthetaの最小値、最大値を決めることもできます。 検出された直線のパラメータ$(\\rho, \\theta)$は以下のようにして変換して、画像に直線として書き込んでいます。 t = 3000 for params in hough_lines: rho, theta = params[0] a = np.cos(theta) b = np."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
-                <img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu535381238500402657.png"
-                        srcset="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu535381238500402657.png 800w, /blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu9249285938223468240.png 1600w"
+            <a href="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
+                <img src="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu535381238500402657.png"
+                        srcset="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu535381238500402657.png 800w, /mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu9249285938223468240.png 1600w"
                         width="800" 
                         height="816" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" >
+            <a href="/mblog/categories/opencv%E7%94%9F%E6%B4%BB/" >
                 OpenCV生活
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">Hough（ハフ）変換で直線を見つけよう</a>
+            <a href="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">Hough（ハフ）変換で直線を見つけよう</a>
         </h2>
     
         
@@ -290,10 +290,10 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$</p>
 極座標系ですと、無理なくy軸に平行な直線を扱うことができます。</p>
 <h1 id="opencvで試してみる">OpenCVで試してみる
 </h1><p>次の画像に対してHough変換を適用します。<br>
-<img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a.png"
+<img src="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a_hu15663059655230850390.png 480w, /blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a_hu2037515783423837581.png 1024w"
+	srcset="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a_hu15663059655230850390.png 480w, /mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/fc6611dea1559319bc4baebf641d0a6a_hu2037515783423837581.png 1024w"
 	loading="lazy"
 	
 	
@@ -305,10 +305,10 @@ $$ y = \frac{\rho}{\sin\theta} - x \frac{\cos \theta}{\sin \theta}. $$</p>
 Hough変換にかける前に、Canny法でエッジを抽出しておきます。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">canny</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">threshold1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">threshold2</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">                  <span class="n">apertureSize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">L2gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span></code></pre></div><p><img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07_hu8593497300123026431.png 480w, /blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07_hu4954965604836886351.png 1024w"
+	srcset="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07_hu8593497300123026431.png 480w, /mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/ee45891c46a4955315b6ce6e817e2d07_hu4954965604836886351.png 1024w"
 	loading="lazy"
 	
 	
@@ -335,10 +335,10 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
 </span></span><span class="line"><span class="cl">    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
 </span></span></code></pre></div><p>結果は以下のとおりです。<br>
-<img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png"
+<img src="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.png"
 	width="247"
 	height="252"
-	srcset="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu1509973473334223272.png 480w, /blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu13204745913645604860.png 1024w"
+	srcset="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu1509973473334223272.png 480w, /mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258_hu13204745913645604860.png 1024w"
 	loading="lazy"
 	
 	
@@ -356,9 +356,9 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/hough%E5%A4%89%E6%8F%9B/">Hough変換</a>
+            <a href="/mblog/tags/hough%E5%A4%89%E6%8F%9B/">Hough変換</a>
         
     </section>
 
@@ -418,11 +418,11 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.2b98e2e961d6a7eaf43470fc599626c3_hu12811414614560607839.jpg" 
+                <img src="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.2b98e2e961d6a7eaf43470fc599626c3_hu12811414614560607839.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -442,11 +442,11 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
+    <a href="/mblog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.5804e7273001275cc5a3c47cf5e9e985_hu16773082065766170031.png" 
+                <img src="/mblog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.5804e7273001275cc5a3c47cf5e9e985_hu16773082065766170031.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -466,11 +466,11 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.fdba9a70c38a8c121f2f592a4b9ca3c8_hu17136871976629050811.png" 
+                <img src="/mblog/posts/hough%E5%A4%89%E6%8F%9B%E3%81%A7%E5%86%86%E3%82%92%E6%A4%9C%E5%87%BA/51aa777f4487689837d45257fa1eba91.fdba9a70c38a8c121f2f592a4b9ca3c8_hu17136871976629050811.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -490,11 +490,11 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">
+    <a href="/mblog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/feature.6431cd4ea34bce3324169b1bd58ae120_hu13168033926891088985.png" 
+                <img src="/mblog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/feature.6431cd4ea34bce3324169b1bd58ae120_hu13168033926891088985.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -514,11 +514,11 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -687,7 +687,7 @@ Canny法の結果に対して、次のようにHough変換を適用できます�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

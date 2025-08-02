@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LLM on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/llm/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/llm/</link>
         <description>Recent content in LLM on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/llm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/llm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
         <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
+        <guid>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
 &lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2506.08008&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hidden in plain sight: VLMs overlook their visual representations&lt;/a&gt;
 です.&lt;/p&gt;
@@ -20,10 +20,10 @@
 DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が&lt;strong&gt;大きく下がる&lt;/strong&gt;ことを示しています.&lt;/p&gt;
 &lt;p&gt;例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.&lt;br&gt;
 DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
 	width=&#34;1337&#34;
 	height=&#34;824&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -38,10 +38,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/h2&gt;&lt;p&gt;まず、VLMはどのように実現されているかの話になります.&lt;br&gt;
 本論文で扱われている&lt;a class=&#34;link&#34; href=&#34;https://github.com/TRI-ML/prismatic-vlms&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;LLaVA&lt;/a&gt;ではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
 	width=&#34;1607&#34;
 	height=&#34;542&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLaVAの構成&#34;
@@ -66,10 +66,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています.&lt;/p&gt;
 &lt;h3 id=&#34;カメラ距離を推定するタスク&#34;&gt;カメラ距離を推定するタスク
 &lt;/h3&gt;&lt;p&gt;どちらのBounding Boxのほうがカメラに近いかを判定するタスク.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;カメラ距離&#34;
@@ -90,10 +90,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;視覚的な類似箇所を推定するタスク&#34;&gt;視覚的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から視覚的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;類似箇所&#34;
@@ -111,10 +111,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;機能的な類似箇所を推定するタスク&#34;&gt;機能的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から機能的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;機能的類似箇所&#34;
@@ -128,10 +128,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;同じ位置を推定するタスク&#34;&gt;同じ位置を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;同定&#34;
@@ -145,10 +145,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;最も似ていない3dオブジェクトを推定するタスク&#34;&gt;最も似ていない3Dオブジェクトを推定するタスク
 &lt;/h3&gt;&lt;p&gt;4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;309&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;3D&#34;
@@ -165,10 +165,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;似ている画風の絵画を選択するタスク&#34;&gt;似ている画風の絵画を選択するタスク
 &lt;/h3&gt;&lt;p&gt;与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;259&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;art&#34;
@@ -185,10 +185,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h2 id=&#34;実験結果&#34;&gt;実験結果
 &lt;/h2&gt;&lt;h3 id=&#34;visualモデルとprojector層をftしたvlmの性能比較&#34;&gt;Visualモデルとprojector層をFTしたVLMの性能比較
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
 	width=&#34;1327&#34;
 	height=&#34;450&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;VisualモデルとVLMの比較&#34;
@@ -204,10 +204,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;オープンソースのvlmとvisualモデル部分の性能比較&#34;&gt;オープンソースのVLMとVisualモデル部分の性能比較
 &lt;/h3&gt;&lt;p&gt;他のVLMでのVisualモデルとの性能比較.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;429&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;オープンソースモデルとの比較&#34;
@@ -228,10 +228,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;&lt;strong&gt;以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;目隠ししたケースでの性能&#34;&gt;目隠ししたケースでの性能
 &lt;/h3&gt;&lt;p&gt;VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;385&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;目隠ししたケースでの出力分布&#34;
@@ -254,10 +254,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;中間層の特徴量の比較&#34;&gt;中間層の特徴量の比較
 &lt;/h3&gt;&lt;p&gt;VLMの層の途中でVisualモデルの情報が失われていないかを確認するための実験.
 各層の特徴量ををもとにして類似箇所を見つけるタスクや位置の推定タスクを解く. もしうまく解けるようであれば、特徴量にVisualモデルからの情報が伝搬できている.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
 	width=&#34;787&#34;
 	height=&#34;625&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;特徴量比較&#34;
@@ -288,10 +288,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;プロンプトチューニング&#34;&gt;プロンプトチューニング
 &lt;/h3&gt;&lt;p&gt;プロンプトによって性能を改善できるのかを実験.
 テキストのプロンプトの前に学習可能なembeddingを1、5、10トークン追加する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;323&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;プロンプトチューニング&#34;
@@ -308,10 +308,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;llm側のファインチューニング&#34;&gt;LLM側のファインチューニング
 &lt;/h3&gt;&lt;p&gt;LoRAによるLLM部分のFTによって性能を改善できるのかを実験.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLMファインチューニング&#34;
@@ -327,10 +327,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;li&gt;ViT部分やprojector層のFTはあまり効果がない.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、FT前後でのAttentin Mapの差を可視化したのが以下の図.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
 	width=&#34;716&#34;
 	height=&#34;609&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Attention Mapの差&#34;
@@ -352,10 +352,10 @@ $$&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;各ラベルの頻度の差を取っており、2つの分布が近いほど0に近づく.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
 	width=&#34;1342&#34;
 	height=&#34;399&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;出力の分布&#34;
@@ -377,17 +377,17 @@ $$&lt;/p&gt;
         </item>
         <item>
         <title>拡散言語モデルのLLaDA</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
         <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
 &lt;/h1&gt;&lt;p&gt;2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります.
 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
 	width=&#34;568&#34;
 	height=&#34;558&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較top&#34;
@@ -411,10 +411,10 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
 	width=&#34;957&#34;
 	height=&#34;327&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reversal Curse&#34;
@@ -437,10 +437,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;lladaのアプローチ拡散モデル型のllm&#34;&gt;LLaDAのアプローチ：拡散モデル型のLLM
 &lt;/h2&gt;&lt;p&gt;LLaDAは、自己回帰ではなく&lt;strong&gt;拡散モデル&lt;/strong&gt;のアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です.&lt;/p&gt;
 &lt;h3 id=&#34;事前学習pretraining&#34;&gt;事前学習（Pretraining）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
 	width=&#34;344&#34;
 	height=&#34;310&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;事前学習の概要&#34;
@@ -469,10 +469,10 @@ $$&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;p&gt;マスクされた問題に関する損失関数にマイナスを付けた式により下から最大化したい式を抑えられることをあらわしているので、損失関数を小さくできるほど言語モデルの意味で良いモデルで良いモデルと言えます.&lt;/p&gt;
 &lt;h3 id=&#34;fine-tuning&#34;&gt;Fine Tuning
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
 	width=&#34;337&#34;
 	height=&#34;232&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Fine Tuningの概要&#34;
@@ -493,10 +493,10 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;この学習により、LLaDAもGPTのような指令に従うような機能を獲得できます.&lt;/p&gt;
 &lt;h3 id=&#34;推論inference&#34;&gt;推論（Inference）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
 	width=&#34;358&#34;
 	height=&#34;315&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論の概要&#34;
@@ -519,10 +519,10 @@ $$&lt;/p&gt;
 &lt;p&gt;一部のトークンを固定してそれ以外を再生成といったプロセスを繰り返しますので、ノイズを徐々に取り除いていく拡散モデルのようなことをしているイメージにはなっています.
 このように推論することで、文全体を一気に生成するよりも安定した品質が得られているのだと思います.&lt;/p&gt;
 &lt;p&gt;なお、推論したい部分全体に対して上記の処理をしていく方法の他、semi-autoregressiveという推論したい部分をいくつかのBlockに分けて、左のBlockから上記の処理をおこなっていく方法も提案されています. Blockを小さくしていくと、より自己回帰モデルに近いものになっていきます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
 	width=&#34;994&#34;
 	height=&#34;414&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;semi-autoregressive&#34;
@@ -536,10 +536,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;スケーラビリティ&#34;&gt;スケーラビリティ
 &lt;/h3&gt;&lt;p&gt;まず投下計算量（モデルのサイズ、学習トークン数）に対して順当に性能が向上するかを確認した結果が以下になります（ちなみにFLOPsはモデルのパラメーター数を$N$、学習データのトークン数を$D$としたときに$6ND$で計算されています）.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
 	width=&#34;1087&#34;
 	height=&#34;512&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;スケーラビリティ&#34;
@@ -554,10 +554,10 @@ $$&lt;/p&gt;
 &lt;h3 id=&#34;他モデルとの比較&#34;&gt;他モデルとの比較
 &lt;/h3&gt;&lt;h4 id=&#34;事前学習モデル&#34;&gt;事前学習モデル
 &lt;/h4&gt;&lt;p&gt;以下は事前学習モデルでの各タスクの推論性能をあらわしています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
 	width=&#34;1166&#34;
 	height=&#34;688&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -572,10 +572,10 @@ $$&lt;/p&gt;
 論文では特に言及がなかったと思うのですが、こうやって比較するとQwenは性能高いですね. 全然勝てていません.&lt;/p&gt;
 &lt;h4 id=&#34;ファインチューニング済モデル&#34;&gt;ファインチューニング済モデル
 &lt;/h4&gt;&lt;p&gt;ファインチューニングした場合の性能比較した結果は以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
 	width=&#34;1157&#34;
 	height=&#34;555&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較FT&#34;
@@ -589,10 +589,10 @@ $$&lt;/p&gt;
 &lt;p&gt;ファインチューニングしたもの同士で比較するとLLaMA3には劣っているかなという印象ですが、一部のタスクでは上回ることができています. MMLUでは性能が下がっているのですが、Fine Tuning用のデータセットと合っていない可能性が指摘されています.&lt;/p&gt;
 &lt;h3 id=&#34;reversal-curseへの耐性&#34;&gt;Reversal Curseへの耐性
 &lt;/h3&gt;&lt;p&gt;中国語の詩のデータセットを作り、与えられた詩の前後の句を当てる問題を解かせた結果が以下になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
 	width=&#34;479&#34;
 	height=&#34;188&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ReversalCurseの結果&#34;
@@ -613,10 +613,10 @@ $$&lt;/p&gt;
 &lt;li&gt;Block単位の逐次生成（semi-autoregressive remasking）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;それらを比較した結果が以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
 	width=&#34;1161&#34;
 	height=&#34;231&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリング戦略&#34;
@@ -632,10 +632,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 これに対して、semi-autoregressiveを用いて左のBlockから順に生成していくことでパディング部分の悪さを回避できています.&lt;/p&gt;
 &lt;h3 id=&#34;推論のサンプリングのステップ数&#34;&gt;推論のサンプリングのステップ数
 &lt;/h3&gt;&lt;p&gt;提案手法はサンプリング回数を増やせばより性能が良くなりそうですが、実際どうなのでしょうか？それをあらわしたのが次の図です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;388&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリングステップ数&#34;
@@ -649,10 +649,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 &lt;p&gt;横軸が対数スケールなのですが、ステップ数（NFEs）を増やすごとに性能が上がっていくのが分かります. とはいえ1024回もモデルの推論を実行するのは計算コストが大きすぎますね.&lt;/p&gt;
 &lt;h3 id=&#34;推論の過程&#34;&gt;推論の過程
 &lt;/h3&gt;&lt;p&gt;推論の過程をあらわしたのが次の図で、色が薄いほど推論のステップのなかで先にトークンが固定され、濃いほどあとの方にトークンが固定されたことをあらわします.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
 	width=&#34;1071&#34;
 	height=&#34;271&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論過程&#34;

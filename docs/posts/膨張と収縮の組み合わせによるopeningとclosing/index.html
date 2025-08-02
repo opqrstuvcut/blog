@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) dilation = cv2.">
 <title>膨張と収縮の組み合わせによるopeningとclosing</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="膨張と収縮の組み合わせによるopeningとclosing">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="膨張と収縮の組み合わせによるopeningとclosing">
 <meta property='og:description' content="本記事はQrunchからの転載です。 画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) dilation = cv2.">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Closing' /><meta property='article:tag' content='Opening' /><meta property='article:published_time' content='2020-07-21T22:31:32&#43;09:00'/><meta property='article:modified_time' content='2020-07-21T22:31:32&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Closing' /><meta property='article:tag' content='Opening' /><meta property='article:published_time' content='2020-07-21T22:31:32&#43;09:00'/><meta property='article:modified_time' content='2020-07-21T22:31:32&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png' />
 <meta name="twitter:title" content="膨張と収縮の組み合わせによるopeningとclosing">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 画像に対する膨張と収縮の組み合わせによって、openingとclosingという2つの操作が実現できます。 openingは周辺よりもピクセル値が大きい点を取り除くことができ、closingは周辺よりもピクセル値が小さい点を取り除くことができます。これによってノイズの除去や連結した領域を分割したり、逆に連結させたりできます。 opening openingは収縮(erode)の後に膨張(dilate)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.3) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) erosion = cv2.erode(A, kernel, iterations=1) dilation = cv2.dilate(erosion, kernel, iterations=1) plt.imshow(dilation) plt.gray() plt.show() 周辺よりもピクセル値が大きい点を取り除けていることが分かるでしょうか。 ちなみに次のようにしてもopeningをおこなえます。結果は上記と全く同じになります。 opening = cv2.morphologyEx(A, cv2.MORPH_OPEN, kernel) plt.imshow(opening) plt.gray() plt.show() closing closingは膨張(dilate)の後に収縮(erode)をおこなうことで実現できます。 例えば次のような画像を考えます。 np.random.seed(0) A = (np.random.rand(15, 15) &gt; 0.7) * 255 A = A.astype(np.uint8) この画像に対して、次のようにopeningの操作をおこないます。 kernel = np.ones([2, 2], np.uint8) dilation = cv2."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/">
-                <img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu5478060030060783729.png"
-                        srcset="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu5478060030060783729.png 800w, /blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu17392205797241847406.png 1600w"
+            <a href="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/">
+                <img src="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu5478060030060783729.png"
+                        srcset="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu5478060030060783729.png 800w, /mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu17392205797241847406.png 1600w"
                         width="800" 
                         height="790" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/">膨張と収縮の組み合わせによるopeningとclosing</a>
+            <a href="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/">膨張と収縮の組み合わせによるopeningとclosing</a>
         </h2>
     
         
@@ -284,10 +284,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">255</span>
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34.png"
 	width="251"
 	height="248"
-	srcset="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34_hu8881454922798155943.png 480w, /blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34_hu13492815628861081424.png 1024w"
+	srcset="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34_hu8881454922798155943.png 480w, /mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/71190920fbb63bb170a560a6db65cc34_hu13492815628861081424.png 1024w"
 	loading="lazy"
 	
 	
@@ -303,10 +303,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">gray</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145.png"
 	width="251"
 	height="248"
-	srcset="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145_hu453830611313734281.png 480w, /blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145_hu601483478295472992.png 1024w"
+	srcset="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145_hu453830611313734281.png 480w, /mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/40f7db63edf557cef887119767f8a145_hu601483478295472992.png 1024w"
 	loading="lazy"
 	
 	
@@ -327,10 +327,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">)</span> <span class="o">*</span> <span class="mi">255</span>
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e.png"
 	width="251"
 	height="248"
-	srcset="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu12243416266635792402.png 480w, /blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu14045377690961207707.png 1024w"
+	srcset="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu12243416266635792402.png 480w, /mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/72c323555493bf03f85379bed4fdc20e_hu14045377690961207707.png 1024w"
 	loading="lazy"
 	
 	
@@ -346,10 +346,10 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">erosion</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">gray</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a.png"
 	width="251"
 	height="248"
-	srcset="/blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a_hu12590503745147189843.png 480w, /blog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a_hu2380072511712971161.png 1024w"
+	srcset="/mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a_hu12590503745147189843.png 480w, /mblog/posts/%E8%86%A8%E5%BC%B5%E3%81%A8%E5%8F%8E%E7%B8%AE%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E3%82%88%E3%82%8Bopening%E3%81%A8closing/36d273fe9da6eb9a2cfa5875cd5e346a_hu2380072511712971161.png 1024w"
 	loading="lazy"
 	
 	
@@ -371,9 +371,9 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/closing/">Closing</a>
+            <a href="/mblog/tags/closing/">Closing</a>
         
-            <a href="/blog/tags/opening/">Opening</a>
+            <a href="/mblog/tags/opening/">Opening</a>
         
     </section>
 
@@ -433,11 +433,11 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -457,11 +457,11 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.d2bd2b3be85f33f4b2bd02cebf84146c_hu12225949573649792201.png" 
+                <img src="/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.d2bd2b3be85f33f4b2bd02cebf84146c_hu12225949573649792201.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -481,11 +481,11 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -505,11 +505,11 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -529,11 +529,11 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -702,7 +702,7 @@ openingは周辺よりもピクセル値が大きい点を取り除くことが�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

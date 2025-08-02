@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。 OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。 やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。 まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。 src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。 この行列を使い、次のように変換をおこないます。 transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。">
 <title>透過変換で斜めから撮った画像を上から見下ろす</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="透過変換で斜めから撮った画像を上から見下ろす">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="透過変換で斜めから撮った画像を上から見下ろす">
 <meta property='og:description' content="本記事はQrunchからの転載です。 透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。 OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。 やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。 まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。 src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。 この行列を使い、次のように変換をおこないます。 transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='透過変換' /><meta property='article:published_time' content='2020-07-30T11:04:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-30T11:04:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='透過変換' /><meta property='article:published_time' content='2020-07-30T11:04:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-30T11:04:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png' />
 <meta name="twitter:title" content="透過変換で斜めから撮った画像を上から見下ろす">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 透過変換とは？ 透過変換はアフィン変換よりも柔軟な変換になっていまして、アフィン変換ではできない台形への変換が可能です。また台形から長方形への変換も可能です。 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。 OpenCVでやってみる 次の画像を長方形の画像に変換することを考えます。 やりたいこととしてはこの本が斜めに（台形に）写っているので、これを長方形にすることです。 まず変換行列を作る必要があります。 これには次のようにgetPerspectiveTransformを使えば簡単にできます。 src = np.array([[830, 675], [26, 2872], [2579, 2852], [2350, 455]], dtype=np.float32) dst = np.array([[0, 0], [0, 1150], [800, 1150], [800, 0]], dtype=np.float32) perspective_mat = cv2.getPerspectiveTransform(src, dst) これはsrcで指定した4つの座標がdstで指定した4つの座標に変換されるような変換行列を作ってくださいと関数に依頼しています。 srcで指定している4点は本の4隅の座標です。dstの1150と800という数値は実際の本の縦横比から適当に決めました。 この行列を使い、次のように変換をおこないます。 transformed = cv2.warpPerspective(img, perspective_mat, (800, 1150)) plt.imshow(transformed[:, :, ::-1]) plt.show() それっぽく長方形になりました。 ちょっと文字などが斜めになっていますが、本の表紙が浮いているせいかもしれません。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/">
-                <img src="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu7588116510862652423.png"
-                        srcset="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu7588116510862652423.png 800w, /blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu13410605449558527386.png 1600w"
+            <a href="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/">
+                <img src="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu7588116510862652423.png"
+                        srcset="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu7588116510862652423.png 800w, /mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu13410605449558527386.png 1600w"
                         width="800" 
                         height="1023" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/">透過変換で斜めから撮った画像を上から見下ろす</a>
+            <a href="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/">透過変換で斜めから撮った画像を上から見下ろす</a>
         </h2>
     
         
@@ -281,10 +281,10 @@
 つまり、斜めに写っているものを上から見たような感じに変換ができるというわけです。</p>
 <h1 id="opencvでやってみる">OpenCVでやってみる
 </h1><p>次の画像を長方形の画像に変換することを考えます。<br>
-<img src="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456.png"
+<img src="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456.png"
 	width="220"
 	height="252"
-	srcset="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456_hu18139276594381909357.png 480w, /blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456_hu2442425019117868549.png 1024w"
+	srcset="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456_hu18139276594381909357.png 480w, /mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/130fb34c69db1a0a5b1505e2679dc456_hu2442425019117868549.png 1024w"
 	loading="lazy"
 	
 	
@@ -307,10 +307,10 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">transformed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">perspective_mat</span><span class="p">,</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">1150</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">transformed</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4.png"
 	width="197"
 	height="252"
-	srcset="/blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu9469787255307528125.png 480w, /blog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu9453538129198632747.png 1024w"
+	srcset="/mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu9469787255307528125.png 480w, /mblog/posts/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B%E3%81%A7%E6%96%9C%E3%82%81%E3%81%8B%E3%82%89%E6%92%AE%E3%81%A3%E3%81%9F%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%8A%E3%81%8B%E3%82%89%E8%A6%8B%E4%B8%8B%E3%82%8D%E3%81%99/80ab2bb0c531b5c091411d41a9dd10a4_hu9453538129198632747.png 1024w"
 	loading="lazy"
 	
 	
@@ -329,9 +329,9 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B/">透過変換</a>
+            <a href="/mblog/tags/%E9%80%8F%E9%81%8E%E5%A4%89%E6%8F%9B/">透過変換</a>
         
     </section>
 
@@ -391,11 +391,11 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -415,11 +415,11 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -439,11 +439,11 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -463,11 +463,11 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -487,7 +487,7 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
             
                 
 <article class="">
-    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
         
 
@@ -649,7 +649,7 @@ srcで指定している4点は本の4隅の座標です。dstの1150と800と�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

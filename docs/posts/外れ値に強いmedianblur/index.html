@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。 以下がmedianBlurを実際に実行したコードになります。 import cv2 import matplotlib.pyplot as plt image = cv2.imread(&#39;noro-min.jpeg&#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。">
 <title>外れ値に強いMedianBlur</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="外れ値に強いMedianBlur">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="外れ値に強いMedianBlur">
 <meta property='og:description' content="本記事はQrunchからの転載です。 単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。 以下がmedianBlurを実際に実行したコードになります。 import cv2 import matplotlib.pyplot as plt image = cv2.imread(&#39;noro-min.jpeg&#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='medianBlur' /><meta property='article:published_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='medianBlur' /><meta property='article:published_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-13T11:00:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
 <meta name="twitter:title" content="外れ値に強いMedianBlur">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 単純平滑化の場合には、局所領域内での平均を取るため、周辺とは大きく異なるピクセル値をもつピクセルがあると、その影響が大きすぎて上手くいかない場合があります。 そのようなケースでは中央値を使うようにすると、上手くいくかもしれません。 medianBlur OpenCVではmedianBlurという関数で局所領域内の中央値を使うような平滑化をおこなえます。 以下がmedianBlurを実際に実行したコードになります。 import cv2 import matplotlib.pyplot as plt image = cv2.imread(&#39;noro-min.jpeg&#39;) blur = cv2.medianBlur(img, ksize=5) blur = cv2.cvtColor(blur, cv2.COLOR_BGR2RGB) plt.imshow(blur[:, :, ::-1]) plt.show() 人工的に画像にノイズを乗せて、blurとmedianBlurを適用した結果を比べてみます。 ノイズを乗せた画像 blurを適用した画像 medianBlurを適用した画像 中央値を使うことで、ノイズを上手く取り除くことができています。 ただし、文字の部分などは結構ボケるようになりました。中央値を使うと、白い背景と近い部分のピクセルはすべて白に置き換えられてしまうからです。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/">
-                <img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu14419771451840632443.png"
-                        srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu14419771451840632443.png 800w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu15736595162571466389.png 1600w"
+            <a href="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/">
+                <img src="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu14419771451840632443.png"
+                        srcset="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu14419771451840632443.png 800w, /mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu15736595162571466389.png 1600w"
                         width="800" 
                         height="752" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/">外れ値に強いMedianBlur</a>
+            <a href="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/">外れ値に強いMedianBlur</a>
         </h2>
     
         
@@ -301,10 +301,10 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png"
+<td><img src="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f.png"
 	width="266"
 	height="250"
-	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu177850194157102766.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu10984901810705135623.png 1024w"
+	srcset="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu177850194157102766.png 480w, /mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/28e324c722b76a17f033eec94f612f1f_hu10984901810705135623.png 1024w"
 	loading="lazy"
 	
 	
@@ -313,10 +313,10 @@
 		data-flex-basis="255px"
 	
 ></td>
-<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png"
+<td><img src="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122.png"
 	width="266"
 	height="250"
-	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hu2768304795713180101.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hu15164818641049480127.png 1024w"
+	srcset="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hu2768304795713180101.png 480w, /mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/3b26ff8d1e9fbe2c3266d45ddecc0122_hu15164818641049480127.png 1024w"
 	loading="lazy"
 	
 	
@@ -325,10 +325,10 @@
 		data-flex-basis="255px"
 	
 ></td>
-<td><img src="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png"
+<td><img src="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5.png"
 	width="266"
 	height="250"
-	srcset="/blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu2393766809385022018.png 480w, /blog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu15868415670755405227.png 1024w"
+	srcset="/mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu2393766809385022018.png 480w, /mblog/posts/%E5%A4%96%E3%82%8C%E5%80%A4%E3%81%AB%E5%BC%B7%E3%81%84medianblur/38fd4d2636a29433a5cd4a3204c1dca5_hu15868415670755405227.png 1024w"
 	loading="lazy"
 	
 	
@@ -350,9 +350,9 @@
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/medianblur/">MedianBlur</a>
+            <a href="/mblog/tags/medianblur/">MedianBlur</a>
         
     </section>
 
@@ -412,11 +412,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -436,11 +436,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -460,11 +460,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -484,11 +484,11 @@
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -508,7 +508,7 @@
             
                 
 <article class="">
-    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
         
 
@@ -670,7 +670,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

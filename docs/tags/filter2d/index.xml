@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Filter2D on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/filter2d/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/filter2d/</link>
         <description>Recent content in Filter2D on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 25 Jul 2020 12:12:06 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/filter2d/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 25 Jul 2020 12:12:06 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/filter2d/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>filter2Dで任意のカーネルを扱う</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</link>
         <pubDate>Sat, 25 Jul 2020 12:12:06 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7.png" alt="Featured image of post filter2Dで任意のカーネルを扱う" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7.png" alt="Featured image of post filter2Dで任意のカーネルを扱う" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;OpenCVではいろいろなカーネルによる演算が用意されていますが、自分で定義したカーネルを使いたいこともあります。
 そんなときにはfilter2Dが活躍します。&lt;/p&gt;
@@ -23,10 +23,10 @@
 kernelに自分で定義したカーネルを指定します。&lt;/p&gt;
 &lt;h1 id=&#34;filter2dを使ってみる&#34;&gt;filter2Dを使ってみる
 &lt;/h1&gt;&lt;p&gt;次の画像にfilter2Dを使った平滑化を適用してみます。&lt;br&gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4_hu15663059655230850390.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4_hu2037515783423837581.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4_hu15663059655230850390.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99b91d5544a0ee6004a529f9fc9f84b4_hu2037515783423837581.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -42,10 +42,10 @@ kernelに自分で定義したカーネルを指定します。&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7.png&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7.png&#34;
 	width=&#34;247&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7_hu2484648434771646344.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7_hu3288301496170356850.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7_hu2484648434771646344.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/filter2d%E3%81%A7%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86/99878fdaca9a827d2ba5359aa4dcade7_hu3288301496170356850.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

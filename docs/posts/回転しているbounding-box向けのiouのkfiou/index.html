@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．">
 <title>回転しているBounding Box向けのIoUのKFIoU</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="回転しているBounding Box向けのIoUのKFIoU">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="回転しているBounding Box向けのIoUのKFIoU">
 <meta property='og:description' content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='IoU' /><meta property='article:tag' content='物体検出' /><meta property='article:tag' content='カルマンフィルター' /><meta property='article:tag' content='Rotated Bounding Box' /><meta property='article:tag' content='CV' /><meta property='article:tag' content='KFIoU' /><meta property='article:tag' content='SkewIoU' /><meta property='article:published_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='IoU' /><meta property='article:tag' content='物体検出' /><meta property='article:tag' content='カルマンフィルター' /><meta property='article:tag' content='Rotated Bounding Box' /><meta property='article:tag' content='CV' /><meta property='article:tag' content='KFIoU' /><meta property='article:tag' content='SkewIoU' /><meta property='article:published_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
 <meta name="twitter:title" content="回転しているBounding Box向けのIoUのKFIoU">
 <meta name="twitter:description" content="従来手法の問題点 回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのがKFIoUになります． KFIoU Bounding Boxの正規分布への変換 KFIoUを計算するための前段階として、正解のBounding Boxと予測されたBounding Boxを正規分布に変換します． 具体的には、Bounding Boxが中心を$(x, y)$、横幅と縦幅を$w, h$, 回転角度を$\\theta$としたときに次で定義される平均$\\mu$、共分散行列$\\Sigma$の正規分布に変換します． $$ \\Sigma = R \\Lambda R^T, \\ \\mu = \\begin{pmatrix}x, y\\end{pmatrix}. $$ ここで $$ R = \\begin{pmatrix} \\cos \\theta &amp; -\\sin \\theta \\\\ \\sin \\theta &amp; \\cos \\theta \\end{pmatrix}, \\Lambda = \\begin{pmatrix} \\frac{w^2}{4} &amp; 0 \\\\ 0 &amp; \\frac{h^2}{4} \\end{pmatrix} $$ です． 回転しているBounding Boxのそれぞれの辺に沿ったベクトルが$R$の列になっています． 一見、なぞの変換ではあるのですが、このように定義すると以下のようにしてBounding Boxの面積$\\mathcal{V_B}(\\Sigma)$を求めることができます． $$ \\mathcal{V_B}(\\Sigma) = 2^2 |\\Sigma|^{1/2}. $$ $R$が回転行列であることを用いれば $$ |\\Sigma| = |R \\Lambda R^T| = |R| |\\Lambda| |R| = |\\Lambda| = \\frac{w^2h^2}{16} $$ ですので、$\\mathcal{V_B}(\\Sigma)=wh$ となり、無事にBounding Boxの面積に一致します．"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
-                <img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png"
-                        srcset="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png 800w, /blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu7075399228362069107.png 1600w"
+            <a href="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+                <img src="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png"
+                        srcset="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu15983498085180336046.png 800w, /mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm_hu7075399228362069107.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+            <a href="/mblog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
                 ディープラーニング
             </a>
         
-            <a href="/blog/categories/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/" >
+            <a href="/mblog/categories/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/" >
                 物体検出
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">回転しているBounding Box向けのIoUのKFIoU</a>
+            <a href="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">回転しているBounding Box向けのIoUのKFIoU</a>
         </h2>
     
         
@@ -365,10 +365,10 @@ $$
 が成り立つとわかります．一応、KFIoUを3倍すると最大値を1にするように調整できますが、Lossに用いるときは3倍しないほうが良いという結果になったようで、特に係数の調整をしないものが利用されています．</li>
 </ol>
 <p>ここまでの話がまとまっているのが次の図2になります．</p>
-<p><img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2.png"
+<p><img src="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2.png"
 	width="942"
 	height="436"
-	srcset="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu15966808525728126241.png 480w, /blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu16336387281906599733.png 1024w"
+	srcset="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu15966808525728126241.png 480w, /mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu16336387281906599733.png 1024w"
 	loading="lazy"
 	
 		alt="図2"
@@ -387,10 +387,10 @@ $$
 </ol>
 <h2 id="実験">実験
 </h2><p>論文の中から他の手法との性能比較に関する結果を紹介します．</p>
-<p><img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4.png"
+<p><img src="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4.png"
 	width="785"
 	height="706"
-	srcset="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17382642109159972160.png 480w, /blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17334943275002565695.png 1024w"
+	srcset="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17382642109159972160.png 480w, /mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17334943275002565695.png 1024w"
 	loading="lazy"
 	
 		alt="表4"
@@ -411,21 +411,21 @@ KFIoUは他手法と比べて高い性能を出すことができています．
     
     <section class="article-tags">
         
-            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+            <a href="/mblog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
         
-            <a href="/blog/tags/iou/">IoU</a>
+            <a href="/mblog/tags/iou/">IoU</a>
         
-            <a href="/blog/tags/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/">物体検出</a>
+            <a href="/mblog/tags/%E7%89%A9%E4%BD%93%E6%A4%9C%E5%87%BA/">物体検出</a>
         
-            <a href="/blog/tags/%E3%82%AB%E3%83%AB%E3%83%9E%E3%83%B3%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC/">カルマンフィルター</a>
+            <a href="/mblog/tags/%E3%82%AB%E3%83%AB%E3%83%9E%E3%83%B3%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC/">カルマンフィルター</a>
         
-            <a href="/blog/tags/rotated-bounding-box/">Rotated Bounding Box</a>
+            <a href="/mblog/tags/rotated-bounding-box/">Rotated Bounding Box</a>
         
-            <a href="/blog/tags/cv/">CV</a>
+            <a href="/mblog/tags/cv/">CV</a>
         
-            <a href="/blog/tags/kfiou/">KFIoU</a>
+            <a href="/mblog/tags/kfiou/">KFIoU</a>
         
-            <a href="/blog/tags/skewiou/">SkewIoU</a>
+            <a href="/mblog/tags/skewiou/">SkewIoU</a>
         
     </section>
 
@@ -485,11 +485,11 @@ KFIoUは他手法と比べて高い性能を出すことができています．
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+    <a href="/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
+                <img src="/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -509,11 +509,11 @@ KFIoUは他手法と比べて高い性能を出すことができています．
             
                 
 <article class="has-image">
-    <a href="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+    <a href="/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                <img src="/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -533,11 +533,11 @@ KFIoUは他手法と比べて高い性能を出すことができています．
             
                 
 <article class="has-image">
-    <a href="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">
+    <a href="/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.03a3f1b7554dac74e378a9c944a7b071_hu4105173508720199239.png" 
+                <img src="/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.03a3f1b7554dac74e378a9c944a7b071_hu4105173508720199239.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -557,11 +557,11 @@ KFIoUは他手法と比べて高い性能を出すことができています．
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
+    <a href="/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.67f8b16277336689ee2c72556430c841_hu13887809263919742814.png" 
+                <img src="/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.67f8b16277336689ee2c72556430c841_hu13887809263919742814.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -581,11 +581,11 @@ KFIoUは他手法と比べて高い性能を出すことができています．
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+    <a href="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
+                <img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.9fc7236584165eac18e4e49ae1584dde_hu4201968621380306401.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -754,7 +754,7 @@ KFIoUは他手法と比べて高い性能を出すことができています．
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

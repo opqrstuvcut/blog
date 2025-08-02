@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>ディープラーニング on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/</link>
         <description>Recent content in ディープラーニング on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
         <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
+        <guid>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
 &lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2506.08008&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hidden in plain sight: VLMs overlook their visual representations&lt;/a&gt;
 です.&lt;/p&gt;
@@ -20,10 +20,10 @@
 DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が&lt;strong&gt;大きく下がる&lt;/strong&gt;ことを示しています.&lt;/p&gt;
 &lt;p&gt;例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.&lt;br&gt;
 DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
 	width=&#34;1337&#34;
 	height=&#34;824&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -38,10 +38,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/h2&gt;&lt;p&gt;まず、VLMはどのように実現されているかの話になります.&lt;br&gt;
 本論文で扱われている&lt;a class=&#34;link&#34; href=&#34;https://github.com/TRI-ML/prismatic-vlms&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;LLaVA&lt;/a&gt;ではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
 	width=&#34;1607&#34;
 	height=&#34;542&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLaVAの構成&#34;
@@ -66,10 +66,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています.&lt;/p&gt;
 &lt;h3 id=&#34;カメラ距離を推定するタスク&#34;&gt;カメラ距離を推定するタスク
 &lt;/h3&gt;&lt;p&gt;どちらのBounding Boxのほうがカメラに近いかを判定するタスク.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;カメラ距離&#34;
@@ -90,10 +90,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;視覚的な類似箇所を推定するタスク&#34;&gt;視覚的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から視覚的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;類似箇所&#34;
@@ -111,10 +111,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;機能的な類似箇所を推定するタスク&#34;&gt;機能的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から機能的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;機能的類似箇所&#34;
@@ -128,10 +128,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;同じ位置を推定するタスク&#34;&gt;同じ位置を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;同定&#34;
@@ -145,10 +145,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;最も似ていない3dオブジェクトを推定するタスク&#34;&gt;最も似ていない3Dオブジェクトを推定するタスク
 &lt;/h3&gt;&lt;p&gt;4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;309&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;3D&#34;
@@ -165,10 +165,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;似ている画風の絵画を選択するタスク&#34;&gt;似ている画風の絵画を選択するタスク
 &lt;/h3&gt;&lt;p&gt;与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;259&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;art&#34;
@@ -185,10 +185,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h2 id=&#34;実験結果&#34;&gt;実験結果
 &lt;/h2&gt;&lt;h3 id=&#34;visualモデルとprojector層をftしたvlmの性能比較&#34;&gt;Visualモデルとprojector層をFTしたVLMの性能比較
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
 	width=&#34;1327&#34;
 	height=&#34;450&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;VisualモデルとVLMの比較&#34;
@@ -204,10 +204,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;オープンソースのvlmとvisualモデル部分の性能比較&#34;&gt;オープンソースのVLMとVisualモデル部分の性能比較
 &lt;/h3&gt;&lt;p&gt;他のVLMでのVisualモデルとの性能比較.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;429&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;オープンソースモデルとの比較&#34;
@@ -228,10 +228,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;&lt;strong&gt;以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;目隠ししたケースでの性能&#34;&gt;目隠ししたケースでの性能
 &lt;/h3&gt;&lt;p&gt;VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;385&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;目隠ししたケースでの出力分布&#34;
@@ -254,10 +254,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;中間層の特徴量の比較&#34;&gt;中間層の特徴量の比較
 &lt;/h3&gt;&lt;p&gt;VLMの層の途中でVisualモデルの情報が失われていないかを確認するための実験.
 各層の特徴量ををもとにして類似箇所を見つけるタスクや位置の推定タスクを解く. もしうまく解けるようであれば、特徴量にVisualモデルからの情報が伝搬できている.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
 	width=&#34;787&#34;
 	height=&#34;625&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;特徴量比較&#34;
@@ -288,10 +288,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;プロンプトチューニング&#34;&gt;プロンプトチューニング
 &lt;/h3&gt;&lt;p&gt;プロンプトによって性能を改善できるのかを実験.
 テキストのプロンプトの前に学習可能なembeddingを1、5、10トークン追加する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;323&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;プロンプトチューニング&#34;
@@ -308,10 +308,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;llm側のファインチューニング&#34;&gt;LLM側のファインチューニング
 &lt;/h3&gt;&lt;p&gt;LoRAによるLLM部分のFTによって性能を改善できるのかを実験.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLMファインチューニング&#34;
@@ -327,10 +327,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;li&gt;ViT部分やprojector層のFTはあまり効果がない.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、FT前後でのAttentin Mapの差を可視化したのが以下の図.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
 	width=&#34;716&#34;
 	height=&#34;609&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Attention Mapの差&#34;
@@ -352,10 +352,10 @@ $$&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;各ラベルの頻度の差を取っており、2つの分布が近いほど0に近づく.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
 	width=&#34;1342&#34;
 	height=&#34;399&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;出力の分布&#34;
@@ -377,17 +377,17 @@ $$&lt;/p&gt;
         </item>
         <item>
         <title>拡散言語モデルのLLaDA</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
         <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
 &lt;/h1&gt;&lt;p&gt;2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります.
 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
 	width=&#34;568&#34;
 	height=&#34;558&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較top&#34;
@@ -411,10 +411,10 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
 	width=&#34;957&#34;
 	height=&#34;327&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reversal Curse&#34;
@@ -437,10 +437,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;lladaのアプローチ拡散モデル型のllm&#34;&gt;LLaDAのアプローチ：拡散モデル型のLLM
 &lt;/h2&gt;&lt;p&gt;LLaDAは、自己回帰ではなく&lt;strong&gt;拡散モデル&lt;/strong&gt;のアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です.&lt;/p&gt;
 &lt;h3 id=&#34;事前学習pretraining&#34;&gt;事前学習（Pretraining）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
 	width=&#34;344&#34;
 	height=&#34;310&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;事前学習の概要&#34;
@@ -469,10 +469,10 @@ $$&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;p&gt;マスクされた問題に関する損失関数にマイナスを付けた式により下から最大化したい式を抑えられることをあらわしているので、損失関数を小さくできるほど言語モデルの意味で良いモデルで良いモデルと言えます.&lt;/p&gt;
 &lt;h3 id=&#34;fine-tuning&#34;&gt;Fine Tuning
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
 	width=&#34;337&#34;
 	height=&#34;232&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Fine Tuningの概要&#34;
@@ -493,10 +493,10 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;この学習により、LLaDAもGPTのような指令に従うような機能を獲得できます.&lt;/p&gt;
 &lt;h3 id=&#34;推論inference&#34;&gt;推論（Inference）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
 	width=&#34;358&#34;
 	height=&#34;315&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論の概要&#34;
@@ -519,10 +519,10 @@ $$&lt;/p&gt;
 &lt;p&gt;一部のトークンを固定してそれ以外を再生成といったプロセスを繰り返しますので、ノイズを徐々に取り除いていく拡散モデルのようなことをしているイメージにはなっています.
 このように推論することで、文全体を一気に生成するよりも安定した品質が得られているのだと思います.&lt;/p&gt;
 &lt;p&gt;なお、推論したい部分全体に対して上記の処理をしていく方法の他、semi-autoregressiveという推論したい部分をいくつかのBlockに分けて、左のBlockから上記の処理をおこなっていく方法も提案されています. Blockを小さくしていくと、より自己回帰モデルに近いものになっていきます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
 	width=&#34;994&#34;
 	height=&#34;414&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;semi-autoregressive&#34;
@@ -536,10 +536,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;スケーラビリティ&#34;&gt;スケーラビリティ
 &lt;/h3&gt;&lt;p&gt;まず投下計算量（モデルのサイズ、学習トークン数）に対して順当に性能が向上するかを確認した結果が以下になります（ちなみにFLOPsはモデルのパラメーター数を$N$、学習データのトークン数を$D$としたときに$6ND$で計算されています）.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
 	width=&#34;1087&#34;
 	height=&#34;512&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;スケーラビリティ&#34;
@@ -554,10 +554,10 @@ $$&lt;/p&gt;
 &lt;h3 id=&#34;他モデルとの比較&#34;&gt;他モデルとの比較
 &lt;/h3&gt;&lt;h4 id=&#34;事前学習モデル&#34;&gt;事前学習モデル
 &lt;/h4&gt;&lt;p&gt;以下は事前学習モデルでの各タスクの推論性能をあらわしています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
 	width=&#34;1166&#34;
 	height=&#34;688&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -572,10 +572,10 @@ $$&lt;/p&gt;
 論文では特に言及がなかったと思うのですが、こうやって比較するとQwenは性能高いですね. 全然勝てていません.&lt;/p&gt;
 &lt;h4 id=&#34;ファインチューニング済モデル&#34;&gt;ファインチューニング済モデル
 &lt;/h4&gt;&lt;p&gt;ファインチューニングした場合の性能比較した結果は以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
 	width=&#34;1157&#34;
 	height=&#34;555&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較FT&#34;
@@ -589,10 +589,10 @@ $$&lt;/p&gt;
 &lt;p&gt;ファインチューニングしたもの同士で比較するとLLaMA3には劣っているかなという印象ですが、一部のタスクでは上回ることができています. MMLUでは性能が下がっているのですが、Fine Tuning用のデータセットと合っていない可能性が指摘されています.&lt;/p&gt;
 &lt;h3 id=&#34;reversal-curseへの耐性&#34;&gt;Reversal Curseへの耐性
 &lt;/h3&gt;&lt;p&gt;中国語の詩のデータセットを作り、与えられた詩の前後の句を当てる問題を解かせた結果が以下になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
 	width=&#34;479&#34;
 	height=&#34;188&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ReversalCurseの結果&#34;
@@ -613,10 +613,10 @@ $$&lt;/p&gt;
 &lt;li&gt;Block単位の逐次生成（semi-autoregressive remasking）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;それらを比較した結果が以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
 	width=&#34;1161&#34;
 	height=&#34;231&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリング戦略&#34;
@@ -632,10 +632,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 これに対して、semi-autoregressiveを用いて左のBlockから順に生成していくことでパディング部分の悪さを回避できています.&lt;/p&gt;
 &lt;h3 id=&#34;推論のサンプリングのステップ数&#34;&gt;推論のサンプリングのステップ数
 &lt;/h3&gt;&lt;p&gt;提案手法はサンプリング回数を増やせばより性能が良くなりそうですが、実際どうなのでしょうか？それをあらわしたのが次の図です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;388&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリングステップ数&#34;
@@ -649,10 +649,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 &lt;p&gt;横軸が対数スケールなのですが、ステップ数（NFEs）を増やすごとに性能が上がっていくのが分かります. とはいえ1024回もモデルの推論を実行するのは計算コストが大きすぎますね.&lt;/p&gt;
 &lt;h3 id=&#34;推論の過程&#34;&gt;推論の過程
 &lt;/h3&gt;&lt;p&gt;推論の過程をあらわしたのが次の図で、色が薄いほど推論のステップのなかで先にトークンが固定され、濃いほどあとの方にトークンが固定されたことをあらわします.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
 	width=&#34;1071&#34;
 	height=&#34;271&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論過程&#34;
@@ -675,11 +675,11 @@ BERTでも文章が作れるのでは？と思っていましたが、世の中�
         </item>
         <item>
         <title>外部知識を活用して効率的に性能向上を達成したYOLO-RD</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</link>
         <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png" alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD" /&gt;&lt;p&gt;YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png" alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD" /&gt;&lt;p&gt;YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
 今回は、ICLR2025で発表されたYOLO-RD(&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2410.15346&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://arxiv.org/abs/2410.15346&lt;/a&gt;)について解説します.&lt;/p&gt;
 &lt;h2 id=&#34;従来手法の限界と問題意識&#34;&gt;従来手法の限界と問題意識
@@ -691,10 +691,10 @@ BERTでも文章が作れるのでは？と思っていましたが、世の中�
 &lt;p&gt;これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）.&lt;br&gt;
 もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります.&lt;br&gt;
 人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1.png&#34;
 	width=&#34;946&#34;
 	height=&#34;329&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu3745882659329699378.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu9918131085593678498.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu3745882659329699378.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu9918131085593678498.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;YOLO-RDの概要&#34;
@@ -708,10 +708,10 @@ BERTでも文章が作れるのでは？と思っていましたが、世の中�
 &lt;h2 id=&#34;yolo-rdの概要&#34;&gt;YOLO-RDの概要
 &lt;/h2&gt;&lt;p&gt;YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです.&lt;br&gt;
 これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2.png&#34;
 	width=&#34;936&#34;
 	height=&#34;346&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu2701416847664046125.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu8795489024073455909.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu2701416847664046125.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu8795489024073455909.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;YOLO-RDの全体像&#34;
@@ -780,10 +780,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;提案手法の効果&#34;&gt;提案手法の効果
 &lt;/h3&gt;&lt;p&gt;以下は提案手法の効果を示した表です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1.png&#34;
 	width=&#34;967&#34;
 	height=&#34;610&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7767481251999724551.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7764096949802347058.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7767481251999724551.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7764096949802347058.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;提案手法の効果&#34;
@@ -799,10 +799,10 @@ $$&lt;/p&gt;
     &gt;YOLOv9のレポジトリ&lt;/a&gt;をみてみると、サイズがCからEになると、計算量は102.1GFlopsから189.0GFlopsになり、パラメーター数は25.3Mから57.3Mになり、${\rm mAP}_{.5}^{val}$は2.6%あがっています.一方で、例えばVMのケースだと0.2Mのパラメーターの追加、0.16のLatencyの増加で1.46%向上しています.非常にコスパよく性能があがっていることがわかります.&lt;/p&gt;
 &lt;h3 id=&#34;他タスクへの利用&#34;&gt;他タスクへの利用
 &lt;/h3&gt;&lt;p&gt;他タスクへも提案手法を適用した結果が次の表になり、きちんと効果があることが示されています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2.png&#34;
 	width=&#34;546&#34;
 	height=&#34;315&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu3398812665705737277.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu599008810496615692.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu3398812665705737277.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu599008810496615692.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;他タスクへの利用&#34;
@@ -815,10 +815,10 @@ $$&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;既存手法との比較&#34;&gt;既存手法との比較
 &lt;/h3&gt;&lt;p&gt;以下は既存の他手法との比較になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3.png&#34;
 	width=&#34;425&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu2469063103545249303.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu13878300565109423738.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu2469063103545249303.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu13878300565109423738.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;他手法との比較&#34;
@@ -833,10 +833,10 @@ $$&lt;/p&gt;
 これらの手法と比較してみても、やはり提案手法は効率よく性能を上げられていることがわかります.&lt;/p&gt;
 &lt;h3 id=&#34;ablation-study&#34;&gt;Ablation Study
 &lt;/h3&gt;&lt;p&gt;以下はRetrieverの計算方法の違いをあらわしており、1行目は1度の畳み込みでatomの重みを計算してしまう方法、2行目は提案手法で使われている方法です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4.png&#34;
 	width=&#34;557&#34;
 	height=&#34;174&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu13486331114492203243.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu4579865393690535001.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu13486331114492203243.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu4579865393690535001.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Retrieverの計算の違い&#34;
@@ -852,10 +852,10 @@ $$&lt;/p&gt;
 &lt;/h3&gt;&lt;h4 id=&#34;atomの係数の可視化&#34;&gt;atomの係数の可視化
 &lt;/h4&gt;&lt;p&gt;以下では入力画像とatom、係数の関係を可視化しています.&lt;br&gt;
 (a)の矩形部分がモデルへの入力、(b)がバックボーンからの特徴とatomとの相関（類似度を計算？）、(c)が各atomの係数となっています.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4.png&#34;
 	width=&#34;917&#34;
 	height=&#34;361&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu7900514752653466333.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu6284167473182498972.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu7900514752653466333.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu6284167473182498972.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;atomの係数の可視化&#34;
@@ -870,10 +870,10 @@ $$&lt;/p&gt;
 一方で、(b)において相関が低く、係数が0に近いatomは(e)と(f)のように入力画像とは関係のないものになっています.&lt;/p&gt;
 &lt;h4 id=&#34;提案手法の有無によるバックボーンからの特徴量の比較&#34;&gt;提案手法の有無によるバックボーンからの特徴量の比較
 &lt;/h4&gt;&lt;p&gt;以下は左図が入力画像、中央がバックボーンから得られた特徴量、右が提案手法の辞書を用いて得られた特徴量になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5.png&#34;
 	width=&#34;943&#34;
 	height=&#34;393&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu8388633634531988210.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu12720629858408410038.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu8388633634531988210.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu12720629858408410038.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;特徴量の比較&#34;
@@ -891,11 +891,11 @@ $$&lt;/p&gt;
         </item>
         <item>
         <title>Label StudioのAPIを利用したデータ連携のメモ</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/</link>
         <pubDate>Thu, 24 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.png" alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ" /&gt;&lt;p&gt;Label StudioのAPIを利用するとき用のメモになります．下記で出てくる例は物体検出を例にしています．&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.png" alt="Featured image of post Label StudioのAPIを利用したデータ連携のメモ" /&gt;&lt;p&gt;Label StudioのAPIを利用するとき用のメモになります．下記で出てくる例は物体検出を例にしています．&lt;/p&gt;
 &lt;h2 id=&#34;taskの一覧の取得&#34;&gt;Taskの一覧の取得
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;os&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;requests&lt;/span&gt;
@@ -1015,11 +1015,11 @@ predictメソッドの中で入力データをLabel Studioから受け取り、�
         </item>
         <item>
         <title>回転しているBounding Box向けのIoUのKFIoU</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/</link>
         <pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png" alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU" /&gt;&lt;h2 id=&#34;従来手法の問題点&#34;&gt;従来手法の問題点
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.png" alt="Featured image of post 回転しているBounding Box向けのIoUのKFIoU" /&gt;&lt;h2 id=&#34;従来手法の問題点&#34;&gt;従来手法の問題点
 &lt;/h2&gt;&lt;p&gt;回転しているBounding Box向けの微分可能なIoUの計算というのは簡単ではありません．既存手法としてGWDやKLDがありますが、問題ごとにハイパーパラメータの調整が必要になります．これを解決してより扱いやすく性能が高い手法になったのが&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2201.12558&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;KFIoU&lt;/a&gt;になります．&lt;/p&gt;
 &lt;h2 id=&#34;kfiou&#34;&gt;KFIoU
@@ -1110,10 +1110,10 @@ $$
 が成り立つとわかります．一応、KFIoUを3倍すると最大値を1にするように調整できますが、Lossに用いるときは3倍しないほうが良いという結果になったようで、特に係数の調整をしないものが利用されています．&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;ここまでの話がまとまっているのが次の図2になります．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2.png&#34;
 	width=&#34;942&#34;
 	height=&#34;436&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu15966808525728126241.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu16336387281906599733.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu15966808525728126241.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/fig2_hu16336387281906599733.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図2&#34;
@@ -1132,10 +1132,10 @@ $$
 &lt;/ol&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;p&gt;論文の中から他の手法との性能比較に関する結果を紹介します．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4.png&#34;
 	width=&#34;785&#34;
 	height=&#34;706&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17382642109159972160.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17334943275002565695.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17382642109159972160.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/table4_hu17334943275002565695.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;表4&#34;
@@ -1152,20 +1152,20 @@ KFIoUは他手法と比べて高い性能を出すことができています．
         </item>
         <item>
         <title>特徴量の次元の柔軟性が高いマトリョーシカ表現学習</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</link>
         <pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png" alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習" /&gt;&lt;p&gt;一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます．
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png" alt="Featured image of post 特徴量の次元の柔軟性が高いマトリョーシカ表現学習" /&gt;&lt;p&gt;一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます．
 もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です．
 それを実現するための方法として&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2205.13147&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Matryoshka Representation Learning（マトリョーシカ表現学習）&lt;/a&gt;があります．&lt;br&gt;
 なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています．&lt;/p&gt;
 &lt;h2 id=&#34;マトリョーシカ表現学習の概要&#34;&gt;マトリョーシカ表現学習の概要
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png&#34;
 	width=&#34;568&#34;
 	height=&#34;475&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;マトリョーシカ表現学習の概要&#34;
@@ -1230,10 +1230,10 @@ $$
 &lt;p&gt;また、MRLとの比較のため、各次元ごとにモデルを用意して独立に学習したケース（FF）と学習後に特異値分解（SVD）で次元圧縮したケースなどがあります．ただし、大事なのはFFとの比較になるかと思います．&lt;/p&gt;
 &lt;h3 id=&#34;分類&#34;&gt;分類
 &lt;/h3&gt;&lt;h4 id=&#34;比較&#34;&gt;比較
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png&#34;
 	width=&#34;456&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図2&#34;
@@ -1244,10 +1244,10 @@ $$
 		data-flex-basis=&#34;241px&#34;
 	
 &gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png&#34;
 	width=&#34;456&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図3&#34;
@@ -1262,10 +1262,10 @@ $$
 分類精度はMRLの次元が小さくてもあまり劣化していないことがわかります．また、MRL-Eもそれほど大きく変わらないという結果になっています．重み行列を共有していることを考えるとかなりうまくいっているのではないでしょうか．&lt;/p&gt;
 &lt;p&gt;図3はデータセットからクエリとなるデータのembeddingを学習済みモデルで取得し、それをもとに1-NNで見つけたデータが同じクラスに属していれば正解とする分類問題です．&lt;br&gt;
 こちらも同じような結果が得られています．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png&#34;
 	width=&#34;456&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図4&#34;
@@ -1279,10 +1279,10 @@ $$
 &lt;p&gt;Vit-B/16モデルでの1-NNの精度を図4に示しています．&lt;br&gt;
 こちらでも、MRLとMRL-Eは次元の減少に対して、精度の劣化が少ない結果が得られています．&lt;/p&gt;
 &lt;h4 id=&#34;次元の柔軟性&#34;&gt;次元の柔軟性
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png&#34;
 	width=&#34;456&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図5&#34;
@@ -1297,10 +1297,10 @@ $$
 びっくりする話ですが、学習した次元以外でembeddingを切り出しても、図の精度のcurveに沿ったものになっています．一部に制約をつけて学習させることで、全体としてマトリョーシカ的な表現のembeddingが得られているということのようです．各次元がその前までのembeddingを適切に補う形になっていると考えればよいのでしょうか．&lt;/p&gt;
 &lt;h3 id=&#34;検索&#34;&gt;検索
 &lt;/h3&gt;&lt;h4 id=&#34;比較-1&#34;&gt;比較
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png&#34;
 	width=&#34;456&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図7&#34;
@@ -1317,10 +1317,10 @@ $$
 &lt;/h4&gt;&lt;p&gt;最後に適応的検索の設定で評価をおこなう話になります．&lt;br&gt;
 これは、クエリが与えられたらまずは低次元$D_s$のembeddingで検索をおこないデータベースから200件のデータを選択する．そのあとに高次元$D_r$のembeddingを用いて類似度順に順位付けをおこなうというものです．イメージ的には速くおおまかに検索してから、丁寧に類似性が高いもの順に並び替えていくというものになります．&lt;br&gt;
 データベースのデータが非常に多いことが現実では考えられますから、この部分を小さい次元のembeddingでおこなえることは非常に高速化に寄与します．実際、次の図8の(a)のように$D_s$（色が薄いほど低い次元で検索）が小さく、$D_r$（大きいほど順序付けでの次元が大きい）を大きく設定すると、精度の劣化はなく（逆になぜかあがっていますね）、かつ14倍も高速になっています．ただし、(b)はImageNet-4Kを評価用に使っていて問題が難しいため、高速化は6倍に留まっています．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png&#34;
 	width=&#34;938&#34;
 	height=&#34;454&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;図8&#34;
@@ -1335,11 +1335,11 @@ $$
         </item>
         <item>
         <title>画像と自然言語でのマルチモーダルなImageBERT</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
         <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png" alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png" alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;最近Microsoftから発表されたImageBERTについて紹介します。&lt;br&gt;
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。
@@ -1349,10 +1349,10 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
     &gt;ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;アーキテクチャ&#34;&gt;アーキテクチャ
 &lt;/h1&gt;&lt;p&gt;ImageBERTのアーキテクチャは以下のとおりです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png&#34;
 	width=&#34;2040&#34;
 	height=&#34;966&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4782820121360725840.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4750603262513794147.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4782820121360725840.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4750603262513794147.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1390,10 +1390,10 @@ MOCはラベルを予測するようなタスクですが、MRFRはマスクさ�
 &lt;/h1&gt;&lt;p&gt;ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。
 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します）
 で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5.png&#34;
 	width=&#34;1826&#34;
 	height=&#34;610&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu8942433182479781656.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu2075952230978656483.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu8942433182479781656.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu2075952230978656483.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1407,10 +1407,10 @@ MOCはラベルを予測するようなタスクですが、MRFRはマスクさ�
 論文中では画像とテキストのペアが10M個あるこのデータセットをLAIT (Large-scale weAk-supervised Image-Text) と読んでいます。&lt;/p&gt;
 &lt;p&gt;LAITでは、webページ上の画像とHTMLのALTあるいはTITLEタグのテキストをcaptionとして対応付けています。単純にこれらを取得してくると、当然ノイジーなデータが多く含まれることになります。例えば、言語が英語ではない、画像のサイズが小さすぎる、現実の画像ではないなどが該当します。このようなペアをルールベースあるいは機械学習のモデルを用いてフィルタリングしています。&lt;br&gt;
 一連の流れは以下のようになります。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85.png&#34;
 	width=&#34;1098&#34;
 	height=&#34;1540&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu11487969349023570822.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu10371836243830688777.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu11487969349023570822.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu10371836243830688777.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1426,10 +1426,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 &lt;h2 id=&#34;結果&#34;&gt;結果
 &lt;/h2&gt;&lt;h3 id=&#34;性能比較&#34;&gt;性能比較
 &lt;/h3&gt;&lt;p&gt;以下の表は他手法との性能の比較です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a.png&#34;
 	width=&#34;1424&#34;
 	height=&#34;656&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu17778336402145431527.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu5817616310874181610.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu17778336402145431527.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu5817616310874181610.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1442,10 +1442,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 &lt;p&gt;他手法と比べて、ImageBERTは性能が良いことがわかります。全体傾向として、Sentence Retrievalは性能が高いですね。&lt;/p&gt;
 &lt;h3 id=&#34;マルチステージの効果&#34;&gt;マルチステージの効果
 &lt;/h3&gt;&lt;p&gt;以下の表がマルチステージの学習の効果をあらわしています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69.png&#34;
 	width=&#34;1014&#34;
 	height=&#34;356&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu15549283014864703573.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu2460027981471294082.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu15549283014864703573.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu2460027981471294082.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1458,10 +1458,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 明らかにマルチステージで学習することに優位性がありますね。この結果はImageBERTに限らず参考になりそうです。&lt;/p&gt;
 &lt;h3 id=&#34;ablation-study&#34;&gt;ablation study
 &lt;/h3&gt;&lt;p&gt;ablation studyです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40.png&#34;
 	width=&#34;1404&#34;
 	height=&#34;650&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu6442853037209584085.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu17623035205993790707.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu6442853037209584085.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu17623035205993790707.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1486,11 +1486,11 @@ ImageBERTの事前学習モデルが公開されれば、以前公開した&lt;a
         </item>
         <item>
         <title>BERTを軽量化したALBERTの概要</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</link>
         <pubDate>Sat, 28 Dec 2019 23:36:43 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png" alt="Featured image of post BERTを軽量化したALBERTの概要" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png" alt="Featured image of post BERTを軽量化したALBERTの概要" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/1810.04805&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;BERT&lt;/a&gt;のパラメータの数を減らしたモデルであるALBERTについての概要を書いていきます。&lt;/p&gt;
@@ -1505,10 +1505,10 @@ ImageBERTの事前学習モデルが公開されれば、以前公開した&lt;a
 &lt;li&gt;計算量が多い（論文中で特に言われているのが、分散処理での通信のコストです。通信は遅いのであまりやりたくありません。）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、パラメータ数を増やしていっても順調に性能が高まるわけではなく、逆に大きく性能を落とすことがあります。以下の表がそれを示しています。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0.png&#34;
 	width=&#34;1492&#34;
 	height=&#34;280&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu986272114044548789.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu3738426867576925582.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu986272114044548789.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/f0253605f1c53f293f661cfbff569be0_hu3738426867576925582.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1533,10 +1533,10 @@ NSPの学習のため、実際に連続した文を与えるケースとラン�
 SOPは2つの連続した文の順番がそのままの順番か、逆になっているかを予測する問題です。これを解けるようにすることで、文の一貫性をモデルが理解できるようになるだろうという狙いです。トピックによって判断することができず、NSPよりも難しい問題設定になっていますね。&lt;/p&gt;
 &lt;h1 id=&#34;実験結果&#34;&gt;実験結果
 &lt;/h1&gt;&lt;p&gt;実験で使われているALBERTのモデルは以下のとおりです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583.png&#34;
 	width=&#34;1730&#34;
 	height=&#34;512&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu18110541302613161949.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu15063879691533820016.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu18110541302613161949.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/897b2a7a8ecb857832e831a40a53c583_hu15063879691533820016.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1548,10 +1548,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 &lt;p&gt;ALBERTは隠れ層の次元が大きくてもBERTに比べて大きくパラメータ数が抑えられていますね。&lt;/p&gt;
 &lt;h2 id=&#34;bertとの比較&#34;&gt;BERTとの比較
 &lt;/h2&gt;&lt;p&gt;BERTとの比較実験です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.png&#34;
 	width=&#34;1866&#34;
 	height=&#34;618&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu16512440878373140693.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu9746871679168693267.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu16512440878373140693.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf_hu9746871679168693267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1564,10 +1564,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 訓練時間の速度比が最後の列です。すべてBERTのxlargeに比べての速度比です。同じ隠れ層の大きさのBERTに比べれば速いですが、ALBERTのxlargeがBERTのlargeより速くなるというほどのスピードアップではないことに気をつけてください。&lt;/p&gt;
 &lt;h2 id=&#34;他の手法と比較&#34;&gt;他の手法と比較
 &lt;/h2&gt;&lt;p&gt;XLNetやRoBERTaとの比較です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152.png&#34;
 	width=&#34;1896&#34;
 	height=&#34;876&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu8033704663042652419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu10357862772256833906.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu8033704663042652419.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/e5281386737dad6b13b402bf048e0152_hu10357862772256833906.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1576,10 +1576,10 @@ SOPは2つの連続した文の順番がそのままの順番か、逆になっ�
 		data-flex-basis=&#34;519px&#34;
 	
 &gt;
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35.png&#34;
 	width=&#34;1870&#34;
 	height=&#34;864&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu10806705336015840884.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu3374179886502755385.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu10806705336015840884.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/10a32db3b0e584e93d61d5d424b74b35_hu3374179886502755385.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1596,10 +1596,10 @@ BERTに比べるとパラメータ数と訓練時間が減っていますが、�
         </item>
         <item>
         <title>ディープラーニングのモデルの特徴量の寄与を求めるDeepLift</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</link>
         <pubDate>Thu, 19 Dec 2019 02:03:01 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/</guid>
         <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;ディープラーニングのモデルに対する特徴量の寄与を求める方法の1つである、DeepLiftについて今回は説明します。&lt;/p&gt;
@@ -1611,10 +1611,10 @@ BERTに比べるとパラメータ数と訓練時間が減っていますが、�
 &lt;/h2&gt;&lt;p&gt;saturation problemは勾配が0であるような区間では寄与が0になってしまう問題です。
 従来手法には勾配を利用する手法が多いですが、そのような手法ではsaturation problemが発生してしまいます。
 以下の図をご覧ください。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d.png&#34;
 	width=&#34;1689&#34;
 	height=&#34;1125&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu12908979449694638319.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu5562535822996353406.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu12908979449694638319.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/a78fcdb1dc3c5d2431c1ab31da893c9d_hu5562535822996353406.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1630,10 +1630,10 @@ $x = 0 $では残念ながら寄与が等しく0になってしまいます。
 このようにReLUによって勾配が0になってしまうことは、Integrated Gradientsの提案論文のなかでも同様に問題として挙げられています。&lt;/p&gt;
 &lt;h2 id=&#34;discontinuous-gradients&#34;&gt;discontinuous gradients
 &lt;/h2&gt;&lt;p&gt;2つ目に挙げられている問題がdiscontinuous gradientsです。これも下図をご覧ください。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63.png&#34;
 	width=&#34;2002&#34;
 	height=&#34;545&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13833951256203028933.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13394467446217612706.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13833951256203028933.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/b29d1ab9a442911e96451ac4cccdbc63_hu13394467446217612706.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1675,10 +1675,10 @@ $$C_{\Delta x \Delta y} = \Delta y $$です。&lt;/p&gt;
 &lt;/h2&gt;&lt;p&gt;Linear RuleとRescale Ruleの2つを定義しましたが、このルールに則って寄与を計算することで、前述した2つの問題を解決することができます（どちらもRescale Rule絡みになりますが）。&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;saturation problem&lt;!-- raw HTML omitted --&gt;
 以下の図のように、DeepLiftでは勾配が0になる状況でも寄与は0になりません。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8.png&#34;
 	width=&#34;1689&#34;
 	height=&#34;1125&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu15296595552791101390.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu11322379920257949130.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu15296595552791101390.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/7d9d6c0a6fa52841fa18e2cf4cb227a8_hu11322379920257949130.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1689,10 +1689,10 @@ $$C_{\Delta x \Delta y} = \Delta y $$です。&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;discontinuous gradients&lt;!-- raw HTML omitted --&gt;
 以下の3列目がDeepLiftでの寄与をあらわしたグラフです。DeepLiftでは寄与が不連続になりません。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56.png&#34;
 	width=&#34;1724&#34;
 	height=&#34;470&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu15324739139615279590.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu5960859445899261866.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu15324739139615279590.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/f2103e478f29951e3faa9d398d626a56_hu5960859445899261866.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1721,10 +1721,10 @@ $$ C_{\Delta x_i \Delta z} = m_{\Delta x_i \Delta z}   \Delta x_i $$
 が$x_i$が$z$への寄与になります。&lt;/p&gt;
 &lt;h2 id=&#34;deepliftの適用結果&#34;&gt;DeepLiftの適用結果
 &lt;/h2&gt;&lt;p&gt;MNISTに適用した結果を示します。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90.png&#34;
 	width=&#34;1346&#34;
 	height=&#34;1074&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu2447569265231029651.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu1380855239694972600.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu2447569265231029651.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bdeeplift/64a618e3bf36cb2953ac208966e42b90_hu1380855239694972600.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1750,10 +1750,10 @@ DeepLiftはmultiplierの連鎖律の部分が数学的に問題がある。&lt;/
         </item>
         <item>
         <title>ディープラーニング向けの特徴量の寄与を求めるIntegrated Gradientsの解説</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</link>
         <pubDate>Sun, 08 Dec 2019 16:17:01 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/</guid>
         <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;機械学習のモデルの出力に対する入力された特徴量の寄与を求める手法の1つに、Integrated Gradientsというものがあります。
@@ -1778,10 +1778,10 @@ Integrated Gradientsの場合もその考え方を用います。
 $f(x) = 1 - {\rm Relu}(1-x)$というネットワークを考えます。baselineが$x=0$、入力値が$x=2$とします。$f(0)=0$、$f(2)=1$となりますのでbaselineとは出力値が変わっています。しかしながら、$x=2$では勾配が$0$になりますので、例えば「勾配×入力値」で寄与を求める場合、寄与も$0$になります。
 baselineに比べて出力値が変わったのに、寄与が$0$というのはおかしい結果だというのは納得いく話かなと思います。
 このため、Sensitivity(a)は寄与を求める手法として満たすべきものだと著者は主張しています。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72.png&#34;
 	width=&#34;1689&#34;
 	height=&#34;1125&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu11229027380320123652.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu5274726128719126120.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu11229027380320123652.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/53d896e3bb5aef4b00f65f9615a86e72_hu5274726128719126120.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1826,10 +1826,10 @@ $$ {\rm Integrated\ Gradients} = (x - x&amp;rsquo;) \int_{0}^{1} \nabla F(x&amp;
 &lt;h1 id=&#34;integrated-gradientsの適用結果&#34;&gt;Integrated Gradientsの適用結果
 &lt;/h1&gt;&lt;h2 id=&#34;画像の分類問題の例&#34;&gt;画像の分類問題の例
 &lt;/h2&gt;&lt;p&gt;GoogleNetを使って画像の分類問題を学習させ、それにIntegrated Gradientsを適用した結果が以下のとおりです。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83.jpg&#34;
 	width=&#34;938&#34;
 	height=&#34;1588&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu918285005443533211.jpg 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu9227064275821860929.jpg 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu918285005443533211.jpg 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/33ce0e44d5ce1595ba0980aaa9a27c83_hu9227064275821860929.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1844,10 +1844,10 @@ $$ {\rm Integrated\ Gradients} = (x - x&amp;rsquo;) \int_{0}^{1} \nabla F(x&amp;
 &lt;/h2&gt;&lt;p&gt;次にテキストの分類問題の例です。
 質問の答えがどういった種類の回答かを予測する問題です。例えば答えが数値なのか、日付なのかなどを予測します。&lt;/p&gt;
 &lt;p&gt;下が予測モデルにIntegrated Gradientsを適用した結果です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835.png&#34;
 	width=&#34;1556&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu1417952466149686468.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu2440693140937833247.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu1417952466149686468.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E5%90%91%E3%81%91%E3%81%AE%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E5%AF%84%E4%B8%8E%E3%82%92%E6%B1%82%E3%82%81%E3%82%8Bintegrated-gradients%E3%81%AE%E8%A7%A3%E8%AA%AC/d541b6da271324e7264bb858ba8c3835_hu2440693140937833247.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1864,11 +1864,11 @@ $$ {\rm Integrated\ Gradients} = (x - x&amp;rsquo;) \int_{0}^{1} \nabla F(x&amp;
         </item>
         <item>
         <title>CNNで画像中のピクセルの座標情報を考慮できるCoordConv</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</link>
         <pubDate>Sat, 30 Nov 2019 21:57:17 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.png" alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.png" alt="Featured image of post CNNで画像中のピクセルの座標情報を考慮できるCoordConv" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;CNNの表現能力の高さはすばらしいものがありますが、何でもうまくいくわけではありません。例えば、画像中の位置情報を考慮しないと解けないような問題は、通常のCNNではうまく対応できません（具体的な例はこの後説明します）。&lt;br&gt;
 このような問題に対応した手法としてCoordConvというものがあります。CoordConvは座標情報をCNNのなかに組み込む手法で、これを使うことで解けるようになるケースや性能が大きく改善されるようなケースがあります。また「効くか分からないけど、とりあえず組み込む」ということをしても、デメリットはそれほどありません。&lt;/p&gt;
@@ -1884,10 +1884,10 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 &lt;/h1&gt;&lt;h2 id=&#34;解けない問題の紹介&#34;&gt;解けない問題の紹介
 &lt;/h2&gt;&lt;p&gt;以下の図は論文で示されている、通常のCNNではうまく解けない、あるいは性能が悪い問題設定です。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904.png&#34;
 	width=&#34;1229&#34;
 	height=&#34;641&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904_hu12233075823933697515.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904_hu7577460229333500530.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904_hu12233075823933697515.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/efb07cdfddebc778bcbeeb190d527904_hu7577460229333500530.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1912,18 +1912,18 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 
 
 	
-	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510.png&#34;&gt;
-	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510_hu5399084942121867496.png&#34; alt=&#34;&#34;&gt;
+	&lt;a href=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/f37f360d4f973fb8ae6a980331c16510_hu5399084942121867496.png&#34; alt=&#34;&#34;&gt;
 	&lt;/a&gt;
 
 
 &lt;/blockquote&gt;
 &lt;p&gt;上記の2つのパターンでそれぞれ訓練データでCNNを訓練し、accuracyを計測した結果が以下の図になります。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8.png&#34;
 	width=&#34;760&#34;
 	height=&#34;499&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8_hu16896551138487073776.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8_hu10632705997455868300.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8_hu16896551138487073776.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/e9218e21fa4fbae75ff0078db0be5bb8_hu10632705997455868300.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1940,10 +1940,10 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 &lt;/h2&gt;&lt;p&gt;次にGANのケースも見てみます。&lt;br&gt;
 学習データでは青の図形と赤の図形はそれぞれ平面上に一様に分布します。下図の上段右がそれを示しており、赤の点と青の点がそれぞれの色の図形の中心位置をプロットしたものです。GANで生成する画像もこのように、図形が&lt;strong&gt;一様に色々なところに描かれて欲しい&lt;/strong&gt;ところです。&lt;br&gt;
 しかしながら、CNNを使ったGANのモデルが生成した画像では赤の図形と青の図形の位置の分布には偏りがあります（モード崩壊）。下図の下段右がこれを示しています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239.png&#34;
 	width=&#34;1206&#34;
 	height=&#34;725&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239_hu14391901488616015877.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239_hu5871020559221432272.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239_hu14391901488616015877.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/0923d0009bc673227806d583954c2239_hu5871020559221432272.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1957,10 +1957,10 @@ PyTorch実装：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mkocabas
 理由としては、CNNでは畳み込みの計算をおこなうだけであり、この畳み込みの計算では画像中のどこを畳み込んでいるのかは考慮できておらず、座標を考慮する必要がある問題がうまく解けないということが挙げられます。&lt;br&gt;
 座標を考慮できていないから解けないならば、&lt;!-- raw HTML omitted --&gt;畳み込むときに座標情報を付与すればよいのでは&lt;!-- raw HTML omitted --&gt;、というのがCoordConvの発想です。&lt;/p&gt;
 &lt;p&gt;具体的には以下の右の層がCoordConvになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99.png&#34;
 	width=&#34;1664&#34;
 	height=&#34;712&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99_hu16631662989163237741.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99_hu15382080971191977537.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99_hu16631662989163237741.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/87ac6257d733ab494c7d120ec4e79a99_hu15382080971191977537.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1976,10 +1976,10 @@ $$ {\rm (i \ coordinate)} = \begin{bmatrix} -1 &amp;amp; -0.5 &amp;amp; 0 &amp;a
 $${\rm (j \ coordinate)} =  \begin{bmatrix} -1 &amp;amp; -1 &amp;amp; -1 &amp;amp; -1 &amp;amp; -1 \\ -0.5 &amp;amp; -0.5 &amp;amp; -0.5 &amp;amp; -0.5 &amp;amp; -0.5 \\ 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ 0.5 &amp;amp; 0.5 &amp;amp; 0.5 &amp;amp; 0.5 &amp;amp; 0.5  \\ 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1  \\ \end{bmatrix} $$&lt;/p&gt;
 &lt;p&gt;また、画像の中心からの距離をあらわしたチャネルを追加することでも性能が向上するようで、論文ではこちらも利用されています。&lt;/p&gt;
 &lt;p&gt;CoordConvによってすべてのCNNを代替すべきなのか、一部にしてもどこを置き換えるべきなのかは議論の余地があるかもしれませんが、例えばSupervised Coordinate Classificationの問題では、次の緑の部分にCoordConvが使われています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01.png&#34;
 	width=&#34;1885&#34;
 	height=&#34;447&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01_hu10256628819134450752.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01_hu17346559202647513006.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01_hu10256628819134450752.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/5247bd46b1ead9c2ffa8edbba2461b01_hu17346559202647513006.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1997,10 +1997,10 @@ $${\rm (j \ coordinate)} =  \begin{bmatrix} -1 &amp;amp; -1 &amp;amp; -1 &amp;am
 &lt;/h1&gt;&lt;p&gt;CoordConvの効果について実験結果を述べていきます。&lt;/p&gt;
 &lt;h2 id=&#34;supervised-coordinate-classificationの結果&#34;&gt;Supervised Coordinate Classificationの結果
 &lt;/h2&gt;&lt;p&gt;Supervised Coordinate Classificationの結果が以下のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6.png&#34;
 	width=&#34;1564&#34;
 	height=&#34;812&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6_hu6412194796038218377.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6_hu6383311274808518725.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6_hu6412194796038218377.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/705031011dfa4737ffd80c35692a89f6_hu6383311274808518725.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2013,10 +2013,10 @@ Convolutionの行が通常のCNNの場合、CoordConvの行がCoordConvを使っ
 CoordConvではデータの分割方法によらず、accuracyが1になり、非常にうまく問題が解けるようになります。また、収束性も非常によくなり、通常のCNNでは4000秒かかってテストデータのaccuracyが0.8を超えていますが、CoordConvでは20秒でaccuracyが1になっています。&lt;/p&gt;
 &lt;h2 id=&#34;unsupervised-density-learningの結果&#34;&gt;Unsupervised Density Learningの結果
 &lt;/h2&gt;&lt;p&gt;GANの結果が以下のようになります。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f.png&#34;
 	width=&#34;1433&#34;
 	height=&#34;750&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f_hu1256733702289264137.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f_hu5612951212292351114.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f_hu1256733702289264137.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/51109898f0f95841e1d231d11690cc8f_hu5612951212292351114.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2030,10 +2030,10 @@ CoordConvではデータの分割方法によらず、accuracyが1になり、�
 &lt;h2 id=&#34;強化学習の結果&#34;&gt;強化学習の結果
 &lt;/h2&gt;&lt;p&gt;論文では実際の問題にも適用して有効性を確認しています。
 強化学習で使われているCNNをCoordConvに置き換えてatariのゲームを学習させています。結果は以下の通りです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920.png&#34;
 	width=&#34;1481&#34;
 	height=&#34;710&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920_hu7054115060547226456.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920_hu8782341816686286556.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920_hu7054115060547226456.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/cnn%E3%81%A7%E7%94%BB%E5%83%8F%E4%B8%AD%E3%81%AE%E3%83%94%E3%82%AF%E3%82%BB%E3%83%AB%E3%81%AE%E5%BA%A7%E6%A8%99%E6%83%85%E5%A0%B1%E3%82%92%E8%80%83%E6%85%AE%E3%81%A7%E3%81%8D%E3%82%8Bcoordconv/abd3d59aefc3733c0d7b09215b6e1920_hu8782341816686286556.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2050,10 +2050,10 @@ CoordConvではデータの分割方法によらず、accuracyが1になり、�
         </item>
         <item>
         <title>BERTでおこなうポケモンの説明文生成</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</link>
         <pubDate>Thu, 07 Nov 2019 11:42:23 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/</guid>
         <description>&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;概要&#34;&gt;概要
@@ -2072,8 +2072,8 @@ CoordConvではデータの分割方法によらず、accuracyが1になり、�
 
 
 	
-	&lt;a href=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png&#34;&gt;
-	&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hu544397710337244276.png&#34; alt=&#34;&#34;&gt;
+	&lt;a href=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844.png&#34;&gt;
+	&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/729b98aa8f9032f789244aa4e870b844_hu544397710337244276.png&#34; alt=&#34;&#34;&gt;
 	&lt;/a&gt;
 
 

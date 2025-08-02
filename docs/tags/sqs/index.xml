@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>SQS on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/sqs/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/sqs/</link>
         <description>Recent content in SQS on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/sqs/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/sqs/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>AWSのDead Letter QueueのメッセージをもとのQueueに戻す</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</link>
         <pubDate>Sat, 05 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/aws%E3%81%AEdead-letter-queue%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E3%82%82%E3%81%A8%E3%81%AEqueue%E3%81%AB%E6%88%BB%E3%81%99/</guid>
         <description>&lt;p&gt;AWSのSQSを使うときにちょっと困るのが、アプリの不具合等でDead Letter Queueに送られたメッセージをもとのQueueに戻したいケースです。
 調べた感じでは、通常のAWS CLIでは簡単にはできなさそうです。&lt;/p&gt;
 &lt;p&gt;理想的には、送信元と送信先のQueueを指定さえすればメッセージを全部送れるような仕組みがあるといいなぁ…と思っていたところ、すばらしい実装を見つけました。

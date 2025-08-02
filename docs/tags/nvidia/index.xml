@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>NVIDIA on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/nvidia/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/nvidia/</link>
         <description>Recent content in NVIDIA on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/nvidia/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 06 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/nvidia/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>GPU周りがおかしくなったときのメモ（ubuntu）</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</link>
         <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/feature.png" alt="Featured image of post GPU周りがおかしくなったときのメモ（ubuntu）" /&gt;&lt;p&gt;いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/gpu%E5%91%A8%E3%82%8A%E3%81%8C%E3%81%8A%E3%81%8B%E3%81%97%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2ubuntu/feature.png" alt="Featured image of post GPU周りがおかしくなったときのメモ（ubuntu）" /&gt;&lt;p&gt;いまだにちょくちょくGPU周りの設定がおかしくなることがあるのでメモ。たまに問題が起きる毎にメモが追加されます。&lt;/p&gt;
 &lt;h1 id=&#34;nvidia-smiが遅いubuntuが起動しているのにguiが何も表示されない&#34;&gt;①nvidia-smiが遅い、ubuntuが起動しているのにGUIが何も表示されない
 &lt;/h1&gt;&lt;h2 id=&#34;現象&#34;&gt;現象
 &lt;/h2&gt;&lt;ul&gt;
@@ -56,10 +56,10 @@ E: 未解決の依存関係です。&amp;#39;apt --fix-broken install&amp;#39; �
         </item>
         <item>
         <title>NVIDIAのGPUのdriverの更新</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</link>
         <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/nvidia%E3%81%AEgpu%E3%81%AEdriver%E3%81%AE%E6%9B%B4%E6%96%B0/</guid>
         <description>&lt;h1 id=&#34;nvidiaのgpuのdriver更新手順&#34;&gt;NVIDIAのGPUのdriver更新手順
 &lt;/h1&gt;&lt;p&gt;色々手順はあると思いますが、1つのやり方のメモです。&lt;/p&gt;
 &lt;ol&gt;

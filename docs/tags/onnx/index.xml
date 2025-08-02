@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>ONNX on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/onnx/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/onnx/</link>
         <description>Recent content in ONNX on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/onnx/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/onnx/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>YOLOv5モデルをONNXモデルにして使いたいけど後処理が面倒なとき</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</link>
         <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/yolov5%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92onnx%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%81%97%E3%81%A6%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E3%81%91%E3%81%A9%E5%BE%8C%E5%87%A6%E7%90%86%E3%81%8C%E9%9D%A2%E5%80%92%E3%81%AA%E3%81%A8%E3%81%8D/</guid>
         <description>&lt;h1 id=&#34;困ったこと&#34;&gt;困ったこと
 &lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/ultralytics/yolov5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;YOLOv5&lt;/a&gt;は便利なライブラリですが、ONNXへモデルを変換したときにちょっと困ったことがあります。&lt;br&gt;

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>画像 on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/%E7%94%BB%E5%83%8F/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/%E7%94%BB%E5%83%8F/</link>
         <description>Recent content in 画像 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E7%94%BB%E5%83%8F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/%E7%94%BB%E5%83%8F/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</link>
         <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
+        <guid>https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.png" alt="Featured image of post 「Hidden in plain sight： VLMs overlook their visual representations」の論文紹介" /&gt;&lt;p&gt;今回紹介するのは
 &lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/pdf/2506.08008&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hidden in plain sight: VLMs overlook their visual representations&lt;/a&gt;
 です.&lt;/p&gt;
@@ -20,10 +20,10 @@
 DINOやCLIPをLLMに組み込んだマルチモーダルモデルは、単体のViT系のモデルよりも性能が&lt;strong&gt;大きく下がる&lt;/strong&gt;ことを示しています.&lt;/p&gt;
 &lt;p&gt;例えば、次の図では左の2枚の画像が与えられ、上の画像の「Ref」と書かれている点と同じ点は下の画像のA~Dの4つの点のどれか？というのを当てる問題を解くことを考えます.&lt;br&gt;
 DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPでは60%程度のAccuracyでしたが、VLMを用いるとチャンスレート（適当に答えたときの性能）よりも低くなってしまいます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1.png&#34;
 	width=&#34;1337&#34;
 	height=&#34;824&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu2620225380482079590.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig1_hu5169817889437821056.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -38,10 +38,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/h2&gt;&lt;p&gt;まず、VLMはどのように実現されているかの話になります.&lt;br&gt;
 本論文で扱われている&lt;a class=&#34;link&#34; href=&#34;https://github.com/TRI-ML/prismatic-vlms&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;LLaVA&lt;/a&gt;ではDINOのようなVisualモデルから得られた画像のトークン列をLLMのembeddingの空間にマッピングするようなProjector層を追加しています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch.png&#34;
 	width=&#34;1607&#34;
 	height=&#34;542&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu504353733132962031.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/llava_arch_hu16042321218087387222.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLaVAの構成&#34;
@@ -66,10 +66,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 タスクの具体例をあらわす画像は論文のなかのVisualモデルとVLMが間違った例を用いています.&lt;/p&gt;
 &lt;h3 id=&#34;カメラ距離を推定するタスク&#34;&gt;カメラ距離を推定するタスク
 &lt;/h3&gt;&lt;p&gt;どちらのBounding Boxのほうがカメラに近いかを判定するタスク.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10820540876376682905.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/depth_estimation_hu10060460141892101579.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;カメラ距離&#34;
@@ -90,10 +90,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;視覚的な類似箇所を推定するタスク&#34;&gt;視覚的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から視覚的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence.png&#34;
 	width=&#34;1320&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu15590774341794558653.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/semantic_correspondence_hu8339495262947362836.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;類似箇所&#34;
@@ -111,10 +111,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;機能的な類似箇所を推定するタスク&#34;&gt;機能的な類似箇所を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の画像から機能的に似ている箇所を見つけるタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu8934180305198273882.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/affordance_hu9127482930411852116.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;機能的類似箇所&#34;
@@ -128,10 +128,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;同じ位置を推定するタスク&#34;&gt;同じ位置を推定するタスク
 &lt;/h3&gt;&lt;p&gt;2枚の照明条件や視点が異なる画像から同じ位置を見つけるタスク
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;264&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu6550707789194667419.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/low_level_match_hu8248087818981904298.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;同定&#34;
@@ -145,10 +145,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;問題の解き方は1つ前のタスクと同じです.&lt;/p&gt;
 &lt;h3 id=&#34;最も似ていない3dオブジェクトを推定するタスク&#34;&gt;最も似ていない3Dオブジェクトを推定するタスク
 &lt;/h3&gt;&lt;p&gt;4枚の画像から4枚の画像から4枚の画像から4枚の画像から最も似ていない3Dオブジェクトの画像を選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d.png&#34;
 	width=&#34;1328&#34;
 	height=&#34;309&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu17128352951129553648.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/3d_hu2140973221106283333.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;3D&#34;
@@ -165,10 +165,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;似ている画風の絵画を選択するタスク&#34;&gt;似ている画風の絵画を選択するタスク
 &lt;/h3&gt;&lt;p&gt;与えられた画像に似ている画風の絵画を2枚のなかから選択するタスク.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art.png&#34;
 	width=&#34;1317&#34;
 	height=&#34;259&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu17384315567729850040.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/art_hu16838940929286436389.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;art&#34;
@@ -185,10 +185,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h2 id=&#34;実験結果&#34;&gt;実験結果
 &lt;/h2&gt;&lt;h3 id=&#34;visualモデルとprojector層をftしたvlmの性能比較&#34;&gt;Visualモデルとprojector層をFTしたVLMの性能比較
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2.png&#34;
 	width=&#34;1327&#34;
 	height=&#34;450&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu11232206505773662476.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig2_hu14443638137478442914.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;VisualモデルとVLMの比較&#34;
@@ -204,10 +204,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;オープンソースのvlmとvisualモデル部分の性能比較&#34;&gt;オープンソースのVLMとVisualモデル部分の性能比較
 &lt;/h3&gt;&lt;p&gt;他のVLMでのVisualモデルとの性能比較.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;429&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu10875643566285980402.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig3_hu15147632360257238445.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;オープンソースモデルとの比較&#34;
@@ -228,10 +228,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;p&gt;&lt;strong&gt;以上の結果から、VLMは全く入力画像を正しく参照できていないかもしれない&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;目隠ししたケースでの性能&#34;&gt;目隠ししたケースでの性能
 &lt;/h3&gt;&lt;p&gt;VLMが画像を参照できているのか確認をするため、通常の状態での出力の分布と入力画像を真っ白の画像にして問題を解かせたときの出力の分布を比較する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4.png&#34;
 	width=&#34;1330&#34;
 	height=&#34;385&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu8002847656754150763.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig4_hu13136841656957264549.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;目隠ししたケースでの出力分布&#34;
@@ -254,10 +254,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;中間層の特徴量の比較&#34;&gt;中間層の特徴量の比較
 &lt;/h3&gt;&lt;p&gt;VLMの層の途中でVisualモデルの情報が失われていないかを確認するための実験.
 各層の特徴量ををもとにして類似箇所を見つけるタスクや位置の推定タスクを解く. もしうまく解けるようであれば、特徴量にVisualモデルからの情報が伝搬できている.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5.png&#34;
 	width=&#34;787&#34;
 	height=&#34;625&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu9068197456343288497.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig5_hu11956313488245988528.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;特徴量比較&#34;
@@ -288,10 +288,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;h3 id=&#34;プロンプトチューニング&#34;&gt;プロンプトチューニング
 &lt;/h3&gt;&lt;p&gt;プロンプトによって性能を改善できるのかを実験.
 テキストのプロンプトの前に学習可能なembeddingを1、5、10トークン追加する.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;323&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu2712944692912299940.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig6_hu13701780070495995266.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;プロンプトチューニング&#34;
@@ -308,10 +308,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;/ul&gt;
 &lt;h3 id=&#34;llm側のファインチューニング&#34;&gt;LLM側のファインチューニング
 &lt;/h3&gt;&lt;p&gt;LoRAによるLLM部分のFTによって性能を改善できるのかを実験.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7.png&#34;
 	width=&#34;1347&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu2183467831082103688.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig7_hu14804726074471620347.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;LLMファインチューニング&#34;
@@ -327,10 +327,10 @@ DINOやCLIP単体によって問題を解いたとき、DINOでは80%、CLIPで�
 &lt;li&gt;ViT部分やprojector層のFTはあまり効果がない.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、FT前後でのAttentin Mapの差を可視化したのが以下の図.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8.png&#34;
 	width=&#34;716&#34;
 	height=&#34;609&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu2244249150732014588.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/fig8_hu13900222547004782885.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Attention Mapの差&#34;
@@ -352,10 +352,10 @@ $$&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;各ラベルの頻度の差を取っており、2つの分布が近いほど0に近づく.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2.png&#34;
 	width=&#34;1342&#34;
 	height=&#34;399&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu15232865863818876518.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/tab2_hu8513353824623184623.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;出力の分布&#34;
@@ -377,11 +377,11 @@ $$&lt;/p&gt;
         </item>
         <item>
         <title>外部知識を活用して効率的に性能向上を達成したYOLO-RD</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</link>
         <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png" alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD" /&gt;&lt;p&gt;YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.png" alt="Featured image of post 外部知識を活用して効率的に性能向上を達成したYOLO-RD" /&gt;&lt;p&gt;YOLO-RD (Retriever-Dictionary) は、物体検出の分野で定番となっているYOLO（You Only Look Once）シリーズの最新研究です.
 今回は、ICLR2025で発表されたYOLO-RD(&lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2410.15346&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://arxiv.org/abs/2410.15346&lt;/a&gt;)について解説します.&lt;/p&gt;
 &lt;h2 id=&#34;従来手法の限界と問題意識&#34;&gt;従来手法の限界と問題意識
@@ -393,10 +393,10 @@ $$&lt;/p&gt;
 &lt;p&gt;これらも現在ではかなり高い精度を達成できるようになりましたが、「入力画像とモデル内で計算される情報」しか活用できません（当たり前なのですが）.&lt;br&gt;
 もしRAGのように入力画像に応じて外部からの情報を参照することができれば、モデルの推論性能が向上するのでは？というのがYOLO-RDの発想になります.&lt;br&gt;
 人間も、例えば犬のような動物を見たときに、犬ってこういう形だなぁと連想し、それから確かに目の前の動物は犬だと判断したり、あるいは犬じゃない他の動物かも？と判断していると思います．このように適宜情報を連想するという話に近いのかなと思います．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1.png&#34;
 	width=&#34;946&#34;
 	height=&#34;329&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu3745882659329699378.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu9918131085593678498.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu3745882659329699378.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig1_hu9918131085593678498.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;YOLO-RDの概要&#34;
@@ -410,10 +410,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;yolo-rdの概要&#34;&gt;YOLO-RDの概要
 &lt;/h2&gt;&lt;p&gt;YOLO-RDは推論時に外部の知識（特徴量）を参照する仕組みを組み込んだYOLOです.&lt;br&gt;
 これにより、モデルが画像からは直接取得できない情報を補い、パラメータ数を大きく増やすことなく高精度化を実現しています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2.png&#34;
 	width=&#34;936&#34;
 	height=&#34;346&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu2701416847664046125.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu8795489024073455909.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu2701416847664046125.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig2_hu8795489024073455909.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;YOLO-RDの全体像&#34;
@@ -482,10 +482,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;提案手法の効果&#34;&gt;提案手法の効果
 &lt;/h3&gt;&lt;p&gt;以下は提案手法の効果を示した表です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1.png&#34;
 	width=&#34;967&#34;
 	height=&#34;610&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7767481251999724551.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7764096949802347058.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7767481251999724551.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab1_hu7764096949802347058.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;提案手法の効果&#34;
@@ -501,10 +501,10 @@ $$&lt;/p&gt;
     &gt;YOLOv9のレポジトリ&lt;/a&gt;をみてみると、サイズがCからEになると、計算量は102.1GFlopsから189.0GFlopsになり、パラメーター数は25.3Mから57.3Mになり、${\rm mAP}_{.5}^{val}$は2.6%あがっています.一方で、例えばVMのケースだと0.2Mのパラメーターの追加、0.16のLatencyの増加で1.46%向上しています.非常にコスパよく性能があがっていることがわかります.&lt;/p&gt;
 &lt;h3 id=&#34;他タスクへの利用&#34;&gt;他タスクへの利用
 &lt;/h3&gt;&lt;p&gt;他タスクへも提案手法を適用した結果が次の表になり、きちんと効果があることが示されています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2.png&#34;
 	width=&#34;546&#34;
 	height=&#34;315&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu3398812665705737277.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu599008810496615692.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu3398812665705737277.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab2_hu599008810496615692.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;他タスクへの利用&#34;
@@ -517,10 +517,10 @@ $$&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;既存手法との比較&#34;&gt;既存手法との比較
 &lt;/h3&gt;&lt;p&gt;以下は既存の他手法との比較になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3.png&#34;
 	width=&#34;425&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu2469063103545249303.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu13878300565109423738.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu2469063103545249303.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab3_hu13878300565109423738.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;他手法との比較&#34;
@@ -535,10 +535,10 @@ $$&lt;/p&gt;
 これらの手法と比較してみても、やはり提案手法は効率よく性能を上げられていることがわかります.&lt;/p&gt;
 &lt;h3 id=&#34;ablation-study&#34;&gt;Ablation Study
 &lt;/h3&gt;&lt;p&gt;以下はRetrieverの計算方法の違いをあらわしており、1行目は1度の畳み込みでatomの重みを計算してしまう方法、2行目は提案手法で使われている方法です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4.png&#34;
 	width=&#34;557&#34;
 	height=&#34;174&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu13486331114492203243.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu4579865393690535001.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu13486331114492203243.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/tab4_hu4579865393690535001.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Retrieverの計算の違い&#34;
@@ -554,10 +554,10 @@ $$&lt;/p&gt;
 &lt;/h3&gt;&lt;h4 id=&#34;atomの係数の可視化&#34;&gt;atomの係数の可視化
 &lt;/h4&gt;&lt;p&gt;以下では入力画像とatom、係数の関係を可視化しています.&lt;br&gt;
 (a)の矩形部分がモデルへの入力、(b)がバックボーンからの特徴とatomとの相関（類似度を計算？）、(c)が各atomの係数となっています.
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4.png&#34;
 	width=&#34;917&#34;
 	height=&#34;361&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu7900514752653466333.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu6284167473182498972.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu7900514752653466333.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig4_hu6284167473182498972.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;atomの係数の可視化&#34;
@@ -572,10 +572,10 @@ $$&lt;/p&gt;
 一方で、(b)において相関が低く、係数が0に近いatomは(e)と(f)のように入力画像とは関係のないものになっています.&lt;/p&gt;
 &lt;h4 id=&#34;提案手法の有無によるバックボーンからの特徴量の比較&#34;&gt;提案手法の有無によるバックボーンからの特徴量の比較
 &lt;/h4&gt;&lt;p&gt;以下は左図が入力画像、中央がバックボーンから得られた特徴量、右が提案手法の辞書を用いて得られた特徴量になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5.png&#34;
 	width=&#34;943&#34;
 	height=&#34;393&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu8388633634531988210.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu12720629858408410038.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu8388633634531988210.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/fig5_hu12720629858408410038.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;特徴量の比較&#34;
@@ -593,10 +593,10 @@ $$&lt;/p&gt;
         </item>
         <item>
         <title>画像認識モデルの性能をあげるためのTips</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
         <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
         <description>&lt;p&gt;画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。
 簡単にできるものから順に紹介しているつもりです。&lt;/p&gt;
 &lt;h1 id=&#34;convolutionとfc層との橋渡しにはglobal-averaging-poolingを使う&#34;&gt;ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う
@@ -636,11 +636,11 @@ Cutoutと違い、Grid状のMaskをかける方法になります。&lt;br&gt;
         </item>
         <item>
         <title>画像と自然言語でのマルチモーダルなImageBERT</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</link>
         <pubDate>Mon, 24 Feb 2020 19:46:50 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png" alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png" alt="Featured image of post 画像と自然言語でのマルチモーダルなImageBERT" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;最近Microsoftから発表されたImageBERTについて紹介します。&lt;br&gt;
 ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付けるようにしたマルチモーダルなモデルです。
@@ -650,10 +650,10 @@ ImageBERTはBERTの入力に自然言語だけではなく、画像も受け付�
     &gt;ImageBERT: Cross-modal Pre-training with Large-scale Weak-supervised Image-Text Data&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;アーキテクチャ&#34;&gt;アーキテクチャ
 &lt;/h1&gt;&lt;p&gt;ImageBERTのアーキテクチャは以下のとおりです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8.png&#34;
 	width=&#34;2040&#34;
 	height=&#34;966&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4782820121360725840.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4750603262513794147.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4782820121360725840.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/3d410aa8e5a8ffef34906b41784d2cc8_hu4750603262513794147.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -691,10 +691,10 @@ MOCはラベルを予測するようなタスクですが、MRFRはマスクさ�
 &lt;/h1&gt;&lt;p&gt;ImageBERTでは事前学習をデータセット単位で別々におこないます。実験結果で書かれていますが、別々にすることで性能が大きく変わります。
 以下の図のように最初にLarge-Scale Weak-supervised Image-Text Data（これは次に説明します）
 で事前学習をし、その次にConceptual CaptionsとSBU Captionsのデータセットで事前学習をします。最後にfinetuningをおこないます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5.png&#34;
 	width=&#34;1826&#34;
 	height=&#34;610&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu8942433182479781656.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu2075952230978656483.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu8942433182479781656.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/8de8eb1666c40d3555f915cbdbcb5ff5_hu2075952230978656483.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -708,10 +708,10 @@ MOCはラベルを予測するようなタスクですが、MRFRはマスクさ�
 論文中では画像とテキストのペアが10M個あるこのデータセットをLAIT (Large-scale weAk-supervised Image-Text) と読んでいます。&lt;/p&gt;
 &lt;p&gt;LAITでは、webページ上の画像とHTMLのALTあるいはTITLEタグのテキストをcaptionとして対応付けています。単純にこれらを取得してくると、当然ノイジーなデータが多く含まれることになります。例えば、言語が英語ではない、画像のサイズが小さすぎる、現実の画像ではないなどが該当します。このようなペアをルールベースあるいは機械学習のモデルを用いてフィルタリングしています。&lt;br&gt;
 一連の流れは以下のようになります。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85.png&#34;
 	width=&#34;1098&#34;
 	height=&#34;1540&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu11487969349023570822.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu10371836243830688777.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu11487969349023570822.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/7b99180c8ef8ce273378f8b2f51d9b85_hu10371836243830688777.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -727,10 +727,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 &lt;h2 id=&#34;結果&#34;&gt;結果
 &lt;/h2&gt;&lt;h3 id=&#34;性能比較&#34;&gt;性能比較
 &lt;/h3&gt;&lt;p&gt;以下の表は他手法との性能の比較です。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a.png&#34;
 	width=&#34;1424&#34;
 	height=&#34;656&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu17778336402145431527.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu5817616310874181610.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu17778336402145431527.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/44d5e2d6fe2b015f68caecd6f1be4b3a_hu5817616310874181610.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -743,10 +743,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 &lt;p&gt;他手法と比べて、ImageBERTは性能が良いことがわかります。全体傾向として、Sentence Retrievalは性能が高いですね。&lt;/p&gt;
 &lt;h3 id=&#34;マルチステージの効果&#34;&gt;マルチステージの効果
 &lt;/h3&gt;&lt;p&gt;以下の表がマルチステージの学習の効果をあらわしています。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69.png&#34;
 	width=&#34;1014&#34;
 	height=&#34;356&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu15549283014864703573.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu2460027981471294082.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu15549283014864703573.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/871f6199938140733fd9eea8bd43ac69_hu2460027981471294082.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -759,10 +759,10 @@ finetuningするさいはITMのように、入力されたテキストと画像�
 明らかにマルチステージで学習することに優位性がありますね。この結果はImageBERTに限らず参考になりそうです。&lt;/p&gt;
 &lt;h3 id=&#34;ablation-study&#34;&gt;ablation study
 &lt;/h3&gt;&lt;p&gt;ablation studyです。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40.png&#34;
 	width=&#34;1404&#34;
 	height=&#34;650&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu6442853037209584085.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu17623035205993790707.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu6442853037209584085.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%A8%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%AE%E3%83%9E%E3%83%AB%E3%83%81%E3%83%A2%E3%83%BC%E3%83%80%E3%83%AB%E3%81%AAimagebert/39a03c0d5cb86482b2603a07545d2d40_hu17623035205993790707.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

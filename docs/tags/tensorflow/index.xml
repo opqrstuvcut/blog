@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>TensorFlow on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/tensorflow/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/tensorflow/</link>
         <description>Recent content in TensorFlow on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sat, 13 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 13 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>画像認識モデルの性能をあげるためのTips</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</link>
         <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/</guid>
         <description>&lt;p&gt;画像分類モデルを作っているときに予測精度をあげるのに役に立ったなぁという方法の一覧のメモです。
 簡単にできるものから順に紹介しているつもりです。&lt;/p&gt;
 &lt;h1 id=&#34;convolutionとfc層との橋渡しにはglobal-averaging-poolingを使う&#34;&gt;ConvolutionとFC層との橋渡しにはGlobal Averaging Poolingを使う
@@ -51,10 +51,10 @@ Cutoutと違い、Grid状のMaskをかける方法になります。&lt;br&gt;
         </item>
         <item>
         <title>TensorBoardのDocker Image</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/tensorboard%E3%81%AEdocker-image/</link>
         <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/tensorboard%E3%81%AEdocker-image/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/tensorboard%E3%81%AEdocker-image/</guid>
         <description>&lt;p&gt;たまにTensorBoardを使うときに、ホスト環境などにTensorBoardを入れるより、それ用のコンテナをたてたくなったので、そのメモです。&lt;/p&gt;
 &lt;p&gt;Docker Imageは以下のとおり。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;FROM python:3.8
@@ -69,10 +69,10 @@ $ docker run -it --rm -p 10000:6006 -v $PWD/logs:/logs tensorboard
         </item>
         <item>
         <title>GPUサーバーでのTensorFlow &#43; uWSGIでFailed to get device properties, error code: 3</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</link>
         <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
+        <guid>https://opqrstuvcut.github.io/mblog/posts/gpu%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A7%E3%81%AEtensorflow--uwsgi%E3%81%A7failed-to-get-device-properties-error-code-3/</guid>
         <description>&lt;p&gt;GPUサーバー上でTensorFlowを動かすアプリを作成し、nginxとの間にはuWSGIを挟む構成にしていたところ、次のエラーが出てしまいました。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Failed to get device properties, error code: 3
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;他の記事の引用になってしまいますが、エラーメッセージ自体をググっても解決できなかったので、メモ程度に載せておきます。&lt;/p&gt;

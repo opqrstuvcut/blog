@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>App Runner on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/categories/app-runner/</link>
+        <link>https://opqrstuvcut.github.io/mblog/categories/app-runner/</link>
         <description>Recent content in App Runner on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/categories/app-runner/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 25 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/categories/app-runner/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>App Runnerを実戦投入してのメモ</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</link>
         <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png" alt="Featured image of post App Runnerを実戦投入してのメモ" /&gt;&lt;p&gt;簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/app-runner%E3%82%92%E5%AE%9F%E6%88%A6%E6%8A%95%E5%85%A5%E3%81%97%E3%81%A6%E3%81%AE%E3%83%A1%E3%83%A2/feature.png" alt="Featured image of post App Runnerを実戦投入してのメモ" /&gt;&lt;p&gt;簡単にAPIサーバーを用意する方法としてGCPではCloud Run、AWSではApp Runnerが挙げられると思います。&lt;/p&gt;
 &lt;p&gt;今回は最近使ってみたApp Runnerについていくつかメモがてら書いていきます。&lt;/p&gt;
 &lt;h2 id=&#34;https対応&#34;&gt;HTTPS対応
 &lt;/h2&gt;&lt;p&gt;Lambdaもそうですが、構築されたシステムのエンドポイントはhttps対応です。&lt;br&gt;

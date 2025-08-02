@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。 Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。 2ノルムの場合 $$ \\rm{grad}=\\sqrt{G_x^2 + G_y^2}. $$ 1ノルムの場合 $$ \\rm{grad}= |G_x| + |G_y|. $$ 2ノルムのほうが正確ですが、計算量では1ノルムのほうが優れています。 極大値を求める 次に、計算された勾配から、勾配の極大値を求めます。こうすることで、余計な箇所がエッジとして検出されるのを防ぎます。 しきい値処理 最後に、しきい値処理でエッジとして扱うかどうかを決めます。 Canny法のしきい値は2つあり、1つはこの値より大きければエッジとすると決めるためのもの、もう1つはこの値よりも小さければエッジではないと決めるためのものです。 じゃあ2つのしきい値の間はどうなるの？という話ですが、隣接しているピクセルがエッジと判定されていれば、エッジと判定するようにし、そうでなければエッジではないと判定します。 単純なしきい値でのエッジの判定よりも、より柔軟ですね。 ただし、しきい値が非常に重要になることが容易に想像できます。 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。 結果を以下に示します。 元画像 canny（2ノルム） canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。">
 <title>Canny法でエッジ検出</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Canny法でエッジ検出">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Canny法でエッジ検出">
 <meta property='og:description' content="本記事はQrunchからの転載です。 エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。 Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。 2ノルムの場合 $$ \\rm{grad}=\\sqrt{G_x^2 + G_y^2}. $$ 1ノルムの場合 $$ \\rm{grad}= |G_x| + |G_y|. $$ 2ノルムのほうが正確ですが、計算量では1ノルムのほうが優れています。 極大値を求める 次に、計算された勾配から、勾配の極大値を求めます。こうすることで、余計な箇所がエッジとして検出されるのを防ぎます。 しきい値処理 最後に、しきい値処理でエッジとして扱うかどうかを決めます。 Canny法のしきい値は2つあり、1つはこの値より大きければエッジとすると決めるためのもの、もう1つはこの値よりも小さければエッジではないと決めるためのものです。 じゃあ2つのしきい値の間はどうなるの？という話ですが、隣接しているピクセルがエッジと判定されていれば、エッジと判定するようにし、そうでなければエッジではないと判定します。 単純なしきい値でのエッジの判定よりも、より柔軟ですね。 ただし、しきい値が非常に重要になることが容易に想像できます。 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。 結果を以下に示します。 元画像 canny（2ノルム） canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Canny' /><meta property='article:published_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='article:modified_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='Canny' /><meta property='article:published_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='article:modified_time' content='2020-08-03T20:17:14&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
 <meta name="twitter:title" content="Canny法でエッジ検出">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 エッジ検出の方法として、Canny法というものがあります。 SobelフィルタやLaplacianフィルタもエッジ検出ができるわけですが、Canny法を使うとより正確に輪郭を検出することが可能です。 Canny法の簡単な原理 勾配の計算 Canny法では画像を平滑化したあとに、Sobelフィルタによって勾配を計算します。 OpenCVでは勾配の大きさは以下の2つのうちのどちらかで計算がなされます。$G_x$と$G_y$はそれぞれ$x$方向、$y$方向の勾配です。 2ノルムの場合 $$ \\rm{grad}=\\sqrt{G_x^2 + G_y^2}. $$ 1ノルムの場合 $$ \\rm{grad}= |G_x| + |G_y|. $$ 2ノルムのほうが正確ですが、計算量では1ノルムのほうが優れています。 極大値を求める 次に、計算された勾配から、勾配の極大値を求めます。こうすることで、余計な箇所がエッジとして検出されるのを防ぎます。 しきい値処理 最後に、しきい値処理でエッジとして扱うかどうかを決めます。 Canny法のしきい値は2つあり、1つはこの値より大きければエッジとすると決めるためのもの、もう1つはこの値よりも小さければエッジではないと決めるためのものです。 じゃあ2つのしきい値の間はどうなるの？という話ですが、隣接しているピクセルがエッジと判定されていれば、エッジと判定するようにし、そうでなければエッジではないと判定します。 単純なしきい値でのエッジの判定よりも、より柔軟ですね。 ただし、しきい値が非常に重要になることが容易に想像できます。 OpenCVでCanny法をためす Canny法は以下のようにして実行できます。 canny = cv2.Canny(img, threshold1=10, threshold2=50, apertureSize=3, L2gradient=True) threshold1がしきい値の小さい方で、threshold2がしきい値の大きい方です。apertureSizeにSobelフィルタのサイズを指定しています。また勾配の大きさに2ノルムを使う場合にはL2gradientをTrueにします。 結果を以下に示します。 元画像 canny（2ノルム） canny（1ノルム） 2ノルムのほうがきれいにエッジが取れている気がします。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
-                <img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu9036494692706906388.jpg"
-                        srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu9036494692706906388.jpg 800w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu8578612921331696524.jpg 1600w"
+            <a href="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">
+                <img src="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu9036494692706906388.jpg"
+                        srcset="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu9036494692706906388.jpg 800w, /mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu8578612921331696524.jpg 1600w"
                         width="800" 
                         height="1067" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv%E7%94%9F%E6%B4%BB/" >
+            <a href="/mblog/categories/opencv%E7%94%9F%E6%B4%BB/" >
                 OpenCV生活
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">Canny法でエッジ検出</a>
+            <a href="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/">Canny法でエッジ検出</a>
         </h2>
     
         
@@ -316,10 +316,10 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 </thead>
 <tbody>
 <tr>
-<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg"
+<td><img src="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf.jpg"
 	width="3024"
 	height="4032"
-	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu10106790156502342545.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu1504518782120272037.jpg 1024w"
+	srcset="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu10106790156502342545.jpg 480w, /mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/8defd1c89359b1b8b5f6142e6e0105bf_hu1504518782120272037.jpg 1024w"
 	loading="lazy"
 	
 	
@@ -328,10 +328,10 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-basis="180px"
 	
 ></td>
-<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg"
+<td><img src="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad.jpg"
 	width="3024"
 	height="4032"
-	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu15624357841214211383.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu9342360765527083918.jpg 1024w"
+	srcset="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu15624357841214211383.jpg 480w, /mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/a0d7c2f605896b780afcc1f54a4acaad_hu9342360765527083918.jpg 1024w"
 	loading="lazy"
 	
 	
@@ -340,10 +340,10 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
 		data-flex-basis="180px"
 	
 ></td>
-<td><img src="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg"
+<td><img src="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1.jpg"
 	width="3024"
 	height="4032"
-	srcset="/blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu10432122628112339669.jpg 480w, /blog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu16068309918226079719.jpg 1024w"
+	srcset="/mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu10432122628112339669.jpg 480w, /mblog/posts/canny%E6%B3%95%E3%81%A7%E3%82%A8%E3%83%83%E3%82%B8%E6%A4%9C%E5%87%BA/5154e105157ba91bf3bf7306d1cfffe1_hu16068309918226079719.jpg 1024w"
 	loading="lazy"
 	
 	
@@ -364,9 +364,9 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/canny/">Canny</a>
+            <a href="/mblog/tags/canny/">Canny</a>
         
     </section>
 
@@ -426,11 +426,11 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
+    <a href="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.1e31616014e9eedfeada969a85e491f8_hu13016057715122183095.png" 
+                <img src="/mblog/posts/hough%E3%83%8F%E3%83%95%E5%A4%89%E6%8F%9B%E3%81%A7%E7%9B%B4%E7%B7%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%88%E3%81%86/f57bd9c6dc056b82e658a2f6ca7b6258.1e31616014e9eedfeada969a85e491f8_hu13016057715122183095.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -450,11 +450,11 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
+    <a href="/mblog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.5804e7273001275cc5a3c47cf5e9e985_hu16773082065766170031.png" 
+                <img src="/mblog/posts/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E5%B9%B3%E5%9D%A6%E5%8C%96/e534d7e8e9969a0405e4a1b8f7eea112.5804e7273001275cc5a3c47cf5e9e985_hu16773082065766170031.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -474,11 +474,11 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">
+    <a href="/mblog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/feature.6431cd4ea34bce3324169b1bd58ae120_hu13168033926891088985.png" 
+                <img src="/mblog/posts/%E3%81%84%E3%81%A4%E3%81%AE%E9%96%93%E3%81%AB%E3%81%8Bopencv%E3%81%AEvideocapture%E3%81%8C%E6%AD%A3%E3%81%97%E3%81%8F%E5%90%91%E3%81%8D%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F/feature.6431cd4ea34bce3324169b1bd58ae120_hu13168033926891088985.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -498,11 +498,11 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -522,11 +522,11 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -695,7 +695,7 @@ Canny法のしきい値は2つあり、1つはこの値より大きければエ�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

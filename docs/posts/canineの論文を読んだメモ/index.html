@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？ 論文はこちら：https://arxiv.org/pdf/2103.06874.pdf エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。 以下では各々の詳細について述べます。 入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。 各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。 unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。 文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。 これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。 $$\\bold{e}_i = \\oplus_k^K {\\rm LOOKUP}_k(\\mathcal{H}_k(x_i)\\ \\% \\ B, d&rsquo;)$$ ここで${\\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\\mathbb{R}^{B \\times d&rsquo;}$のサイズの行列の特定行を返すような関数）。また$\\oplus$\tはベクトルの結合を、$\\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&rsquo;=768/K(=96)$となっています。 unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \\times 32 \\times \\dots \\times 2048 \\approx 1.1529215 \\times 10^{18}$なので、豊富な表現力をもつこととなります。 ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。 ダウンサンプリングは以下のようにおこなわれます。 文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。 これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。 strideのサイズが4のConvolutionを実行する。 1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。 論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。 ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。 アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。 Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。 出力のシーケンスが$(o_1,o_2,\\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\\dots)$とすることを指しているはず。 1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。 つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。 結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。 学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。">
 <title>CANINEの論文を読んだメモ</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CANINEの論文を読んだメモ">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CANINEの論文を読んだメモ">
 <meta property='og:description' content="BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？ 論文はこちら：https://arxiv.org/pdf/2103.06874.pdf エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。 以下では各々の詳細について述べます。 入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。 各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。 unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。 文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。 これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。 $$\\bold{e}_i = \\oplus_k^K {\\rm LOOKUP}_k(\\mathcal{H}_k(x_i)\\ \\% \\ B, d&rsquo;)$$ ここで${\\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\\mathbb{R}^{B \\times d&rsquo;}$のサイズの行列の特定行を返すような関数）。また$\\oplus$\tはベクトルの結合を、$\\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&rsquo;=768/K(=96)$となっています。 unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \\times 32 \\times \\dots \\times 2048 \\approx 1.1529215 \\times 10^{18}$なので、豊富な表現力をもつこととなります。 ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。 ダウンサンプリングは以下のようにおこなわれます。 文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。 これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。 strideのサイズが4のConvolutionを実行する。 1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。 論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。 ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。 アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。 Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。 出力のシーケンスが$(o_1,o_2,\\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\\dots)$とすることを指しているはず。 1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。 つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。 結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。 学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='自然言語処理' /><meta property='article:published_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Deep Learning' /><meta property='article:tag' content='深層学習' /><meta property='article:tag' content='自然言語処理' /><meta property='article:published_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-04-13T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
 <meta name="twitter:title" content="CANINEの論文を読んだメモ">
 <meta name="twitter:description" content="BERTの系列でCharacterレベルでのembedding手法であるCANINEが提案され、これに似たような手法が盛んになるのではという考えのもと論文を読んだメモを書いておきます。 CANINEってなんて読むべきなんでしょう？ 論文はこちら：https://arxiv.org/pdf/2103.06874.pdf エンコーダーのアーキテクチャ CANINEのアーキテクチャは以下のようになっています。 以下では各々の詳細について述べます。 入力の作り方 文字列から数値列への変換 エンコーダーへの入力は文字単位でおこないます。 各文字はunicodeの番号に変換され、それがエンコーダーの入力になります。Pythonであれば、ord関数を使うだけで良いです。 unicodeを使うことで、簡単に入力文を数値列に変換できるうえ、各文字にIDを振って辞書を作成するような手間が不要になります。 文字のembedding 文字はunicodeの番号に変換されたあと、embedding（ベクトル）に変換されます。 BERTなどはsubwordに対応したベクトルを参照すれば良いですが、CANINEの場合に同じことをしようとすると、14万3000個の文字ごとに768次元のベクトルを用意する必要があるために難しいです。 このため、CANINEではword hash embedding trickというものを利用します。 これは、ある文字のunicodeの番号を$x_i$としたとき、次のようにベクトルを生成します。 $$\\bold{e}_i = \\oplus_k^K {\\rm LOOKUP}_k(\\mathcal{H}_k(x_i)\\ \\% \\ B, d&rsquo;)$$ ここで${\\rm LOOKUP}_k(x, d)$はベクトルの一覧の中から、与えられた値$x$に対応した$d$次元のベクトルを返す関数をあらわします（つまり$\\mathbb{R}^{B \\times d&rsquo;}$のサイズの行列の特定行を返すような関数）。また$\\oplus$\tはベクトルの結合を、$\\mathcal{H}_k$はハッシュ関数を、$B$は与えられた自然数をあらわします。論文中では$K=8, B=16k, d&rsquo;=768/K(=96)$となっています。 unicodeの番号のハッシュ値に応じて得られた96次元のベクトルを結合することで、768次元のベクトルを生成しています。この処理によって生成されうるベクトルの種類は$16 \\times 32 \\times \\dots \\times 2048 \\approx 1.1529215 \\times 10^{18}$なので、豊富な表現力をもつこととなります。 ダウンサンプリング BERTでも同じことがいえますが、文字単位で入力を与えると入力の数が多くなるため計算量が多くなってしまいます。Transformerで行われる行列積は入力長の二乗のオーダーの計算量になるため、入力長を小さくすることは計算量削減に大きく寄与します。 そのためCANINEではダウンサンプリングを用いて、後続のネットワークへの入力を少なくする方法を提案しています。 ダウンサンプリングは以下のようにおこなわれます。 文字のembeddingに対してblock単位でのTransformerを1度だけ適用する。 これは128字単位で文字を区切り、その中でself-attentionを実行することを指します。blockに区切ることで計算量削減ができます。 strideのサイズが4のConvolutionを実行する。 1つめのTransformerで文字レベルのembeddingから局所的な情報を得ており、そのあとにstrideが4のConvolutionを実行することで、情報を集約して入力長を1/4に減らすことができます。 論文では最大で2048字を入力できるようにしていますが、strideのサイズが4のConvolutionを利用することで後続の処理には最大で512個のシーケンスが与えられることになります。 ダウンサンプリング後のシーケンスは、BERTなどのようにTransformerを重ねたネットワークへ与えられます。 アップサンプリング 固有表現抽出やQAなどのタスクを解くために、入力と同じ長さの出力が必要になります（分類問題は[CLS]に対応するトークンを利用すれば良い）。 このため、次のようにしてアップサンプリングをおこない、入力と同じ長さの出力を得ます。 Transformerの出力のシーケンスをダウンサンプリングのstrideの分だけ複製し、ダウンサンプリング前の入力長と一致するようにする。 出力のシーケンスが$(o_1,o_2,\\dots)$のときに$(o_1, o_1,o_1,o_1, o_2,o_2,o_2,o_2,\\dots)$とすることを指しているはず。 1のシーケンスとダウンサンプリングでのblock単位でのself-attentionでの出力を結合する。 つまり、各ベクトルは高度な文脈情報と局所的な文脈情報をもつことになります。 結合されたシーケンスへConvolutionを適用することで倍になった次元を結合前の次元に戻す（論文ではkernel sizeは4）。 最後にTransformerを一度適用する。 学習 CANINEの事前学習のタスクには文字単位とsubword単位がありますが、性能は問題によって少しだけ変わります。 各タスクの詳細は以下のとおりです。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">
-                <img src="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu18102139613090263028.png"
-                        srcset="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu18102139613090263028.png 800w, /blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu6562907240692832849.png 1600w"
+            <a href="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">
+                <img src="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu18102139613090263028.png"
+                        srcset="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu18102139613090263028.png 800w, /mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu6562907240692832849.png 1600w"
                         width="800" 
                         height="367" 
                         loading="lazy"
@@ -223,15 +223,15 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/deep-learning/" >
+            <a href="/mblog/categories/deep-learning/" >
                 Deep Learning
             </a>
         
-            <a href="/blog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" >
+            <a href="/mblog/categories/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/" >
                 深層学習
             </a>
         
-            <a href="/blog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/" >
                 自然言語処理
             </a>
         
@@ -240,7 +240,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">CANINEの論文を読んだメモ</a>
+            <a href="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/">CANINEの論文を読んだメモ</a>
         </h2>
     
         
@@ -284,10 +284,10 @@ CANINEってなんて読むべきなんでしょう？</p>
     >https://arxiv.org/pdf/2103.06874.pdf</a></p>
 <h1 id="エンコーダーのアーキテクチャ">エンコーダーのアーキテクチャ
 </h1><p>CANINEのアーキテクチャは以下のようになっています。
-<img src="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png"
+<img src="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1.png"
 	width="1894"
 	height="870"
-	srcset="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu5727611620680059928.png 480w, /blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu745097921145227070.png 1024w"
+	srcset="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu5727611620680059928.png 480w, /mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/fig1_hu745097921145227070.png 1024w"
 	loading="lazy"
 	
 		alt="CANINEのアーキテクチャ（論文より引用）"
@@ -357,10 +357,10 @@ BERTなどはsubwordに対応したベクトルを参照すれば良いですが
 </h1><p>実験はTYDI QAデータセットを用いておこなわれています。</p>
 <h2 id="他手法との比較">他手法との比較
 </h2><p>mBERTとの比較が次のテーブルになります。
-<img src="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png"
+<img src="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2.png"
 	width="2064"
 	height="518"
-	srcset="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu3105692230049871730.png 480w, /blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu17215373382260427039.png 1024w"
+	srcset="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu3105692230049871730.png 480w, /mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table2_hu17215373382260427039.png 1024w"
 	loading="lazy"
 	
 		alt="mBERTとの比較（論文より引用）"
@@ -376,10 +376,10 @@ BERTなどはsubwordに対応したベクトルを参照すれば良いですが
 また、Example/secの列をみると、mBERTは文字単位の入力にすると非常に推論が遅いですが、CANINEはそれに比べると非常に速いです。とはいえ、mBERTのsubword単位の入力の場合に比べると当然遅いです。</p>
 <h2 id="ablation-study">ablation study
 </h2><p>ablation studyです。
-<img src="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png"
+<img src="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4.png"
 	width="1966"
 	height="794"
-	srcset="/blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu3547531543262116005.png 480w, /blog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu14881553281215025394.png 1024w"
+	srcset="/mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu3547531543262116005.png 480w, /mblog/posts/canine%E3%81%AE%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%83%A1%E3%83%A2/table4_hu14881553281215025394.png 1024w"
 	loading="lazy"
 	
 		alt="ablation study（論文より引用）"
@@ -400,11 +400,11 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/deep-learning/">Deep Learning</a>
+            <a href="/mblog/tags/deep-learning/">Deep Learning</a>
         
-            <a href="/blog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a>
+            <a href="/mblog/tags/%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92/">深層学習</a>
         
-            <a href="/blog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/">自然言語処理</a>
+            <a href="/mblog/tags/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86/">自然言語処理</a>
         
     </section>
 
@@ -464,7 +464,7 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
             
                 
 <article class="">
-    <a href="/blog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/">
+    <a href="/mblog/posts/%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%80%A7%E8%83%BD%E3%82%92%E3%81%82%E3%81%92%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEtips/">
         
         
 
@@ -477,7 +477,7 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
             
                 
 <article class="">
-    <a href="/blog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
+    <a href="/mblog/posts/bert%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%81%AE%E8%AA%AC%E6%98%8E%E6%96%87%E7%94%9F%E6%88%90/">
         
         
 
@@ -490,7 +490,7 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
             
                 
 <article class="">
-    <a href="/blog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/">
+    <a href="/mblog/posts/%E8%B2%A7%E4%B9%8F%E4%BA%BA%E3%81%AA%E3%81%AE%E3%81%A7poor-mans-bert%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A7%A3%E8%AA%AC/">
         
         
 
@@ -503,11 +503,11 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
+    <a href="/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.d149d184ffe5b871c636f0280c71ac17_hu12990949942608192100.png" 
+                <img src="/mblog/posts/bert%E3%82%92%E8%BB%BD%E9%87%8F%E5%8C%96%E3%81%97%E3%81%9Falbert%E3%81%AE%E6%A6%82%E8%A6%81/2b1477117e8654c1b558183f0277acdf.d149d184ffe5b871c636f0280c71ac17_hu12990949942608192100.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -527,11 +527,11 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/">
+    <a href="/mblog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3.f14ea33c53998f4220459411a7f0e94d_hu17990717691635510547.png" 
+                <img src="/mblog/posts/tabular%E3%83%87%E3%83%BC%E3%82%BF%E5%90%91%E3%81%91%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%99%E3%82%A4%E8%AB%96%E6%96%87%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/fig3.f14ea33c53998f4220459411a7f0e94d_hu17990717691635510547.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -700,7 +700,7 @@ embeddingの次元も小さくすると性能が結構下がっていますね�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

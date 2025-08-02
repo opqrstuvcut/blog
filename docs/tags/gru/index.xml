@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>GRU on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/gru/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/gru/</link>
         <description>Recent content in GRU on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Sun, 01 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/gru/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 01 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/gru/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Were RNNs All We Needed?を読んだのでまとめ</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</link>
         <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.png" alt="Featured image of post Were RNNs All We Needed?を読んだのでまとめ" /&gt;&lt;p&gt;Were RNNs All We Needed?を読んだので、その内容をまとめておきます。&lt;br&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/feature.png" alt="Featured image of post Were RNNs All We Needed?を読んだのでまとめ" /&gt;&lt;p&gt;Were RNNs All We Needed?を読んだので、その内容をまとめておきます。&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2410.01201&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://arxiv.org/abs/2410.01201&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;概要&#34;&gt;概要
@@ -108,10 +108,10 @@ LSTMにはの出力ゲートの$o_t$がありましたが、$h_t$ のスケー�
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;速度&#34;&gt;速度
 &lt;/h3&gt;&lt;p&gt;以下の図が無事にLSTMやGRUと比べて提案手法が高速に学習ができるようになったことをあらわずものです．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1.png&#34;
 	width=&#34;830&#34;
 	height=&#34;261&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu10658627143843527489.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu17316507408243318142.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu10658627143843527489.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig1_hu17316507408243318142.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -124,10 +124,10 @@ LSTMにはの出力ゲートの$o_t$がありましたが、$h_t$ のスケー�
 &lt;h3 id=&#34;精度&#34;&gt;精度
 &lt;/h3&gt;&lt;h4 id=&#34;selective-copying-task&#34;&gt;Selective Copying Task
 &lt;/h4&gt;&lt;p&gt;次の表はSelective Copying TaskをMinLSTMとMinGRUで学習したときの精度になります．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1.png&#34;
 	width=&#34;360&#34;
 	height=&#34;267&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu3959210133077671112.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu16149480296123565550.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu3959210133077671112.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table1_hu16149480296123565550.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -141,10 +141,10 @@ LSTMにはの出力ゲートの$o_t$がありましたが、$h_t$ のスケー�
 またminLSTMの精度が少し低く分散も大きいですが、これは$f_t$と$i_t$を別個に学習するために最適化が難しいためです．個人的にはGRUのように$z_t$1つだけを計算して重み付けするほうが自然な気もします．&lt;/p&gt;
 &lt;h4 id=&#34;強化学習&#34;&gt;強化学習
 &lt;/h4&gt;&lt;p&gt;次は強化学習のデータセットに対してDecision Transformerなどの手法との比較になります．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3.png&#34;
 	width=&#34;857&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu8789722837576088973.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu7243165734254340393.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu8789722837576088973.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/table3_hu7243165734254340393.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -156,10 +156,10 @@ LSTMにはの出力ゲートの$o_t$がありましたが、$h_t$ のスケー�
 &lt;p&gt;各スコアは大きいほうが良いですが、Decision Transformerを平均的には超えています．Mambaよりもちょっとだけ低いくらいですね．&lt;/p&gt;
 &lt;h4 id=&#34;言語モデル&#34;&gt;言語モデル
 &lt;/h4&gt;&lt;p&gt;最後に言語モデルのタスクについてTransformerとの比較になります．データセットはシェークスピアのデータセットです．&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2.png&#34;
 	width=&#34;855&#34;
 	height=&#34;333&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu6242468510231248892.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu7573654886436498504.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu6242468510231248892.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/were-rnns-all-we-needed%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A0%E3%81%AE%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81/fig2_hu7573654886436498504.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

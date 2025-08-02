@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。 compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。 cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムをあらわすNumPy arrayです。 methodは比較方法をあらわし、以下のようなものがあります。 方法 概要 cv2.HISTCMP_CORREL ピアソンの相関係数 cv2.HISTCMP_CHISQR カイ二乗検定 cv2.HISTCMP_KL_DIV KLダイバージェンス cv2.HISTCMP_INTERSECT 交差法 cv2.HISTCMP_BHATTACHARYYA バタチャリア距離 それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。 比較方法の一覧 次のようなヒストグラムを対象にして各比較方法の違いをみてみます。 結果は次のとおりです。 比較方法 2と2 1と2 2と1 2と3 1と3 HISTCMP_CORREL 1.0 0.22 0.22 -0.22 -0.87 HISTCMP_CHISQR 0.0 10.13 9.11 11.78 18.0 HISTCMP_KL_DIV 0.0 245.6 228.07 234.31 447.40 HISTCMP_INTERSECT 18.0 8.0 8.0 4.0 0.0 HISTCMP_BHATTACHARYYA 0.0 0.73 0.73 0.82 1.0 手法によって、完全一致は大きい値になるのか、小さい値になるのか、また最大値と最小値はあるのかといったところも違うので、注意が必要です。 なお、利用したコードは以下のとおりです。 import numpy as np import pandas as pd import matplotlib.">
 <title>compHistでヒストグラム比較をいろいろなやり方でおこなう</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="compHistでヒストグラム比較をいろいろなやり方でおこなう">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="compHistでヒストグラム比較をいろいろなやり方でおこなう">
 <meta property='og:description' content="本記事はQrunchからの転載です。 画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。 compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。 cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムをあらわすNumPy arrayです。 methodは比較方法をあらわし、以下のようなものがあります。 方法 概要 cv2.HISTCMP_CORREL ピアソンの相関係数 cv2.HISTCMP_CHISQR カイ二乗検定 cv2.HISTCMP_KL_DIV KLダイバージェンス cv2.HISTCMP_INTERSECT 交差法 cv2.HISTCMP_BHATTACHARYYA バタチャリア距離 それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。 比較方法の一覧 次のようなヒストグラムを対象にして各比較方法の違いをみてみます。 結果は次のとおりです。 比較方法 2と2 1と2 2と1 2と3 1と3 HISTCMP_CORREL 1.0 0.22 0.22 -0.22 -0.87 HISTCMP_CHISQR 0.0 10.13 9.11 11.78 18.0 HISTCMP_KL_DIV 0.0 245.6 228.07 234.31 447.40 HISTCMP_INTERSECT 18.0 8.0 8.0 4.0 0.0 HISTCMP_BHATTACHARYYA 0.0 0.73 0.73 0.82 1.0 手法によって、完全一致は大きい値になるのか、小さい値になるのか、また最大値と最小値はあるのかといったところも違うので、注意が必要です。 なお、利用したコードは以下のとおりです。 import numpy as np import pandas as pd import matplotlib.">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='ヒストグラム比較' /><meta property='article:published_time' content='2020-08-10T13:20:47&#43;09:00'/><meta property='article:modified_time' content='2020-08-10T13:20:47&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='ヒストグラム比較' /><meta property='article:published_time' content='2020-08-10T13:20:47&#43;09:00'/><meta property='article:modified_time' content='2020-08-10T13:20:47&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png' />
 <meta name="twitter:title" content="compHistでヒストグラム比較をいろいろなやり方でおこなう">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 画像処理の領域では画像から特徴量をあらわすヒストグラムを生成することがよくあります。 特徴量としてヒストグラムを生成するということは、比較をすることもよくあるということで、今回はヒストグラムの比較を扱います。 compHistによるヒストグラムの比較の仕方 次のようにしてヒストグラムの比較をおこないます。 cv2.compareHist(hist_1, hist_2, method) hist_1とhist_2はヒストグラムをあらわすNumPy arrayです。 methodは比較方法をあらわし、以下のようなものがあります。 方法 概要 cv2.HISTCMP_CORREL ピアソンの相関係数 cv2.HISTCMP_CHISQR カイ二乗検定 cv2.HISTCMP_KL_DIV KLダイバージェンス cv2.HISTCMP_INTERSECT 交差法 cv2.HISTCMP_BHATTACHARYYA バタチャリア距離 それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。 比較方法の一覧 次のようなヒストグラムを対象にして各比較方法の違いをみてみます。 結果は次のとおりです。 比較方法 2と2 1と2 2と1 2と3 1と3 HISTCMP_CORREL 1.0 0.22 0.22 -0.22 -0.87 HISTCMP_CHISQR 0.0 10.13 9.11 11.78 18.0 HISTCMP_KL_DIV 0.0 245.6 228.07 234.31 447.40 HISTCMP_INTERSECT 18.0 8.0 8.0 4.0 0.0 HISTCMP_BHATTACHARYYA 0.0 0.73 0.73 0.82 1.0 手法によって、完全一致は大きい値になるのか、小さい値になるのか、また最大値と最小値はあるのかといったところも違うので、注意が必要です。 なお、利用したコードは以下のとおりです。 import numpy as np import pandas as pd import matplotlib."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">
-                <img src="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14908651331564476912.png"
-                        srcset="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14908651331564476912.png 800w, /blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14738717688315041833.png 1600w"
+            <a href="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">
+                <img src="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14908651331564476912.png"
+                        srcset="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14908651331564476912.png 800w, /mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu14738717688315041833.png 1600w"
                         width="800" 
                         height="240" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">compHistでヒストグラム比較をいろいろなやり方でおこなう</a>
+            <a href="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/">compHistでヒストグラム比較をいろいろなやり方でおこなう</a>
         </h2>
     
         
@@ -316,10 +316,10 @@ methodは比較方法をあらわし、以下のようなものがあります�
 <p>それぞれの違いは式を見ればわかるという話もありますが、ぱっと分かるように数値的な違いを見ていきます。</p>
 <h2 id="比較方法の一覧">比較方法の一覧
 </h2><p>次のようなヒストグラムを対象にして各比較方法の違いをみてみます。
-<img src="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png"
+<img src="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0.png"
 	width="720"
 	height="216"
-	srcset="/blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu8689356926788355068.png 480w, /blog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu8334417359550199884.png 1024w"
+	srcset="/mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu8689356926788355068.png 480w, /mblog/posts/comphist%E3%81%A7%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83%E3%82%92%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E3%81%AA%E3%82%84%E3%82%8A%E6%96%B9%E3%81%A7%E3%81%8A%E3%81%93%E3%81%AA%E3%81%86/ae3cebef75b7a49ca03c77500f3925a0_hu8334417359550199884.png 1024w"
 	loading="lazy"
 	
 	
@@ -425,9 +425,9 @@ methodは比較方法をあらわし、以下のようなものがあります�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83/">ヒストグラム比較</a>
+            <a href="/mblog/tags/%E3%83%92%E3%82%B9%E3%83%88%E3%82%B0%E3%83%A9%E3%83%A0%E6%AF%94%E8%BC%83/">ヒストグラム比較</a>
         
     </section>
 
@@ -487,11 +487,11 @@ methodは比較方法をあらわし、以下のようなものがあります�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -511,11 +511,11 @@ methodは比較方法をあらわし、以下のようなものがあります�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -535,11 +535,11 @@ methodは比較方法をあらわし、以下のようなものがあります�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -559,11 +559,11 @@ methodは比較方法をあらわし、以下のようなものがあります�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -583,7 +583,7 @@ methodは比較方法をあらわし、以下のようなものがあります�
             
                 
 <article class="">
-    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
         
 
@@ -745,7 +745,7 @@ methodは比較方法をあらわし、以下のようなものがあります�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

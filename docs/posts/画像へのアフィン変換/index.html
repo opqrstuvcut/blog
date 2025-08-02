@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}.">
 <title>画像へのアフィン変換</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="画像へのアフィン変換">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="画像へのアフィン変換">
 <meta property='og:description' content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}.">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='affine' /><meta property='article:tag' content='アフィン変換' /><meta property='article:published_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='OpenCV' /><meta property='article:tag' content='affine' /><meta property='article:tag' content='アフィン変換' /><meta property='article:published_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='article:modified_time' content='2020-07-29T11:03:00&#43;09:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
 <meta name="twitter:title" content="画像へのアフィン変換">
 <meta name="twitter:description" content="本記事はQrunchからの転載です。 アフィン変換といえば、普通は2次元上の点や図形を拡大縮小したり、回転したり、平行移動したりといった変換をさします。 式の話をすると、ある2次元上の点$(x,y)$の$(x&rsquo;, y&rsquo;)$へのアフィン変換は次のようにして表現できます。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} a &amp; b &amp; c\\\\ e &amp; f &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}. $$ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにできますし、$c,g$の値によって平行移動が可能です。 今回はこのアフィン変換をOpenCVを使っておこないます。 アフィン変換のやり方 OpenCVでは次のようにしてアフィン変換をおこないます。 transformed_img = cv2.warpAffine(img, affine_mat, (width, height)) affine_matとしているのが、アフィン変換で用いる行列です。 widthとheightは変換後の画像のサイズになります。 以下では次の画像に対するアフィン変換の例を示します。 平行移動 平行移動をするときは次のようなアフィン変換になります。 $$\\begin{pmatrix}x&rsquo; \\\\ y&rsquo; \\\\ 1 \\end{pmatrix} =\\begin{pmatrix} 1 &amp; 0 &amp; c\\\\ 0 &amp; 1 &amp; g \\\\ 0 &amp; 0 &amp; 1 \\end{pmatrix} \\begin{pmatrix}x \\\\ y \\\\ 1 \\end{pmatrix}."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">
-                <img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3620224883562234420.png"
-                        srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3620224883562234420.png 800w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu14557545383819771467.png 1600w"
+            <a href="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">
+                <img src="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3620224883562234420.png"
+                        srcset="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3620224883562234420.png 800w, /mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu14557545383819771467.png 1600w"
                         width="800" 
                         height="916" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/opencv/" >
+            <a href="/mblog/categories/opencv/" >
                 OpenCV
             </a>
         
-            <a href="/blog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
+            <a href="/mblog/categories/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86/" >
                 画像処理
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">画像へのアフィン変換</a>
+            <a href="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">画像へのアフィン変換</a>
         </h2>
     
         
@@ -287,10 +287,10 @@ $a,b,e,f$の値によって拡大縮小、回転をおこなうようにでき�
 </span></span></code></pre></div><p>affine_matとしているのが、アフィン変換で用いる行列です。
 widthとheightは変換後の画像のサイズになります。</p>
 <p>以下では次の画像に対するアフィン変換の例を示します。
-<img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png"
+<img src="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57.png"
 	width="220"
 	height="252"
-	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_hu8144782731882458258.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_hu17834146622853901468.png 1024w"
+	srcset="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_hu8144782731882458258.png 480w, /mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/c4583d46713f7a842568e73b04422d57_hu17834146622853901468.png 1024w"
 	loading="lazy"
 	
 	
@@ -308,10 +308,10 @@ $$\begin{eqnarray}x&rsquo; &amp;=&amp; x + c, \\y&rsquo;&amp;=&amp;y+g\end{eqnar
 <p>$x$と$y$を1000ずつ動かすとすると、コードでは次のようになります。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">affine_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c.png"
 	width="220"
 	height="252"
-	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hu16724901418555687476.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hu4586409649753006738.png 1024w"
+	srcset="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hu16724901418555687476.png 480w, /mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/e67a3339f922d116791a0f04c0193d6c_hu4586409649753006738.png 1024w"
 	loading="lazy"
 	
 	
@@ -329,10 +329,10 @@ $$\begin{eqnarray}x&rsquo; &amp;=&amp; ax \\y&rsquo;&amp;=&amp;ey\end{eqnarray}$
 <p>大きさを半分にする場合は次のようなコードになります。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="n">affine_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009.png"
 	width="220"
 	height="252"
-	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_hu13738330196556415008.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_hu487162602192325098.png 1024w"
+	srcset="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_hu13738330196556415008.png 480w, /mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/5f7ba51ac85c99e5269c488185e05009_hu487162602192325098.png 1024w"
 	loading="lazy"
 	
 	
@@ -350,10 +350,10 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
 </span></span><span class="line"><span class="cl">                       <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">1.4142</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">1.4142</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> 
 </span></span><span class="line"><span class="cl">                       <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">transformed_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">affine_mat</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-</span></span></code></pre></div><p><img src="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png"
+</span></span></code></pre></div><p><img src="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171.png"
 	width="220"
 	height="252"
-	srcset="/blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3722951491929355690.png 480w, /blog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu12486507665285401057.png 1024w"
+	srcset="/mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu3722951491929355690.png 480w, /mblog/posts/%E7%94%BB%E5%83%8F%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/81a46863d26154ebd07353949e4d8171_hu12486507665285401057.png 1024w"
 	loading="lazy"
 	
 	
@@ -370,11 +370,11 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
     
     <section class="article-tags">
         
-            <a href="/blog/tags/opencv/">OpenCV</a>
+            <a href="/mblog/tags/opencv/">OpenCV</a>
         
-            <a href="/blog/tags/affine/">Affine</a>
+            <a href="/mblog/tags/affine/">Affine</a>
         
-            <a href="/blog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">アフィン変換</a>
+            <a href="/mblog/tags/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9B/">アフィン変換</a>
         
     </section>
 
@@ -434,11 +434,11 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
+    <a href="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
+                <img src="/mblog/posts/%E5%8B%95%E7%94%BB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%89%E5%89%8D%E6%99%AF%E3%81%A8%E8%83%8C%E6%99%AF%E3%82%92%E5%88%86%E9%9B%A2%E3%81%99%E3%82%8B/cbb562e9eaee89cb60ac8ec0be592a80.e87b6e8f6ca22b6b36cca3b2b6690362_hu390705902629083679.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -458,11 +458,11 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
+    <a href="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
+                <img src="/mblog/posts/%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E8%BC%AA%E9%83%AD%E3%81%AE%E6%8F%8F%E7%94%BB/d0411dcb235b3add1e1a55f1a9394d2d.cdc50c30a2665f1bcc4245a119ab8bbb_hu9937509795490170185.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -482,11 +482,11 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
             
                 
 <article class="has-image">
-    <a href="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
+    <a href="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
+                <img src="/mblog/posts/findcontours%E3%81%A7%E8%BC%AA%E9%83%AD%E3%81%AE%E6%A4%9C%E5%87%BA/36626599de1a642e7bfec7fa47def298.273ed0912346665a556545fc8c648ab8_hu3379407131511175525.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -506,11 +506,11 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
+    <a href="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
+                <img src="/mblog/posts/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%81%A7%E7%94%BB%E5%83%8F%E3%81%8B%E3%82%89%E7%89%A9%E4%BD%93%E3%82%92%E3%81%BF%E3%81%A4%E3%81%91%E3%82%8B/0359ef5bc2687ab5c1e63356c89cc3e0.1e1423b2714291cf4647a1c4677451b8_hu11081041458382776038.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -530,7 +530,7 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
             
                 
 <article class="">
-    <a href="/blog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
+    <a href="/mblog/posts/minmaxloc%E3%81%A7%E6%9C%80%E5%A4%A7%E3%81%A8%E6%9C%80%E5%B0%8F%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%82%92%E6%A5%BD%E3%81%AB%E5%8F%96%E5%BE%97/">
         
         
 
@@ -692,7 +692,7 @@ $$\begin{pmatrix}x&rsquo; \\ y&rsquo;  \\ 1 \end{pmatrix} =\begin{pmatrix}\cos\t
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

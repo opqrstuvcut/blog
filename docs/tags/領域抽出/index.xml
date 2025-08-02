@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>領域抽出 on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/%E9%A0%98%E5%9F%9F%E6%8A%BD%E5%87%BA/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/%E9%A0%98%E5%9F%9F%E6%8A%BD%E5%87%BA/</link>
         <description>Recent content in 領域抽出 on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Tue, 18 Aug 2020 11:00:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/%E9%A0%98%E5%9F%9F%E6%8A%BD%E5%87%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 18 Aug 2020 11:00:00 +0900</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/%E9%A0%98%E5%9F%9F%E6%8A%BD%E5%87%BA/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>connectedComponentsで連結した領域の取得</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</link>
         <pubDate>Tue, 18 Aug 2020 11:00:00 +0900</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.png" alt="Featured image of post connectedComponentsで連結した領域の取得" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
+        <guid>https://opqrstuvcut.github.io/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.png" alt="Featured image of post connectedComponentsで連結した領域の取得" /&gt;&lt;p&gt;本記事はQrunchからの転載です。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;OpenCVでは二値画像から結合している領域の抽出をおこなうことができます。
 こういうのは自分で実装すると大変なので、大変助かりますね。&lt;/p&gt;
 &lt;h1 id=&#34;connectedcomponets&#34;&gt;connectedComponets
 &lt;/h1&gt;&lt;p&gt;次の二値画像を考えます。
-&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09.png&#34;
+&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09.png&#34;
 	width=&#34;185&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09_hu14659486232517779019.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09_hu11351005618970416894.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09_hu14659486232517779019.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/2037ec7a540fcf5d985618285acccc09_hu11351005618970416894.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -44,10 +44,10 @@ labelsには入力画像と同じサイズの行列が入っており、それ�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;imshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colored_img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.png&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb.png&#34;
 	width=&#34;185&#34;
 	height=&#34;252&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb_hu12813425145956626516.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb_hu10573499991069759127.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb_hu12813425145956626516.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/connectedcomponents%E3%81%A7%E9%80%A3%E7%B5%90%E3%81%97%E3%81%9F%E9%A0%98%E5%9F%9F%E3%81%AE%E5%8F%96%E5%BE%97/4fad02405d448c838cb1af94842c2bbb_hu10573499991069759127.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

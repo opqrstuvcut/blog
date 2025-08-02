@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．">
 <title>特徴量の次元の柔軟性が高いマトリョーシカ表現学習</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="特徴量の次元の柔軟性が高いマトリョーシカ表現学習">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="特徴量の次元の柔軟性が高いマトリョーシカ表現学習">
 <meta property='og:description' content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='表現学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='特徴量' /><meta property='article:tag' content='適応的検索' /><meta property='article:tag' content='Embedding' /><meta property='article:tag' content='RAG' /><meta property='article:tag' content='Azure' /><meta property='article:tag' content='AI Search' /><meta property='article:published_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='表現学習' /><meta property='article:tag' content='ディープラーニング' /><meta property='article:tag' content='特徴量' /><meta property='article:tag' content='適応的検索' /><meta property='article:tag' content='Embedding' /><meta property='article:tag' content='RAG' /><meta property='article:tag' content='Azure' /><meta property='article:tag' content='AI Search' /><meta property='article:published_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png' />
 <meta name="twitter:title" content="特徴量の次元の柔軟性が高いマトリョーシカ表現学習">
 <meta name="twitter:description" content="一般には、分類問題向けに学習させたディープラーニングモデルから得られる特徴量の次元はあとから変更することはできず、学習のときに固定されてしまいます． もしも、学習後に精度をあまり落とさずに次元を小さくできるのであれば、計算リソースやサービスの要求に応じた次元を選択できるため非常に便利です． それを実現するための方法としてMatryoshka Representation Learning（マトリョーシカ表現学習）があります． なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています． マトリョーシカ表現学習の概要 学習 一般にはディープラーニングモデルを用いて$L$クラス分類問題を解くとき、入力データ$x$に対してembedding $z \\in \\mathbb{R}^d $を計算し、それに対して重み$W \\in \\mathbb{R}^{L \\times d}$を用いて $$ W z $$ を計算します。その後、$Wz$の値から分類問題が解けるようにモデルの学習を進めていきます．$z$は$d$次元であることを前提にしていますので、残念ながら学習後に先頭から$m$次元目までを切り取った$z_{1:m}$のようなembeddingの一部をみても良い特徴量にはなりません． マトリョーシカ表現学習(MRL)ではこれを解決するため、事前にembeddingの次元の集合を$\\mathcal{M}$を定義しておき（例えば$\\mathcal{M}=\\{8,16,\\cdots,1024, 2048\\}$）、各次元ごとにembeddingを切り出してそれを用いて分類問題が解けるように学習をしていきます． 具体的には、データセットを$\\mathcal{D} = \\{(x_1,y_1),\\cdots,(x_N, y_N) \\}$、各$\\mathcal{M}$の要素$m$ ごとに用意した重みを$W^{(m)} \\in \\mathbb{R}^{L \\times m}$、スケーリングのパラメータを$c_m$、分類用のLossを$\\mathcal{L}$としたとき、以下の最小化問題を解くように学習をおこないます． $$ \\begin{align*} \\min_{\\{W^{(m)}\\}_{m \\in \\mathcal{M}}, \\theta_F} \\frac{1}{N} \\sum_{(x_i, y_i) \\in \\mathcal{D}} \\sum_{m \\in \\mathcal{M}} c_m \\cdot \\mathcal{L} \\left(W^{(m)} \\cdot F(x_i;\\theta_F) _{1:m};y_i \\right ) \\end{align*} $$ ここで、embeddingがモデルのパラメータ$\\theta_F$に依存していることを明示するため、$x_i$に対応するembedding $z_i \\in \\mathbb{R}^d$を$F(x_i;\\theta_F)$とあらわしています． この式であらわしているように、小さい次元のembeddingでも分類問題が解けるようにすることで、そのような一部のembeddingだけでも良い特徴量になることを期待しています．このように、embeddingがマトリョーシカのように入れ子の形になっているためマトリョーシカ表現学習という名前になっています． また、もしかすると$c_m$の調整が少し面倒なのかな？と思いましたが、論文ではすべて$c_m=1$としているようです． この手法で少し気になってくるのは、重み行列$W^{(m)}$をそれぞれの$m$ごとに用意するとメモリ使用量が増えることです． これに対しては、共通の重み行列$W$を1つ用意し、$W^{m} = W_{1:m}$のように$W$の1行目から$m$行目までを切り出すという形で定義する方法が提案されています．これをEfficient Matryoshka Representation Learning（MRL-E）と呼んでいます．"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm.png' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -207,9 +207,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
-                <img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu2145902582892335992.png"
-                        srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu2145902582892335992.png 800w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu60834209752667090.png 1600w"
+            <a href="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">
+                <img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu2145902582892335992.png"
+                        srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu2145902582892335992.png 800w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/thm_hu60834209752667090.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -223,11 +223,11 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/" >
+            <a href="/mblog/categories/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/" >
                 表現学習
             </a>
         
-            <a href="/blog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
+            <a href="/mblog/categories/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/" >
                 ディープラーニング
             </a>
         
@@ -236,7 +236,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</a>
+            <a href="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">特徴量の次元の柔軟性が高いマトリョーシカ表現学習</a>
         </h2>
     
         
@@ -280,10 +280,10 @@
     >Matryoshka Representation Learning（マトリョーシカ表現学習）</a>があります．<br>
 なお、マトリョーシカ表現学習はAzureのAI Searchのベクトル検索で利用可能になっています．</p>
 <h2 id="マトリョーシカ表現学習の概要">マトリョーシカ表現学習の概要
-</h2><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png"
+</h2><p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1.png"
 	width="568"
 	height="475"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu11847210483552569751.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig1_hu7647915900547121079.png 1024w"
 	loading="lazy"
 	
 		alt="マトリョーシカ表現学習の概要"
@@ -348,10 +348,10 @@ $$
 <p>また、MRLとの比較のため、各次元ごとにモデルを用意して独立に学習したケース（FF）と学習後に特異値分解（SVD）で次元圧縮したケースなどがあります．ただし、大事なのはFFとの比較になるかと思います．</p>
 <h3 id="分類">分類
 </h3><h4 id="比較">比較
-</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png"
+</h4><p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2.png"
 	width="456"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu8391858873861622609.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig2_hu547054195114044282.png 1024w"
 	loading="lazy"
 	
 		alt="図2"
@@ -362,10 +362,10 @@ $$
 		data-flex-basis="241px"
 	
 >
-<img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png"
+<img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3.png"
 	width="456"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu10187206318163428846.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig3_hu5342234461857649106.png 1024w"
 	loading="lazy"
 	
 		alt="図3"
@@ -380,10 +380,10 @@ $$
 分類精度はMRLの次元が小さくてもあまり劣化していないことがわかります．また、MRL-Eもそれほど大きく変わらないという結果になっています．重み行列を共有していることを考えるとかなりうまくいっているのではないでしょうか．</p>
 <p>図3はデータセットからクエリとなるデータのembeddingを学習済みモデルで取得し、それをもとに1-NNで見つけたデータが同じクラスに属していれば正解とする分類問題です．<br>
 こちらも同じような結果が得られています．</p>
-<p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png"
+<p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4.png"
 	width="456"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu12098191203495541039.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig4_hu8629574459690979819.png 1024w"
 	loading="lazy"
 	
 		alt="図4"
@@ -397,10 +397,10 @@ $$
 <p>Vit-B/16モデルでの1-NNの精度を図4に示しています．<br>
 こちらでも、MRLとMRL-Eは次元の減少に対して、精度の劣化が少ない結果が得られています．</p>
 <h4 id="次元の柔軟性">次元の柔軟性
-</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png"
+</h4><p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5.png"
 	width="456"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu2349964992716396.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig5_hu640883457697687233.png 1024w"
 	loading="lazy"
 	
 		alt="図5"
@@ -415,10 +415,10 @@ $$
 びっくりする話ですが、学習した次元以外でembeddingを切り出しても、図の精度のcurveに沿ったものになっています．一部に制約をつけて学習させることで、全体としてマトリョーシカ的な表現のembeddingが得られているということのようです．各次元がその前までのembeddingを適切に補う形になっていると考えればよいのでしょうか．</p>
 <h3 id="検索">検索
 </h3><h4 id="比較-1">比較
-</h4><p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png"
+</h4><p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7.png"
 	width="456"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu14998899264387119365.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig7_hu2459663037257533271.png 1024w"
 	loading="lazy"
 	
 		alt="図7"
@@ -435,10 +435,10 @@ $$
 </h4><p>最後に適応的検索の設定で評価をおこなう話になります．<br>
 これは、クエリが与えられたらまずは低次元$D_s$のembeddingで検索をおこないデータベースから200件のデータを選択する．そのあとに高次元$D_r$のembeddingを用いて類似度順に順位付けをおこなうというものです．イメージ的には速くおおまかに検索してから、丁寧に類似性が高いもの順に並び替えていくというものになります．<br>
 データベースのデータが非常に多いことが現実では考えられますから、この部分を小さい次元のembeddingでおこなえることは非常に高速化に寄与します．実際、次の図8の(a)のように$D_s$（色が薄いほど低い次元で検索）が小さく、$D_r$（大きいほど順序付けでの次元が大きい）を大きく設定すると、精度の劣化はなく（逆になぜかあがっていますね）、かつ14倍も高速になっています．ただし、(b)はImageNet-4Kを評価用に使っていて問題が難しいため、高速化は6倍に留まっています．</p>
-<p><img src="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png"
+<p><img src="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8.png"
 	width="938"
 	height="454"
-	srcset="/blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, /blog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w"
+	srcset="/mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14728861006536997116.png 480w, /mblog/posts/%E7%89%B9%E5%BE%B4%E9%87%8F%E3%81%AE%E6%AC%A1%E5%85%83%E3%81%AE%E6%9F%94%E8%BB%9F%E6%80%A7%E3%81%8C%E9%AB%98%E3%81%84%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/fig8_hu14364759657833650490.png 1024w"
 	loading="lazy"
 	
 		alt="図8"
@@ -457,21 +457,21 @@ $$
     
     <section class="article-tags">
         
-            <a href="/blog/tags/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">表現学習</a>
+            <a href="/mblog/tags/%E8%A1%A8%E7%8F%BE%E5%AD%A6%E7%BF%92/">表現学習</a>
         
-            <a href="/blog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
+            <a href="/mblog/tags/%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0/">ディープラーニング</a>
         
-            <a href="/blog/tags/%E7%89%B9%E5%BE%B4%E9%87%8F/">特徴量</a>
+            <a href="/mblog/tags/%E7%89%B9%E5%BE%B4%E9%87%8F/">特徴量</a>
         
-            <a href="/blog/tags/%E9%81%A9%E5%BF%9C%E7%9A%84%E6%A4%9C%E7%B4%A2/">適応的検索</a>
+            <a href="/mblog/tags/%E9%81%A9%E5%BF%9C%E7%9A%84%E6%A4%9C%E7%B4%A2/">適応的検索</a>
         
-            <a href="/blog/tags/embedding/">Embedding</a>
+            <a href="/mblog/tags/embedding/">Embedding</a>
         
-            <a href="/blog/tags/rag/">RAG</a>
+            <a href="/mblog/tags/rag/">RAG</a>
         
-            <a href="/blog/tags/azure/">Azure</a>
+            <a href="/mblog/tags/azure/">Azure</a>
         
-            <a href="/blog/tags/ai-search/">AI Search</a>
+            <a href="/mblog/tags/ai-search/">AI Search</a>
         
     </section>
 
@@ -531,11 +531,11 @@ $$
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
+    <a href="/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
+                <img src="/mblog/posts/%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AD%98%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%A6%E5%8A%B9%E7%8E%87%E7%9A%84%E3%81%AB%E6%80%A7%E8%83%BD%E5%90%91%E4%B8%8A%E3%82%92%E9%81%94%E6%88%90%E3%81%97%E3%81%9Fyolo-rd/thm.06e574bcc4d62a3f7b11cd8e61ecf9c0_hu3646879805514307830.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -555,11 +555,11 @@ $$
             
                 
 <article class="has-image">
-    <a href="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">
+    <a href="/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.03a3f1b7554dac74e378a9c944a7b071_hu4105173508720199239.png" 
+                <img src="/mblog/posts/hidden-in-plain-sight-vlms-overlook-their-visual-representations%E3%81%AE%E8%AB%96%E6%96%87%E7%B4%B9%E4%BB%8B/thm.03a3f1b7554dac74e378a9c944a7b071_hu4105173508720199239.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -579,11 +579,11 @@ $$
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
+    <a href="/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.67f8b16277336689ee2c72556430c841_hu13887809263919742814.png" 
+                <img src="/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.67f8b16277336689ee2c72556430c841_hu13887809263919742814.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -603,11 +603,11 @@ $$
             
                 
 <article class="has-image">
-    <a href="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
+    <a href="/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
+                <img src="/mblog/posts/label-studio%E3%81%AEapi%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E9%80%A3%E6%90%BA%E3%81%AE%E3%83%A1%E3%83%A2/thm.d528454dab870d418293edace0fcb59e_hu8890656546020147785.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -627,11 +627,11 @@ $$
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
+    <a href="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.1e77495d53e35bf34df6d6f0d1efdb56_hu1011397670205575968.png" 
+                <img src="/mblog/posts/%E5%9B%9E%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bbounding-box%E5%90%91%E3%81%91%E3%81%AEiou%E3%81%AEkfiou/thm.1e77495d53e35bf34df6d6f0d1efdb56_hu1011397670205575968.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -800,7 +800,7 @@ $$
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>MLM on MatLoverによるMatlab以外のブログ</title>
-        <link>https://opqrstuvcut.github.io/blog/tags/mlm/</link>
+        <link>https://opqrstuvcut.github.io/mblog/tags/mlm/</link>
         <description>Recent content in MLM on MatLoverによるMatlab以外のブログ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ja-jp</language>
-        <lastBuildDate>Mon, 30 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/blog/tags/mlm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 30 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://opqrstuvcut.github.io/mblog/tags/mlm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>拡散言語モデルのLLaDA</title>
-        <link>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
+        <link>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</link>
         <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
-        <description>&lt;img src="https://opqrstuvcut.github.io/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
+        <guid>https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/</guid>
+        <description>&lt;img src="https://opqrstuvcut.github.io/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/thm.png" alt="Featured image of post 拡散言語モデルのLLaDA" /&gt;&lt;h1 id=&#34;bertを拡張した生成モデル拡散型llmlladaの概要と可能性&#34;&gt;BERTを拡張した生成モデル？拡散型LLM「LLaDA」の概要と可能性
 &lt;/h1&gt;&lt;p&gt;2025年に入り、拡散モデルを用いた大規模言語モデル（LLM）が注目されています.特に「Gemini Diffusion」や「LLaDA（Large Language Diffusion with mAsking）」といった新しいアプローチは、従来の自己回帰型（autoregressive）モデルとは異なる性質を持ち、今後のLLMのあり方を変える可能性すらあります.
 提案手法のLLaDAとLLaMAを比較したものが以下で、提案手法は遜色ない性能が出ています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1.png&#34;
 	width=&#34;568&#34;
 	height=&#34;558&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu17096554497865023231.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig1_hu9554779636632027206.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較top&#34;
@@ -42,10 +42,10 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse.png&#34;
 	width=&#34;957&#34;
 	height=&#34;327&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu2553009147931841247.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/reversal_curse_hu8828465981890160767.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reversal Curse&#34;
@@ -68,10 +68,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;lladaのアプローチ拡散モデル型のllm&#34;&gt;LLaDAのアプローチ：拡散モデル型のLLM
 &lt;/h2&gt;&lt;p&gt;LLaDAは、自己回帰ではなく&lt;strong&gt;拡散モデル&lt;/strong&gt;のアプローチを採用しています.これはBERTのようなマスク予測タスクに近く、以下のような構成です.&lt;/p&gt;
 &lt;h3 id=&#34;事前学習pretraining&#34;&gt;事前学習（Pretraining）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1.png&#34;
 	width=&#34;344&#34;
 	height=&#34;310&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu8317583821321791884.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_1_hu7632591432292500537.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;事前学習の概要&#34;
@@ -100,10 +100,10 @@ $$&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;p&gt;マスクされた問題に関する損失関数にマイナスを付けた式により下から最大化したい式を抑えられることをあらわしているので、損失関数を小さくできるほど言語モデルの意味で良いモデルで良いモデルと言えます.&lt;/p&gt;
 &lt;h3 id=&#34;fine-tuning&#34;&gt;Fine Tuning
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2.png&#34;
 	width=&#34;337&#34;
 	height=&#34;232&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu13976377202842427562.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_2_hu18101824364018976670.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Fine Tuningの概要&#34;
@@ -124,10 +124,10 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;この学習により、LLaDAもGPTのような指令に従うような機能を獲得できます.&lt;/p&gt;
 &lt;h3 id=&#34;推論inference&#34;&gt;推論（Inference）
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3.png&#34;
 	width=&#34;358&#34;
 	height=&#34;315&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu13358073431359741007.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig2_3_hu3799801697783653053.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論の概要&#34;
@@ -150,10 +150,10 @@ $$&lt;/p&gt;
 &lt;p&gt;一部のトークンを固定してそれ以外を再生成といったプロセスを繰り返しますので、ノイズを徐々に取り除いていく拡散モデルのようなことをしているイメージにはなっています.
 このように推論することで、文全体を一気に生成するよりも安定した品質が得られているのだと思います.&lt;/p&gt;
 &lt;p&gt;なお、推論したい部分全体に対して上記の処理をしていく方法の他、semi-autoregressiveという推論したい部分をいくつかのBlockに分けて、左のBlockから上記の処理をおこなっていく方法も提案されています. Blockを小さくしていくと、より自己回帰モデルに近いものになっていきます.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4.png&#34;
 	width=&#34;994&#34;
 	height=&#34;414&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu5570279578201171015.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig4_hu11527428040134031267.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;semi-autoregressive&#34;
@@ -167,10 +167,10 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;実験&#34;&gt;実験
 &lt;/h2&gt;&lt;h3 id=&#34;スケーラビリティ&#34;&gt;スケーラビリティ
 &lt;/h3&gt;&lt;p&gt;まず投下計算量（モデルのサイズ、学習トークン数）に対して順当に性能が向上するかを確認した結果が以下になります（ちなみにFLOPsはモデルのパラメーター数を$N$、学習データのトークン数を$D$としたときに$6ND$で計算されています）.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3.png&#34;
 	width=&#34;1087&#34;
 	height=&#34;512&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu18239460491744951665.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig3_hu1191963074837339478.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;スケーラビリティ&#34;
@@ -185,10 +185,10 @@ $$&lt;/p&gt;
 &lt;h3 id=&#34;他モデルとの比較&#34;&gt;他モデルとの比較
 &lt;/h3&gt;&lt;h4 id=&#34;事前学習モデル&#34;&gt;事前学習モデル
 &lt;/h4&gt;&lt;p&gt;以下は事前学習モデルでの各タスクの推論性能をあらわしています.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1.png&#34;
 	width=&#34;1166&#34;
 	height=&#34;688&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu2890582493287940261.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab1_hu13953731144681541690.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較&#34;
@@ -203,10 +203,10 @@ $$&lt;/p&gt;
 論文では特に言及がなかったと思うのですが、こうやって比較するとQwenは性能高いですね. 全然勝てていません.&lt;/p&gt;
 &lt;h4 id=&#34;ファインチューニング済モデル&#34;&gt;ファインチューニング済モデル
 &lt;/h4&gt;&lt;p&gt;ファインチューニングした場合の性能比較した結果は以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2.png&#34;
 	width=&#34;1157&#34;
 	height=&#34;555&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu10804090436290878284.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab2_hu15849663389628836230.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;性能比較FT&#34;
@@ -220,10 +220,10 @@ $$&lt;/p&gt;
 &lt;p&gt;ファインチューニングしたもの同士で比較するとLLaMA3には劣っているかなという印象ですが、一部のタスクでは上回ることができています. MMLUでは性能が下がっているのですが、Fine Tuning用のデータセットと合っていない可能性が指摘されています.&lt;/p&gt;
 &lt;h3 id=&#34;reversal-curseへの耐性&#34;&gt;Reversal Curseへの耐性
 &lt;/h3&gt;&lt;p&gt;中国語の詩のデータセットを作り、与えられた詩の前後の句を当てる問題を解かせた結果が以下になります.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3.png&#34;
 	width=&#34;479&#34;
 	height=&#34;188&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu15674018539611421611.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab3_hu14618242785069038937.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ReversalCurseの結果&#34;
@@ -244,10 +244,10 @@ $$&lt;/p&gt;
 &lt;li&gt;Block単位の逐次生成（semi-autoregressive remasking）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;それらを比較した結果が以下のとおりです.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5.png&#34;
 	width=&#34;1161&#34;
 	height=&#34;231&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu4181500823610003072.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab5_hu11447350925398506949.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリング戦略&#34;
@@ -263,10 +263,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 これに対して、semi-autoregressiveを用いて左のBlockから順に生成していくことでパディング部分の悪さを回避できています.&lt;/p&gt;
 &lt;h3 id=&#34;推論のサンプリングのステップ数&#34;&gt;推論のサンプリングのステップ数
 &lt;/h3&gt;&lt;p&gt;提案手法はサンプリング回数を増やせばより性能が良くなりそうですが、実際どうなのでしょうか？それをあらわしたのが次の図です.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;388&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu6699693169680570119.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/fig5_hu9964007407806442367.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;サンプリングステップ数&#34;
@@ -280,10 +280,10 @@ semi-autoregressiveを使わずに低い確信度を再度マスクする方法�
 &lt;p&gt;横軸が対数スケールなのですが、ステップ数（NFEs）を増やすごとに性能が上がっていくのが分かります. とはいえ1024回もモデルの推論を実行するのは計算コストが大きすぎますね.&lt;/p&gt;
 &lt;h3 id=&#34;推論の過程&#34;&gt;推論の過程
 &lt;/h3&gt;&lt;p&gt;推論の過程をあらわしたのが次の図で、色が薄いほど推論のステップのなかで先にトークンが固定され、濃いほどあとの方にトークンが固定されたことをあらわします.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1.png&#34;
 	width=&#34;1071&#34;
 	height=&#34;271&#34;
-	srcset=&#34;https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/blog/blog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
+	srcset=&#34;https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu9053918660955307375.png 480w, https://opqrstuvcut.github.io/mblog/mblog/posts/%E6%8B%A1%E6%95%A3%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEllada/tab4_1_hu18108364345437381024.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推論過程&#34;

@@ -1,3 +1,3 @@
 # blog
 このブログ
-https://opqrstuvcut.github.io/blog/
+https://opqrstuvcut.github.io/mblog/

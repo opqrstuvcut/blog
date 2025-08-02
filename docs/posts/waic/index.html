@@ -4,17 +4,17 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="かなり前に「渡辺澄夫ベイズ理論100問 with R/Stan」を読み終わったのもあり、忘れないうちにWAICを自分なりにまとめておきます． WAIC WAICの適用範囲 情報量基準のAICやTICは正則性を仮定していますが、実際には正則性が成り立たないケースが多いです． WAICは正則性を仮定せずとも利用できる情報量基準になっていて、適用範囲が広いです．ただし、どんなケースでもOKかといえばそうではなく、次の条件を満たしている必要があります（「渡辺澄夫ベイズ理論100問 with R/Stan」の(1.21)）． $$ \\mathbb{E}_X \\left[\\left \\{ \\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right \\}^2 \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right]. $$ 上記の$c&gt;0$は定数、$\\theta$はモデルのパラメーター、$\\theta_{*}$は真の分布$q$とのKLダイバージェンスを最も小さくするモデルのパラメーターをあらわします． この条件を満たすとき、統計モデル$\\{p(\\cdot|\\theta)\\}_{\\theta \\in \\Theta}$および真の分布$q$に対して対数尤度比関数が相対的に有限な分散をもつといいます．これが意味するところを考えてみます． 左辺は対数尤度比の二乗の期待値ですが、 $V[X] = \\mathbb{E}[X^2] - \\mathbb{E}[X]^2 \\leq \\mathbb{E}[X^2]$ですから、 $$ V_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right]. $$ といえます．このため、対数尤度比の分散は期待値に比例した値以下になるという解釈で良さそうです． 「相対的に」の意味は書籍からははっきりとは読み取れなかったのですが、（右辺の期待値に対して）相対的に有限ということなのかなと思っています． WAICの定義 さて、WAICはどうやって計算するのかという話になりますが、以下のようにWAICが定義されています． $$ {\\rm WAIC_n} := T_n + \\frac{1}{n}V_n. $$ 上記の$T_n$は経験損失をあらわし $$ \\begin{align*} T_n &amp;:= - \\frac{1}{n}\\sum_{i=1}^n \\log r(x_i|x_1,\\cdots, x_n), \\\\ r(x|x_1,\\cdots,x_n) &amp;:= \\int_{\\Theta} p(x|\\theta) p(\\theta|x_1,\\cdots,x_n) {\\rm d}\\theta \\end{align*} $$">
 <title>WAIC</title>
 
-<link rel='canonical' href='https://opqrstuvcut.github.io/blog/posts/waic/'>
+<link rel='canonical' href='https://opqrstuvcut.github.io/mblog/posts/waic/'>
 
-<link rel="stylesheet" href="/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="WAIC">
+<link rel="stylesheet" href="/mblog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="WAIC">
 <meta property='og:description' content="かなり前に「渡辺澄夫ベイズ理論100問 with R/Stan」を読み終わったのもあり、忘れないうちにWAICを自分なりにまとめておきます． WAIC WAICの適用範囲 情報量基準のAICやTICは正則性を仮定していますが、実際には正則性が成り立たないケースが多いです． WAICは正則性を仮定せずとも利用できる情報量基準になっていて、適用範囲が広いです．ただし、どんなケースでもOKかといえばそうではなく、次の条件を満たしている必要があります（「渡辺澄夫ベイズ理論100問 with R/Stan」の(1.21)）． $$ \\mathbb{E}_X \\left[\\left \\{ \\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right \\}^2 \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right]. $$ 上記の$c&gt;0$は定数、$\\theta$はモデルのパラメーター、$\\theta_{*}$は真の分布$q$とのKLダイバージェンスを最も小さくするモデルのパラメーターをあらわします． この条件を満たすとき、統計モデル$\\{p(\\cdot|\\theta)\\}_{\\theta \\in \\Theta}$および真の分布$q$に対して対数尤度比関数が相対的に有限な分散をもつといいます．これが意味するところを考えてみます． 左辺は対数尤度比の二乗の期待値ですが、 $V[X] = \\mathbb{E}[X^2] - \\mathbb{E}[X]^2 \\leq \\mathbb{E}[X^2]$ですから、 $$ V_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right]. $$ といえます．このため、対数尤度比の分散は期待値に比例した値以下になるという解釈で良さそうです． 「相対的に」の意味は書籍からははっきりとは読み取れなかったのですが、（右辺の期待値に対して）相対的に有限ということなのかなと思っています． WAICの定義 さて、WAICはどうやって計算するのかという話になりますが、以下のようにWAICが定義されています． $$ {\\rm WAIC_n} := T_n + \\frac{1}{n}V_n. $$ 上記の$T_n$は経験損失をあらわし $$ \\begin{align*} T_n &amp;:= - \\frac{1}{n}\\sum_{i=1}^n \\log r(x_i|x_1,\\cdots, x_n), \\\\ r(x|x_1,\\cdots,x_n) &amp;:= \\int_{\\Theta} p(x|\\theta) p(\\theta|x_1,\\cdots,x_n) {\\rm d}\\theta \\end{align*} $$">
-<meta property='og:url' content='https://opqrstuvcut.github.io/blog/posts/waic/'>
+<meta property='og:url' content='https://opqrstuvcut.github.io/mblog/posts/waic/'>
 <meta property='og:site_name' content='MatLoverによるMatlab以外のブログ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='WAIC' /><meta property='article:tag' content='AIC' /><meta property='article:tag' content='PyMC' /><meta property='article:tag' content='ベイズ' /><meta property='article:tag' content='情報量基準' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='渡辺澄夫ベイズ' /><meta property='article:tag' content='TIC' /><meta property='article:published_time' content='2025-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/blog/' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='WAIC' /><meta property='article:tag' content='AIC' /><meta property='article:tag' content='PyMC' /><meta property='article:tag' content='ベイズ' /><meta property='article:tag' content='情報量基準' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='渡辺澄夫ベイズ' /><meta property='article:tag' content='TIC' /><meta property='article:published_time' content='2025-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://opqrstuvcut.github.io/mblog/' />
 <meta name="twitter:title" content="WAIC">
 <meta name="twitter:description" content="かなり前に「渡辺澄夫ベイズ理論100問 with R/Stan」を読み終わったのもあり、忘れないうちにWAICを自分なりにまとめておきます． WAIC WAICの適用範囲 情報量基準のAICやTICは正則性を仮定していますが、実際には正則性が成り立たないケースが多いです． WAICは正則性を仮定せずとも利用できる情報量基準になっていて、適用範囲が広いです．ただし、どんなケースでもOKかといえばそうではなく、次の条件を満たしている必要があります（「渡辺澄夫ベイズ理論100問 with R/Stan」の(1.21)）． $$ \\mathbb{E}_X \\left[\\left \\{ \\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right \\}^2 \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta_{*})}{p(X|\\theta)} \\right]. $$ 上記の$c&gt;0$は定数、$\\theta$はモデルのパラメーター、$\\theta_{*}$は真の分布$q$とのKLダイバージェンスを最も小さくするモデルのパラメーターをあらわします． この条件を満たすとき、統計モデル$\\{p(\\cdot|\\theta)\\}_{\\theta \\in \\Theta}$および真の分布$q$に対して対数尤度比関数が相対的に有限な分散をもつといいます．これが意味するところを考えてみます． 左辺は対数尤度比の二乗の期待値ですが、 $V[X] = \\mathbb{E}[X^2] - \\mathbb{E}[X]^2 \\leq \\mathbb{E}[X^2]$ですから、 $$ V_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right] \\leq c \\mathbb{E}_X \\left[\\log \\frac{p(X| \\theta*)}{p(X|\\theta)} \\right]. $$ といえます．このため、対数尤度比の分散は期待値に比例した値以下になるという解釈で良さそうです． 「相対的に」の意味は書籍からははっきりとは読み取れなかったのですが、（右辺の期待値に対して）相対的に有限ということなのかなと思っています． WAICの定義 さて、WAICはどうやって計算するのかという話になりますが、以下のようにWAICが定義されています． $$ {\\rm WAIC_n} := T_n + \\frac{1}{n}V_n. $$ 上記の$T_n$は経験損失をあらわし $$ \\begin{align*} T_n &amp;:= - \\frac{1}{n}\\sum_{i=1}^n \\log r(x_i|x_1,\\cdots, x_n), \\\\ r(x|x_1,\\cdots,x_n) &amp;:= \\int_{\\Theta} p(x|\\theta) p(\\theta|x_1,\\cdots,x_n) {\\rm d}\\theta \\end{align*} $$"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://opqrstuvcut.github.io/blog/' />
-    <link rel="shortcut icon" href="/blog/favicon.ico" />
+    <meta name="twitter:image" content='https://opqrstuvcut.github.io/mblog/' />
+    <link rel="shortcut icon" href="/mblog/favicon.ico" />
 
   
     
@@ -86,13 +86,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/blog/">
+                <a href="/mblog/">
                 
                     
                     
                     
                         
-                        <img src="/blog/img/avatar_hu13660810305696555094.jpeg" width="300"
+                        <img src="/mblog/img/avatar_hu13660810305696555094.jpeg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -105,7 +105,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/blog">MatLoverによるMatlab以外のブログ</a></h1>
+            <h1 class="site-name"><a href="/mblog">MatLoverによるMatlab以外のブログ</a></h1>
             <h2 class="site-description">機械学習や関連内容のブログです。仕事の依頼などはvikz2713[あっとマーク]gmail.com まで。</h2>
         </div>
     </header><ol class="menu-social">
@@ -135,7 +135,7 @@
         
         
         <li >
-            <a href='/blog/' >
+            <a href='/mblog/' >
                 
                 
                 
@@ -155,7 +155,7 @@
         
         
         <li >
-            <a href='/blog/archives/' >
+            <a href='/mblog/archives/' >
                 
                 
                 
@@ -175,7 +175,7 @@
         
         
         <li >
-            <a href='/blog/search/' >
+            <a href='/mblog/search/' >
                 
                 
                 
@@ -211,15 +211,15 @@
     
     <header class="article-category">
         
-            <a href="/blog/categories/%E7%B5%B1%E8%A8%88/" >
+            <a href="/mblog/categories/%E7%B5%B1%E8%A8%88/" >
                 統計
             </a>
         
-            <a href="/blog/categories/%E6%83%85%E5%A0%B1%E9%87%8F%E5%9F%BA%E6%BA%96/" >
+            <a href="/mblog/categories/%E6%83%85%E5%A0%B1%E9%87%8F%E5%9F%BA%E6%BA%96/" >
                 情報量基準
             </a>
         
-            <a href="/blog/categories/%E3%83%99%E3%82%A4%E3%82%BA/" >
+            <a href="/mblog/categories/%E3%83%99%E3%82%A4%E3%82%BA/" >
                 ベイズ
             </a>
         
@@ -228,7 +228,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/blog/posts/waic/">WAIC</a>
+            <a href="/mblog/posts/waic/">WAIC</a>
         </h2>
     
         
@@ -339,10 +339,10 @@ WAICの場合も同じように、経験損失はデータへの適合度合い�
 </span></span><span class="line"><span class="cl"><span class="n">cs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">means</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </span></span></code></pre></div><p>分布は以下のようになっています．</p>
-<p><img src="/blog/posts/waic/data_dist.jpg"
+<p><img src="/mblog/posts/waic/data_dist.jpg"
 	width="635"
 	height="491"
-	srcset="/blog/posts/waic/data_dist_hu14143675755262953370.jpg 480w, /blog/posts/waic/data_dist_hu8296524929381894066.jpg 1024w"
+	srcset="/mblog/posts/waic/data_dist_hu14143675755262953370.jpg 480w, /mblog/posts/waic/data_dist_hu8296524929381894066.jpg 1024w"
 	loading="lazy"
 	
 		alt="データ分布"
@@ -377,10 +377,10 @@ WAICの場合も同じように、経験損失はデータへの適合度合い�
 </span></span><span class="line"><span class="cl">        <span class="n">traces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 </span></span></code></pre></div><p>次のようにWAICを計算し結果を描画してみます（ちなみにarvizのwaicとは符号が逆になっています）．</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">waics</span> <span class="o">=</span> <span class="p">[</span><span class="n">WAIC</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">&#34;likelihood&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">traces</span><span class="p">]</span>
-</span></span></code></pre></div><p><img src="/blog/posts/waic/waic_gauss_mixture.jpg"
+</span></span></code></pre></div><p><img src="/mblog/posts/waic/waic_gauss_mixture.jpg"
 	width="653"
 	height="491"
-	srcset="/blog/posts/waic/waic_gauss_mixture_hu4627374122417855018.jpg 480w, /blog/posts/waic/waic_gauss_mixture_hu13087900325670094657.jpg 1024w"
+	srcset="/mblog/posts/waic/waic_gauss_mixture_hu4627374122417855018.jpg 480w, /mblog/posts/waic/waic_gauss_mixture_hu13087900325670094657.jpg 1024w"
 	loading="lazy"
 	
 		alt="WAICの値"
@@ -403,21 +403,21 @@ WAICの場合も同じように、経験損失はデータへの適合度合い�
     
     <section class="article-tags">
         
-            <a href="/blog/tags/waic/">WAIC</a>
+            <a href="/mblog/tags/waic/">WAIC</a>
         
-            <a href="/blog/tags/aic/">AIC</a>
+            <a href="/mblog/tags/aic/">AIC</a>
         
-            <a href="/blog/tags/pymc/">PyMC</a>
+            <a href="/mblog/tags/pymc/">PyMC</a>
         
-            <a href="/blog/tags/%E3%83%99%E3%82%A4%E3%82%BA/">ベイズ</a>
+            <a href="/mblog/tags/%E3%83%99%E3%82%A4%E3%82%BA/">ベイズ</a>
         
-            <a href="/blog/tags/%E6%83%85%E5%A0%B1%E9%87%8F%E5%9F%BA%E6%BA%96/">情報量基準</a>
+            <a href="/mblog/tags/%E6%83%85%E5%A0%B1%E9%87%8F%E5%9F%BA%E6%BA%96/">情報量基準</a>
         
-            <a href="/blog/tags/python/">Python</a>
+            <a href="/mblog/tags/python/">Python</a>
         
-            <a href="/blog/tags/%E6%B8%A1%E8%BE%BA%E6%BE%84%E5%A4%AB%E3%83%99%E3%82%A4%E3%82%BA/">渡辺澄夫ベイズ</a>
+            <a href="/mblog/tags/%E6%B8%A1%E8%BE%BA%E6%BE%84%E5%A4%AB%E3%83%99%E3%82%A4%E3%82%BA/">渡辺澄夫ベイズ</a>
         
-            <a href="/blog/tags/tic/">TIC</a>
+            <a href="/mblog/tags/tic/">TIC</a>
         
     </section>
 
@@ -477,11 +477,11 @@ WAICの場合も同じように、経験損失はデータへの適合度合い�
             
                 
 <article class="has-image">
-    <a href="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">
+    <a href="/mblog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/">
         
         
             <div class="article-image">
-                <img src="/blog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.e0802ba87f6e71740f826649bacb8759_hu4944846215274327765.png" 
+                <img src="/mblog/posts/%E3%82%B9%E3%83%94%E3%82%A2%E3%83%9E%E3%83%B3%E3%81%AE%E9%A0%86%E4%BD%8D%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0%E3%81%AE%E5%B0%8E%E5%87%BA/feature.e0802ba87f6e71740f826649bacb8759_hu4944846215274327765.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -650,7 +650,7 @@ WAICの場合も同じように、経験損失はデータへの適合度合い�
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/mblog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
